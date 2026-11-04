@@ -1642,24 +1642,24 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn device_settings_link(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn editor_contents(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "omissions": [
@@ -1692,14 +1692,14 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "omissions": [
@@ -7916,7 +7916,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn app_management(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "proof": [
@@ -9599,7 +9599,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "Enable API bridge / repeater",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "omissions": [
@@ -13684,7 +13684,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -13704,7 +13704,7 @@
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/device_settings.rs",
@@ -13825,7 +13825,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -16426,12 +16426,12 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "super::dropdown::ComboBox::from_id_salt(\"theme\")",
           "path": "desktop/src/ui/preferences.rs"
         },
         {
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6",
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/device_settings.rs"
         },
@@ -16595,12 +16595,12 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
           "anchor": "pub enum UiControlDensity"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "from_id_salt(\"control-density\")"
         },
         {
@@ -16661,12 +16661,12 @@
           "path": "desktop/src/ui/color_picker.rs"
         },
         {
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "super::color_picker::accent_picker",
           "path": "desktop/src/ui/preferences.rs"
         },
         {
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
           "anchor": "\"Recent colors\"",
           "path": "desktop/src/ui/i18n.rs"
         }
@@ -17935,7 +17935,7 @@
       "targets": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
           "anchor": "pub(crate) fn configure_ui_fonts"
         },
         {
@@ -17945,7 +17945,7 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "AppLanguage::Persian"
         },
         {
@@ -17982,12 +17982,12 @@
       "proof": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
           "anchor": "fn contextual_persian_in_labels_and_monospace_inputs"
         },
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
           "anchor": "fn changing_language_preserves_widget_fonts"
         },
         {
@@ -18102,7 +18102,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "Connected boards. One contextual control workspace."
         },
         {
@@ -18801,7 +18801,7 @@
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6",
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e",
           "anchor": "pub(crate) fn available("
         },
         {
@@ -18817,7 +18817,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -19728,12 +19728,12 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
           "anchor": "pub application_shortcuts:"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "Keyboard shortcuts"
         },
         {
@@ -19848,7 +19848,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20018,7 +20018,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -22270,7 +22270,7 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);"
         },
         {
@@ -23349,28 +23349,28 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "egui::Panel::bottom(ui.id().with(\"preferences-footer\"))"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn sync_connection_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn sync_status_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn connection_summary("
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/ui/shell.rs",
@@ -23411,38 +23411,38 @@
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()"
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
           "anchor": "fn cell_background_preference_is_opt_in_and_roundtrips_without_other_changes()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn lamp_background_preview_and_discard_preserve_saved_configuration()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn external_connection_owner_updates_all_baselines_without_losing_unrelated_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn status_bar_changes_survive_preferences_save_or_discard_without_erasing_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
           "anchor": "fn connection_summary_is_contextual_and_dirty_preferences_cannot_open_another_editor()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         }
       ],
       "improvement": "One connection owner instead of conflicting Preferences editors, while preserving unrelated drafts and the donor's triple-baseline merge mechanism."
@@ -23484,7 +23484,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -23504,7 +23504,7 @@
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/device_settings.rs",
@@ -24989,7 +24989,7 @@
         {
           "path": "desktop/src/config.rs",
           "anchor": "pub native_workspaces",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414"
+          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8"
         },
         {
           "path": "mobile/lib/table_workspace.dart",
@@ -26256,7 +26256,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "## Get started"
         },
         {

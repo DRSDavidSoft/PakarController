@@ -1371,14 +1371,14 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                             if !available(app, index) {
                                 continue;
                             }
-                            if index == 0 {
+                            if app.config.preferences_grouped_navigation && index == 0 {
                                 ui.label(egui::RichText::new("DEVICE").small().weak());
                             }
-                            if index == 2 {
+                            if app.config.preferences_grouped_navigation && index == 2 {
                                 ui.add_space(12.0);
                                 ui.label(egui::RichText::new("CONNECTIONS").small().weak());
                             }
-                            if index == 6 {
+                            if app.config.preferences_grouped_navigation && index == 6 {
                                 ui.add_space(12.0);
                                 ui.label(egui::RichText::new("CONTROLLERS").small().weak());
                             }

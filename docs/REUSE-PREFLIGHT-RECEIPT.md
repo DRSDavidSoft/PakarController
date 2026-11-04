@@ -12175,3 +12175,27 @@ under an explicit consumer decision. Keep its current command argument and
 read-only parameter semantics, write/close callbacks, per-session echo/line
 ending behavior, hostname prompt, and Wi-Fi/mDNS reconnect lifecycle. The library
 provides reusable byte/parser/rendering mechanisms, not these device operations.
+
+## Grouped Preferences navigation
+
+Device Settings still contains the DEVICE, CONNECTIONS and CONTROLLERS headings;
+the application Preferences rail was flat. Add one default-on presentation
+preference for both rails, preserving semantic page indices, available-board
+filtering, draft preview/discard, search and the compact selector. Pealayer's
+companion workspace/typography change imports this navigation design while
+retaining its existing palette and live OS-theme owner.
+
+Consulted preferences and exhaustive Pealayer donor inventory. The changed
+Pakar targets retain their update, connection, keyboard, color/density and board
+dispatch functions; only grouping, translations, one config field and its draft
+regression were added. Rebound those four target/proof hashes after reviewing
+the narrow diffs; no donor source-read claims were advanced. The two preexisting
+README target-hash corrections remain preserved and separately owned.
+
+Verification is blocked before Cargo by stale Pealayer localization evidence
+(`src/ui/i18n.rs`). Comparison regeneration also reports unrelated donor drift
+at `.github/dependabot.yml` after the mandatory inventory refresh. Do not bypass
+the wrapper, silently certify new donor code, or claim a tested/deployed Pakar
+binary. Reconcile the donor comparisons, regenerate the existing reports, then
+run `tools/build-desktop.ps1 -Mode Test -TestFilter preferences -Jobs 2` and capture
+the grouped/flat rails. No firmware or output actuation belongs to this change.

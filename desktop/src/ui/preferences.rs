@@ -19,6 +19,17 @@ pub fn page_index(name: &str) -> Option<usize> {
     PAGES.iter().position(|page| *page == name)
 }
 
+// Semantic page identities remain unchanged when switching flat/grouped rails.
+fn navigation_group(page: usize) -> &'static str {
+    match page {
+        0 | 1 => "Personalization",
+        2 => "Connections",
+        3 | 4 => "Workspace",
+        5 => "Hardware",
+        _ => "Maintenance",
+    }
+}
+
 #[derive(Clone)]
 pub struct PreferencesDraft {
     pub config: AppConfig,
@@ -425,8 +436,15 @@ fn editor_contents(draft: &mut PreferencesDraft, ui: &mut egui::Ui, board: &Boar
         if !narrow {
         ui.allocate_ui_with_layout(egui::vec2(142.0,body_height),super::i18n::vertical_layout(crate::config::resolved_rtl(&draft.config)),|ui|{
             dialog::scroll_column(ui,"preferences-navigation",Some(body_height),|ui|{
+            let mut previous_group = "";
             for (tab,icon,title) in categories {
                 if tab==5 && !board.device_available { continue; }
+                let group = navigation_group(tab);
+                if draft.config.preferences_grouped_navigation && previous_group != group {
+                    if !previous_group.is_empty() { ui.add_space(8.0); }
+                    ui.label(egui::RichText::new(super::i18n::text(group).to_uppercase()).size(10.0).weak());
+                    previous_group = group;
+                }
                 if dialog::navigation_button(ui,draft.tab==tab,icon,&super::i18n::text(title),138.0).clicked(){draft.tab=tab;}
             }
             });
@@ -440,6 +458,9 @@ fn editor_contents(draft: &mut PreferencesDraft, ui: &mut egui::Ui, board: &Boar
                 }
                 if draft.tab==0||!draft.search.is_empty(){
                     dialog::section(ui,icons::PALETTE,"Appearance",|ui|{
+                        if draft.matches("Preferences navigation groups headings") {
+                            ui.checkbox(&mut draft.config.preferences_grouped_navigation, super::i18n::text("Group Preferences navigation"));
+                        }
                         if draft.matches("Theme system light dark"){dialog::setting_row(ui,icons::SUN,"Theme",None,|ui|{super::dropdown::ComboBox::from_id_salt("theme").selected_text(super::i18n::text(&format!("{:?}",draft.config.theme))).show_ui(ui,|ui|{for t in [AppTheme::System,AppTheme::Light,AppTheme::Dark]{ui.dropdown_value(&mut draft.config.theme,t,super::i18n::text(&format!("{t:?}")));}});});}
                         if draft.matches("Palette Studio native"){dialog::setting_row(ui,icons::PALETTE,"Palette",None,|ui|{super::dropdown::ComboBox::from_id_salt("palette").selected_text(super::i18n::text(&format!("{:?}",draft.config.color_palette))).show_ui(ui,|ui|{for p in [ColorPalette::Studio,ColorPalette::Native]{ui.dropdown_value(&mut draft.config.color_palette,p,super::i18n::text(&format!("{p:?}")));}});});}
                         if draft.matches("Accent color"){dialog::setting_row(ui,icons::DIAMOND,"Accent color",None,|ui|{super::color_picker::accent_picker(ui,&mut draft.config.accent,180.0);});}
@@ -902,6 +923,23 @@ mod tests {
             assert_eq!(enabled, !dirty);
             assert_eq!(draft.config, before);
         }
+    }
+
+    #[test]
+    fn grouped_navigation_is_a_previewable_preference_without_changing_page_identity() {
+        let original = AppConfig::default();
+        assert!(original.preferences_grouped_navigation);
+        let mut draft = PreferencesDraft::new(original.clone());
+        draft.select_page(page_index("connection").unwrap());
+        draft.config.preferences_grouped_navigation = false;
+        assert!(draft.is_dirty());
+        assert!(!draft.take_preview_update().unwrap().preferences_grouped_navigation);
+        assert_eq!(draft.tab, page_index("connection").unwrap());
+        let round_trip: AppConfig = serde_json::from_str(&serde_json::to_string(&draft.config).unwrap()).unwrap();
+        assert!(!round_trip.preferences_grouped_navigation);
+        draft.config = draft.saved_config.clone();
+        assert!(!draft.is_dirty());
+        assert!(draft.take_preview_update().unwrap().preferences_grouped_navigation);
     }
     #[test]
     fn draft_preview_and_cancel_preserve_saved_preferences() {
