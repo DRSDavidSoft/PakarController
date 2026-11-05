@@ -3132,7 +3132,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `fc3c298cf966d77f50b575614b4c26f24f1606459f07749a46880cd482f1cb53`.
 
-- Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba; anchor=name: "🛡️ Security · CodeQL"]`.
+- Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=fe91f6cfb9e6bfb6357d1e25dd41e80011991417c6914da478e39ab6c5d324c0; anchor=name: "🛡️ Security · CodeQL"]`.
 - Retained: Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary.
 - Omitted/replaced code: `Pealayer React/Vite names, packages:read permission and branded prose`. Disposition: **replaced**. Reason: Pakar analyzes embedded Web/scripts and Actions, not Pealayer React. Package read permission is unnecessary for these none-build scans; Rust/C++ coverage is explicitly not invented.
 - Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
