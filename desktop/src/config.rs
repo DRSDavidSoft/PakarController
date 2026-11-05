@@ -35,6 +35,20 @@ pub enum AppDirection {
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+pub enum WorkspaceUi {
+    #[default]
+    EguiDock,
+    CraftUi,
+}
+impl WorkspaceUi {
+    pub const ALL: [Self; 2] = [Self::EguiDock, Self::CraftUi];
+    pub const fn label(self) -> &'static str {
+        match self { Self::EguiDock => "egui Dock", Self::CraftUi => "CraftUI" }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum UiControlDensity {
     #[default]
     Compact,
@@ -178,6 +192,8 @@ pub struct AppConfig {
     pub direction: AppDirection,
     pub ui_scale: f32,
     pub ui_control_density: UiControlDensity,
+    pub preferences_grouped_navigation: bool,
+    pub workspace_ui: WorkspaceUi,
     pub single_instance: bool,
     pub close_to_tray: bool,
     pub always_on_top: bool,
@@ -227,6 +243,8 @@ impl Default for AppConfig {
             direction: AppDirection::Auto,
             ui_scale: 1.0,
             ui_control_density: UiControlDensity::Compact,
+            preferences_grouped_navigation: true,
+            workspace_ui: WorkspaceUi::default(),
             single_instance: true,
             close_to_tray: false,
             always_on_top: false,

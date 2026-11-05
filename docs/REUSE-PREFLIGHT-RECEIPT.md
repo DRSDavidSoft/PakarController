@@ -12100,6 +12100,24 @@ bluetooth/source wiring was inspected; this is fixture repair, not BLE radio
 acceptance. Combined shell and audit fixtures pass; final SSH/quality/SDK/client
 CI remains a separate exact-head gate. No boards or production apps changed.
 
+## GitHub handoff dependency repair (2026-11-05)
+
+PR45's mixed egui0.36/0.37 graph is a real incompatibility, not a flaky test.
+Read the proposed manifest/lock changes, the graph guard and Pealayer's actual
+Cargo manifest at9dfc54d3 (including its separately pinned Dock0.37 port).
+Keep the verified0.36 framework/theme/Dock family for this integration; retain
+the independent uuid1.29, rust_xlsxwriter0.101 and zip9.1.2 lock updates.
+The original bot proposal remains in Git history. The complete paired framework
+migration, including CraftUI and pointer geometry/captures, is tracked in issue50;
+it is not declared implemented merely to empty the PR list.
+
+Reread the consumer manifest, full resulting lock diff and unchanged PuzzleBoard
+package metadata; rebind only their inspected consumer hashes. The coherent-family
+test passes with both mixed-family negative cases intact. Live donor consultation
+reported Pealayer inventory drift, which is being reviewed separately on the UI
+integration branch; no guard, source verdict or physical acceptance is waived.
+Exact-head Windows compilation/package and full CI remain required before merge.
+
 ## Windows WebSocket-bootstrap fixture repair (2026-10-30, PR43)
 
 Actions run41080991373 failed in the loopback server at peer_http.rs:746:
@@ -12175,3 +12193,126 @@ under an explicit consumer decision. Keep its current command argument and
 read-only parameter semantics, write/close callbacks, per-session echo/line
 ending behavior, hostname prompt, and Wi-Fi/mDNS reconnect lifecycle. The library
 provides reusable byte/parser/rendering mechanisms, not these device operations.
+
+## Grouped Preferences navigation
+
+Device Settings still contains the DEVICE, CONNECTIONS and CONTROLLERS headings;
+the application Preferences rail was flat. Add one default-on presentation
+preference for both rails, preserving semantic page indices, available-board
+filtering, draft preview/discard, search and the compact selector. Pealayer's
+companion workspace/typography change imports this navigation design while
+retaining its existing palette and live OS-theme owner.
+
+Consulted preferences and exhaustive Pealayer donor inventory. The changed
+Pakar targets retain their update, connection, keyboard, color/density and board
+dispatch functions; only grouping, translations, one config field and its draft
+regression were added. Rebound those four target/proof hashes after reviewing
+the narrow diffs; no donor source-read claims were advanced. The two preexisting
+README target-hash corrections remain preserved and separately owned.
+
+The initial native gate was blocked by stale Pealayer localization evidence.
+The subsequent pass reread the complete current `src/ui/i18n.rs` (1594 lines)
+and `src/ui/dropdown.rs` (652 lines), retaining logical Unicode, fallback and
+focus ownership. Import the donor's temporary Body-to-Button font alignment in
+the shared ComboBox, including restoration after popup rendering. Rebind only
+the reviewed changed consumers and these two source hashes. Native Check now
+passes through the required wrapper. The first attempt correctly rejected a
+missing locked CraftUI dependency; a targeted offline Cargo lock update added
+only CraftUI, then the same gated wrapper passed.
+
+The user clarified that both products offer both presentations. Read the entire
+Pealayer `src/ui/egui_dock.rs` adapter and CraftUI's egui 0.36 docking model,
+renderer entry points and action semantics. Adapt its read-only tree projection
+but dispatch gestures into Pakar's existing DockState rather than reconstructing
+the durable workspace. Existing capability filtering/hidden-panel ownership,
+panel body/menu renderers and native palette are retained. No UI-family upgrade,
+duplicate settings writer or hardware command path was added. See
+WORKSPACE-PRESENTATION.md for floating split/group limits.
+
+Broader comparison regeneration still reports unrelated changed donors including
+`.github/dependabot.yml`; exhaustive lookup additionally detects RayanLamp
+filesystem inventory drift. Those records were not blindly rebound or declared
+complete. Reconcile their actual current sources with the owning task before
+merging. UI tests and package/capture acceptance are separate checkpoints.
+No firmware or output actuation belongs to this change.
+
+## Shared native field-label alignment (2026-11-05)
+
+The Controllers screenshot exposed a shared detail-row error: egui0.36.2's
+Ui::add_sized constructs centered_and_justified layout, and Label inherits
+that horizontal alignment unless explicitly configured. Read the actual locked
+egui Ui/Label implementation and Pealayer dialog/card/settings-row primitives.
+The first painted-origin test rejected Label::halign(Min) alone: Firmware still
+started at x42.9375 rather than the card body's x13, because add_sized centers
+the label widget's rectangle too. Use one field_caption helper with an explicit
+left-to-right, vertically centered child and reserved minimum size instead,
+retaining left text alignment. Apply it to shared key/value captions, physical
+groups and game-palette captions. Preserve allocation, value-column position, narrow
+stacking, truncation and all command/draft behavior. Other panel_details::detail
+consumers, including acknowledged hardware and network cards, receive the same
+fix. No button alignment or global theme/layout default was changed.
+
+The new native regression inspects actual painted key and value text origins
+at two widths, two themes and four display scales. Execution is recorded
+separately from adding the test. Initial native preflight correctly rejected
+the changed shell target hash; only inspected consumer hashes were refreshed.
+Comparison generation also exposed two pre-existing stale Cargo target bindings
+from the preceding CraftUI commit. Reread PuzzleBoard's manifest/lock and current
+native manifest plus that commit's complete nine-line lock change. Transport
+dependencies/anchors are unchanged; refresh those two target bindings, not donor
+verdicts or source hashes. Broader donor omissions remain pending. GitHub lookup
+currently returns401; no publication or issue-update success is claimed.
+Full comparison regeneration additionally reports the existing Pealayer
+.github/dependabot.yml source/snapshot mismatch, as already tracked by the
+preceding workspace pass. Leave it and the RayanLamp inventory drift explicit;
+do not bypass guards or promote unrelated donor records to complete.
+The next test run passed the key-origin assertions but failed its narrow value
+column assumption after a first-frame DPI/root-viewport change. The fixture now
+sets its logical dock width explicitly, retaining the strict key-origin,
+value-column and narrow-stack assertions rather than accepting centered text.
+Final guarded native panel filter passes all7 tests, including actual painted
+key/value origins in all16 width/theme/display-scale combinations. Existing
+feature-chip, action-row, passive-editor and network-panel regressions pass.
+No whole-suite, installed-client, board or physical acceptance is claimed.
+The subsequent guarded Release attempt stopped before Cargo because the live
+Pealayer src/ui/i18n.rs changed after the test build's preflight. No guard
+override, donor rollback or blind hash refresh was used. Consequently there is
+no newly built application, updated screenshot or installed-app replacement
+from this pass; the committed source and successful panel tests remain distinct.
+
+## Coordinated GitHub consolidation (2026-11-05)
+
+PR43,44 and46 merged normally after current-head applicable checks passed.
+The primary CLI token was expired; verified existing fork credentials preserve
+local checkpoints, and the authenticated repository-owner connector performs
+leased upstream fast-forwards and normal merges. No token is printed, global
+account changed, history rewritten, protection bypassed or source discarded.
+
+PR48's new README navigation line invalidated two consumer hashes. Read the
+whole consumer README, verify the unchanged donor hashes, refresh only those
+bindings and regenerate the existing projections. PR47 likewise needs the
+CodeQL workflow target rebound for its paired init/analyze4.39.1 patch. These
+are evidence repairs, not removal of checks. PR45's incompatible UI-family
+upgrade is explicitly deferred in issue50; independent library updates remain.
+
+The Pealayer owner confirmed immutable checkpoint9dfc54d3b45f911cd94a08688c742efab760b0dd
+and requested that live project/typography drafts remain untouched. Inventory
+all693 committed paths from exact Git blobs rather than attributing working-tree
+draft bytes to that commit. For seventeen changed reviewed files, bind the prior
+complete-source read to its exact original Git object, then manually inspect
+every changed hunk and affected Pakar consumer. Record the method, previous hash
+and revision in the existing comparison entries. Unchanged source sections are
+bound by that verified Git identity; no claim of newly rereading every unchanged
+line is made. Separately inspected uncommitted donor changes are excluded.
+
+New ExtraCompact density, host-font previews, typed Preferences navigation,
+Craft theme tokens and actionable/replay-fenced notifications remain useful
+omissions in issues3/5/11/50. Five formerly broader verdicts are downgraded to
+parity gaps rather than accepted by refreshing hashes. Existing Web/mobile,
+installed-runtime, physical and full donor-parity gaps are retained. The complete
+RayanLamp path inventory is refreshed without promoting unread files.
+
+Local live-donor gates remain unchanged and may refuse while the owner's draft
+differs from this snapshot. CI checks the committed source projection and must
+compile/test/package the exact integrated head; a historical native capture,
+source comparison or CI package is not a deployment or hardware acceptance.

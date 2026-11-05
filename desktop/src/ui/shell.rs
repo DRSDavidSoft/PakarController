@@ -1891,6 +1891,10 @@ impl PakarControllerApp {
                             self.reset_workspace_layout();
                         }
                     });
+                } else if self.config.workspace_ui == crate::config::WorkspaceUi::CraftUi {
+                    self.open_panels = self.dock.iter_all_tabs().map(|(_, p)| *p).collect();
+                    super::craft_workspace::show(self, ui);
+                    self.open_panels.clear();
                 } else {
                     self.open_panels = self.dock.iter_all_tabs().map(|(_, p)| *p).collect();
                     // An offline error must not turn the event log into the
@@ -3458,7 +3462,7 @@ impl PakarControllerApp {
                             let mut color=ui.data_mut(|data|data.get_temp::<[u8;3]>(id))
                                 .unwrap_or([(rgb>>16) as u8,(rgb>>8) as u8,rgb as u8]);
                             ui.horizontal(|ui|{
-                                ui.add_sized([108.0,24.0],egui::Label::new(label));
+                                super::panel_details::field_caption(ui,[108.0,24.0],label);
                                 if ui.color_edit_button_srgb(&mut color).changed() {
                                     ui.data_mut(|data|data.insert_temp(id,color));
                                 }

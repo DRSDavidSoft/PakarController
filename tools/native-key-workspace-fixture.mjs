@@ -14,9 +14,14 @@ assert(exeArg && profileArg && scenarios.includes(scenario),
   'Usage: node tools/native-key-workspace-fixture.mjs <built.exe> <isolated-profile-dir> [ready|winner|pressed|all|connected|offline|warning|progress|status-rgb] [unused-startup.png] [panel] [--once] [--width=900 --height=600]');
 assert(['Keys', 'Hardware', 'Network', 'EffectControls', 'FrontPanel', 'PixelCorrections', 'Table', 'Preferences'].includes(panel), 'Explicit supported panel required');
 const tableFixture = ['Table', 'Preferences'].includes(panel);
-assert(options.every(value => value === '--once' || /^--(?:width|height)=\d+$/.test(value)), 'Only --once and bounded --width/--height capture options are supported');
+assert(options.every(value => value === '--once' || /^--(?:width|height)=\d+$/.test(value)
+  || /^--workspace-ui=(?:egui_dock|craft_ui)$/.test(value)
+  || /^--preferences-page=(?:application|appearance)$/.test(value)), 'Unsupported capture option');
 assert(new Set(options.map(value => value.split('=')[0])).size === options.length, 'Capture options must not be repeated');
 const once = options.includes('--once');
+const workspaceUi = options.find(value => value.startsWith('--workspace-ui='))?.split('=')[1] ?? 'egui_dock';
+const preferencesPage = options.find(value => value.startsWith('--preferences-page='))?.split('=')[1] ?? 'application';
+assert(panel === 'Preferences' || !options.some(value => value.startsWith('--preferences-page=')), 'Preferences page requires the Preferences panel');
 const dimension = name => {
   const value = options.find(value => value.startsWith(`--${name}=`));
   return value === undefined ? undefined : Number(value.split('=')[1]);
@@ -206,6 +211,7 @@ const panelWorkspace = tableFixture ? {native_workspaces:{entries:[{
 }]}};
 await writeFile(config, JSON.stringify({endpoint: origin, user: '', single_instance: false,
   native_dialogs: false, theme: 'Dark', language: 'English', close_to_tray: false,
+  workspace_ui: workspaceUi,
   // Offline means actually disconnected in this isolated profile, not a live
   // transport with a fabricated "offline" caption or stale physical sample.
   connection_method: 'WiFi', connection_enabled: scenario !== 'offline', auto_connect: scenario !== 'offline',
@@ -214,7 +220,7 @@ await writeFile(config, JSON.stringify({endpoint: origin, user: '', single_insta
   notifications: {system: 'Off', in_app: false, sound: false}}, null, 2), {flag: 'wx'});
 const screenshot = screenshotArg ? resolve(screenshotArg) : join(profile, 'startup.png');
 await assert.rejects(access(screenshot), 'Startup screenshot must not already exist');
-const child = spawn(exe, panel==='Preferences'?['--preferences-page','application']:['--panel', panel], {env: {...process.env, PAKAR_CONFIG_FILE: config,
+const child = spawn(exe, panel==='Preferences'?['--preferences-page',preferencesPage]:['--panel', panel], {env: {...process.env, PAKAR_CONFIG_FILE: config,
   PAKAR_ENDPOINT: origin, PAKAR_USER: '', PAKAR_PASSWORD: '', PAKAR_SCREENSHOT_PATH: screenshot,
   // The native app also enforces config + screenshot + single_instance=false.
   // Empty defaults prevent inheriting unrelated fixture size overrides.
@@ -224,7 +230,8 @@ const child = spawn(exe, panel==='Preferences'?['--preferences-page','applicatio
 child.stdout.resume(); child.stderr.on('data', data => process.stderr.write(data));
 const receipt = {scope: 'SIMULATED loopback native visual fixture; not board or physical acceptance',
   process_id: child.pid, executable: exe, executable_sha256: createHash('sha256').update(await readFile(exe)).digest('hex'),
-  endpoint: origin, isolated_profile: config, scenario, panel, startup_screenshot: screenshot,
+  endpoint: origin, isolated_profile: config, scenario, panel, workspace_ui:workspaceUi,
+  preferences_page:panel === 'Preferences' ? preferencesPage : null, startup_screenshot: screenshot,
   requested_viewport:width === undefined ? null : {width,height},
   connection_enabled:scenario !== 'offline',simulated_update_progress:scenario === 'progress'};
 await writeFile(join(profile, 'fixture.json'), JSON.stringify(receipt, null, 2), {flag: 'wx'});

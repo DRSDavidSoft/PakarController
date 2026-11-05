@@ -5,6 +5,7 @@ pub mod color_picker;
 pub mod connection_controls;
 pub mod host_wifi;
 pub mod control_density;
+pub mod craft_workspace;
 pub mod dialog;
 pub mod digits;
 pub mod dropdown;

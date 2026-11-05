@@ -93,10 +93,16 @@ impl ComboBox {
         if height != previous_height {
             ui.spacing_mut().interact_size.y = height;
         }
+        let previous_body = ui.style().text_styles.get(&egui::TextStyle::Body).cloned();
+        let button_font = egui::TextStyle::Button.resolve(ui.style());
+        ui.style_mut().text_styles.insert(egui::TextStyle::Body, button_font);
         let result = self
             .inner
             .popup_style(egui::style::StyleModifier::new(dropdown_style))
             .show_ui(ui, |ui| menu_ui(ui, button, body));
+        if let Some(font) = previous_body {
+            ui.style_mut().text_styles.insert(egui::TextStyle::Body, font);
+        }
         if height != previous_height {
             ui.spacing_mut().interact_size.y = previous_height;
         }

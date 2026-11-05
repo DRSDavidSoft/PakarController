@@ -5,6 +5,46 @@
   "files": [
     {
       "origin": "Pealayer",
+      "path": "src/ui/egui_dock.rs",
+      "sha256": "749f7960e4af7dbb29710818d8b7f178827ad2ffd0b1260aca89332cf91ab742",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete 382-line donor. Reuse its presentation adapter approach, stable panel identities, existing panel body/menu renderer, palette-derived styling and modal input protection. Pakar retains DockState as its canonical owner while Pealayer retains CraftUI Layout; neither application stores a second parallel workspace.",
+        "Pakar's adapter projects read-only state and applies validated CraftUI gestures to the original DockState, preserving hidden-panel ownership, native persistence and nested floating/collapsed state. Existing board session, capability filtering and hardware commands are not duplicated."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/ui/craft_workspace.rs",
+          "sha256": "2484e9d497d3a0aac2d1b9e2b0b567864808f1a50f131321eb11c3cefee1ad3b",
+          "anchor": "pub fn show("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/ui/craft_workspace.rs",
+          "sha256": "2484e9d497d3a0aac2d1b9e2b0b567864808f1a50f131321eb11c3cefee1ad3b",
+          "anchor": "fn craft_moves_resize_and_close_update_the_same_workspace()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Pealayer-specific video/window hosting and workspace commit reconstruction",
+          "disposition": "not-applicable",
+          "reason": "Pakar has no media player and already owns a DockState with its own hidden-panel persistence. Rebuilding it from a second schema would lose unrelated state."
+        },
+        {
+          "code": "Nested floating splits and whole floating-group redocking in CraftUI",
+          "disposition": "pending",
+          "reason": "The pinned egui 0.36 CraftUI surface presents floating groups as tabs. Original nested splits survive in storage and return in egui Dock; individual tabs can redock. Broader floating-surface parity needs a reviewed upstream adapter."
+        }
+      ],
+      "remaining": [
+        "Real native captures and deployed acceptance are separate from the passing 173 UI tests; no physical hardware evidence is implied."
+      ]
+    },
+    {
+      "origin": "Pealayer",
       "path": "src/platform/window_icons.rs",
       "sha256": "63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e",
       "source_read": "complete",
@@ -21,7 +61,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "desktop.set_icon(&icon)"
         }
       ],
@@ -1222,7 +1262,7 @@
         {
           "path": "desktop/src/ui/panel_details.rs",
           "anchor": "pub fn physical_groups",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d"
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1"
         },
         {
           "path": "desktop/src/pixel_corrections.rs",
@@ -1284,7 +1324,7 @@
         {
           "path": "desktop/src/ui/panel_details.rs",
           "anchor": "fn pixel_corrections_toggle_is_capability_gated_and_changes_only_local_rule",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d"
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1"
         },
         {
           "path": "mobile/test/pixel_corrections_exit_test.dart",
@@ -1571,7 +1611,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn draw_table(",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "proof": [
@@ -1608,7 +1648,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn table_scene_fits_small_dock_and_zooms_at_pointer()",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "omissions": [
@@ -1642,24 +1682,24 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn device_settings_link(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn editor_contents(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -1692,14 +1732,14 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -1739,7 +1779,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "egui::Scene::new()",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "proof": [
@@ -7916,7 +7956,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn app_management(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
@@ -8535,7 +8575,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "value[\"pixel_preview\"]"
         },
         {
@@ -9599,7 +9639,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "Enable API bridge / repeater",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -10298,7 +10338,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.toml",
-          "sha256": "e330c25d8ba662bc8ffb5b848f669cc7af8882b13deff29e91606b43c90ff233",
+          "sha256": "0bfacff317bb7f6605fbe0e2d84636d4e6efa29ea22907e9657fc2297b8c2ee2",
           "anchor": "tungstenite ="
         }
       ],
@@ -10333,7 +10373,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.lock",
-          "sha256": "5db30a66eec5474a07fe5c9cfabb39cbbc35e6d4c6ac12450c26202849b61e0e",
+          "sha256": "96f3a0dc4837235fbdc9af58b256a787633263b9f64d170fd496968a88f6944d",
           "anchor": "name = \"tungstenite\""
         }
       ],
@@ -13684,7 +13724,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -13704,7 +13744,7 @@
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/device_settings.rs",
@@ -13825,7 +13865,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -16411,7 +16451,7 @@
       "source_read": "complete",
       "targets": [
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "pub trait DropdownUiExt",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16426,17 +16466,17 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "super::dropdown::ComboBox::from_id_salt(\"theme\")",
           "path": "desktop/src/ui/preferences.rs"
         },
         {
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6",
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/device_settings.rs"
         },
         {
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/shell.rs"
         },
@@ -16451,7 +16491,7 @@
           "anchor": "pub fn finish_network("
         }
       ],
-      "sha256": "134f1613df05c9db44f8ccd178981a8eca4fb6c254ced6466229afca66b40ee9",
+      "sha256": "561539d9cae8e823796e16f9314fe7a7bf90cc894c6535540bb2ae8b88a01584",
       "remaining": [
         "Installed native Output-panel visual acceptance and real USB/Wi-Fi switching in both directions with power-cycle persistence remain pending; native source/loopback tests do not prove optical output or full application parity."
       ],
@@ -16470,28 +16510,29 @@
         "Native box-workspace checkpoint scoped rereview: donor ComboBox/show_ui, dropdown_style, menu_ui focus ownership, choice_with_close and DropdownUiExt were compared with the unchanged imported dropdown module and current shell consumers. The new key_boxes canvas delegation retains existing melody/menu dropdowns. Fixed full-row allocation, inside focus stroke, Button font, temporary density restoration and enabled/selected keyboard registration remain in use. Only the changed shell target hash is refreshed here; historical complete donor review is not recertified by this scoped pass. Native build and visual capture remain separate.",
         "Runtime LED transmitter checkpoint reuses the fully read actual donor ComboBox/DropdownUiExt, not a second widget. effect_controls.rs renders a compact setting row from advertised compiled choices with observed active backend, pending/disabled state and explicit driver/storage errors, never an optimistic selected value. led_backend.rs is new Pakar transport logic, not claimed as donor code: one mutation, bounded same-board/boot observation-only completion, persisted/requested/active/readiness checks and no uncertain-write replay over HTTP, WebSocket or USB.",
         "Preferences geometry checkpoint reread the complete current actual src/ui/dropdown.rs through EOF at the canonical Pealayer source path and compared the theme, density, language, direction and compact-category consumers. Theme, language and direction expressions are unchanged; the new narrow Preferences category selector uses the same ComboBox/DropdownUiExt focus owner and inside-stroke rows. No duplicate dropdown implementation or optimistic configuration write was introduced; only this reviewed Preferences target is rebound.",
-        "Native-table owner compared the current complete-read donor with cell_order_controls and replaced its stock Shape selector with the existing imported ComboBox/DropdownUiExt. Enabled/selected registration, full-width keyboard choices and closed-popup ownership now match the shared selector; the donor relay_style.dart was also compared for semantic styling but no Flutter sizing code is falsely attributed as a Rust import."
+        "Native-table owner compared the current complete-read donor with cell_order_controls and replaced its stock Shape selector with the existing imported ComboBox/DropdownUiExt. Enabled/selected registration, full-width keyboard choices and closed-popup ownership now match the shared selector; the donor relay_style.dart was also compared for semantic styling but no Flutter sizing code is falsely attributed as a Rust import.",
+        "Workspace modes pass reread all 652 current donor lines. Imported the temporary Body-to-Button font substitution around the native ComboBox and its restoration, preserving existing focus/navigation and full-width row owners. Both workspace choices use this same selector. Native wrapper Check and all 173 UI tests passed; visual and production acceptance remain distinct."
       ],
       "improvement": "Preserves all current donor dropdown behavior while adding the locked egui from_label trigger identity for existing labeled settings and actual connection-control keyboard ownership with busy-port rejection. Clears texture ownership before native assertions to avoid a second panic masking a failure. Native execution and production visual acceptance remain separate from source wiring.",
       "verdict": "scoped-improvement",
       "proof": [
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_arrows_seed_focus_skip_disabled_commit_enter_and_cancel_escape()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_search_keeps_text_focus_until_arrow_enters_choices()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_color_rows_are_full_width_equal_height_and_hover_stable()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn from_label_keeps_locked_egui_trigger_identity()",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16501,7 +16542,7 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_unregistered_editor_retains_arrow_keys()",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16579,13 +16620,14 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/control_density.rs",
-      "sha256": "690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed",
+      "sha256": "521e69dc2e140ea3dc0c7f95f42eec81ac2a9154996f9af42e9573805eb64b23",
       "source_read": "complete",
-      "verdict": "equivalent-behavior",
+      "verdict": "parity-gap",
       "preserved": [
         "Lamp-background checkpoint reread all 97 current donor lines and current AppConfig enum plus Preferences density consumer. Optional semantic face changes paint only; density, font growth and zero-expansion policy are unchanged. Inspected config/Preferences references rebound, not new donor-wide acceptance.",
         "Read all 97 donor lines through EOF. Imported the single 24/28/32/36-pixel density policy, large-font growth, zero widget expansion, open chevron painter and choice tick painter. Pakar's persisted Preferences field now configures global text fields, dropdown triggers, popup choices and color fields through this shared owner.",
-        "Reread all 97 current donor lines and reviewed current Pakar configure plus production-helper interaction regressions. The imported zero-expansion policy now also fixes all widget-state stroke widths and radii to the inherited inactive geometry; Pealayer 5b3d5c150d714a3f951378867791b06855155094 hardware_action_button demonstrates why recoloring inherited stroke width and retaining the Button font matters after egui frame margins are computed. This extends the exact donor invariant to stock buttons and semantic helpers, including zero-stroke menu scopes. Root canonical native Test checkpoint reports 121 ui:: filtered tests passed, zero failed; tests exercise hit rectangles and painted caption origins through hover/press/focus/selection/disabled in both themes, palettes, every density and 1.0-2.0 scales. Native screenshot/deployed-host acceptance remains pending."
+        "Reread all 97 current donor lines and reviewed current Pakar configure plus production-helper interaction regressions. The imported zero-expansion policy now also fixes all widget-state stroke widths and radii to the inherited inactive geometry; Pealayer 5b3d5c150d714a3f951378867791b06855155094 hardware_action_button demonstrates why recoloring inherited stroke width and retaining the Button font matters after egui frame margins are computed. This extends the exact donor invariant to stock buttons and semantic helpers, including zero-stroke menu scopes. Root canonical native Test checkpoint reports 121 ui:: filtered tests passed, zero failed; tests exercise hit rectangles and painted caption origins through hover/press/focus/selection/disabled in both themes, palettes, every density and 1.0-2.0 scales. Native screenshot/deployed-host acceptance remains pending.",
+        "2026-11-05 integration rereview: The new ExtraCompact 18-point/one-point-padding choice and its real TextEdit geometry matrix are useful but not imported. Keep existing 24/28/32/36 saved meanings; port the additive choice with config/localization and tests in issue3, not by reinterpreting Compact."
       ],
       "targets": [
         {
@@ -16595,17 +16637,17 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "pub enum UiControlDensity"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "from_id_salt(\"control-density\")"
         },
         {
           "path": "desktop/src/ui/dropdown.rs",
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "crate::ui::control_density::paint_chevron"
         },
         {
@@ -16641,10 +16683,24 @@
           "code": "Donor color_dropdown row in the density fixture",
           "disposition": "replaced",
           "reason": "Pakar's current color consumer separates the dropdown trigger and custom palette popup; the test covers its real shared dropdown trigger, custom row and HEX field instead of adding a dormant donor-only API."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The new ExtraCompact 18-point/one-point-padding choice and its real TextEdit geometry matrix are useful but not imported. Keep existing 24/28/32/36 saved meanings; port the additive choice with config/localization and tests in issue3, not by reinterpreting Compact."
         }
       ],
-      "remaining": [],
-      "improvement": ""
+      "remaining": [
+        "The new ExtraCompact 18-point/one-point-padding choice and its real TextEdit geometry matrix are useful but not imported. Keep existing 24/28/32/36 saved meanings; port the additive choice with config/localization and tests in issue3, not by reinterpreting Compact."
+      ],
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed",
+        "previous_git_revision": "b6c6effae7981ed6b81b9709ee99a20b64040c44",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -16661,12 +16717,12 @@
           "path": "desktop/src/ui/color_picker.rs"
         },
         {
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "super::color_picker::accent_picker",
           "path": "desktop/src/ui/preferences.rs"
         },
         {
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "\"Recent colors\"",
           "path": "desktop/src/ui/i18n.rs"
         }
@@ -17804,13 +17860,14 @@
     {
       "origin": "Pealayer",
       "path": "web_ui/src/components/PreferencesTab.tsx",
-      "sha256": "30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1",
+      "sha256": "f70cf8200eaddbf947ee4f6eb83b4680d4d9adc46f732858feff83c63780d303",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Actual contract-driven sections/selected-section navigation, grouped labeled typed controls, contextual options, retained draft on section changes, descriptions, load/save status and reload adapted to Flutter DeviceSettingsPage using the existing shared Pakar catalog. Tablet uses a searchable navigation rail; phone uses wrapping section chips. Actual Phosphor repertoire supplies verified icon codepoints.",
         "Actual valueAtPath/updatePaths structured settings ownership adapted to separate public drafts and secret actions. DeviceSettingsSession uses the fully read canonical Pakar native/Web validation, observe/conflict and positive acknowledgment/exact public readback workflow rather than generic optimistic UI success. In-memory secrets never enter saved client preferences; one POST body per explicit operation, no mutation replay.",
-        "Runtime LED transmitter checkpoint reread all563 donor lines and verified SHA30a63cc1. Adapt actual contract-derived select options, field-scoped saving state and external-observation refresh to Flutter LedBackendControl/LedBackendState and the single canonical Web selector. Only the intersection of advertised compiled choices is offered; selection reflects actual driver telemetry and renderer mode stays independent. Replace updatePaths optimistic save with one correlated mutation and same-peer requested/active/readiness/error/persistence observation. WebSocket events settle the result; configured bounded HTTP fallback reads never replay the mutation. This is a scoped mechanism adaptation, not a direct TSX component import or full PreferencesTab parity."
+        "Runtime LED transmitter checkpoint reread all563 donor lines and verified SHA30a63cc1. Adapt actual contract-derived select options, field-scoped saving state and external-observation refresh to Flutter LedBackendControl/LedBackendState and the single canonical Web selector. Only the intersection of advertised compiled choices is offered; selection reflects actual driver telemetry and renderer mode stays independent. Replace updatePaths optimistic save with one correlated mutation and same-peer requested/active/readiness/error/persistence observation. WebSocket events settle the result; configured bounded HTTP fallback reads never replay the mutation. This is a scoped mechanism adaptation, not a direct TSX component import or full PreferencesTab parity.",
+        "2026-11-05 integration rereview: The added host-font controls refresh with AbortController/draft preservation, searchable installed-font choices and grouped section rail remain useful Web parity gaps. Native grouping in PR49 does not establish Web preference transport parity; retain issue3."
       ],
       "targets": [
         {
@@ -17874,11 +17931,17 @@
           "code": "Current ColorDropdown custom/accent popup, discrete choice_slider indexed preview/commit and NumericValueControl persisted per-field adjustment steps",
           "disposition": "pending",
           "reason": "Current 563-line donor was completely reread. These generic typed controls are not in the mobile device settings implementation; shared appearance controls, structured batch changes and keyboard/locale acceptance must be imported with their dependencies instead of claiming the earlier section/group adaptation covers them."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The added host-font controls refresh with AbortController/draft preservation, searchable installed-font choices and grouped section rail remain useful Web parity gaps. Native grouping in PR49 does not establish Web preference transport parity; retain issue3."
         }
       ],
       "remaining": [
         "Mobile firmware/update/backup and Android picker workflows are implemented in the separate ServerFilePicker row; physical acceptance remains. Complete connection/discovery controls, unsaved Android-back/quit protection, client appearance/localization, generic typed preference controls and applicable donor dependencies. Verify physical phone/tablet configuration readback and hostname/credential handoffs; current API lacks transactional compare-and-set and encrypted HTTP transport.",
-        "Transmitter model/widget/socket/DOM fixture coverage is not installed Android/tablet/browser hardware acceptance. Verify both directions, persistent reboot, driver/storage failures, small-screen layout and unchanged effects/current frame on the real board; prior generic PreferencesTab omissions remain open."
+        "Transmitter model/widget/socket/DOM fixture coverage is not installed Android/tablet/browser hardware acceptance. Verify both directions, persistent reboot, driver/storage failures, small-screen layout and unchanged effects/current frame on the real board; prior generic PreferencesTab omissions remain open.",
+        "The added host-font controls refresh with AbortController/draft preservation, searchable installed-font choices and grouped section rail remain useful Web parity gaps. Native grouping in PR49 does not establish Web preference transport parity; retain issue3."
       ],
       "proof": [
         {
@@ -17917,12 +17980,19 @@
           "anchor": "// Exercise shipped WS-first command transport + post success gating together."
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1",
+        "previous_git_revision": "b455f59e0dd75cf1320cde1124d1f8630cd76b96",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
       "path": "src/ui/i18n.rs",
-      "sha256": "811a48221c47c903c1d70ca904ead90a7a6b7f5ee0ba9a5f26a7e60dd30a75c3",
+      "sha256": "23c7ee0add47437572d6d96f644e22627b36e4c3f548143dd643a74f31b42f75",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
@@ -17930,12 +18000,14 @@
         "Actual donor platform/UI face loading, Vazirmatn and Phosphor registration, application dictionary, identity-preserving visual_text, script detection, input alignment and horizontal/vertical direction helpers retained and wired into real native controls.",
         "Monospace Persian fallback and preference-driven priority refresh added without discarding later widget font registrations. Actual donor contextual glyph test adapted to both families; saved Unicode and peer identifiers never manually reversed.",
         "Native control/grid checkpoint scoped rereview: donor visual_text, contains_arabic_script, input_alignment, layout/vertical_layout and logical-Unicode/alignment tests were compared with current singleline_text_edit and changed primary action styling. Input alignment still follows logical text/direction with centered Button-font geometry; action labels remain localized with explicit Button font. New key-box application-owned translations do not translate peer identifiers or reverse text. Font installation and shaping/font-retention tests remain intact. Updated current target/proof hashes after examining these portions, without claiming a new complete-file donor read or build/capture acceptance.",
-        "Preferences geometry checkpoint reread complete actual src/ui/i18n.rs through EOF at canonical Pealayer revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Persian/System/English selection and independent automatic/LTR/RTL direction controls remain identical, with logical Unicode, native shaping and the retained bundled Vazirmatn path. The footer now reserves actions on the appropriate trailing edge, with clipped status in its remaining lane; its regression covers both directions. Untranslated application-management copy, named emphasis/font-family preferences and deployed Persian visual acceptance remain open, not resolved by a consumer hash refresh."
+        "Preferences geometry checkpoint reread complete actual src/ui/i18n.rs through EOF at canonical Pealayer revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Persian/System/English selection and independent automatic/LTR/RTL direction controls remain identical, with logical Unicode, native shaping and the retained bundled Vazirmatn path. The footer now reserves actions on the appropriate trailing edge, with clipped status in its remaining lane; its regression covers both directions. Untranslated application-management copy, named emphasis/font-family preferences and deployed Persian visual acceptance remain open, not resolved by a consumer hash refresh.",
+        "Workspace modes pass reread all 1594 current donor lines. The donor now delegates native/custom font resolution to fonts.rs; that separate implementation is not claimed as imported into Pakar. Logical Unicode, direction, Persian fallback and existing font registration remain intact. Added only grouped Preferences and workspace chrome translations; native UI tests passed.",
+        "2026-11-05 integration rereview: The only changed translation is Extra compact to بسیار فشرده. Its additive density choice is not in Pakar yet; keep it pending with the native density import in issue3."
       ],
       "targets": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "pub(crate) fn configure_ui_fonts"
         },
         {
@@ -17945,7 +18017,7 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "AppLanguage::Persian"
         },
         {
@@ -17974,20 +18046,26 @@
           "code": "Separate ttf_parser coverage assertions and exhaustive native surface translations",
           "disposition": "pending",
           "reason": "Avoid introducing a duplicate font parser dependency: actual renderer glyph/contextual and font-retention tests pass in 8849ab8 Windows CI after headless output repair. The run completes 114 passed/1 unrelated menu-label failure; no abort. Additional Unicode, production rendering, device-settings and status/transport copy remain unaccepted."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The only changed translation is Extra compact to بسیار فشرده. Its additive density choice is not in Pakar yet; keep it pending with the native density import in issue3."
         }
       ],
       "remaining": [
-        "Inspect real deployed Persian inputs/menus/dialogs and finish application-copy/generic grouping parity. Actual 8849ab8 font-retention/shaping tests pass, but full native release remains open with one menu-label assertion; local cache budget remains enforced."
+        "Inspect real deployed Persian inputs/menus/dialogs and finish application-copy/generic grouping parity. Actual 8849ab8 font-retention/shaping tests pass, but full native release remains open with one menu-label assertion; local cache budget remains enforced.",
+        "The only changed translation is Extra compact to بسیار فشرده. Its additive density choice is not in Pakar yet; keep it pending with the native density import in issue3."
       ],
       "proof": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "fn contextual_persian_in_labels_and_monospace_inputs"
         },
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "fn changing_language_preserves_widget_fonts"
         },
         {
@@ -17996,19 +18074,27 @@
           "anchor": "Peer text identical to a dictionary key"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "bc01f8442cb8a002243e12339bf1fb23c42f0d7028262493011318c90147b5f9",
+        "previous_git_revision": "1fbed601b9115aa1373639c213027610d960d2f1",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
       "path": "web_ui/src/i18n.ts",
-      "sha256": "331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc",
+      "sha256": "8982e88003f1609b17ab30d2d3d0e47372981bee4d1a531efee66b304c919a88",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Fully reread all 630 current donor lines through EOF. Actual fa-dictionary fallback semantics remain reused for application copy, rather than translating arbitrary runtime data. Applicable native dictionary subset generates into the canonical Web module and actual firmware HTML; the new generic hardware/status/font/control vocabulary is useful pending consumer work, not an automatic dictionary import.",
         "Added system/explicit language and Auto/LTR/RTL preferences, owned-template text/placeholder/accessibility snapshots, per-browser low-write persistence, shared font route and immutable peer-name boundary.",
         "Persian Web regression slice: controller captions now include preferences, network/cloud/access/firmware and cell dialogs; capability mode labels participate in dictionary generation. Live telemetry and dynamic accessibility labels refresh in the selected language, real addresses release stale caption ownership, option values remain protocol-stable, and Persian text omits Latin letter spacing. Read-only actual HTML browser inspection verified mobile-width preferences/settings and reversible persistent locale switching; this is not live board acceptance.",
-        "Native interaction checkpoint rereview: read the complete unchanged donor dictionary and tr through EOF, and the complete current localization runtime, font generator and its HTML-source/gzip helpers. Reviewed the generated dictionary-only change against HEAD and the generator migration to canonical web/index.html; current WebUi.h embeds the identical localization module through build-web.mjs. Shared font bytes, owned-caption/peer-value separation, reversible locale and dynamic-label tests passed via node tests/localization_test.mjs. These refreshed target hashes attest this localization slice, not the unrelated full Web application, deployment or exhaustive Persian acceptance."
+        "Native interaction checkpoint rereview: read the complete unchanged donor dictionary and tr through EOF, and the complete current localization runtime, font generator and its HTML-source/gzip helpers. Reviewed the generated dictionary-only change against HEAD and the generator migration to canonical web/index.html; current WebUi.h embeds the identical localization module through build-web.mjs. Shared font bytes, owned-caption/peer-value separation, reversible locale and dynamic-label tests passed via node tests/localization_test.mjs. These refreshed target hashes attest this localization slice, not the unrelated full Web application, deployment or exhaustive Persian acceptance.",
+        "2026-11-05 integration rereview: The added Extra compact Persian label follows the new density choice. Keep that feature/label together when importing it; current Pakar locale and live-device acceptance gaps remain in issue3."
       ],
       "targets": [
         {
@@ -18037,10 +18123,16 @@
           "code": "Remaining generic Web copy and native/Web/mobile preference synchronization",
           "disposition": "pending",
           "reason": "The controller subset is integrated, not the entire donor Web feature set. Preferences/settings/cell captions and live status now have focused regression and read-only mobile-width browser evidence. Other dynamic errors, confirmations and advanced diagnostics, live-board and Android locale acceptance remain; browser locale is not silently written to another client or firmware."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The added Extra compact Persian label follows the new density choice. Keep that feature/label together when importing it; current Pakar locale and live-device acceptance gaps remain in issue3."
         }
       ],
       "remaining": [
-        "Finish remaining dynamic errors/confirmations/advanced diagnostic copy and controller-safe shared preference contracts; execute live-device and Android locale tests. Mobile-width actual Web fixture inspection is complete for preferences/settings, not hardware or exhaustive translation acceptance."
+        "Finish remaining dynamic errors/confirmations/advanced diagnostic copy and controller-safe shared preference contracts; execute live-device and Android locale tests. Mobile-width actual Web fixture inspection is complete for preferences/settings, not hardware or exhaustive translation acceptance.",
+        "The added Extra compact Persian label follows the new density choice. Keep that feature/label together when importing it; current Pakar locale and live-device acceptance gaps remain in issue3."
       ],
       "proof": [
         {
@@ -18054,7 +18146,14 @@
           "anchor": "assert.equal(attrs.placeholder"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc",
+        "previous_git_revision": "7e9b1319d583a6ebdd53c63a942aa1d7783ba1a0",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -18168,7 +18267,8 @@
         "Actual donor branch/PR/tag/dispatch/merge-group triggers, concurrency policy, pinned actions without checkout credentials, health-before-build jobs, timeouts, Rust cache reuse, locked tests/builds, packaging, curated notes, manifest/checksums/provenance and aggregate results adapted to current Windows/ESP/AVR/Android targets.",
         "Release content is gated on all supported-target builds, created as an immutable draft prerelease, with the matched S3/AVR buffered pair and raw HTTPS update manifests. Explicit legacy packaging is preserved but the overflowing ESP8266 image is not promised as a release output. Untrusted PRs do not execute publishing code with a write token.",
         "Actual donor serial native test execution, isolated test configuration and RUST_BACKTRACE=1 restored. Runtime harness flags are separated from compile jobs; immediate panic output remains available even if a later test aborts before its summary.",
-        "Reread the full workflow at 10fc6604 and its exact diff from the previous inventory: the only added step verifies pinned canonical opcode bindings against the owner before builds. Pakar includes the equivalent mandatory upstream check; newly inventoried donor files remain pending unless separately compared."
+        "Reread the full workflow at 10fc6604 and its exact diff from the previous inventory: the only added step verifies pinned canonical opcode bindings against the owner before builds. Pakar includes the equivalent mandatory upstream check; newly inventoried donor files remain pending unless separately compared.",
+        "2026-11-05 integration rereview: Only pinned setup-node/upload/download/cache action revisions changed. Existing Pakar workflow owners remain; compare the useful newer action pins in issue11 rather than importing unrelated media packaging or claiming additional platform coverage."
       ],
       "omissions": [
         {
@@ -18190,14 +18290,20 @@
           "code": "branch-tag and archive suffix creation, softprops update-existing release",
           "disposition": "replaced",
           "reason": "User requests stable names without random/time suffixes. Version releases keep stable package names; release enumeration must succeed and an existing release is not overwritten."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "Only pinned setup-node/upload/download/cache action revisions changed. Existing Pakar workflow owners remain; compare the useful newer action pins in issue11 rather than importing unrelated media packaging or claiming additional platform coverage."
         }
       ],
       "remaining": [
-        "The historical 8849ab8 menu failure was subsequently fixed; 5d02b07 Build 38141677102 and CodeQL 38141677110 pass. This is not production/deployment proof. Validate the unexecuted draft publisher, useful additional native targets, donor macOS diagnostics and optional compressed package/runtime verification."
+        "The historical 8849ab8 menu failure was subsequently fixed; 5d02b07 Build 38141677102 and CodeQL 38141677110 pass. This is not production/deployment proof. Validate the unexecuted draft publisher, useful additional native targets, donor macOS diagnostics and optional compressed package/runtime verification.",
+        "Only pinned setup-node/upload/download/cache action revisions changed. Existing Pakar workflow owners remain; compare the useful newer action pins in issue11 rather than importing unrelated media packaging or claiming additional platform coverage."
       ],
       "improvement": "",
       "origin": "Pealayer",
-      "sha256": "2e5c933b7c1646d5cb26ddd8a10f88529de15bd205b525295858755d5044988b",
+      "sha256": "f0e89e0de18e5d705401d56a1a9bb86ab58b97785ed47a29b21c47315c3d8187",
       "source_read": "complete",
       "proof": [
         {
@@ -18210,7 +18316,14 @@
           "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
-      ]
+      ],
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "2e5c933b7c1646d5cb26ddd8a10f88529de15bd205b525295858755d5044988b",
+        "previous_git_revision": "10fc6604a9d6068eb57da2f00d7d9404238f00c8",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "path": ".github/workflows/codeql.yml",
@@ -18218,12 +18331,13 @@
       "targets": [
         {
           "path": ".github/workflows/codeql.yml",
-          "sha256": "0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba",
+          "sha256": "fe91f6cfb9e6bfb6357d1e25dd41e80011991417c6914da478e39ab6c5d324c0",
           "anchor": "name: \"🛡️ Security · CodeQL\""
         }
       ],
       "preserved": [
-        "Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary."
+        "Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary.",
+        "2026-11-05 integration rereview: Read the complete current CodeQL workflow and all changed action pins. PR47 applies the paired init/analyze4.39.1 patch; current source still retains fail-closed aggregate result, no persisted credentials, explicit analyzer scope and no PR-target execution. Exact CI remains separate."
       ],
       "omissions": [
         {
@@ -18235,7 +18349,7 @@
       "remaining": [],
       "improvement": "",
       "origin": "Pealayer",
-      "sha256": "fc3c298cf966d77f50b575614b4c26f24f1606459f07749a46880cd482f1cb53",
+      "sha256": "656ae2cb1159a333394015f9557413245ce648e47e93f00c9a714628a93bfbb2",
       "source_read": "complete",
       "proof": [
         {
@@ -18243,11 +18357,18 @@
           "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
-      ]
+      ],
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "fc3c298cf966d77f50b575614b4c26f24f1606459f07749a46880cd482f1cb53",
+        "previous_git_revision": "c33057c0b4d05d88be423f0f5f48ce962230ca62",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "path": ".github/dependabot.yml",
-      "verdict": "scoped-improvement",
+      "verdict": "parity-gap",
       "targets": [
         {
           "path": ".github/dependabot.yml",
@@ -18256,19 +18377,27 @@
         }
       ],
       "preserved": [
-        "Actual donor weekly grouped github-actions and Cargo updates, with Cargo path adapted to the existing desktop workspace."
+        "Actual donor weekly grouped github-actions and Cargo updates, with Cargo path adapted to the existing desktop workspace.",
+        "2026-11-05 integration rereview: The donor now ignores isolated eframe/egui/elegance minor updates until a coordinated family migration. Pakar keeps its existing graph rejection and tracks the complete paired migration in issue50. A durable equivalent dependency-update policy remains useful issue11 work; do not silently accept mixed UI versions."
       ],
       "omissions": [
         {
           "code": "npm updates at /web_ui",
           "disposition": "not-applicable",
           "reason": "Pakar has no /web_ui/package.json or Vite runtime. Embedded Web/tests use Node built-ins; Flutter's actual /mobile Pub dependency contract is covered instead."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The donor now ignores isolated eframe/egui/elegance minor updates until a coordinated family migration. Pakar keeps its existing graph rejection and tracks the complete paired migration in issue50. A durable equivalent dependency-update policy remains useful issue11 work; do not silently accept mixed UI versions."
         }
       ],
-      "remaining": [],
+      "remaining": [
+        "The donor now ignores isolated eframe/egui/elegance minor updates until a coordinated family migration. Pakar keeps its existing graph rejection and tracks the complete paired migration in issue50. A durable equivalent dependency-update policy remains useful issue11 work; do not silently accept mixed UI versions."
+      ],
       "improvement": "Adds grouped Pub updates for the actual Android client and label routing while retaining weekly grouped Actions/Cargo updates.",
       "origin": "Pealayer",
-      "sha256": "fa4791635251ad7d5be26ce70d71a8e59aa7b814a4f09f2b5b749d8a49908225",
+      "sha256": "f8b1870cf4c5a24401d9dbbc588c7593a2ee31b6c42c92320ff768ae1bec37cb",
       "source_read": "complete",
       "proof": [
         {
@@ -18276,7 +18405,14 @@
           "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
-      ]
+      ],
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "fa4791635251ad7d5be26ce70d71a8e59aa7b814a4f09f2b5b749d8a49908225",
+        "previous_git_revision": "bc498b71205d23b187ea9286434821123361b027",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "path": "docs/releases/next.md",
@@ -18401,7 +18537,7 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/status_bar.rs",
-      "sha256": "e407025a1ee959230634f8350de20d58432313d6dd0f734ada735b8fc9fec4db",
+      "sha256": "b09d7cf36083d4d0f6fd7bb51312b840562da987b88d83e1039d77c66fd02803",
       "source_revision": "5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad",
       "source_read": "complete",
       "verdict": "parity-gap",
@@ -18411,7 +18547,8 @@
         "Added compact physical RGB observations across native/Web/mobile without full-workspace refresh: exact board/boot, output validity and monotonic RGB revision gate each update. Observed RGB never renews the whole board lease, alters selected cells or replays old animation. Native and Flutter dedicated settings/preview modules require explicit board observations, persisted ACK/readback and safe onboard-pin confirmation; generic donor custom profile/cue editors remain pending.",
         "Status-bar checkpoint reread all1737 actual donor lines through EOF at the recorded5a6961ce revision and exact original-byte hash. Adapt render_widget/text_widget/slot_width and item_menu/group_menu to eight contextual Pakar widgets: connection, observed physical RGB, hardware, network, measured update progress, events, message and Preferences. Fixed-height inside-only strokes and bounded caption slots keep hover/focus and changing counts/text from shifting controls; narrow widths collapse labels and move actions to a keyboard-owned overflow rather than wrapping. Persian labels and RTL placement use the existing imported localization and dropdown owners.",
         "Adapt the donor's independent normalized order/visibility/leading-trailing configuration. Custom Items deserialization preserves all sixteen combinations of the original four boolean preferences; the new network widget inherits a hidden legacy telemetry preference, then becomes independently controllable. Unknown or duplicate order IDs are normalized without losing known widgets. Per-item menus provide move earlier/later within the selected side, place at start/end, hide and restore; direct pointer drag-and-drop remains a separate unported feature.",
-        "Project one existing firmware_observation into the footer: current peer/boot-owned phase and measured bytes, with a finite optional fraction. Unknown or prepare/verify progress is not fabricated from elapsed time, and reaching100percent is not a completion verification claim. The status renderer consumes passed-in cached observations only and performs no device, network, process or filesystem probes. Explicit Save is coalesced to one returned action; shell persistence changes only status_items in the saved AppConfig after draw, preserves unrelated drafts/dock layout and surfaces failures without claiming Saved. The live requested view remains in RAM on a save error."
+        "Project one existing firmware_observation into the footer: current peer/boot-owned phase and measured bytes, with a finite optional fraction. Unknown or prepare/verify progress is not fabricated from elapsed time, and reaching100percent is not a completion verification claim. The status renderer consumes passed-in cached observations only and performs no device, network, process or filesystem probes. Explicit Save is coalesced to one returned action; shell persistence changes only status_items in the saved AppConfig after draw, preserves unrelated drafts/dock layout and surfaces failures without claiming Saved. The live requested view remains in RAM on a save error.",
+        "2026-11-05 integration rereview: New variable-font weight, shared Craft theme surface/separator tokens and endpoint-specific timeline visibility were reviewed. Media timeline behavior is not imported; reusable theme-token and geometry/test reconciliation remains pending in issues3/5. Current Pakar status owner is preserved."
       ],
       "targets": [
         {
@@ -18436,12 +18573,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn save_status_bar_preferences("
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "let firmware_progress = self.firmware_observation().filter(|p| p.active);"
         },
         {
@@ -18500,11 +18637,17 @@
           "code": "Pointer drag-and-drop across anchored groups and drag-out-to-hide",
           "disposition": "pending",
           "reason": "Move earlier/later, leading/trailing placement and hide/restore are available through persistent keyboard-accessible menus. The donor's original-render drag ghost, pointer grab offset and drag-out affordance are not implemented by those menu operations and are not claimed as parity."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "New variable-font weight, shared Craft theme surface/separator tokens and endpoint-specific timeline visibility were reviewed. Media timeline behavior is not imported; reusable theme-token and geometry/test reconciliation remains pending in issues3/5. Current Pakar status owner is preserved."
         }
       ],
       "remaining": [
         "Native migration, progress, fixed-geometry, input and Preferences-owner checks passed (15 status tests plus the isolated viewport guard); final release framebuffer captures were inspected for connected, disconnected, warning and progress states. Candidate staged at executable SHA25602505274f29498991b2f9e693274f73e4b4cbe7b44738d1d03e2a547e3e00aab. Installed-runtime and human acceptance remain open; isolated fixtures do not prove live board health or physical RGB. Restore remaining generic status lifetime/readiness contracts in issues #3/#10.",
-        "Shared dropdown dependency now has a complete-read comparison; preserve remaining generic consumer contracts and verify native runtime without claiming whole-file parity."
+        "Shared dropdown dependency now has a complete-read comparison; preserve remaining generic consumer contracts and verify native runtime without claiming whole-file parity.",
+        "New variable-font weight, shared Craft theme surface/separator tokens and endpoint-specific timeline visibility were reviewed. Media timeline behavior is not imported; reusable theme-token and geometry/test reconciliation remains pending in issues3/5. Current Pakar status owner is preserved."
       ],
       "proof": [
         {
@@ -18592,7 +18735,14 @@
           "sha256": "02bbb46d280c606868f0f18220cb092c0dca2e07f9b06aa31bee1e4f4625ec65",
           "anchor": "fn lifecycle_is_one_explicit_action_and_disconnect_retains_port()"
         }
-      ]
+      ],
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "e407025a1ee959230634f8350de20d58432313d6dd0f734ada735b8fc9fec4db",
+        "previous_git_revision": "7e9b1319d583a6ebdd53c63a942aa1d7783ba1a0",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "PCController",
@@ -18796,12 +18946,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn synchronize_context("
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6",
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e",
           "anchor": "pub(crate) fn available("
         },
         {
@@ -18817,7 +18967,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -19213,14 +19363,15 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/menu.rs",
-      "sha256": "a0196878c7b76b898d0a5791b122181d9045d3fbbe9f56de52bc43242edf2d9d",
+      "sha256": "d620659292316918b7ce6a6ac24c3c0f9fcdcd3a83f12a9725d3d2b4495423cd",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Actual top_menu_button body imported with only application state ID/public visibility adaptation; all four production menu headings use active-menu sibling hover switching.",
         "Actual Button::shortcut_text idiom replaces space-padded primary labels in all six shortcut rows; separate right-aligned muted atoms are supplied by the same egui 0.36.2 dependency. Existing dispatch/Phosphor submenu retained; user-requested height policy unchanged.",
         "Earlier independent WebSocket/USB popup adaptation is superseded by the user-required single selected Wi-Fi-or-USB dropdown/lifecycle. Retained actual selector persistence, manual OS hardware paths, lazy factual enumeration and explicit Connect/Disconnect; no Both mode or automatic fallback. Complete donor readiness and fixed endpoint geometry remain pending.",
-        "Current complete 883-line donor and full mapped Pakar menu.rs were reread by the status/front-panel agent. The actual top-menu helper and six shortcut_text consumers remain retained; this does not implement the newly added endpoint trigger."
+        "Current complete 883-line donor and full mapped Pakar menu.rs were reread by the status/front-panel agent. The actual top-menu helper and six shortcut_text consumers remain retained; this does not implement the newly added endpoint trigger.",
+        "2026-11-05 integration rereview: Reviewed the committed menu delta only. The separately inspected uncommitted Projects/scenes entry is excluded from this immutable snapshot and retained untouched in the donor. Media timeline/demo actions stay business-specific; generic guarded close, saved-baseline and sidebar visibility/ownership patterns remain pending in issues3/5, not imported or accepted from a donor draft."
       ],
       "targets": [
         {
@@ -19230,7 +19381,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "menu::top_menu_button(ui, crate::ui::i18n::text(\"File\")"
         },
         {
@@ -19284,11 +19435,17 @@
           "code": "Current header_endpoint_combo fixed 154-pixel clipped trigger/full 240-pixel popup and density/font/disabled-hover geometry tests",
           "disposition": "pending",
           "reason": "Pakar now has one unified method trigger and selected-method details, not independent route popups. It reuses240px popup choices but not the donor154px endpoint trigger/dynamic-density geometry assertions. Compare actual long-text/font/scale layouts before claiming geometry parity; no duplicate or pretend-ready control should be added to match labels."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "Reviewed the committed menu delta only. The separately inspected uncommitted Projects/scenes entry is excluded from this immutable snapshot and retained untouched in the donor. Media timeline/demo actions stay business-specific; generic guarded close, saved-baseline and sidebar visibility/ownership patterns remain pending in issues3/5, not imported or accepted from a donor draft."
         }
       ],
       "remaining": [
         "Restore remaining useful generic menu contracts above against actual dependencies; see exact function-level mapping in NATIVE-MENU-COMPARISON.md. Native CI paint/pointer tests and running-app visual acceptance are separate from source guards.",
-        "Shared dropdown dependency now has a complete-read comparison; preserve remaining generic consumer contracts and verify native runtime without claiming whole-file parity."
+        "Shared dropdown dependency now has a complete-read comparison; preserve remaining generic consumer contracts and verify native runtime without claiming whole-file parity.",
+        "Reviewed the committed menu delta only. The separately inspected uncommitted Projects/scenes entry is excluded from this immutable snapshot and retained untouched in the donor. Media timeline/demo actions stay business-specific; generic guarded close, saved-baseline and sidebar visibility/ownership patterns remain pending in issues3/5, not imported or accepted from a donor draft."
       ],
       "proof": [
         {
@@ -19312,7 +19469,14 @@
           "anchor": "const compact=source=>source.replace"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "a0196878c7b76b898d0a5791b122181d9045d3fbbe9f56de52bc43242edf2d9d",
+        "previous_git_revision": "b6c6effae7981ed6b81b9709ee99a20b64040c44",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -19615,11 +19779,12 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/toasts.rs",
-      "sha256": "30d4ff8c9a30b783f9513a3508787e9ca233881bb3a9bda2e1b9f9cd1bc9c989",
+      "sha256": "a43b71d1617a273b0ab406e3d40bc18d303749b1aa6bcb7b141ee2a9381e373f",
       "source_read": "complete",
-      "verdict": "scoped-improvement",
+      "verdict": "parity-gap",
       "preserved": [
-        "Actual donor root-only overlay: four newest messages, severity icons and semantic palette roles, bounded width, scrollable text, title, dismiss and deadline-driven repaint. The current optional details disclosure and localized label are imported unchanged in behavior."
+        "Actual donor root-only overlay: four newest messages, severity icons and semantic palette roles, bounded width, scrollable text, title, dismiss and deadline-driven repaint. The current optional details disclosure and localized label are imported unchanged in behavior.",
+        "2026-11-05 integration rereview: New bounded actionable notifications, one-shot activation, retained diagnostic modal and hover/focus copy-details actions are useful but not in Pakar. Downgrade the former scoped-comparison verdict to parity-gap; import through Pakar command ownership with replay fences and geometry tests in issue5."
       ],
       "targets": [
         {
@@ -19633,10 +19798,16 @@
           "code": "interop::get_live_config() accessor",
           "disposition": "replaced",
           "reason": "Pakar owns the same live palette through config::live(). The OS-native notification route is separate; adding an explicit in-app enable preference does not remove the donor overlay when enabled."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "New bounded actionable notifications, one-shot activation, retained diagnostic modal and hover/focus copy-details actions are useful but not in Pakar. Downgrade the former scoped-comparison verdict to parity-gap; import through Pakar command ownership with replay fences and geometry tests in issue5."
         }
       ],
       "remaining": [
-        "This native overlay mapping is not shared Web/TUI message-delivery parity."
+        "This native overlay mapping is not shared Web/TUI message-delivery parity.",
+        "New bounded actionable notifications, one-shot activation, retained diagnostic modal and hover/focus copy-details actions are useful but not in Pakar. Downgrade the former scoped-comparison verdict to parity-gap; import through Pakar command ownership with replay fences and geometry tests in issue5."
       ],
       "proof": [
         {
@@ -19650,7 +19821,14 @@
           "anchor": "fn concise_notification_retains_bounded_original_diagnostics()"
         }
       ],
-      "improvement": "Retains the donor overlay and detailed disclosure while adding Pakar's explicit in-app notification preference, concise user-facing failure summaries, bounded technical details, and separate privacy-safe Windows notification delivery."
+      "improvement": "Retains the donor overlay and detailed disclosure while adding Pakar's explicit in-app notification preference, concise user-facing failure summaries, bounded technical details, and separate privacy-safe Windows notification delivery.",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "30d4ff8c9a30b783f9513a3508787e9ca233881bb3a9bda2e1b9f9cd1bc9c989",
+        "previous_git_revision": "cee9f0eaf528cb3db76c0b606b5298ec05be03c0",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -19713,12 +19891,13 @@
     {
       "origin": "Pealayer",
       "path": "src/application_shortcuts.rs",
-      "sha256": "1f173bef8acc2904eac5b0a91407aa4f7629ce65c88ea3a8ac78f8c13321d203",
+      "sha256": "2bd45b5e121cc93740746f377d56c7e388b873813f251dcc57b903866bbe74e7",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Imported the donor's reusable persisted shortcut model for six controller actions: fullscreen, refresh, Preferences, device settings, connect and cell mapping. Parsing uses physical key codes, exact modifiers, initial key presses only, validation rejects duplicates/invalid values, and text editing protects bare printable keys.",
-        "Menu accelerator labels and event dispatch read the same saved configuration. Empty bindings disable an action; one matched event is consumed once. Controller actions replace the donor's media-only operations without inventing playback behavior."
+        "Menu accelerator labels and event dispatch read the same saved configuration. Empty bindings disable an action; one matched event is consumed once. Controller actions replace the donor's media-only operations without inventing playback behavior.",
+        "2026-11-05 integration rereview: The only changed line uses the upstream META modifier instead of SUPER. Pakar retains its own parser/type family; validate cross-platform modifier semantics during the issue50 family migration. Existing installed focus/rebinding acceptance remains pending."
       ],
       "targets": [
         {
@@ -19728,17 +19907,17 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "pub application_shortcuts:"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "Keyboard shortcuts"
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "crate::application_shortcuts::take_action"
         }
       ],
@@ -19757,10 +19936,16 @@
           "code": "media_information and media_folder accelerators",
           "disposition": "pending",
           "reason": "The media operations cannot be retained as-is, but their reusable information/folder-navigation affordances need explicit hardware-monitor and application-folder action decisions. They are not silently treated as completed controller mappings."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The only changed line uses the upstream META modifier instead of SUPER. Pakar retains its own parser/type family; validate cross-platform modifier semantics during the issue50 family migration. Existing installed focus/rebinding acceptance remains pending."
         }
       ],
       "remaining": [
-        "Installed native focus/rebinding/menu visual acceptance remains open. Global/hardware shortcut ownership is a separate capability and is not claimed by this application-focused import."
+        "Installed native focus/rebinding/menu visual acceptance remains open. Global/hardware shortcut ownership is a separate capability and is not claimed by this application-focused import.",
+        "The only changed line uses the upstream META modifier instead of SUPER. Pakar retains its own parser/type family; validate cross-platform modifier semantics during the issue50 family migration. Existing installed focus/rebinding acceptance remains pending."
       ],
       "proof": [
         {
@@ -19769,7 +19954,14 @@
           "anchor": ".shortcut_text(&shortcuts."
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "1f173bef8acc2904eac5b0a91407aa4f7629ce65c88ea3a8ac78f8c13321d203",
+        "previous_git_revision": "3d403bcf1a3530dc60f824224aa8c64705df3e0a",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -19848,7 +20040,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20018,7 +20210,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20228,12 +20420,13 @@
     {
       "origin": "Pealayer",
       "path": "src/messaging.rs",
-      "sha256": "44ba995614f2acc3230f6adc13c00500e6844db81aa36d5e60e7eeb9e90d6f9f",
+      "sha256": "1269093756edafafd2c09223ab79b241a57848d34e88323f2877b63d53d4d04b",
       "source_read": "complete",
-      "verdict": "scoped-improvement",
+      "verdict": "parity-gap",
       "preserved": [
         "The current 226-line donor was completely reread. Pakar retains request validation, bounded queue, expiry/upsert/dismiss/revision/source identity and the original tests, and now imports Toast.details, publish_with_details, public publish_detailed and the 8192-character pre-mutation validation.",
-        "The shared bounded/upsert message hub has truthful native owner-IPC snapshot exposure for actual toast monitoring. Host connection alerts require2s stable state to avoid transient loss/recovery pairs; command freshness still changes immediately. Distinct diagnostic causes remain in the incident ledger, while detailed failures preserve concise notification copy."
+        "The shared bounded/upsert message hub has truthful native owner-IPC snapshot exposure for actual toast monitoring. Host connection alerts require2s stable state to avoid transient loss/recovery pairs; command freshness still changes immediately. Distinct diagnostic causes remain in the incident ledger, while detailed failures preserve concise notification copy.",
+        "2026-11-05 integration rereview: New bounded ToastAction/default_action validation, unique creation epochs, consume-once action routing and expiry/replacement/replay negatives are useful unfinished imports. Downgrade the former scoped-comparison verdict to parity-gap; adapt through the Pakar command owner and preserve original diagnostics in issue5."
       ],
       "targets": [
         {
@@ -20244,7 +20437,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "value[\"messages\"]",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         },
         {
           "path": "desktop/src/platform/notifications.rs",
@@ -20252,9 +20445,16 @@
           "sha256": "7bc00792827606683cac5665eaf5d72f8e04f9a3667dc38e54267fa24451f574"
         }
       ],
-      "omissions": [],
+      "omissions": [
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "New bounded ToastAction/default_action validation, unique creation epochs, consume-once action routing and expiry/replacement/replay negatives are useful unfinished imports. Downgrade the former scoped-comparison verdict to parity-gap; adapt through the Pakar command owner and preserve original diagnostics in issue5."
+        }
+      ],
       "remaining": [
-        "Current donor native messaging behavior is imported; Web/TUI/IPC notification-surface parity and installed visual acceptance remain separate cross-surface work."
+        "Current donor native messaging behavior is imported; Web/TUI/IPC notification-surface parity and installed visual acceptance remain separate cross-surface work.",
+        "New bounded ToastAction/default_action validation, unique creation epochs, consume-once action routing and expiry/replacement/replay negatives are useful unfinished imports. Downgrade the former scoped-comparison verdict to parity-gap; adapt through the Pakar command owner and preserve original diagnostics in issue5."
       ],
       "proof": [
         {
@@ -20268,7 +20468,14 @@
           "sha256": "7bc00792827606683cac5665eaf5d72f8e04f9a3667dc38e54267fa24451f574"
         }
       ],
-      "improvement": "Preserves the donor hub while integrating detailed failures with Pakar's source-specific incident deduplication, concise UI copy, privacy-safe Windows notices and stable connection-loss notification policy."
+      "improvement": "Preserves the donor hub while integrating detailed failures with Pakar's source-specific incident deduplication, concise UI copy, privacy-safe Windows notices and stable connection-loss notification policy.",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "44ba995614f2acc3230f6adc13c00500e6844db81aa36d5e60e7eeb9e90d6f9f",
+        "previous_git_revision": "cee9f0eaf528cb3db76c0b606b5298ec05be03c0",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
@@ -20325,7 +20532,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "icons::searchable_workspace_icon_picker"
         },
         {
@@ -21999,11 +22206,12 @@
     {
       "origin": "Pealayer",
       "path": "scripts/capture-visible-window-windows.ps1",
-      "sha256": "94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f",
+      "sha256": "54d099cdb7e3cfb757cf55572f7a490ff3667a210dab878ead2c63b8c3a6200d",
       "source_read": "complete",
       "verdict": "scoped-improvement",
       "preserved": [
-        "Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior."
+        "Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior.",
+        "Workspace modes pass reread the complete 73-line donor and complete Pakar capture helper. The donor now accepts an optional ExpectedProcessId; Pakar already requires it and validates window ownership and no-overwrite semantics. No additional capture implementation was added."
       ],
       "targets": [
         {
@@ -22153,12 +22361,13 @@
     {
       "origin": "Pealayer",
       "path": "web_ui/src/appearance.ts",
-      "sha256": "b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58",
+      "sha256": "0e4465a74262f3ea4792685d01bca16a78965e1f8c1ed7a036c961da48d887e2",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Fully reread current source through EOF. The five previously adapted helpers remain in the target: mergeAppearance, resolvedAccent, resolvedAppearanceTheme, accentForeground and paletteName. Existing theme/palette/accent host resolution and luminance semantics remain; newer animation/density/font preference fields and font CSS helpers are explicitly pending, not claimed imported.",
-        "Generated into the shipped WebUi.h with the shared palette asset; --check rejects stale embedding. Browser preferences dialog validates theme/palette/accent, protects drafts, handles storage failure and cross-tab/System events without device writes or repetitive identical storage writes."
+        "Generated into the shipped WebUi.h with the shared palette asset; --check rejects stale embedding. Browser preferences dialog validates theme/palette/accent, protects drafts, handles storage failure and cross-tab/System events without device writes or repetitive identical storage writes.",
+        "2026-11-05 integration rereview: New extra_compact sizing, safe custom-font CSS, persisted host-font names and workspace/grouped-navigation merge fields are useful gaps, not part of the current embedded appearance module. Preserve all former host/offline/cancel semantics and finish shared appearance transport in issue3."
       ],
       "targets": [
         {
@@ -22192,10 +22401,16 @@
           "code": "Connected host AppearanceState broadcast/native-Web shared preference path",
           "disposition": "pending",
           "reason": "Pure functions accept host state and tests preserve donor semantics, but standalone browser controls are browser-local today. No actual native appearance event/readback transport is integrated in this pass; System fallback is labeled browser-local."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "New extra_compact sizing, safe custom-font CSS, persisted host-font names and workspace/grouped-navigation merge fields are useful gaps, not part of the current embedded appearance module. Preserve all former host/offline/cancel semantics and finish shared appearance transport in issue3."
         }
       ],
       "remaining": [
-        "Implement native/Web/mobile shared preference transport and live authoritative host events, while keeping device parameters separate from client appearance; verify multi-client broadcast/readback."
+        "Implement native/Web/mobile shared preference transport and live authoritative host events, while keeping device parameters separate from client appearance; verify multi-client broadcast/readback.",
+        "New extra_compact sizing, safe custom-font CSS, persisted host-font names and workspace/grouped-navigation merge fields are useful gaps, not part of the current embedded appearance module. Preserve all former host/offline/cancel semantics and finish shared appearance transport in issue3."
       ],
       "proof": [
         {
@@ -22209,16 +22424,24 @@
           "anchor": "dialog draft/cancel never changes"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58",
+        "previous_git_revision": "b455f59e0dd75cf1320cde1124d1f8630cd76b96",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
       "path": "web_ui/scripts/appearance.test.mjs",
-      "sha256": "35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc",
+      "sha256": "1ffacf02fc3a772b945f62336d0900cb0e03bafda192a99606fb3a7ece2b5683",
       "source_read": "complete",
-      "verdict": "equivalent-behavior",
+      "verdict": "parity-gap",
       "preserved": [
-        "All four actual donor contract tests ported: Neutral helper default, preference merge without unrelated-field loss/resolution leakage, host/offline theme/accent and repeated native event/explicit-theme handling. Additional shipped-code tests cover all palette roles, cancel/apply, contrast, identical-write skip, media events, malformed storage, cross-tab updates and session-only storage failure."
+        "All four actual donor contract tests ported: Neutral helper default, preference merge without unrelated-field loss/resolution leakage, host/offline theme/accent and repeated native event/explicit-theme handling. Additional shipped-code tests cover all palette roles, cancel/apply, contrast, identical-write skip, media events, malformed storage, cross-tab updates and session-only storage failure.",
+        "2026-11-05 integration rereview: The two new tests for ExtraCompact text geometry and host workspace/custom-font preview are not ported. Downgrade the former equivalent verdict to parity-gap; retain the original four adapted tests and add the actual new consumers before claiming parity in issue3."
       ],
       "targets": [
         {
@@ -22237,10 +22460,16 @@
           "code": "Direct TypeScript test import",
           "disposition": "replaced",
           "reason": "Tests import the actual adapted JavaScript functions; browser tests additionally execute the shipped embedded source, avoiding a separate mock appearance engine."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "The two new tests for ExtraCompact text geometry and host workspace/custom-font preview are not ported. Downgrade the former equivalent verdict to parity-gap; retain the original four adapted tests and add the actual new consumers before claiming parity in issue3."
         }
       ],
       "remaining": [
-        "Test execution proves module and simulated browser contracts, not connected native event transport or physical hardware."
+        "Test execution proves module and simulated browser contracts, not connected native event transport or physical hardware.",
+        "The two new tests for ExtraCompact text geometry and host workspace/custom-font preview are not ported. Downgrade the former equivalent verdict to parity-gap; retain the original four adapted tests and add the actual new consumers before claiming parity in issue3."
       ],
       "proof": [
         {
@@ -22249,12 +22478,19 @@
           "anchor": "live host theme events leave System preference unchanged"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc",
+        "previous_git_revision": "5fea5f2e3e487ed3d260d6e61cf0441ccc3cf314",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "Pealayer",
       "path": "src/ui/dialog.rs",
-      "sha256": "8a396d67862578f8727e43a952e82120b20c9c582ebcc5366ab0968ba8f704d8",
+      "sha256": "a4d2282e7a1f6aa4597fc0c8fc27be69272f0c4a62166a592173ca5c904a8fb6",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
@@ -22265,12 +22501,13 @@
         "The final panel pass adds measured, accessible single-line feature-chip slots after an actual Hardware framebuffer exposed collapsed vertical labels. The shared setting-row brightness consumer now isolates an in-progress pointer draft by current peer, boot, route and connection epoch, otherwise reading the live observation on USB and Wi-Fi. Release or keyboard emits one intent; owner loss, Escape, lost focus or a missing panel frame cancels the draft. These are controller-specific safety/layout adaptations of the reused controls, not newly claimed donor numeric-control equivalence.",
         "Preferences footer checkpoint reread the complete actual 1236-line src/ui/dialog.rs at C:/Users/David/AppData/Local/Programs/Pealayer/source/Pealayer. Existing imported action-button, navigation and scroll-column helpers remain reused. Preferences reserves trailing Save/Cancel slots before clipping status rather than allowing a leading long status to consume action width; native and embedded hosts share this layout. The added actual-egui geometry regression exercises resize, both text directions, regular/comfortable density, short and unmatched categories, long status, bounded action painting and unchanged drafts. No helper-process/focus-modal or full numeric-control parity is claimed.",
         "2026-10-29 Simon settings: specialist read all1236 actual dialog donor lines through EOF after inspecting setting_row/navigation/action helpers before edits; secondary dropdown source also fully read. Retain imported setting_row and detail-choice geometry for an optional bounded additional-steps field. Only explicit picker click applies current Pakar Config::defaults (3,5,7 at300/120ms); painting/reopening preserves user edits and wiring/boot/timer policies, and an unadvertised optional growth field is never invented. Inline tests cover bounds, visibility, explicit-only defaults and exact readback. These are Pakar game rules, not donor business logic; installed gameplay and wider generic dialog parity remain open.",
-        "2026-10-29 native game-settings audit: root reread all1236 actual donor dialog lines and646 dropdown lines at unchanged recorded raw hashes. Retain existing section/setting_row/detail-choice geometry and keyboard-aware ComboBox. Replace stock Toggle selectable-values, add readable output predicates and numbered board-catalog entries. Known explicit game changes apply current engine defaults only to advertised rule fields, preserving wiring/device policies/unknown fields/same-mode edits. Contextual numeric editors have stable field IDs, unused controls are hidden, and painting output rows never reconstructs or drops optional JSON. All17 focused native game tests and5 shared-dropdown tests pass; installed ASUS behavior and wider donor parity remain open."
+        "2026-10-29 native game-settings audit: root reread all1236 actual donor dialog lines and646 dropdown lines at unchanged recorded raw hashes. Retain existing section/setting_row/detail-choice geometry and keyboard-aware ComboBox. Replace stock Toggle selectable-values, add readable output predicates and numbered board-catalog entries. Known explicit game changes apply current engine defaults only to advertised rule fields, preserving wiring/device policies/unknown fields/same-mode edits. Contextual numeric editors have stable field IDs, unused controls are hidden, and painting output rows never reconstructs or drops optional JSON. All17 focused native game tests and5 shared-dropdown tests pass; installed ASUS behavior and wider donor parity remain open.",
+        "2026-11-05 integration rereview: Reviewed Craft modal tokens, fixed inline-caption height, egui0.37 scroll/wheel source API changes and one-shot scroll_column_at. These require contextual adaptation to the current0.36 family; no blind API transplant. Remaining dialog/token/navigation parity stays in issue3; upgrade tracking is issue50."
       ],
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);"
         },
         {
@@ -22290,12 +22527,12 @@
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "pub fn correction_rules("
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "pub fn network("
         },
         {
@@ -22329,11 +22566,17 @@
           "code": "Current stable_toggle, fixed-slot close_button, confirmation_modal AlertDialog focus restoration/top-modal Escape/non-destructive backdrop, inline_caption_edit and density-aware singleline_text_edit",
           "disposition": "pending",
           "reason": "Density-aware singleline_text_edit is adapted, but the generic stable_toggle, fixed-slot close_button, confirmation-modal focus/top-modal Escape/backdrop and inline-caption behavior still need complete consumer/test reconciliation. Current custom Preferences/device dialogs are not certified equivalent to those donor helpers."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "Reviewed Craft modal tokens, fixed inline-caption height, egui0.37 scroll/wheel source API changes and one-shot scroll_column_at. These require contextual adaptation to the current0.36 family; no blind API transplant. Remaining dialog/token/navigation parity stays in issue3; upgrade tracking is issue50."
         }
       ],
       "remaining": [
         "Execute and record current native panel/painter geometry tests, then capture/deploy through guarded workflows. The earlier cache-budget blockage is historical, not asserted current. Source/DOM-double or native offscreen tests are not installed visual or physical acceptance.",
-        "Complete the named generic dialog call-site/test reconciliation in issue #3; no whole-file behavioral equivalence or whole-project superiority claim."
+        "Complete the named generic dialog call-site/test reconciliation in issue #3; no whole-file behavioral equivalence or whole-project superiority claim.",
+        "Reviewed Craft modal tokens, fixed inline-caption height, egui0.37 scroll/wheel source API changes and one-shot scroll_column_at. These require contextual adaptation to the current0.36 family; no blind API transplant. Remaining dialog/token/navigation parity stays in issue3; upgrade tracking is issue50."
       ],
       "proof": [
         {
@@ -22398,22 +22641,22 @@
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn feature_chips_wrap_as_whole_slots_without_vertical_labels_or_overflow()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn network_and_corrections_stay_bounded_and_passive_in_narrow_panels()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn scoped_action_rows_fit_narrow_cards_and_keep_wide_rows_compact()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn ethernet_uses_the_board_link_up_observation()"
         },
         {
@@ -22452,7 +22695,14 @@
           "anchor": "fn minigame_settings_all_modes_render_without_commands_or_draft_mutation()"
         }
       ],
-      "improvement": ""
+      "improvement": "",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "8a396d67862578f8727e43a952e82120b20c9c582ebcc5366ab0968ba8f704d8",
+        "previous_git_revision": "88741e36d97f74bc51e6b88d9b8dc90a1236124a",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "RayanLamp",
@@ -23216,7 +23466,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "value[\"tray_shell\"]"
         },
         {
@@ -23335,7 +23585,7 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/preferences.rs",
-      "sha256": "1fa2482a389fee84c79eef3d69ad8cc0ecb922c319fd222219af3e90d7e6f965",
+      "sha256": "8c78a47f3924d0750b3a0d67e58dd9c00bfc2b6aaeb8e8300e95ed60981a0ceb",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
@@ -23344,38 +23594,39 @@
         "Adapted actual PreferencesDraft::sync_external_appearance triple-baseline merge to sync_connection_owner. External selected method/enabled/endpoint/user/port update all three baselines while preserving unrelated dirty edits. Preferences now shows only the selected method's summary and delegates clean drafts to the single canonical connection dialog; unrelated Save cannot restore stale connection owner fields.",
         "Status-bar pass extends that same live-owner triple-baseline mechanism with sync_status_owner: visibility, normalized order and leading/trailing placement update saved/current/previewed Preferences baselines without committing or discarding unrelated appearance edits. A footer change therefore survives a subsequent Preferences Save or Discard. The regression covers clean and dirty drafts; source coverage is not an installed-runtime claim.",
         "Adapt the existing donor draft separation and clean-navigation rule to a contextual Preferences Board tab for every acknowledged device, not only buzzer boards. Device settings opens only after PC preferences are saved/discarded; no MCU draft is copied into AppConfig. The LED settings page invokes the actual shared LED controls rather than a duplicate engine or link-only placeholder; USB settings header shows its selected port only.",
-        "Preferences footer checkpoint fully reread the actual 2308-line donor at C:/Users/David/AppData/Local/Programs/Pealayer/source/Pealayer/src/ui/preferences.rs, with matching original-byte hash and revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Adapt draw_preferences_editor's bottom-panel-first then CentralPanel allocation, the compact category selector below 560px, and the native host's 12px top/side but 2px bottom margin. Remove the guessed 260px body minimum; short viewports scroll the rail/body within real available space. Reserve Save/Cancel before truncatable status so long status text cannot displace actions. Keep all seven Pakar categories, capability gating, search, draft baselines and explicit save/discard behavior. This is geometry/draft preservation, not helper-process or full typed-Preferences parity."
+        "Preferences footer checkpoint fully reread the actual 2308-line donor at C:/Users/David/AppData/Local/Programs/Pealayer/source/Pealayer/src/ui/preferences.rs, with matching original-byte hash and revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Adapt draw_preferences_editor's bottom-panel-first then CentralPanel allocation, the compact category selector below 560px, and the native host's 12px top/side but 2px bottom margin. Remove the guessed 260px body minimum; short viewports scroll the rail/body within real available space. Reserve Save/Cancel before truncatable status so long status text cannot displace actions. Keep all seven Pakar categories, capability gating, search, draft baselines and explicit save/discard behavior. This is geometry/draft preservation, not helper-process or full typed-Preferences parity.",
+        "2026-11-05 integration rereview: Reviewed bounded typed helper navigation over piped stdin, nonblocking parent queue, scroll navigation, grouped rail, font search/preview, Wayland-vsync resolution and tests. PR49 imports only grouped navigation/shared workspace choice. The remaining generic helper/font/config ownership contracts stay pending in issue3."
       ],
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "egui::Panel::bottom(ui.id().with(\"preferences-footer\"))"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn sync_connection_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn sync_status_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn connection_summary("
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "pub(super) fn draw_led_settings(",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "omissions": [
@@ -23403,49 +23654,62 @@
           "code": "Playback/track/subtitle/history/media-association options and mpv audio refresh",
           "disposition": "not-applicable",
           "reason": "The requested controller is explicitly mpv-free and has no media playback domain. Generic preference lifecycle, navigation, picker and rendering mechanisms remain independently pending rather than excluded with those options."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "Reviewed bounded typed helper navigation over piped stdin, nonblocking parent queue, scroll navigation, grouped rail, font search/preview, Wayland-vsync resolution and tests. PR49 imports only grouped navigation/shared workspace choice. The remaining generic helper/font/config ownership contracts stay pending in issue3."
         }
       ],
       "remaining": [
-        "Compare/import the pending generic helper/controller/config-watcher and typed-control dependencies, then verify native visual/navigation/focus and dirty concurrent-owner behavior in the installed app. Guarded Rust tests are not live USB or human acceptance."
+        "Compare/import the pending generic helper/controller/config-watcher and typed-control dependencies, then verify native visual/navigation/focus and dirty concurrent-owner behavior in the installed app. Guarded Rust tests are not live USB or human acceptance.",
+        "Reviewed bounded typed helper navigation over piped stdin, nonblocking parent queue, scroll navigation, grouped rail, font search/preview, Wayland-vsync resolution and tests. PR49 imports only grouped navigation/shared workspace choice. The remaining generic helper/font/config ownership contracts stay pending in issue3."
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()"
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "fn cell_background_preference_is_opt_in_and_roundtrips_without_other_changes()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn lamp_background_preview_and_discard_preserve_saved_configuration()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn external_connection_owner_updates_all_baselines_without_losing_unrelated_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn status_bar_changes_survive_preferences_save_or_discard_without_erasing_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn connection_summary_is_contextual_and_dirty_preferences_cannot_open_another_editor()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
-      "improvement": "One connection owner instead of conflicting Preferences editors, while preserving unrelated drafts and the donor's triple-baseline merge mechanism."
+      "improvement": "One connection owner instead of conflicting Preferences editors, while preserving unrelated drafts and the donor's triple-baseline merge mechanism.",
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "1fa2482a389fee84c79eef3d69ad8cc0ecb922c319fd222219af3e90d7e6f965",
+        "previous_git_revision": "544e71f8215aeab95798b8d98b5f623b91ff9d16",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "PCController",
@@ -23484,7 +23748,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -23504,7 +23768,7 @@
         {
           "path": "desktop/src/ui/device_settings.rs",
           "anchor": "fn avr_page(",
-          "sha256": "c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6"
+          "sha256": "0a11bad688da38bf295e8a85436288d86c7e97f3bc7a69424c19f879055b214e"
         },
         {
           "path": "desktop/src/device_settings.rs",
@@ -24427,7 +24691,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -24764,7 +25028,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -24974,7 +25238,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn synchronize_context",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         },
         {
           "path": "desktop/src/ui/layout.rs",
@@ -24989,7 +25253,7 @@
         {
           "path": "desktop/src/config.rs",
           "anchor": "pub native_workspaces",
-          "sha256": "b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414"
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b"
         },
         {
           "path": "mobile/lib/table_workspace.dart",
@@ -25268,12 +25532,13 @@
     {
       "origin": "Pealayer",
       "path": "web_ui/src/App.tsx",
-      "sha256": "ba2d7a35e2f887ec556b681cca24aaa6f263295208cbc80678bc248b61949845",
+      "sha256": "fffcefba10a216c37df44f986f064987a74e686eafc2cf1425d64f6220992e0c",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
         "Completely reread matching actual donor. Import/adapt readStoredJson/persistJson pending-map/timer/pagehide and per-surface scroll patterns into immutable board_id+application.id workspace storage. Selection/find/focus, presentation/panels, public drafts, settings navigation and scroll restore passively; equal writes skip, blocked storage retains in-memory state, and changed fresh settings keep their conflict baseline.",
-        "Reread App.tsx through EOF for actual surfaceFromLocation/setActiveTab/followLocation. Adapt the allowlisted fragment, same-path/query history update with equal-write skip, and hashchange/popstate listeners into the EXISTING Studio workspace owner. Explicit links wait for acknowledged panels rather than unhiding capabilities, and do not rebuild card/draft owners or issue commands. Generic browser-tab localStorage fallback was not duplicated; existing peer-scoped workspace persistence remains authoritative."
+        "Reread App.tsx through EOF for actual surfaceFromLocation/setActiveTab/followLocation. Adapt the allowlisted fragment, same-path/query history update with equal-write skip, and hashchange/popstate listeners into the EXISTING Studio workspace owner. Explicit links wait for acknowledged panels rather than unhiding capabilities, and do not rebuild card/draft owners or issue commands. Generic browser-tab localStorage fallback was not duplicated; existing peer-scoped workspace persistence remains authoritative.",
+        "2026-11-05 integration rereview: Reviewed control-specific ExtraCompact typography, custom-font names, expanded appearance event dependencies and bound toast invocation. Preserve existing root ownership; shared appearance and replay-fenced notification commands remain pending in issues3/5, not automatically imported with the native workspace."
       ],
       "targets": [
         {
@@ -25314,11 +25579,24 @@
           "code": "Cross-origin browser workspace migration and full donor multi-surface navigation",
           "disposition": "pending",
           "reason": "Allowlisted controls/diagnostics/effects/hardware/api/all fragment selection is adapted. Modal-only Network/Firmware settings still use their existing guarded dialog and are excluded from new deep links until draft-safe modal history is implemented. Cross-origin workspace migration/export/import and per-surface scroll parity remain pending; no broad App.tsx parity claim."
+        },
+        {
+          "code": "New donor source delta reviewed during GitHub handoff",
+          "disposition": "pending",
+          "reason": "Reviewed control-specific ExtraCompact typography, custom-font names, expanded appearance event dependencies and bound toast invocation. Preserve existing root ownership; shared appearance and replay-fenced notification commands remain pending in issues3/5, not automatically imported with the native workspace."
         }
       ],
       "remaining": [
-        "Browser layout/actual reconnect/reboot and physical LED acceptance remain open; DOM doubles are not visual/device proof."
-      ]
+        "Browser layout/actual reconnect/reboot and physical LED acceptance remain open; DOM doubles are not visual/device proof.",
+        "Reviewed control-specific ExtraCompact typography, custom-font names, expanded appearance event dependencies and bound toast invocation. Preserve existing root ownership; shared appearance and replay-fenced notification commands remain pending in issues3/5, not automatically imported with the native workspace."
+      ],
+      "source_review": {
+        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
+        "previous_sha256": "ba2d7a35e2f887ec556b681cca24aaa6f263295208cbc80678bc248b61949845",
+        "previous_git_revision": "cee9f0eaf528cb3db76c0b606b5298ec05be03c0",
+        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "working_tree_delta": false
+      }
     },
     {
       "origin": "PCController",

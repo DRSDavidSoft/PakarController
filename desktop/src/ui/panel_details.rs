@@ -8,6 +8,20 @@ use super::{
 use crate::{DeviceStatus, pixel_corrections};
 use eframe::egui;
 
+/// Reserve the whole caption column while keeping its widget and text at the
+/// left edge. add_sized centers the widget itself, even with Label::halign(Min).
+pub fn field_caption(
+    ui: &mut egui::Ui,
+    size: impl Into<egui::Vec2>,
+    caption: impl Into<egui::WidgetText>,
+) -> egui::Response {
+    let size = size.into();
+    ui.allocate_ui_with_layout(size, egui::Layout::left_to_right(egui::Align::Center), |ui| {
+        ui.set_min_size(size);
+        ui.add(egui::Label::new(caption).halign(egui::Align::Min).truncate())
+    }).inner
+}
+
 pub fn detail(ui: &mut egui::Ui, icon: &str, label: &str, value: &str) {
     let value = if value.is_empty() { "—" } else { value };
     let caption = format!("{icon}  {}", super::i18n::text(label));
@@ -17,9 +31,10 @@ pub fn detail(ui: &mut egui::Ui, icon: &str, label: &str, value: &str) {
             .on_hover_text(value);
     } else {
         ui.horizontal(|ui| {
-            ui.add_sized(
+            field_caption(
+                ui,
                 [132.0, 20.0],
-                egui::Label::new(egui::RichText::new(caption).weak()).truncate(),
+                egui::RichText::new(caption).weak(),
             );
             ui.add(egui::Label::new(value).truncate())
                 .on_hover_text(value);
@@ -134,7 +149,7 @@ pub fn physical_groups(ui: &mut egui::Ui, value: &mut crate::pixel_groups::Layou
                         let caption=mappings.iter().find(|map|map.physical_cell==group).map(|m|
                             format!("Group {group} · cell {}",m.logical_id)).unwrap_or_else(||format!("Group {group}"));
                         let label_width=(ui.available_width()-170.0).max(55.0);
-                        ui.add_sized([label_width,row_height-8.0],egui::Label::new(&caption).truncate()).on_hover_text(&caption);
+                        field_caption(ui,[label_width,row_height-8.0],caption.as_str()).on_hover_text(&caption);
                         if ui.checkbox(&mut custom,super::i18n::text("Custom")).changed() {
                             count=if custom {value.default_count} else {0};
                             // Preserve an explicit draft toggle even before its value differs.
@@ -462,6 +477,64 @@ pub fn network(ui: &mut egui::Ui, status: &DeviceStatus) -> Option<&'static str>
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn detail_keys_share_left_edge_and_values_keep_their_column() {
+        let labels = ["Firmware", "Host", "AVR firmware", "UART", "UART errors", "Role", "LED driver"];
+        for dark in [false, true] {
+            for pixels_per_point in [1.0, 1.25, 1.5, 2.0] {
+                for width in [260.0, 600.0] {
+                    let ctx = egui::Context::default();
+                    ctx.set_visuals(if dark { egui::Visuals::dark() } else { egui::Visuals::light() });
+                    ctx.set_pixels_per_point(pixels_per_point);
+                    let mut left = 0.0;
+                    let mut output = ctx.run_ui(
+                        egui::RawInput {
+                            screen_rect: Some(egui::Rect::from_min_size(
+                                egui::Pos2::ZERO, egui::vec2(width, 800.0))),
+                            ..Default::default()
+                        },
+                        |ui| {
+                            // Constrain the logical dock width explicitly: a
+                            // first-frame DPI change can resize the root viewport.
+                            ui.set_width(width);
+                            dialog::section(ui, icons::CPU, "Controllers", |ui| {
+                                left = ui.cursor().left();
+                                for (index, label) in labels.iter().enumerate() {
+                                    detail(ui, icons::CPU, label, &format!("value-{index}"));
+                                }
+                            });
+                        },
+                    );
+                    output.textures_delta.clear();
+                    let keys: Vec<_> = output.shapes.iter().filter_map(|shape| match &shape.shape {
+                        egui::Shape::Text(text) if labels.iter().any(|label|
+                            text.galley.text() == format!("{}  {}", icons::CPU, super::super::i18n::text(label))) => Some(text),
+                        _ => None,
+                    }).collect();
+                    assert_eq!(keys.len(), labels.len());
+                    for key in keys {
+                        assert!((key.pos.x - left).abs() < 0.5,
+                            "key {:?} starts at {}, not {left}; width={width}, scale={pixels_per_point}, dark={dark}",
+                            key.galley.text(), key.pos.x);
+                    }
+                    let values: Vec<_> = output.shapes.iter().filter_map(|shape| match &shape.shape {
+                        egui::Shape::Text(text) if text.galley.text().starts_with("value-") => Some(text),
+                        _ => None,
+                    }).collect();
+                    assert_eq!(values.len(), labels.len());
+                    let value_left = values[0].pos.x;
+                    assert!(values.iter().all(|value| (value.pos.x - value_left).abs() < 0.5));
+                    if width > 330.0 {
+                        assert!(value_left >= left + 132.0);
+                    } else {
+                        assert!((value_left - left).abs() < 0.5,
+                            "stacked value starts at {value_left}, not {left}; width={width}, scale={pixels_per_point}, dark={dark}");
+                    }
+                }
+            }
+        }
+    }
+
     #[test]
     fn feature_chips_wrap_as_whole_slots_without_vertical_labels_or_overflow() {
         let features: Vec<String> = [
