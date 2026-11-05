@@ -1,4 +1,5 @@
 $ErrorActionPreference='Stop'
+& (Join-Path $PSScriptRoot 'consult-reuse.ps1') -Concern orbit-firmware | Out-Null
 & (Join-Path $PSScriptRoot 'consult-reuse.ps1') -Concern updates-telemetry -Summary | Out-Null
 $taskRoot=Split-Path -Parent $PSScriptRoot
 $taskOutput=Join-Path $taskRoot 'build/native/user_file_store_test.exe'

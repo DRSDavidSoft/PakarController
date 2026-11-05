@@ -8182,7 +8182,7 @@
         },
         {
           "path": "tests/async_http_test.cpp",
-          "sha256": "1d3dc679c85dc177b7d255ad8a46eaa2d38f022f3f248d8c0720433aad50a9de",
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe",
           "anchor": "Static assets: negotiation, validators"
         },
         {
@@ -13299,7 +13299,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String localUpdateJson() {",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         },
         {
           "path": "firmware/esp/src/RemoteFirmware.h",
@@ -13801,7 +13801,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "std::atomic<uint32_t> otaRebootAt{0};",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         },
         {
           "path": "firmware/esp/src/AsyncHttpService.h",
@@ -13820,7 +13820,7 @@
         {
           "path": "tests/async_http_test.cpp",
           "anchor": "Reproduce installed SDK3.12.1",
-          "sha256": "1d3dc679c85dc177b7d255ad8a46eaa2d38f022f3f248d8c0720433aad50a9de"
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe"
         },
         {
           "path": "tests/ethernet_live_tool_test.mjs",
@@ -13859,7 +13859,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "AsyncWebSocket webSocket(\"/ws\");",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         }
       ],
       "omissions": [
@@ -13873,7 +13873,7 @@
         {
           "path": "tests/async_http_test.cpp",
           "anchor": "Reproduce installed SDK3.12.1",
-          "sha256": "1d3dc679c85dc177b7d255ad8a46eaa2d38f022f3f248d8c0720433aad50a9de"
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe"
         },
         {
           "path": "tests/ethernet_live_tool_test.mjs",
@@ -13920,7 +13920,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "loopMessages.begin(); // PSRAM-backed S3 queue"
         },
         {
@@ -13936,7 +13936,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "void onWebSocketEvent(",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         },
         {
           "path": "firmware/esp32s3/src/EthernetPort.h",
@@ -13990,7 +13990,7 @@
         {
           "path": "tests/async_http_test.cpp",
           "anchor": "Reproduce installed SDK3.12.1",
-          "sha256": "1d3dc679c85dc177b7d255ad8a46eaa2d38f022f3f248d8c0720433aad50a9de"
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe"
         },
         {
           "path": "tests/ethernet_live_tool_test.mjs",
@@ -15319,7 +15319,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "void serviceStatusRgb(uint32_t now)"
         },
         {
@@ -15749,7 +15749,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "void serviceConfigurationChanges()"
         }
       ],
@@ -16074,7 +16074,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "bool authenticate()"
         },
         {
@@ -19099,7 +19099,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "if(BoardCore::Context::pixelEvents(available))"
         },
         {
@@ -19819,7 +19819,7 @@
       "proof": [
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "842c7d0149c2717f7378116063712f4b719941152d89bd43cdc31e60b148437d",
+          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
           "anchor": "Actual imported short-lived process stdout"
         }
       ],
@@ -19880,7 +19880,7 @@
       "proof": [
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "842c7d0149c2717f7378116063712f4b719941152d89bd43cdc31e60b148437d",
+          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
           "anchor": "Actual donor relative cache resolution"
         },
         {
@@ -21786,7 +21786,7 @@
         },
         {
           "path": "tests/file_transfer_test.cpp",
-          "sha256": "b59d00420cac2a5eec4c863cfc5d60e1a93d4b1b041b8f90e1b01250a157dd8e",
+          "sha256": "f864f61e61cc3bdcc247651739439919a098dabd56d1fe7e271e706ee9af6af4",
           "anchor": "int main("
         },
         {
@@ -22664,7 +22664,7 @@
         },
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "842c7d0149c2717f7378116063712f4b719941152d89bd43cdc31e60b148437d",
+          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
           "anchor": "Mobile plan retains reviewed gates"
         }
       ],
@@ -24044,7 +24044,7 @@
       "targets": [
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "void serviceScenePersistence(bool flush)"
         },
         {
@@ -24465,7 +24465,7 @@
         },
         {
           "path": "tests/async_http_test.cpp",
-          "sha256": "1d3dc679c85dc177b7d255ad8a46eaa2d38f022f3f248d8c0720433aad50a9de",
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe",
           "anchor": "Reproduce installed SDK3.12.1"
         },
         {
@@ -24943,7 +24943,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25024,7 +25024,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         },
         {
           "path": "libraries/BoardCore/src/PixelGroupLayout.h",
@@ -25285,7 +25285,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41",
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25361,7 +25361,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41"
+          "sha256": "2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809"
         }
       ],
       "omissions": [
@@ -27243,6 +27243,626 @@
       "remaining": [
         "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/WebAssetPolicy.h",
+      "sha256": "686d98824ddfb5730a4d68009f93535b32d2af0d060a6e36785c1401ea5ad3ff",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 22,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 22
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Adapted aligned reserve, bounded arithmetic and fresh begin/chunk admission into managed user files."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UploadSpacePolicy.h",
+          "sha256": "b4096ba6b7855808c20924de0310e6fd6828f4df034efc2746a23e7b35289911",
+          "anchor": "namespace PakarUploadSpace"
+        },
+        {
+          "path": "firmware/esp/src/UserFileStore.h",
+          "sha256": "8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599",
+          "anchor": "template<class Digest> class UserFileStore"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Live replaceable Web application asset upload",
+          "disposition": "pending",
+          "reason": "Pakar serves its single compiled Web application. A separate, verified asset-only publication path is not implemented here."
+        }
+      ],
+      "remaining": [
+        "Finish same-source asset-only update design without a second UI codebase; SDK/physical storage verification pending."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/EventStoragePolicy.h",
+      "sha256": "f40db91119f9c76de404093c2976726263a57b441855d374abf63185811bd444",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 25,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 25
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Retained 64 KiB plus metadata block admission and 64-bit allocation rounding."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UploadSpacePolicy.h",
+          "sha256": "b4096ba6b7855808c20924de0310e6fd6828f4df034efc2746a23e7b35289911",
+          "anchor": "namespace PakarUploadSpace"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Event spool byte retention and RetryGate",
+          "disposition": "pending",
+          "reason": "Managed files use explicit request failure, not an autonomous durable event spool. Do not falsely equate the two."
+        }
+      ],
+      "remaining": [
+        "Compare persistent event retention/retry owner and implement generic missing behavior if applicable."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/HttpDate.h",
+      "sha256": "00d4a20a65e868f9c6d91481bb8a3b29ae2e3688a71c292a6a989b66b65d3286",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 19,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 19
+        }
+      ],
+      "verdict": "equivalent-behavior",
+      "preserved": [
+        "Calendar, strict weekday, 2024..2099 UTC and invalid-input rejection align; Orbit upgraded from unchecked weekday/2039 cutoff."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/NetworkObservationPolicy.h",
+          "sha256": "3a00b4998b54fae7d34edaed58b693ae3b47fe552e7b6bb4d8c842ad5877b197",
+          "anchor": "inline bool httpDate("
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/network_observation_test.cpp",
+          "sha256": "19f9d1b0ff7d3cc14c9f54558daa2c0162656c382b01fa0a85d629544b07bec7",
+          "anchor": "uint32_t epoch=0;"
+        }
+      ],
+      "omissions": [],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/HttpRepresentationPolicy.h",
+      "sha256": "9ca60c3433d1e0388e0733736e1a1f2891c1d047d7d7b04808ad4dc41b3bcdd6",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 56,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 56
+        }
+      ],
+      "verdict": "equivalent-behavior",
+      "preserved": [
+        "Actual Pakar encoding/ETag parser adapted into Orbit. Both reject a matching tag followed by malformed list data."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/StaticAssetPolicy.h",
+          "sha256": "971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b",
+          "anchor": "inline bool notModified("
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/async_http_test.cpp",
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe",
+          "anchor": "assert(!notModified(\"\\\"abc\\\", malformed\""
+        }
+      ],
+      "omissions": [],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/VerifiedFileWrite.h",
+      "sha256": "8dea63dd222d87015edd7b63f5d40b9e5e4644bbde943f4f58d1a6bf177838bc",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 24,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 24
+        }
+      ],
+      "verdict": "equivalent-behavior",
+      "preserved": [
+        "Orbit now reuses flushed seek/readback verification before offset/hash progress, as Pakar managed chunks already do."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UserFileStore.h",
+          "sha256": "8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599",
+          "anchor": "template<class Digest> class UserFileStore"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/HttpFileValidators.h",
+      "sha256": "a70f80643a30bd0913f6a55836b747d484bde0fbe7e4429f604ea3bd0dd9376b",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 15,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 15
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Shared representation-specific validator rules compared; strong If-Range exact-date bug fixed in Orbit."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/StaticAssetPolicy.h",
+          "sha256": "971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b",
+          "anchor": "inline bool notModified("
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/async_http_test.cpp",
+          "sha256": "00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe",
+          "anchor": "assert(notModified(\"*\""
+        }
+      ],
+      "omissions": [
+        {
+          "code": "HTTP date/If-Range for managed user files",
+          "disposition": "pending",
+          "reason": "Pakar exposes logical file reads over its guarded API; this is not equivalent to Orbit public-file HTTP date/range serving."
+        }
+      ],
+      "remaining": [
+        "Add date/If-Range only to appropriately guarded logical-file HTTP representations; no arbitrary private filesystem routes."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/StorageFiles.h",
+      "sha256": "d3bac19a00ace59c20af2fb892e9b70cc5d1c0d3c5ed5acd38710c1f7f958e79",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 49,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 49
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Sandboxed bytes/date metadata, guarded managed APIs and readback/atomic publication compared. Orbit gained readback and HTTP negotiation."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UserFileStore.h",
+          "sha256": "8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599",
+          "anchor": "template<class Digest> class UserFileStore"
+        },
+        {
+          "path": "firmware/esp/src/StaticAssetService.h",
+          "sha256": "959c630339f75a5385ebde79f914746041786034e6b312af25cadaac62fc0bac",
+          "anchor": "inline void serveStaticAsset("
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "HTTP public-file date/range serving and protocol parity",
+          "disposition": "pending",
+          "reason": "Pakar logical API/CAS/tokens differ from Orbit raw public serving. Keep each admission/ownership policy; do not call transport coverage identical."
+        }
+      ],
+      "remaining": [
+        "Compare live HTTP/USB/MQTT cancellation/ownership and resource bounds; SDK and physical filesystem tests pending."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/WebAsset.h",
+      "sha256": "a76b22f9cd9b3ce3a131ed3c7b27d007659e040a2597c760dcdeb36ee3df163d",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 87,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 87
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Serialized checked temporary publication compared with managed file publication; both retain previous bytes until publication."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UserFileStore.h",
+          "sha256": "8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599",
+          "anchor": "template<class Digest> class UserFileStore"
+        },
+        {
+          "path": "tools/build-web.mjs",
+          "sha256": "197926a3c9d24fbe667683fc652e877bcab1931a3b09227d7eaf5fbf7858e5b8",
+          "anchor": "const receipt={application:"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Asset-only live Web replacement",
+          "disposition": "pending",
+          "reason": "Pakar compiled application delivery currently requires firmware; managed user files alone do not replace that application."
+        }
+      ],
+      "remaining": [
+        "Implement canonical-source asset generation/publication after ownership/size/resource review; no duplicate Web UI."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/FirmwareWifiRange.h",
+      "sha256": "efc788e9f45a5a124de97a533a519be93cb6f7207b24ef95ab615741ffde6e56",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 24,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 24
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Compared strict response ranges against Pakar bounded request-range parser and fail-closed non-resuming remote downloader."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/FirmwareRange.h",
+          "sha256": "03bf18b46233e539a84563f1eb63330d2eaf8e57b9bb73b6cfd92026bda6bef8",
+          "anchor": "inline bool parseRange("
+        },
+        {
+          "path": "firmware/esp/src/RemoteFirmware.cpp",
+          "sha256": "ad02224ab50dde4e3f34367003d9c9ddad3198722cb5aac7bcb51bd935f81f4a",
+          "anchor": "const int code=http_.GET(),length=http_.getSize();"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/firmware_range_test.cpp",
+          "sha256": "96a79254872cd829c6e23a240225063503d0286e9fe1a477dd48aac5e05a6ed5",
+          "anchor": "FirmwareRange range{};"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Validated immutable-download-only resume",
+          "disposition": "pending",
+          "reason": "Pakar rejects interrupted downloads. Introducing safe GET resume is distinct from retrying apply/install, which remains forbidden."
+        }
+      ],
+      "remaining": [
+        "Design pinned URL/hash/size/offset recovery with strict 206 validation, never repeat mutation or install."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/AtomicEventRecord.h",
+      "sha256": "7dc8f88f42bbaee85227bfdafa382de0a5ad16da4baa04679014b9d0227bebf2",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 21,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 21
+        }
+      ],
+      "verdict": "parity-gap",
+      "preserved": [
+        "Checked staging/readback/rename is retained by Pakar managed files; event identities are not relabelled file-transfer tokens."
+      ],
+      "targets": [
+        {
+          "path": "firmware/esp/src/UserFileStore.h",
+          "sha256": "8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599",
+          "anchor": "template<class Digest> class UserFileStore"
+        }
+      ],
+      "proof": [
+        {
+          "path": "tests/user_file_store_test.cpp",
+          "sha256": "a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528",
+          "anchor": "const auto beforeSpace=fs.writes;"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Durable queued event identity/no-overwrite spool",
+          "disposition": "pending",
+          "reason": "Pakar managed files are not an equivalent durable telemetry event queue."
+        }
+      ],
+      "remaining": [
+        "Review actual event persistence and optional bounded spool requirements separately."
+      ]
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/common/board_pins.h",
+      "sha256": "7a2cbd5039e80f1ead458415041d39a678bd09048dd23922dd2d4182e7f4ba69",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 29,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 29
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/common/board_pins.h`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/common/board_pins.h",
+          "disposition": "not-applicable",
+          "reason": "Orbit carrier UART/DTR/NET/CAN/K-Line physical map conflicts with reviewed Pakar wiring."
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/i2c_scanner/i2c_scanner.ino",
+      "sha256": "bc7988946e9dbcbc7c74a52b638f4020459a6793cde4031e9f55f4c509438fa9",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 18,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 18
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/i2c_scanner/i2c_scanner.ino`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/i2c_scanner/i2c_scanner.ino",
+          "disposition": "not-applicable",
+          "reason": "Physical I2C scanner peripheral sketch tied to that board map, outside requested ESP utility adaptation."
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_console/modem_console.ino",
+      "sha256": "81aa40b7e93edf747930fa35b81ed187f32ccc496fd7236e37f67bd8109f5b3a",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 17,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 17
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/modem_console/modem_console.ino`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/modem_console/modem_console.ino",
+          "disposition": "not-applicable",
+          "reason": "A7670E AT UART passthrough, no generic OTA/Web/API implementation."
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/DiagnosticProfiles.h",
+      "sha256": "62356bfee14884ae2442bfaab9029d564059651c5756e4ecf1feb9855501394f",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 25,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 25
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/modem_bridge/DiagnosticProfiles.h`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/modem_bridge/DiagnosticProfiles.h",
+          "disposition": "not-applicable",
+          "reason": "Generated modem AT groups and modem response-field invalidation only."
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/HttpActionResult.h",
+      "sha256": "707ba3687db9c2b68c4d2cbf36fbe6c5191f3c833d901dff795bc460f6bc966a",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 19,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 19
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/modem_bridge/HttpActionResult.h`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/modem_bridge/HttpActionResult.h",
+          "disposition": "not-applicable",
+          "reason": "SIMCom HTTPACTION/HTTPPOSTFILE AT grammar; not a Pakar carrier."
+        }
+      ],
+      "remaining": []
+    },
+    {
+      "origin": "Orbit",
+      "path": "firmware/modem_bridge/HttpBinaryFrames.h",
+      "sha256": "e15cec7f21447ba146c0b89d62a356f0aba05822ac38fc3fa77bb610c8bf466a",
+      "source_read": "complete",
+      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_lines": 36,
+      "read_ranges": [
+        {
+          "first": 1,
+          "last": 36
+        }
+      ],
+      "verdict": "not-applicable",
+      "preserved": [
+        "Source remains preserved in Orbit; exclusion does not hide its inventory row."
+      ],
+      "targets": [
+        {
+          "path": "docs/ORBIT-FIRMWARE-PARITY.md",
+          "sha256": "c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7",
+          "anchor": "`firmware/modem_bridge/HttpBinaryFrames.h`"
+        }
+      ],
+      "proof": [],
+      "omissions": [
+        {
+          "code": "firmware/modem_bridge/HttpBinaryFrames.h",
+          "disposition": "not-applicable",
+          "reason": "SIMCom counted HTTPREAD response envelope; not interchangeable with Pakar USB/COBS framing."
+        }
+      ],
+      "remaining": []
     }
   ]
 }

@@ -18,6 +18,12 @@ foreach($taskConcern in $taskIndex.concerns){
 Assert-Rejected {& $taskConsult -Concern invented -DonorRoots @{}} 'Unknown'
 $taskAll=& $taskConsult -Concern donor-audit -DonorRoots @{}
 Assert-Reuse ($taskAll.Matched -eq $taskAll.Inventoried) 'Exhaustive route must include every source, asset, script, test and absent blob'
+$taskOrbit=& $taskConsult -Concern orbit-firmware -DonorRoots @{}
+$taskOrbitInventory=@($taskInventory | Where-Object origin -eq Orbit)
+Assert-Reuse ($taskOrbitInventory.Count -ge 153 -and $taskOrbit.Matched -eq $taskOrbitInventory.Count) 'Every Orbit firmware path remains visible, not keyword-filtered'
+foreach($taskOrbitPath in @('firmware/modem_bridge/ControlPlane.h','firmware/modem_bridge/StorageFiles.h','firmware/modem_bridge/orbit-console.gz','firmware/modem_console/modem_console.ino','firmware/web/sw.js')){
+    Assert-Reuse (@($taskOrbit.Rows | Where-Object Key -eq "Orbit|$taskOrbitPath").Count -eq 1) "Mixed/peripheral/generated/Web Orbit path retained: $taskOrbitPath"
+}
 Assert-Reuse ($taskAll.AuditOnly -gt 0) 'Specialist routing gaps must remain visible'
 Assert-Reuse (@($taskAll.Rows | Where-Object {@($_.Remaining).Count -eq 0 -and $_.Comparison -eq 'pending-comparison'}).Count -eq 0) 'Every unread file needs an action'
 $taskPealayer=& $taskConsult -Concern donor-audit -Origin Pealayer -DonorRoots @{}

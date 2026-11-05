@@ -5279,7 +5279,7 @@ void setup() {
   // Never erase damaged storage and silently restore public credentials.
   const bool filesystemMounted = SystemPlatform::mountFilesystem();
   captureBootFilesystemTelemetry(filesystemMounted);
-  userFiles.begin(LittleFS,filesystemMounted);
+  userFiles.begin(LittleFS,filesystemMounted,FirmwarePlatform::freeStorage);
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
   peerRelay.begin(LittleFS,filesystemMounted);
   peerNetworkCommission.begin(LittleFS,filesystemMounted,{
@@ -5291,7 +5291,11 @@ void setup() {
   });
 #endif
 #if PAKAR_MICROSD_ENABLED
-  sdUserFiles.begin(SD_MMC,PakarStorage::mount());
+  sdUserFiles.begin(SD_MMC,PakarStorage::mount(),[]()->uint32_t{
+    const uint64_t total=SD_MMC.totalBytes(),used=SD_MMC.usedBytes();
+    const uint64_t free=total>=used?total-used:0;
+    return free>UINT32_MAX?UINT32_MAX:static_cast<uint32_t>(free);
+  });
 #endif
   loopMessages.begin(); // PSRAM-backed S3 queue, before any network callback.
   accessConfig.begin(LittleFS, filesystemMounted);

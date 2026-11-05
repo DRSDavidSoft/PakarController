@@ -89,5 +89,12 @@ Reject 'unreviewed source' { param($v) $v.files[0].source_read = 'screened' } 'f
 Reject 'unproven improvement' { param($v) $v.files[0].verdict = 'scoped-improvement' } 'no named advantage or test evidence'
 Reject 'unactionable gap' { param($v) $v.files[0].verdict = 'parity-gap' } 'concrete next action'
 Reject 'uninventoried donor' { param($v) $v.files[0].path = 'orphan.h' } 'omitted from inventory'
+Reject 'blanket exclusion' { param($v) $v.files[0].verdict='not-applicable' } 'Excluded file needs'
+$excluded=Fresh-Manifest
+$excluded.files[0].verdict='not-applicable'
+$excluded.files[0].omissions=@([pscustomobject]@{code='Fixture-only physical peripheral';disposition='not-applicable';reason='Explicit peripheral exclusion, no generic code present in fixture'})
+Save-Manifest $excluded
+& (Join-Path $root 'tools/generate-file-comparison.ps1') @options | Out-Null
+if((Import-Csv $output)[0].comparison -ne 'not-applicable'){throw 'Specific exclusion lost'}
 Write-Host 'Comparison tests passed: all rows accounted for; source/target hashes and line anchors bound; stale/escaping/duplicate/vague evidence rejected; incomplete scope cannot certify superiority.'
 Write-Host "Tiny fixture retained for debugging: $scratch"

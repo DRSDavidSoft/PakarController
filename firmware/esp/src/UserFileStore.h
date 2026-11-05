@@ -1,6 +1,7 @@
 #pragma once
 #include <ArduinoJson.h>
 #include <FS.h>
+#include "UploadSpacePolicy.h"
 
 // Loop-owned, bounded public file store. Logical names never become filesystem
 // paths. Immutable content blobs + one atomic index publish bytes and timestamps
@@ -10,7 +11,8 @@ template<class Digest> class UserFileStore {
  public:
   static constexpr uint32_t maxBytes=128*1024, chunkBytes=512;
   static constexpr unsigned maxFiles=32;
-  void begin(fs::FS &fs,bool mounted){fs_=mounted?&fs:nullptr;}
+  using FreeSpace=uint32_t(*)();
+  void begin(fs::FS &fs,bool mounted,FreeSpace probe){fs_=mounted?&fs:nullptr;freeSpace_=probe;}
   void service(uint32_t now,uint32_t security){
     if(token_&&(uint32_t(now-touched_)>60000||security!=security_))clear();
   }
@@ -65,6 +67,7 @@ template<class Digest> class UserFileStore {
       if(old.isNull()&&index["files"].size()>=maxFiles)return error("file_limit");
       if(!newToken)return error("token_unavailable");
       if(fs_->exists(blob(hash,newToken).c_str()))return error("token_collision_retry_begin");
+      if(!freeSpace_||!PakarUploadSpace::begin(freeSpace_(),body["size"].as<uint32_t>()))return error("storage_reserved_space_required");
       if(!fs_->exists("/.user-files")&&!fs_->mkdir("/.user-files"))return error("storage_unavailable");
       auto file=fs_->open(stage(),"w");if(!file)return error("file_stage_failed");file.close();
       name_=name;hash_=hash;size_=body["size"];modified_=body["modified_ms"];revision_=body["revision"];
@@ -83,6 +86,7 @@ template<class Digest> class UserFileStore {
       if(offset>received_||offset>size_||count>size_-offset)return error("invalid_chunk_offset");
       auto file=fs_->open(stage(),"r+");if(!file||!file.seek(offset))return error("file_stage_failed");
       if(offset<received_){if(count>received_-offset||file.read(check,count)!=count||memcmp(bytes,check,count))return error("duplicate_chunk_mismatch");return progress();}
+      if(!freeSpace_||!PakarUploadSpace::write(freeSpace_(),offset,count))return error("storage_reserved_space_required");
       if(file.write(bytes,count)!=count){file.close();clear();return error("file_write_failed");}file.flush();
       if(!file.seek(offset)||file.read(check,count)!=count||memcmp(bytes,check,count)){file.close();clear();return error("file_verify_failed");}
       digest_.add(bytes,count);received_+=count;return progress();
@@ -132,7 +136,7 @@ template<class Digest> class UserFileStore {
     return error("unsupported_file_action");
   }
  private:
-  fs::FS *fs_=nullptr;Digest digest_;String name_,hash_;uint64_t modified_=0;
+  fs::FS *fs_=nullptr;FreeSpace freeSpace_=nullptr;Digest digest_;String name_,hash_;uint64_t modified_=0;
   uint32_t token_=0,security_=0,touched_=0,size_=0,received_=0,revision_=0;bool committed_=false,blobPublished_=false,streaming_=false;
   static const char *stage(){return "/.user-files/upload.pending";}
   static String blob(const String &hash,uint32_t object){char id[9];snprintf(id,sizeof(id),"%08lx",static_cast<unsigned long>(object));return String("/.user-files/")+hash+"."+id+".bin";}

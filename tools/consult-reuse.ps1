@@ -7,7 +7,7 @@ param(
     [string]$EvidencePath=(Join-Path $PSScriptRoot '../docs/file-comparison-evidence.json'),
     [string]$IndexPath=(Join-Path $PSScriptRoot '../docs/reuse-capabilities.json'),
     [string]$TargetRoot=(Join-Path $PSScriptRoot '..'),
-    [hashtable]$DonorRoots=@{Pealayer='C:\Users\David\AppData\Local\Programs\Pealayer\source\Pealayer'; RayanLamp='C:\Users\David\Documents\Codex\2026-07-23\ba\outputs\RayanLamp'; esp32WS2811=(Join-Path $PSScriptRoot '../../repos/esp32WS2811'); 'DRS-jSnake'='I:\HTML Projects\My Scripts\Test-Cat\JSNake'},
+    [hashtable]$DonorRoots=@{Pealayer='C:\Users\David\AppData\Local\Programs\Pealayer\source\Pealayer'; RayanLamp='C:\Users\David\Documents\Codex\2026-07-23\ba\outputs\RayanLamp'; esp32WS2811=(Join-Path $PSScriptRoot '../../repos/esp32WS2811'); 'DRS-jSnake'='I:\HTML Projects\My Scripts\Test-Cat\JSNake'; Orbit=(Join-Path $PSScriptRoot '../../repos/orbit')},
     [switch]$Gate,
     [switch]$Summary,
     [switch]$RequireLive
@@ -59,6 +59,7 @@ foreach($taskOrigin in $taskSelectedOrigins){
     elseif($taskAvailableRoots[$taskOrigin] -and (Test-Path -LiteralPath (Join-Path $DonorRoots[$taskOrigin] '.git'))){
         $taskTracked=@(& git -C $DonorRoots[$taskOrigin] ls-files)
         if($LASTEXITCODE -ne 0){throw 'Cannot verify live donor inventory'}
+        if($taskOrigin -eq 'Orbit'){$taskTracked=@($taskTracked | Where-Object {$_.StartsWith('firmware/')})}
         $taskSnapshot=@($taskLedger | Where-Object origin -eq $taskOrigin).path
         if(@($taskTracked | Where-Object {$_ -notin $taskSnapshot}).Count -or
             @($taskSnapshot | Where-Object {$_ -notin $taskTracked}).Count){

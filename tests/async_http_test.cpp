@@ -232,6 +232,9 @@ int main() {
     assert(notModified("W/\"other\", W/\"abc\"","\"abc\""));
     assert(notModified("*","\"abc\"")&&!notModified("\"abcd\"","\"abc\""));
     assert(!notModified("\"abc\"garbage","\"abc\""));
+    assert(!notModified("\"abc\", malformed","\"abc\""));
+    assert(!notModified("\"abc\", ","\"abc\""));
+    assert(!notModified("\"bad\x01\", \"abc\"","\"abc\""));
     auto asset=[&](int method,const char *enc,const char *tag,int status,const String &expected){
       auto r=std::make_shared<AsyncWebServerRequest>();r->requestMethod=method;
       if(enc)r->headers["Accept-Encoding"].text=enc;
