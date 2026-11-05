@@ -3554,7 +3554,7 @@ Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. O
 - Omitted/replaced code: `Program-root shared target default across separate source worktrees`. Disposition: **pending**. Reason: Pakar keeps its existing single canonical desktop/target cache without moving or duplicating it. A future managed-worktree build needs a shared Pakar-owned cache; copying Pealayer's owner path would corrupt ownership.
 - Omitted/replaced code: `New Get-PealayerCargoTargetDirectory rejection of all source-checkout cache paths`. Disposition: **pending**. Reason: Pakar's existing sole desktop/target is inside the checkout. Applying this rejection now would strand the warm cache or force a duplicate cold build. An owned same-volume relocation and wrapper/config migration are required first; the oversized-cache guard remains active and blocked cleanup is not bypassed.
 - Omitted/replaced code: `Copy-PealayerFileLowWrite delete-destination-first copy and PreferHardLink`. Disposition: **replaced**. Reason: Pakar retains its checksum-verified pending-copy then rename. The prior candidate is preserved until verification; a mutable executable is not hardlinked to compiler output. mpv immutable-runtime aliases are explicitly excluded, not a reason to omit generic content comparison.
-- Test-code evidence: `tests/reuse_preflight_test.ps1:89 [UTF8-LF sha256=ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33; anchor=Actual donor relative cache resolution]`.
+- Test-code evidence: `tests/reuse_preflight_test.ps1:102 [UTF8-LF sha256=7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340; anchor=Actual donor relative cache resolution]`.
 - Test-code evidence: `tests/storage_hygiene_test.ps1:19 [UTF8-LF sha256=e465eb90d9957a10586110273f35a6c7ce8107c679f3dfbd7ab10d68aa798899; anchor=Actual imported equal-content helper]`.
 - Remaining: Adapt generic saved host provenance/config ownership checks without mpv, and keep one owned cache if worktrees are later authorized.
 
@@ -3567,7 +3567,7 @@ Verdict: **equivalent-file**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0d
 - Retained: Byte-identical actual donor process-handle probe: no-shell hidden process, async redirected stdout, 30-second wait, explicit exit code, output return and Dispose. Optional staging probe calls this helper.
 - Retained: Desktop replacement now also calls the retained process probe for before/after owner status and its one graceful quit. Actual ASUS inspection showed direct GUI-subsystem invocation could report false IPC failure; the retained probe read the same ready owner successfully. Live replacement preserved settings/rollback and recovered USB/80-cell mapping on the same ESP boot.
 - No production-code omission claimed for this reviewed file.
-- Test-code evidence: `tests/reuse_preflight_test.ps1:93 [UTF8-LF sha256=ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33; anchor=Actual imported short-lived process stdout]`.
+- Test-code evidence: `tests/reuse_preflight_test.ps1:106 [UTF8-LF sha256=7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340; anchor=Actual imported short-lived process stdout]`.
 - Remaining: Donor timeout throws without terminating its child. Full GUI/runtime package smoke remains separate from CLI identity.
 
 ### Pealayer: `scripts/package-windows.ps1`
@@ -3612,7 +3612,7 @@ Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. O
 - Omitted/replaced code: `Silently ignored recursive read errors and empty Measure-Object Sum`. Disposition: **replaced**. Reason: Unmeasured paths must fail visibly rather than understate storage. Empty directories use zero bytes instead of a missing StrictMode Sum property.
 - Test-code evidence: `tests/storage_hygiene_test.ps1:10 [UTF8-LF sha256=e465eb90d9957a10586110273f35a6c7ce8107c679f3dfbd7ab10d68aa798899; anchor=Actual imported recursive summary]`.
 - Test-code evidence: `tests/storage_hygiene_test.ps1:32 [UTF8-LF sha256=e465eb90d9957a10586110273f35a6c7ce8107c679f3dfbd7ab10d68aa798899; anchor=Default inventory stays read-only]`.
-- Test-code evidence: `tests/reuse_preflight_test.ps1:103 [UTF8-LF sha256=ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33; anchor=Mobile plan retains reviewed gates]`.
+- Test-code evidence: `tests/reuse_preflight_test.ps1:116 [UTF8-LF sha256=7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340; anchor=Mobile plan retains reviewed gates]`.
 - Remaining: Debug-only cleanup is now authorized and implemented. Canonical nonduplicating RAM-disk/cache relocation, the newer donor Cargo-metadata/cache-tag proof for shared-cache migration, full fixture safety matrix and exact allocated-vs-logical accounting remain pending; no RAM disk has been allocated. Donor storage/CI files were reread while dirty concurrent peer work, not misrepresented as a new clean donor commit.
 
 ### Pealayer: `scripts/update-screenshots-windows.ps1`

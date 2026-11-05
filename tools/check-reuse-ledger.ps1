@@ -15,7 +15,10 @@ foreach ($evidence in (Import-Csv -LiteralPath $EvidencePath)) {
     $manual[$key] = $evidence
 }
 $resolved = @('imported', 'adapted', 'verified-replacement', 'excluded-business', 'excluded-hardware', 'excluded-tooling')
-$known = $resolved + @('screened', 'missing', 'legacy-unverified', 'stale-review', 'reviewed-open')
+# Complete reading and a comparison (which can retain gaps) are not completed
+# delivery. These states require manual hash-bound evidence but remain open.
+$reviewed = @('reviewed-open', 'complete-read-awaiting-comparison', 'compared', 'reviewed-excluded')
+$known = $resolved + $reviewed + @('screened', 'missing', 'legacy-unverified', 'stale-review')
 foreach ($row in $rows) {
     $key = "$($row.origin)|$($row.path)"
     if ($seen.ContainsKey($key)) { throw "Duplicate ledger row: $key" }
@@ -28,7 +31,7 @@ foreach ($row in $rows) {
         if ($row.review_status -ne 'missing' -or $row.sha256) { throw "Missing source falsely reviewed: $key" }
     } elseif ($row.sha256 -notmatch '^[0-9a-f]{64}$') { throw "Invalid source hash: $key" }
     if ($row.review_status -in $resolved -and -not $row.notes) { throw "Resolved row has no decision evidence: $key" }
-    if ($row.review_status -in $resolved -or $row.review_status -eq 'reviewed-open') {
+    if ($row.review_status -in $resolved -or $row.review_status -in $reviewed) {
         $evidence = $manual[$key]
         if ($null -eq $evidence -or $evidence.sha256 -ne $row.sha256 -or
             $evidence.review_status -ne $row.review_status -or $evidence.reuse_target -ne $row.reuse_target) {

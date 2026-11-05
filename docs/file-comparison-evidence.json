@@ -19819,7 +19819,7 @@
       "proof": [
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
+          "sha256": "7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340",
           "anchor": "Actual imported short-lived process stdout"
         }
       ],
@@ -19880,7 +19880,7 @@
       "proof": [
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
+          "sha256": "7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340",
           "anchor": "Actual donor relative cache resolution"
         },
         {
@@ -22664,7 +22664,7 @@
         },
         {
           "path": "tests/reuse_preflight_test.ps1",
-          "sha256": "ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33",
+          "sha256": "7c1cfa96e63d6ec60f7265742da85883d9d1bf31718a104f7915bdbecad7f340",
           "anchor": "Mobile plan retains reviewed gates"
         }
       ],

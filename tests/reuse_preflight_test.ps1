@@ -52,6 +52,19 @@ foreach($taskConcern in @('build-storage','capture')){
 # Tiny stable owned fixtures, not copies of full donor repositories or packages.
 $taskFixture=Join-Path $taskRoot 'build/native/reuse-preflight-fixture'
 New-Item -ItemType Directory -Force -Path $taskFixture | Out-Null
+$taskReadLedger=Join-Path $taskFixture 'read-ledger.csv'
+$taskReadEvidence=Join-Path $taskFixture 'read-evidence.csv'
+$taskLedgerCheck=Join-Path $taskRoot 'tools/check-reuse-ledger.ps1'
+foreach($taskReadStatus in @('reviewed-open','complete-read-awaiting-comparison','compared','reviewed-excluded')){
+    $taskReadRow=[pscustomobject]@{origin='Fixture';path='policy.h';revision='fixture';sha256=('a'*64);review_status=$taskReadStatus;availability='present';notes='Exact manual read, not completed delivery';reuse_target='tests/fixture'}
+    $taskReadRow | Export-Csv -LiteralPath $taskReadLedger -NoTypeInformation
+    $taskReadRow | Export-Csv -LiteralPath $taskReadEvidence -NoTypeInformation
+    & $taskLedgerCheck -LedgerPath $taskReadLedger -EvidencePath $taskReadEvidence | Out-Null
+    Assert-Rejected {& $taskLedgerCheck -LedgerPath $taskReadLedger -EvidencePath $taskReadEvidence -RequireComplete} 'unresolved donor rows'
+    $taskReadRow.sha256='b'*64
+    $taskReadRow | Export-Csv -LiteralPath $taskReadEvidence -NoTypeInformation
+    Assert-Rejected {& $taskLedgerCheck -LedgerPath $taskReadLedger -EvidencePath $taskReadEvidence} 'Manual status is not bound'
+}
 $taskLedgerPath=Join-Path $taskFixture 'ledger.csv'
 $taskEvidencePath=Join-Path $taskFixture 'evidence.json'
 $taskIndexPath=Join-Path $taskFixture 'index.json'
