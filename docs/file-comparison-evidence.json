@@ -61,7 +61,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "desktop.set_icon(&icon)"
         }
       ],
@@ -1262,7 +1262,7 @@
         {
           "path": "desktop/src/ui/panel_details.rs",
           "anchor": "pub fn physical_groups",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d"
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1"
         },
         {
           "path": "desktop/src/pixel_corrections.rs",
@@ -1324,7 +1324,7 @@
         {
           "path": "desktop/src/ui/panel_details.rs",
           "anchor": "fn pixel_corrections_toggle_is_capability_gated_and_changes_only_local_rule",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d"
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1"
         },
         {
           "path": "mobile/test/pixel_corrections_exit_test.dart",
@@ -1611,7 +1611,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn draw_table(",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "proof": [
@@ -1648,7 +1648,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn table_scene_fits_small_dock_and_zooms_at_pointer()",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "omissions": [
@@ -1779,7 +1779,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "egui::Scene::new()",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "proof": [
@@ -8575,7 +8575,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "value[\"pixel_preview\"]"
         },
         {
@@ -10338,7 +10338,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.toml",
-          "sha256": "e330c25d8ba662bc8ffb5b848f669cc7af8882b13deff29e91606b43c90ff233",
+          "sha256": "3430745c3127fe5e909b99f558d2617ecf011464e4b9e6b8acbb1b6e45020729",
           "anchor": "tungstenite ="
         }
       ],
@@ -10373,7 +10373,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.lock",
-          "sha256": "5db30a66eec5474a07fe5c9cfabb39cbbc35e6d4c6ac12450c26202849b61e0e",
+          "sha256": "5e136df432e2eedde7f382644a8b37eb3b92e49b8b42a4ea71f168779763027d",
           "anchor": "name = \"tungstenite\""
         }
       ],
@@ -16476,7 +16476,7 @@
           "path": "desktop/src/ui/device_settings.rs"
         },
         {
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/shell.rs"
         },
@@ -18478,12 +18478,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn save_status_bar_preferences("
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "let firmware_progress = self.firmware_observation().filter(|p| p.active);"
         },
         {
@@ -18838,7 +18838,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn synchronize_context("
         },
         {
@@ -19272,7 +19272,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "menu::top_menu_button(ui, crate::ui::i18n::text(\"File\")"
         },
         {
@@ -19780,7 +19780,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "crate::application_shortcuts::take_action"
         }
       ],
@@ -20286,7 +20286,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "value[\"messages\"]",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         },
         {
           "path": "desktop/src/platform/notifications.rs",
@@ -20367,7 +20367,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "icons::searchable_workspace_icon_picker"
         },
         {
@@ -22333,12 +22333,12 @@
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "pub fn correction_rules("
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "pub fn network("
         },
         {
@@ -22441,22 +22441,22 @@
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn feature_chips_wrap_as_whole_slots_without_vertical_labels_or_overflow()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn network_and_corrections_stay_bounded_and_passive_in_narrow_panels()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn scoped_action_rows_fit_narrow_cards_and_keep_wide_rows_compact()"
         },
         {
           "path": "desktop/src/ui/panel_details.rs",
-          "sha256": "d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d",
+          "sha256": "cbae080998d4d897884373cb7dc833e64531f2f72ec8dea03521c8d7cf9220c1",
           "anchor": "fn ethernet_uses_the_board_link_up_observation()"
         },
         {
@@ -23259,7 +23259,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "value[\"tray_shell\"]"
         },
         {
@@ -23418,7 +23418,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "pub(super) fn draw_led_settings(",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         }
       ],
       "omissions": [
@@ -24470,7 +24470,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -24807,7 +24807,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -25017,7 +25017,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn synchronize_context",
-          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
+          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
         },
         {
           "path": "desktop/src/ui/layout.rs",

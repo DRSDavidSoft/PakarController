@@ -12217,3 +12217,42 @@ filesystem inventory drift. Those records were not blindly rebound or declared
 complete. Reconcile their actual current sources with the owning task before
 merging. UI tests and package/capture acceptance are separate checkpoints.
 No firmware or output actuation belongs to this change.
+
+## Shared native field-label alignment (2026-11-05)
+
+The Controllers screenshot exposed a shared detail-row error: egui0.36.2's
+Ui::add_sized constructs centered_and_justified layout, and Label inherits
+that horizontal alignment unless explicitly configured. Read the actual locked
+egui Ui/Label implementation and Pealayer dialog/card/settings-row primitives.
+The first painted-origin test rejected Label::halign(Min) alone: Firmware still
+started at x42.9375 rather than the card body's x13, because add_sized centers
+the label widget's rectangle too. Use one field_caption helper with an explicit
+left-to-right, vertically centered child and reserved minimum size instead,
+retaining left text alignment. Apply it to shared key/value captions, physical
+groups and game-palette captions. Preserve allocation, value-column position, narrow
+stacking, truncation and all command/draft behavior. Other panel_details::detail
+consumers, including acknowledged hardware and network cards, receive the same
+fix. No button alignment or global theme/layout default was changed.
+
+The new native regression inspects actual painted key and value text origins
+at two widths, two themes and four display scales. Execution is recorded
+separately from adding the test. Initial native preflight correctly rejected
+the changed shell target hash; only inspected consumer hashes were refreshed.
+Comparison generation also exposed two pre-existing stale Cargo target bindings
+from the preceding CraftUI commit. Reread PuzzleBoard's manifest/lock and current
+native manifest plus that commit's complete nine-line lock change. Transport
+dependencies/anchors are unchanged; refresh those two target bindings, not donor
+verdicts or source hashes. Broader donor omissions remain pending. GitHub lookup
+currently returns401; no publication or issue-update success is claimed.
+Full comparison regeneration additionally reports the existing Pealayer
+.github/dependabot.yml source/snapshot mismatch, as already tracked by the
+preceding workspace pass. Leave it and the RayanLamp inventory drift explicit;
+do not bypass guards or promote unrelated donor records to complete.
+The next test run passed the key-origin assertions but failed its narrow value
+column assumption after a first-frame DPI/root-viewport change. The fixture now
+sets its logical dock width explicitly, retaining the strict key-origin,
+value-column and narrow-stack assertions rather than accepting centered text.
+Final guarded native panel filter passes all7 tests, including actual painted
+key/value origins in all16 width/theme/display-scale combinations. Existing
+feature-chip, action-row, passive-editor and network-panel regressions pass.
+No whole-suite, installed-client, board or physical acceptance is claimed.
