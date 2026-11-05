@@ -3,16 +3,72 @@
   "records": [
     {
       "repository": "atomicdeploy/PakarController",
+      "number": 43,
+      "scope": "full-record",
+      "content_sha256": "001ed3e4086e0c67bf9351ec242b0e53338ad255e140b8099b12d7499ca4481d",
+      "application": "Read complete canonical-opcode body/diff, the Winsock fixture comment and every paginated review/thread record (none). Strict namespace/unknown-operation admission remains fail-closed. Exact-head CI and the combined candidate89a63b1 pass; normal merge83ec753 preserves the original head. Loopback tests are not device or carrier-parity acceptance."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 44,
+      "scope": "full-record",
+      "content_sha256": "df66f2c5118a431df9ce5db1269a5b96b703788e667b5ddc875980e527e3bda7",
+      "application": "Read complete HEX/artwork scope and source/test diff, inspect generated outputs and all paginated conversations (no comments/reviews/threads). Exact applicable CI passed before normal merge775edee. CI verifies AVR application/full-flash HEX and artwork packaging; neither firmware deployment nor installed-app/optical acceptance is inferred."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 45,
+      "scope": "full-record",
+      "content_sha256": "0b487289016ecc9a9d3a009413e0f0414ef65c1954f47832c4004c37589d179e",
+      "application": "Read full dependency release body, repaired manifest/lock diff, integration comment and paginated reviews/threads (none). Preserve original bot proposal in ancestry but retain coherentegui0.36 plus independentUUID/ZIP/XLSX updates. Exact repaired-head Build41944622574 and combined Build41945829235 pass. GitHub confirms indirect merge3e13d78 through PR49. Atomic0.37 migration remains explicitly deferred issue50, not implemented by this merge."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 46,
+      "scope": "full-record",
+      "content_sha256": "4f5f3efb819421f6bcdb64f805eb20ab2a251fa6441f331c819cfa9e84bc2003",
+      "application": "Read complete crypto/MQTT dependency diff and release body plus all paginated conversations (none). Exact applicable CI passed before normal merge4fbafaa; combined Android analysis/tests/APK pass independently. This does not update or certify an installed tablet."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 47,
+      "scope": "full-record",
+      "content_sha256": "7ad26bc7845d1bca6ef637a1d0b1a8c77cefbcdcd2df76a095385cbe1cdc72cc",
+      "application": "Read paired CodeQL4.39.1 workflow/release diff, inspected target-hash correction and full paginated conversation (none). Exact-head Build41944625753/CodeQL41944625839 and combined checks pass. GitHub confirms indirect merge89a63b1 through PR49; no security check was waived or workflow privilege broadened."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 48,
+      "scope": "full-record",
+      "content_sha256": "8d43b7906f98adb26659699516f0f5333c8b5a4b3fcafeccd63f8cc11fd4c45e",
+      "application": "Read complete PortableShell/component/binding/test/map changes and paginated conversation (none). The two stale README consumer hashes were rereviewed and projections regenerated, not guard-bypassed. Exact-head Build41943698506/CodeQL41943698454 pass before normal mergeadf21fb. Existing hardware/auth/command ownership and unfinished command parity remain explicit; no live terminal or board acceptance claimed."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 49,
+      "scope": "full-record",
+      "content_sha256": "185691117c6690355653195f701c80b0b8e5a3e2acef37e541e2f57472f857a8",
+      "application": "Read complete combined diff, both scoped verification comments, final body and all paginated reviews/threads (none), including closed state. Exact candidate89a63b1 Build41945829235 and CodeQL41945828068 pass:515 native tests, Windows/Android packaging, S3/AVR and script/contract matrices. Normal main merge083de838 has the identical07994a2 tree and preserves all component heads. Donor comparisons explicitly use immutable9dfc54d3 plus incremental changed-hunk review; unread/newer donor work and documented product gaps remain pending. This is source/CI acceptance, not deployment or hardware proof."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 50,
+      "scope": "full-record",
+      "content_sha256": "28ebe6959c84bb4f9dcf28724951ae32de8a3ec98c2f472be21e9a5f9acee918",
+      "application": "Authored/read complete atomic-egui migration scope and paginated conversation (none). Retain the proposed0.37 history, one coherent active graph, both Dock/CraftUI compatibility and geometry/package gates. This is an open follow-up issue, not evidence the migration or outstanding product acceptance is complete."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
       "number": 40,
       "scope": "full-record",
-      "content_sha256": "afb88ff39ab8862b618e3669b7e0c3704badcae5fa73e7dd24ed43bb17efca81",
+      "content_sha256": "801c853700161055adbcf2ef3affd7360b6d79ef90310119917ffaf1ff4e34cc",
       "application": "Read complete body and all paginated conversations, reviews and threads; none contain findings. Reviewed source/test diff and canonical generated Web outputs separately. Exact fd6d31a Build41062411902 and CodeQL41062411910 pass, including S3/AVR, Android and Windows packages. Retain generation-pinned correction preview and foreground lifecycle; no board or rendered-browser acceptance inferred. The historical bytecode blocker in the body was subsequently cleared by normal native cleanup under renewed user authorization."
     },
     {
       "repository": "atomicdeploy/PakarController",
       "number": 42,
       "scope": "full-record",
-      "content_sha256": "a8c8c64ccab6b9e555f060453d9d15c6d64ea340d02d34dc6b0e0cf08e575874",
+      "content_sha256": "1ae6d06d9e4953cfde878c81ea8aa36a2be1a6b2b42e97352b5bb545172ef2f2",
       "application": "Read complete first-slice scope, verification limits and all paginated conversations, reviews and threads; no comments or findings. Preserve linked issue41 and PCController702, shared strict COBS fixtures and actual carrier distinctions. Exact-head CI remains a separate integration gate; neither conversation review nor this slice certifies whole-transport parity, MCU HAL ports, repository merger or hardware acceptance."
     },
     {

@@ -6,7 +6,29 @@ not delete the other donors' records or their hash-bound review evidence.
 Refreshed records replace matching repository/number entries; unrefreshed records
 remain historical evidence, without being promoted to freshly reviewed status.
 
-## Final handoff (2026-10-29)
+## Current source handoff (2026-11-05)
+
+PR43–49 are normally merged. PR49 main merge083de838 has exactly candidate89a63b1's
+tree; its complete Build41945829235 and CodeQL41945828068 passed, including515
+Rust tests, Windows/Android packaging and primary S3/AVR profiles. PR45 and47
+are GitHub-confirmed indirect merges of their complete heads, not merely closed
+dependency proposals. No check was waived. The incompatible partial egui0.37
+upgrade is preserved but explicitly deferred to issue50.
+
+At the code checkpoint there are zero open PRs, unmerged inventoried local/fork
+tips, stashes or dirty worktrees. All complete diffs and paginated conversations
+were reviewed; the post-merge inventory refresh does not promote other unread
+records. The receipt snapshot precedes its own publication. Any receipt-only
+checks and later main runs are separate from the accepted source CI identity.
+
+Pealayer's owner-approved immutable9dfc54d3 supplies the committed donor snapshot;
+active newer project/typography drafts and the other registered Pakar worktree
+remain untouched. Live donor drift is still reported by local consultation, not
+hidden by a weakened guard. See HANDOFF.md for exact hashes and remaining product
+gaps. Neither boards, installed clients, private settings nor deployment policy
+were changed by this source synchronization.
+
+## Historical handoff (2026-10-29)
 
 PRs #27, #34, #35 and #36 are normally merged. Main code checkpoint b752b4c has
 exactly the tree of 224dd2a, which passed Build40765000068, CodeQL40765000034 and the
