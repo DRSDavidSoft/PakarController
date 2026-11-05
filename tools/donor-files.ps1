@@ -13,6 +13,17 @@ function Test-PakarDonorSnapshot {
 function Get-RayanLampFiles {
     param([string]$Root)
     $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\','/')
+    # Retain absent tracked files AND unpacked source (notably vendor code).
+    # Git ignore rules exclude local build products from untracked inventory;
+    # tracked files always remain visible, even when ignored or missing.
+    if (Test-Path -LiteralPath (Join-Path $Root '.git')) {
+        $tracked = & git -C $Root ls-files
+        if ($LASTEXITCODE) { throw 'Cannot enumerate tracked RayanLamp source' }
+        $untracked = & git -C $Root ls-files --others --exclude-standard
+        if ($LASTEXITCODE) { throw 'Cannot enumerate unpacked RayanLamp source' }
+        $untracked = @($untracked | Where-Object { $_ -notmatch '(^|/)(node_modules|\.cache|dist|dist-sdk|work|coverage)/' })
+        return @($tracked) + $untracked | Sort-Object -Unique
+    }
     # Prune generated trees before traversal; retain vendor source and licenses.
     $pending = [Collections.Generic.Stack[string]]::new()
     $pending.Push($Root)
@@ -27,5 +38,5 @@ function Get-RayanLampFiles {
             } else { $paths.Add($relative) }
         }
     }
-    return $paths | Sort-Object
+    return $paths | Sort-Object -Unique
 }

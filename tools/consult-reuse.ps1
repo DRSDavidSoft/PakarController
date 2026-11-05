@@ -43,11 +43,12 @@ $taskTargetRoot=[IO.Path]::GetFullPath($TargetRoot).TrimEnd('\','/')
 # throws on C: even though Test-Path correctly reports an unavailable root.
 # Do not suppress hash/read/inventory errors for roots that actually exist.
 $taskAvailableRoots=@{}
-foreach($taskOrigin in $taskRoute.origins){
+$taskSelectedOrigins=@($taskSelected.origin | Sort-Object -Unique)
+foreach($taskOrigin in $taskSelectedOrigins){
     $taskAvailableRoots[$taskOrigin]=$DonorRoots.ContainsKey($taskOrigin) -and
         (Test-Path -LiteralPath $DonorRoots[$taskOrigin] -PathType Container)
 }
-foreach($taskOrigin in $taskRoute.origins){
+foreach($taskOrigin in $taskSelectedOrigins){
     if($taskOrigin -eq 'RayanLamp' -and $taskAvailableRoots[$taskOrigin]){
         $taskLivePaths=@(Get-RayanLampFiles $DonorRoots[$taskOrigin])
         $taskSnapshot=@($taskLedger | Where-Object origin -eq $taskOrigin).path
@@ -55,7 +56,7 @@ foreach($taskOrigin in $taskRoute.origins){
             throw 'Filesystem donor inventory drift: RayanLamp; refresh source paths before consultation.'
         }
     }
-    if($taskAvailableRoots[$taskOrigin] -and (Test-Path -LiteralPath (Join-Path $DonorRoots[$taskOrigin] '.git'))){
+    elseif($taskAvailableRoots[$taskOrigin] -and (Test-Path -LiteralPath (Join-Path $DonorRoots[$taskOrigin] '.git'))){
         $taskTracked=@(& git -C $DonorRoots[$taskOrigin] ls-files)
         if($LASTEXITCODE -ne 0){throw 'Cannot verify live donor inventory'}
         $taskSnapshot=@($taskLedger | Where-Object origin -eq $taskOrigin).path

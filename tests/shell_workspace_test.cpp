@@ -71,6 +71,11 @@ static void capture(DeviceShellSession &s,const char *prefix,const char *name){
 int main(int argc,char **argv){
   (void)argc;(void)argv;using V=PakarShell::ShellTui;
   DeviceShellSession s;s.parser.size(96,24);s.tui.begin();
+#ifdef PS_RENDER_FIXTURE
+  if(argc==2){s.tui.setTabsInsideTable(true);capture(s,argv[1],"inside");
+    s.tui.setTabsInsideTable(false);s.tui.setTabLayout(V::VerticalTabs);capture(s,argv[1],"vertical");
+    s.tui.setTabLayout(V::HorizontalTabs);}
+#endif
   auto input=[&](const char *keys){s.output.clear();for(;*keys;++keys)shellTuiInput(s,uint8_t(*keys),false);};
   std::set<unsigned> visited;
   for(unsigned i=0;i<V::PageCount+2;++i){
@@ -93,7 +98,7 @@ int main(int argc,char **argv){
     for(unsigned i=0;i<80;++i)assert(matrix.cellColors[i]==grid.appearance().states[grid.state(i+1)].rgb);}
   input("f ");assert(writes==1&&lastKey=="led.enabled"&&lastValue=="false"); // Actual typed row and routed Action.
   input("\x1b[B\x1b[B\r\x15" "200");assert(writes==1&&s.tui.editing());
-  s.output.clear();shellTuiDraw(s,true);assert(s.output.find("\x1b[10;34H")!=std::string::npos);
+  s.output.clear();shellTuiDraw(s,true);assert(s.output.find("\x1b[9;34H")!=std::string::npos);
   assert(s.output.find("LIGHTING")!=std::string::npos&&s.output.find("LIGHTING")==s.output.rfind("LIGHTING"));
   assert(s.output.find("Tab pages")==std::string::npos); // Inline editor alone owns keys.
 #ifdef PS_RENDER_FIXTURE
@@ -106,9 +111,20 @@ int main(int argc,char **argv){
 #endif
   input("\x1b");shellTuiInput(s,0,true);assert(writes==2);
   while(s.tui.page()!=V::TerminalPage)input("\t");
-  input("\x1b[B\x1b[B\x1b[B\x1b[B\x1b[B");
-  input(" ");assert(s.tui.theme()==V::Violet&&writes==2);
-  input(" ");assert(s.tui.theme()==V::Red);
+  input("\x1b[B\x1b[B\x1b[B\x1b[B\x1b[B\x1b[B"); // Theme, including the Appearance heading.
+  input(" ");assert(s.tui.theme()==V::Cyan&&writes==2);
+  input(" ");assert(s.tui.theme()==V::Violet);
+  input("\r");assert(s.tui.editing());
+#ifdef PS_RENDER_FIXTURE
+  if(argc==2)capture(s,argv[1],"theme-menu");
+#endif
+  input("1\r");assert(s.tui.theme()==V::Default&&!s.tui.editing()&&writes==2);
+  input("\x1b[B\x1b[B\x1b[B\r2\r"); // True color, Layout heading, Tab layout.
+  assert(s.tui.tabLayout()==V::VerticalTabs&&writes==2);
+  input("\x1b[B ");assert(s.tui.tabsInsideTable()&&writes==2);
+  input("\x1b[B ");assert(!s.tui.sectionBorderTitles()&&writes==2);
+  input(" ");assert(s.tui.sectionBorderTitles());
+  s.tui.setTabLayout(V::HorizontalTabs);s.tui.setTabsInsideTable(false);
 #ifdef PS_RENDER_FIXTURE
   if(argc==2){s.tui.setTheme(V::Cyan);capture(s,argv[1],"cyan");s.tui.setTheme(V::OneDark);capture(s,argv[1],"onedark");}
 #endif

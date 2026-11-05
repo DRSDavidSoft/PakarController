@@ -4,6 +4,318 @@
   "scope": "Manual source-file comparison; not full repository superiority or live hardware certification.",
   "files": [
     {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/protocol.go",
+      "sha256": "d00744e19cbeeae37f917121667411dda7760a69f6c2cef287df8e2487f46f21",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/protocol.rs",
+          "sha256": "93bf383d0b8f31ec5cc0def5edcd80a518ff5a49fd4c25f0bb84eeca35f37f0c",
+          "anchor": "pub fn decode("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/network_protocols.go",
+      "sha256": "f586f05425cfc142af6ac88b8e57784c27d06b6454b8c124c54e9ea8b779a1d5",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/protocol.rs",
+          "sha256": "93bf383d0b8f31ec5cc0def5edcd80a518ff5a49fd4c25f0bb84eeca35f37f0c",
+          "anchor": "pub fn decode("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/receiver.go",
+      "sha256": "e8d7067d60b7d86b9e66372e9684d70ecafa45a4bdae02bec2ec7c61add02e1f",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/mod.rs",
+          "sha256": "0ac0659cfc9279ed955a9cc64fc355e7b698273a5279111a0fcbbd1fed68e745",
+          "anchor": "pub fn open("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/serial.go",
+      "sha256": "66110ed36ba89eacb05c3a67fdf53801f6803fa91c30428ff4d92dd7645a4da1",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/mod.rs",
+          "sha256": "0ac0659cfc9279ed955a9cc64fc355e7b698273a5279111a0fcbbd1fed68e745",
+          "anchor": "pub fn open("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/protocol_test.go",
+      "sha256": "5330c671668217538ac1536b95cc23f9f1b5914d81ce28d72198316d4c06235f",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/rgbinput/network_protocols_test.go",
+      "sha256": "bc50b37e3ff61720d0381204437644ad19c212e129f940f62541f818cd17aa36",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Controller/internal/control/rgb_input.go",
+      "sha256": "7cd68ee929bd4b94f58313db3e6b004bc3369650c4115e2f9978b0920b2a4714",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/rgb_input/mod.rs",
+          "sha256": "0ac0659cfc9279ed955a9cc64fc355e7b698273a5279111a0fcbbd1fed68e745",
+          "anchor": "pub fn open("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
+      "origin": "PCController",
+      "path": "Tools/Integrations/SignalRGB/PCController.js",
+      "sha256": "53202c61152a75bde27f8166df77460247abd2c27df2b49ab172b31ce3f61eb9",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete actual donor working-tree file, not the older inventory snapshot. Ported strict complete-frame decoding, source/sequence pinning, bounded serial parsing and latest-frame ownership to Rust; adapted pixel capacity from AVR100 to Pakar480, with optional acknowledged 80-cell mapping. Native Streaming controls use the existing authenticated WebSocket owner and commit encoder. SignalRGB plugin is copied with Pakar branding and 480 default."
+      ],
+      "targets": [
+        {
+          "path": "integrations/SignalRGB/PakarController.js",
+          "sha256": "f639e1fb2319371f27c3b04e12a3d0e8ef93f30828a031b04504f1029e40222e",
+          "anchor": "export function Render()"
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/rgb_input/tests.rs",
+          "sha256": "163dad16af12b902640d79ba634267804a182792880effc231db65e4ae5f0d37",
+          "anchor": "fn complete_frames_and_every_truncation()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "PCController native AVR configuration/opcodes and ACK scheduler",
+          "disposition": "replaced",
+          "reason": "Pakar owns a 480-pixel ESP output over its existing PKAR WebSocket. No donor opcode numbers, auto strip resize or fabricated ACKs are copied. Counters report writes."
+        },
+        {
+          "code": "Web/TUI/mobile start-stop surfaces, cross-client board arbitration and live integrations",
+          "disposition": "pending",
+          "reason": "This port exposes native host controls. Existing board multi-client ownership is unchanged; full client parity and actual OpenRGB/SignalRGB/serial/physical acceptance remain issue2 work."
+        }
+      ],
+      "remaining": [
+        "Compile through the mandatory native wrapper when current live-donor gates are reconciled; tests/CI deferred by user. Native application/plugin/loopback/network/physical acceptance not claimed. Source donor is uncommitted working tree on 3aed9ef6d9b0052be17a09cb49d73cc5c2622906; source hash is authoritative."
+      ]
+    },
+    {
       "origin": "Pealayer",
       "path": "src/ui/egui_dock.rs",
       "sha256": "749f7960e4af7dbb29710818d8b7f178827ad2ffd0b1260aca89332cf91ab742",
@@ -61,7 +373,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "desktop.set_icon(&icon)"
         }
       ],
@@ -96,7 +408,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -131,7 +443,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -171,7 +483,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -211,7 +523,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -246,7 +558,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         },
         {
           "path": "firmware/esp/src/PortableShellCore.h",
@@ -285,7 +597,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -320,7 +632,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -355,7 +667,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         }
       ],
       "proof": [
@@ -443,7 +755,7 @@
         {
           "path": "third_party/portable-shell/README.md",
           "anchor": "# Portable Shell source integration",
-          "sha256": "dbdd9653cb23ba484160e050ed8c3c409d314b128ec0398620b391334c7bf24c"
+          "sha256": "b029c00a483d2cbc85775e27821dacb3f9913d9994f78b75011061dee27cde76"
         },
         {
           "path": "tools/telnet-shell.mjs",
@@ -651,7 +963,7 @@
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
           "anchor": "class DeviceView",
-          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652"
+          "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f"
         },
         {
           "path": "firmware/esp/src/ShellLabels.h",
@@ -1611,7 +1923,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn draw_table(",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         }
       ],
       "proof": [
@@ -1648,7 +1960,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn table_scene_fits_small_dock_and_zooms_at_pointer()",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         }
       ],
       "omissions": [
@@ -1779,7 +2091,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "egui::Scene::new()",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         }
       ],
       "proof": [
@@ -3017,7 +3329,7 @@
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+          "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
           "anchor": "class DeviceView"
         }
       ],
@@ -7506,7 +7818,7 @@
       "targets": [
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "#![cfg_attr(windows, windows_subsystem = \"windows\")]"
         },
         {
@@ -7574,7 +7886,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "cli_println!(\"{reply}\")"
         },
         {
@@ -8575,7 +8887,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "value[\"pixel_preview\"]"
         },
         {
@@ -9436,7 +9748,7 @@
         {
           "path": "desktop/src/main.rs",
           "anchor": "SerialCommand::Bridge(target",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32"
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792"
         }
       ],
       "omissions": [
@@ -15777,7 +16089,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "fn scoped_http_request("
         },
         {
@@ -15921,7 +16233,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "// The mapping response identifies its own producer."
         },
         {
@@ -16409,7 +16721,7 @@
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_device_table.hpp",
-          "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
+          "sha256": "bc5297b095a2fb4ab48375ac3374dfa478232e3716c1837aeaf65ad9cfb9132a",
           "anchor": "// Separate logical rows from section headings without heap storage."
         }
       ],
@@ -16440,7 +16752,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "s.output.find(\"LIGHTING\")==s.output.rfind(\"LIGHTING\")"
         }
       ],
@@ -16476,7 +16788,7 @@
           "path": "desktop/src/ui/device_settings.rs"
         },
         {
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/shell.rs"
         },
@@ -17992,7 +18304,7 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/i18n.rs",
-      "sha256": "23c7ee0add47437572d6d96f644e22627b36e4c3f548143dd643a74f31b42f75",
+      "sha256": "1e44a8f82da7eaea8ed9bf0505e3337f0c68d316741be0e24dc21b03b5f2912b",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
@@ -18076,10 +18388,10 @@
       ],
       "improvement": "",
       "source_review": {
-        "method": "Previous complete read bound to its exact Git object plus manual review of every changed hunk through immutable commit 9dfc54d3b45f911cd94a08688c742efab760b0dd. Concurrent donor drafts are excluded.",
-        "previous_sha256": "bc01f8442cb8a002243e12339bf1fb23c42f0d7028262493011318c90147b5f9",
-        "previous_git_revision": "1fbed601b9115aa1373639c213027610d960d2f1",
-        "revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "method": "Previous complete read and incremental reviews retained; every changed hunk from 9dfc54d to immutable e2819ac was manually reviewed (27 strip-designer and 7 hardware-shortcut translations). Corresponding application surfaces remain pending; concurrent donor drafts excluded.",
+        "previous_sha256": "23c7ee0add47437572d6d96f644e22627b36e4c3f548143dd643a74f31b42f75",
+        "previous_git_revision": "9dfc54d3b45f911cd94a08688c742efab760b0dd",
+        "revision": "e2819ac01152e1f7ebbbf52e6a1abbd5e511fa42",
         "working_tree_delta": false
       }
     },
@@ -18201,7 +18513,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
+          "sha256": "8f2ee8da26e8a359755304dd7bb905575b32e37630638b80b10ecae5698f2648",
           "anchor": "Connected boards. One contextual control workspace."
         },
         {
@@ -18259,7 +18571,7 @@
         },
         {
           "path": "tools/prepare-release.mjs",
-          "sha256": "b31fc1117c192807cb01642ec932ee8ffcb1dd9fe3acabf837002ee6bf29a2e1",
+          "sha256": "13fcc12ef5b866ab75710ae161c46747bcf36c3177528bb2a045c741759591d9",
           "anchor": "export function firmwareManifest"
         }
       ],
@@ -18573,12 +18885,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "fn save_status_bar_preferences("
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "let firmware_progress = self.firmware_observation().filter(|p| p.active);"
         },
         {
@@ -18687,7 +18999,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "fn status_bar_startup_message_respects_disconnected_and_selected_route()"
         },
         {
@@ -18946,7 +19258,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "fn synchronize_context("
         },
         {
@@ -19381,7 +19693,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "menu::top_menu_button(ui, crate::ui::i18n::text(\"File\")"
         },
         {
@@ -19917,7 +20229,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "crate::application_shortcuts::take_action"
         }
       ],
@@ -20437,7 +20749,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "value[\"messages\"]",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         },
         {
           "path": "desktop/src/platform/notifications.rs",
@@ -20532,7 +20844,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "icons::searchable_workspace_icon_picker"
         },
         {
@@ -21327,7 +21639,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
+          "sha256": "c1ffa8c832a4ab83cef1144f64200c79ed1b3d7320549b7a4598d383f7bc2687",
           "anchor": "struct ShellTuiSnapshot"
         },
         {
@@ -21570,7 +21882,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
+          "sha256": "c1ffa8c832a4ab83cef1144f64200c79ed1b3d7320549b7a4598d383f7bc2687",
           "anchor": "struct ShellTuiSnapshot"
         },
         {
@@ -21874,7 +22186,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
+          "sha256": "c1ffa8c832a4ab83cef1144f64200c79ed1b3d7320549b7a4598d383f7bc2687",
           "anchor": "shellGet(property)"
         },
         {
@@ -21992,7 +22304,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
+          "sha256": "c1ffa8c832a4ab83cef1144f64200c79ed1b3d7320549b7a4598d383f7bc2687",
           "anchor": "shellGet(property)"
         },
         {
@@ -22076,12 +22388,12 @@
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+          "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
           "anchor": "class DeviceView"
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
+          "sha256": "c1ffa8c832a4ab83cef1144f64200c79ed1b3d7320549b7a4598d383f7bc2687",
           "anchor": "struct ShellTuiSnapshot"
         }
       ],
@@ -22139,12 +22451,12 @@
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_terminal.h",
-          "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
+          "sha256": "0fa0bf12b6dcab508360b70e004fec813d4ecbc087371581b83564bb14c2859d",
           "anchor": "static inline size_t ps_terminal_text"
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+          "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
           "anchor": "class DeviceView"
         },
         {
@@ -23405,7 +23717,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "event_log.failure(\"Windows tray tooltip\", &error)"
         }
       ],
@@ -23466,7 +23778,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "value[\"tray_shell\"]"
         },
         {
@@ -23529,7 +23841,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "fn serial_worker("
         },
         {
@@ -23566,7 +23878,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32",
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792",
           "anchor": "fn usb_selected_http_worker_never_contacts_even_a_live_network_endpoint()"
         },
         {
@@ -23626,7 +23938,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "pub(super) fn draw_led_settings(",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         }
       ],
       "omissions": [
@@ -24455,7 +24767,7 @@
         {
           "path": "desktop/src/main.rs",
           "anchor": "peer_http::remember_address",
-          "sha256": "919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32"
+          "sha256": "4dd3825cdef98bb67eb41806818edbd0e4e3976cc559879adca27f1fd5591792"
         },
         {
           "path": "firmware/esp/src/PeerLanResolver.h",
@@ -24691,7 +25003,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -25028,7 +25340,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381",
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -25238,7 +25550,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn synchronize_context",
-          "sha256": "21babf69f4f52418049d91b55c1e24e02150016d02cb2169bcaf23c017612381"
+          "sha256": "533bd6ff1d68b5fab29db88c85902211c6660fab1caba34edb0ab7ba3258629d"
         },
         {
           "path": "desktop/src/ui/layout.rs",
@@ -26534,7 +26846,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
+          "sha256": "8f2ee8da26e8a359755304dd7bb905575b32e37630638b80b10ecae5698f2648",
           "anchor": "## Get started"
         },
         {
@@ -26569,17 +26881,17 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_terminal.h",
-      "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "0fa0bf12b6dcab508360b70e004fec813d4ecbc087371581b83564bb14c2859d",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_terminal.h",
-          "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
+          "sha256": "0fa0bf12b6dcab508360b70e004fec813d4ecbc087371581b83564bb14c2859d",
           "anchor": "#ifndef"
         }
       ],
@@ -26591,7 +26903,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26603,17 +26915,17 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_editor.h",
-      "sha256": "00bd8c83ae9d7ad8fdc3ae963e37acabf0b3f93096758f0294cdebed2f11cbd3",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "67aeede39e80a81909063b304f11fbf60e526e25a8718d257bf6e867b5f90f8b",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_editor.h",
-          "sha256": "00bd8c83ae9d7ad8fdc3ae963e37acabf0b3f93096758f0294cdebed2f11cbd3",
+          "sha256": "67aeede39e80a81909063b304f11fbf60e526e25a8718d257bf6e867b5f90f8b",
           "anchor": "#ifndef"
         }
       ],
@@ -26625,7 +26937,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26638,11 +26950,11 @@
       "origin": "portable-shell",
       "path": "include/portable_shell_editor.hpp",
       "sha256": "1289e6667828d637042de29b31941427d8a9f222c3a7c967fd751f3b0c7ba7c3",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
@@ -26659,7 +26971,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26671,17 +26983,17 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_device_view.hpp",
-      "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+          "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
           "anchor": "#ifndef"
         }
       ],
@@ -26693,7 +27005,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26705,17 +27017,17 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_style.h",
-      "sha256": "a29a3338b6ee4523fc394adeb496146f82840c931b4ac7035e52502bf9ce3f6e",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "34fa1fdc0768d09809429037d77f68e81d84d6d00f1c84a57feeccaa130f2538",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_style.h",
-          "sha256": "a29a3338b6ee4523fc394adeb496146f82840c931b4ac7035e52502bf9ce3f6e",
+          "sha256": "34fa1fdc0768d09809429037d77f68e81d84d6d00f1c84a57feeccaa130f2538",
           "anchor": "#ifndef"
         }
       ],
@@ -26727,7 +27039,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26739,17 +27051,17 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_device_table.hpp",
-      "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "bc5297b095a2fb4ab48375ac3374dfa478232e3716c1837aeaf65ad9cfb9132a",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_table.hpp",
-          "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
+          "sha256": "bc5297b095a2fb4ab48375ac3374dfa478232e3716c1837aeaf65ad9cfb9132a",
           "anchor": "tableCapacity"
         }
       ],
@@ -26761,7 +27073,7 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "sha256": "7f3729916c5e6eefe880eb7551d9b4f6ad0e1ca3f4aeb0b6bfc7c19be62a6c5b",
           "anchor": "Actual workspace binding"
         }
       ],
@@ -26853,11 +27165,11 @@
       "proof": [],
       "omissions": [],
       "sha256": "48350a03fd496aaf50bf47149f8a099d7d07de9175024ef43a917e0a7cf53f1d",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "remaining": [
         "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
@@ -26876,11 +27188,11 @@
       "proof": [],
       "omissions": [],
       "sha256": "adf67d72d371b0e15fb1be3c64dfdea5155840b55a23a987be5807437fed9be0",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "remaining": [
         "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
@@ -26899,11 +27211,11 @@
       "proof": [],
       "omissions": [],
       "sha256": "568c68488cc8821e694b2ba576f138dc4d0d6f8f9970e83b99188b7727014256",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "remaining": [
         "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
@@ -26915,18 +27227,18 @@
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_table_policy.h",
-          "sha256": "eed0e170b4b80284b0cbbda87c7998480ec6d4040192d0402ca5af112ddfec04",
+          "sha256": "c99adab79c8edccef66ed940e981da6bf1362f40ece6149242a92d6cda220340",
           "anchor": "#ifndef"
         }
       ],
       "proof": [],
       "omissions": [],
-      "sha256": "eed0e170b4b80284b0cbbda87c7998480ec6d4040192d0402ca5af112ddfec04",
-      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "sha256": "c99adab79c8edccef66ed940e981da6bf1362f40ece6149242a92d6cda220340",
+      "source_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+        "Exact canonical component refresh at 6d07087f1ad5bffe76dd68903bbb7f6705a78448. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "remaining": [
         "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."

@@ -2,6 +2,14 @@
 
 PakarController is integration code built from earlier AtomicDeploy projects.
 
+- `desktop/src/rgb_input` adapts the actual PCController
+  `Tools/Controller/internal/rgbinput` decoders, receiver and serial framing,
+  with Pakar connection ownership and 480-pixel/cell-map output. Its SignalRGB
+  plugin is copied and rebranded in `integrations/SignalRGB/PakarController.js`.
+  Original copyright (c) 2026 David Refoua and PCController contributors; used
+  under the MIT option in `docs/licenses/PCController-MIT.txt`. Exact dirty-donor
+  hashes and concrete outstanding parity are in the existing source ledger.
+
 - `tools/check-doc-links.mjs` adapts `localLinkReference`, Markdown heading
   normalization/anchor enumeration and local-link checking from PCController's
   `.github/scripts/repository-check.mjs` and `repository-policy.mjs`, read at

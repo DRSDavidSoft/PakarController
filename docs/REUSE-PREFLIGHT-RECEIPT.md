@@ -1,5 +1,62 @@
 # Donor-first preflight receipt
 
+## Merge integration validation, 2026-11-05
+
+Preserved both terminal and external RGB changes in the same candidate. Rechecked
+the immutable Pealayer 9dfc54d..e2819ac translation diff and repaired its ledger
+revision/byte count to match the existing reviewed hash. Regenerated the full
+comparison report against the actual combined working tree; all 4,918 files
+remain accounted for. The actual release-package fixture passes. The guarded
+local RGB test command stops before Cargo on live Pealayer src/update.rs drift;
+GitHub compilation/tests remain required before merging. No donor draft, build
+gate, physical acceptance claim, or source-history branch was discarded.
+
+## External RGB host port, 2026-11-05 (#2)
+
+Read the complete actual PCController protocol.go, network_protocols.go,
+receiver.go, serial.go, protocol_test.go, network_protocols_test.go,
+control/rgb_input.go and SignalRGB/PCController.js. The older inventory had none
+of these files: exact-source donor-audit lookup failed rather than proving an
+exclusion. Added their original-byte hashes and the external-rgb route to the
+existing authorities; consulted the broader PCController inventory as well.
+The external-rgb reviewed-slice gate passes for all eight sources.
+
+Actual Rust adaptations are in desktop/src/rgb_input, invoked by the existing
+WebSocket worker and native Streaming panel, with the branded SignalRGB plugin
+and Windows release package entries. See RGB-INPUT.md for transport/pixel limits,
+source pinning, lifecycle cancellation and explicit missing surfaces/acceptance.
+Tests are added but not executed, per the user's deferral. rustfmt parsing and
+JavaScript syntax checks pass; these are not Rust type-check or runtime proof.
+
+The complete owned main.rs/shell.rs diff was reviewed before rebinding their
+existing target hashes: changes are restricted to RGB module/state, WebSocket
+source admission/cancellation and Streaming controls. Existing startup subsystem,
+tray, HTTP/USB ownership, table geometry, menus and preferences remain intact.
+No UI font or language implementation was replaced. The localization source
+checkpoint was stale: the prior reviewed hash exactly matches Pealayer9dfc54d;
+the complete9dfc54d..e2819ac diff adds27 strip-designer and7 hardware-shortcut
+translations only. That incremental diff was read and its source hash rebound;
+the corresponding application features and full font/dictionary parity remain
+pending, not accepted by this refresh. This is incremental review atop the
+existing full-read record, not a new complete dictionary read.
+
+Canonical build-desktop.ps1 -Mode Check was attempted, without running tests.
+After the localized evidence repair, a concurrent donor inventory refresh
+briefly blocked admission; a fresh exact path comparison then matched. The next
+gate rejects live Pealayer src/update.rs drift from its recorded909e8aa4 hash.
+That unrelated updater work is not overwritten or relabeled as reviewed. No
+direct cargo bypass, test/CI run, deployment, firmware action or LED write was
+performed. Compile, full comparison-report regeneration and source publication
+must be completed against a reconciled owner snapshot; do not call this runtime
+ready from the source checkpoint.
+
+The added README documentation row, retained license notice and nested Windows
+plugin package entries were also reviewed before refreshing their existing
+target references. Full comparison regeneration then stopped on concurrently
+changed PU850 Shell.cpp -> firmware/esp/src/ShellTuiBinding.h evidence; the
+RGB work does not certify or overwrite that separate shell task. Its report and
+publication remain pending with the native compile gate above.
+
 ## Firmware HEX delivery and high-DPI artwork, 2026-10-30 (#11 / #5)
 
 The existing CI already emitted application HEX; the actual AVR packaging owner
@@ -12316,3 +12373,41 @@ Local live-donor gates remain unchanged and may refuse while the owner's draft
 differs from this snapshot. CI checks the committed source projection and must
 compile/test/package the exact integrated head; a historical native capture,
 source comparison or CI package is not a deployment or hardware acceptance.
+
+## Shared terminal presentations (2026-11-05)
+
+Reviewed PortableShell's DeviceView, table, editor, terminal, style and policy
+changes through 6d07087f1ad5bffe76dd68903bbb7f6705a78448. The canonical headers
+are copied byte-for-byte; Pakar retains property admission, authentication,
+observations and hardware dispatch. A centered choice picker and observed/draft
+modal reuse the existing action validator. Terminal-only layout controls do not
+write board settings. No settings/commands or physical ownership were removed.
+
+The guarded actual-binding native replay passes all nine pages, inline/modal
+apply/cancel, choice selection and session layout changes. Source/hash tests
+account for all 27 pinned component/reference files. PortableShell's eleven device
+layout variants, menu-disabled build and all 79 preview pairs passed locally.
+DeviceView host ABI size is 1048 bytes (previous 1040); this is not ESP RAM usage.
+See docs/assets/terminal/README.md for reproducible before/after images.
+
+RayanLamp now has Git metadata: its inventory helper uses the same complete
+tracked path set as the consultation gate, including absent tracked files.
+An explicit Origin filter now limits live inventory checks to selected origins;
+required source/hash/target gates are retained. New Pealayer paths are inventoried
+without changing previous approved snapshots or marking unread paths accepted.
+
+Full comparison generation in the shared working tree encounters concurrent
+Pealayer evidence and desktop draft changes. Publication therefore regenerates
+the SAME reports against a source projection of committed HEAD plus this task's
+reviewed terminal files. Unrelated evidence, targets and capability routing use
+HEAD bytes; concurrent RGB-input changes remain unstaged and untouched. This
+projection checks the proposed commit, not those other drafts or live donors.
+It accounts for 4910 files, 442 comparisons and 317 known parity gaps; those
+existing open gaps are not claimed resolved by a terminal rendering update.
+
+The ESP32-S3 build wrapper stopped before compilation because required live
+Pealayer web_ui/src/appearance.ts was not fully reviewed/current. The reuse
+preflight test later stopped on live PreferencesTab.tsx drift. These gates were
+not bypassed. No ESP binary, firmware flash/RAM measurement, installed-board
+session, reboot or GPIO action is claimed. CI follow-up is deferred at the user's
+request. Simulated replay images are deliberately labeled as such.

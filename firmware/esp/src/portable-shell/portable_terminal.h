@@ -8,10 +8,13 @@
  * Callbacks consume bytes synchronously. One owner per state object. */
 #include <stddef.h>
 #include <stdarg.h>
+#include <limits.h>
 #ifdef PS_TERMINAL_USE_LIBC
 #include <string.h>
 #endif
 typedef void (*ps_terminal_write)(void *, const unsigned char *, size_t);
+/* log10(2) < 1/3: this bounds decimal digits plus sign and terminator. */
+enum { PS_TERMINAL_INTEGER_BYTES = sizeof(unsigned) * CHAR_BIT / 3 + 3 };
 /* Optional shift/subtract decimal division for MCUs without hardware divide.
  * Keeps compiler division helpers out of the small header-only profile. The
  * default lets the host compiler choose its native implementation. */
@@ -20,7 +23,7 @@ typedef void (*ps_terminal_write)(void *, const unsigned char *, size_t);
 #endif
 static inline unsigned ps_div10(unsigned value, unsigned *remainder) {
 #if PS_TERMINAL_SOFT_DIV10
-    unsigned quotient = 0, rest = 0, bits = (unsigned)(sizeof(unsigned) * 8);
+    unsigned quotient = 0, rest = 0, bits = (unsigned)(sizeof(unsigned) * CHAR_BIT);
     while (bits) {
         --bits; rest = (rest << 1) | ((value >> bits) & 1u);
         quotient <<= 1;
@@ -31,7 +34,7 @@ static inline unsigned ps_div10(unsigned value, unsigned *remainder) {
     *remainder = value % 10; return value / 10;
 #endif
 }
-/* Small bounded renderer formatter, not a printf replacement: only %u, %02u,
+/* Small bounded renderer formatter, not a printf replacement: only %d, %u, %02u,
  * %s and %% are supported. Returns the full required byte count. */
 static inline size_t ps_terminal_format(char *out, size_t capacity, const char *format, ...) {
     size_t used = 0, i, n;
@@ -39,16 +42,20 @@ static inline size_t ps_terminal_format(char *out, size_t capacity, const char *
     va_start(args, format);
     while (*format) {
         const char *text = 0;
-        char digits[11], literal[2] = {*format++, 0};
+        char digits[PS_TERMINAL_INTEGER_BYTES], literal[2] = {*format++, 0};
         if (literal[0] == '%') {
             unsigned width = 0, value;
             if (format[0] == '0' && format[1] == '2') {
                 width = 2;
                 format += 2;
             }
-            if (*format == 'u') {
-                ++format;
-                value = va_arg(args, unsigned);
+            if (*format == 'u' || *format == 'd') {
+                unsigned negative = 0;
+                if (*format++ == 'd') {
+                    int signed_value = va_arg(args, int);
+                    negative = signed_value < 0;
+                    value = negative ? 0u - (unsigned)signed_value : (unsigned)signed_value;
+                } else value = va_arg(args, unsigned);
                 n = 0;
                 do {
                     unsigned remainder;
@@ -61,6 +68,10 @@ static inline size_t ps_terminal_format(char *out, size_t capacity, const char *
                     char c = digits[i];
                     digits[i] = digits[n - 1 - i];
                     digits[n - 1 - i] = c;
+                }
+                if (negative) {
+                    for (i = n; i; --i) digits[i] = digits[i - 1];
+                    digits[0] = '-'; ++n;
                 }
                 digits[n] = 0;
                 text = digits;
@@ -87,6 +98,21 @@ static inline size_t ps_terminal_format(char *out, size_t capacity, const char *
     if (capacity)
         out[used < capacity ? used : capacity - 1] = 0;
     return used;
+}
+/* Trusted application output: '%' substitutes the signed number each time.
+ * This is not printf syntax; '%%' deliberately substitutes twice. Caller owns
+ * terminal-control sanitization, just as for the raw byte writer. */
+static inline void ps_terminal_number_pattern(ps_terminal_write write, void *context,
+                                              const char *pattern, int value) {
+    char number[PS_TERMINAL_INTEGER_BYTES];
+    size_t n;
+    if (!write || !pattern) return;
+    n = ps_terminal_format(number, sizeof number, "%d", value);
+    while (*pattern) {
+        if (*pattern == '%') write(context, (const unsigned char *)number, n);
+        else write(context, (const unsigned char *)pattern, 1);
+        ++pattern;
+    }
 }
 static inline const char *ps_text_find(const char *text, const char *part) {
     size_t i, j;

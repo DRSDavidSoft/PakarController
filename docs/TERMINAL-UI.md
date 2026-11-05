@@ -1,5 +1,46 @@
 # Interactive terminal checkpoint
 
+## Shared rich layouts (2026-11-05)
+
+[Before/after gallery](assets/terminal/README.md) ·
+[Side-by-side preview](assets/terminal/index.html) ·
+[Rebuild script](../tools/render-shell-previews.ps1)
+
+The firmware consumes the same allocation-free `PortableShell::DeviceView`
+component used by PortableShell's device gallery. `tui` opens the workspace;
+Tab/Shift+Tab changes pages. Section titles now sit in the dividing border, with
+the expand/collapse indicator visible on selected or collapsed sections only.
+Enter edits a value in its cell; F2 opens an observed/draft dialog with range,
+step and Apply/Cancel controls. Tab moves between the draft and those buttons.
+Escape cancels without dispatching a hardware request.
+
+Choice rows open a centered numbered picker with red borders and yellow
+selection. Up/down wraps, numbers 1–9 select, Enter applies, and Escape returns
+unchanged. Mouse clicks select/apply; the wheel moves selection. All apply
+requests still use the existing property validator and authorized action router.
+
+The **Terminal** page exposes session-local **Tab layout** (horizontal/vertical),
+**Tabs inside table**, **Border titles**, and Default/Cyan/Violet/Red/One Dark
+palettes. Layout changes never write board settings. Hardware values remain
+observations until the consumer routes and confirms their change.
+
+Consumers can select `PS_DEVICE_VIEW_INLINE_EDIT`, `PS_DEVICE_VIEW_WIDGETS`,
+`PS_DEVICE_VIEW_DIALOGS`, `PS_DEVICE_VIEW_CHOICE_MENU`, `PS_DEVICE_VIEW_SECTIONS`,
+`PS_DEVICE_VIEW_VERTICAL_TABS`, `PS_DEVICE_VIEW_MATRIX`, and
+`PS_DEVICE_VIEW_RETAIN_ROWS` independently. The default includes all of them;
+there is no implicit reduced MCU mode. `setChoiceMenus(false)` retains text
+editing for choices without removing the other controls. The host replay reports
+1048 bytes of DeviceView state, eight more than the preceding pin. This is a
+host ABI measurement, not ESP runtime RAM or firmware flash size.
+
+The nine-page `tests/shell_workspace_test.cpp` compiles the actual firmware
+binding with deterministic observation/action doubles. It tests session layout
+changes, theme menus, inline apply/cancel and modal navigation. Captures use the
+same emitted bytes and pinned Agave font as the PortableShell gallery. These are
+source replay fixtures, not a live board session. ESP32-S3 compilation remains
+blocked by the live donor-source gate described in REUSE-PREFLIGHT-RECEIPT.md;
+no flash, reboot, GPIO write or production connection occurred in this pass.
+
 ## Terminal interaction polish (2026-10-28 candidate)
 
 The greeting is just product and hostname, with no `help / tui` narration.

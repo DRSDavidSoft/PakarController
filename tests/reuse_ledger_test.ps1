@@ -38,10 +38,19 @@ try {
         New-Item -ItemType Directory -Path (Join-Path $donor $relative) -Force | Out-Null
         Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'reuse_fixture/source.h') -Destination (Join-Path $donor "$relative/source.h")
     }
+    [IO.File]::WriteAllText((Join-Path $donor '.gitignore'), "*.test.exe`n")
+    [IO.File]::WriteAllText((Join-Path $donor 'generated.test.exe'), 'generated fixture')
     $sourcePaths = @(Get-RayanLampFiles ($donor + [IO.Path]::DirectorySeparatorChar))
-    if ('vendor/source.h' -notin $sourcePaths -or 'dist/source.h' -in $sourcePaths -or 'node_modules/source.h' -in $sourcePaths) {
+    if ('vendor/source.h' -notin $sourcePaths -or 'dist/source.h' -in $sourcePaths -or 'node_modules/source.h' -in $sourcePaths -or 'generated.test.exe' -in $sourcePaths) {
         throw 'Source snapshot must retain vendor and prune generated output before recursion'
     }
+    & (Join-Path $root 'tools/generate-reuse-ledger.ps1') @options | Out-Null
+    $consultIndex=Join-Path $scratch 'consult-index.json'
+    $consultEvidence=Join-Path $scratch 'consult-evidence.json'
+    [IO.File]::WriteAllText($consultIndex,'{"schema":1,"concerns":[{"id":"fixture","origins":["RayanLamp"],"path_pattern":".*","required_reviews":[],"issue":2}]}')
+    [IO.File]::WriteAllText($consultEvidence,'{"schema":1,"files":[]}')
+    $lookup=& (Join-Path $root 'tools/consult-reuse.ps1') -Concern fixture -LedgerPath $ledger -EvidencePath $consultEvidence -IndexPath $consultIndex -DonorRoots @{RayanLamp=$donor}
+    if($lookup.Matched -ne $sourcePaths.Count){throw 'Consultation must use the same tracked/untracked source inventory as generation'}
     $initialRows = @(Import-Csv -LiteralPath $ledger)
     if (@($initialRows | Where-Object {$_.origin -eq 'RayanLamp' -and $_.path -match '^\.git/'}).Count) { throw 'Generated Git internals were inventoried as donor source' }
     & (Join-Path $root 'tools/check-reuse-ledger.ps1') -LedgerPath $ledger -EvidencePath $evidence | Out-Null
@@ -56,6 +65,7 @@ try {
     Move-Item -LiteralPath (Join-Path $donor 'source.h') -Destination (Join-Path $scratch 'saved-source.h')
     & (Join-Path $root 'tools/generate-reuse-ledger.ps1') @options | Out-Null
     Assert-State PCController missing
+    Assert-State RayanLamp missing
     # Exact reviewed sparse blobs survive regeneration only while their current
     # tree object/revision/raw identity agree. No checkout expansion or network.
     $taskRevision=(& git -C $donor rev-parse HEAD).Trim()

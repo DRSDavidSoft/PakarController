@@ -2,9 +2,9 @@
 
 ## Canonical components (current integration)
 
-PortableShell commit `e90ffc004b39912e21a1799a75061ac61f22c74f` now owns the
+PortableShell commit `6d07087f1ad5bffe76dd68903bbb7f6705a78448` now owns the
 shared C Telnet/terminal primitives, C event editor, thin C++ callback facade
-and optional snapshot/action device view. The exact six component files are compiled
+and optional snapshot/action device view. The exact ten component files are compiled
 from `firmware/esp/src/portable-shell/`; `source.json` binds their upstream paths,
 commit and SHA-256. CI rejects drift. Do not patch that slice independently:
 change atomicdeploy/portable-shell first, then review and update this pin.
@@ -14,7 +14,7 @@ suggestion storage, optional shift/subtract decimal formatting and a contextual
 Unicode navigation footer. Pakar keeps its existing capacities and native
 formatting default. The new in-place tokenizer and asynchronous cursor probe
 remain available upstream; they are not copied into Pakar without a call site.
-`tools/test-shell.ps1` and the 23-entry source/hash gate pass for this update.
+`tools/test-shell.ps1` and the 27-entry source/hash gate pass for this update.
 Actual firmware CI and device acceptance remain separate gates.
 
 `TelnetShell.h`, `ShellTui.h` and the Terminal binding in `PortableShellCore.h`
@@ -32,8 +32,8 @@ The event interface preserves the existing authenticated dispatcher. CPU type do
 
 The comparison and reusable integration guide is upstream `PAKAR-INTEGRATION.md`.
 The 17 older entries below remain historical source evidence, not another live
-implementation. Six current component entries bring the authoritative ledger
-to 23 files. Their original Git history is preserved; nothing is silently retired.
+implementation. Ten current component entries bring the authoritative ledger
+to 27 files. Their original Git history is preserved; nothing is silently retired.
 
 Exact donor: https://github.com/atomicdeploy/portable-shell/tree/67c5dcb8a63f4055cbdaf02e9ff271c53b46410d
 Requested branch: `copilot/organize-readme-into-plan`. License: MIT, retained in
@@ -128,6 +128,6 @@ production firmware deployment require their separate acceptance gate.
 
 ## Rich device workspace
 
-The default shared view now uses the full palette, category/setting/value columns, proper border junctions, viewport scrolling, cell editing, optional F2 dialogs, typed toggles and numeric/choice controls, stale-edit rejection and changed-row repaint. The table uses 40..240 columns and a bounded complete-frame budget. Explicit PS_DEVICE_VIEW_* flags select exclusions; no MCU mode selects them. Terminal settings expose violet/red/lumen/onedark and true color. Application property validation and physical side effects stay with the same owner.
+The shared view uses semantic colors, two setting/value columns, border-integrated category titles, viewport scrolling, cell editing, observed/draft F2 dialogs, centered numbered choice menus, typed toggles and numeric controls, stale-edit rejection and changed-row repaint. The table supports 40..240 columns and a bounded complete-frame budget. Explicit PS_DEVICE_VIEW_* flags select exclusions; no MCU mode selects them. Terminal settings expose Default/Cyan/Violet/Red/One Dark, true color, horizontal/vertical tabs, tabs inside the table and border titles. Application validation and physical side effects stay with the same owner. See docs/TERMINAL-UI.md and its before/after gallery.
 
 Native fixtures and emitted-byte pictures are not installed-board proof. Event text input is still ASCII; AP configuration/restore and complete application parity remain open in the existing donor ledger.

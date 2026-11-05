@@ -3,7 +3,7 @@
 // Explicit legacy packaging remains available; unfinished ESP8266 is not a
 // default release target and is never substituted for the S3 application.
 import {readFileSync,writeFileSync,copyFileSync,mkdirSync,existsSync,readdirSync} from 'node:fs';
-import {resolve,join} from 'node:path';
+import {resolve,join,dirname} from 'node:path';
 import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
@@ -45,7 +45,7 @@ function prepare(){
   const zip=(name,files)=>{
     const stage=join(output,'.staging',name.replace(/\.zip$/,''));
     mkdirSync(stage,{recursive:true});
-    for(const [name,data] of files)writeFileSync(join(stage,name),data,{flag:'wx'});
+    for(const [name,data] of files){mkdirSync(dirname(join(stage,name)),{recursive:true});writeFileSync(join(stage,name),data,{flag:'wx'});}
     const result=spawnSync('zip',['-q',join(output,name),...files.map(([name])=>name)],{cwd:stage,stdio:'inherit'});
     if(result.error)throw result.error;
     if(result.status!==0)throw Error('Package archive failed');
@@ -70,7 +70,10 @@ function prepare(){
   }
   const native=readFileSync(join(input,'windows','pakarcontroller.exe'));
   if(native.length<64||native.subarray(0,2).toString()!=='MZ')throw Error('Missing Windows PE executable');
-  zip('PakarController-Windows.zip',[...docs,['pakarcontroller.exe',native]]);
+  zip('PakarController-Windows.zip',[...docs,['pakarcontroller.exe',native],
+    ['integrations/SignalRGB/PakarController.js',readFileSync('integrations/SignalRGB/PakarController.js')],
+    ['integrations/RGB-INPUT.md',readFileSync('docs/RGB-INPUT.md')],
+    ['integrations/PCController-MIT.txt',readFileSync('docs/licenses/PCController-MIT.txt')]]);
   const apk=readFileSync(join(input,'android','app-release.apk'));
   if(apk.length<64||apk.subarray(0,4).toString('hex')!=='504b0304')throw Error('Missing Android preview APK');
   emit('PakarController-Android-preview.apk',apk);

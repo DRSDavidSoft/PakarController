@@ -16,6 +16,9 @@
 #ifndef PS_FOOTER_GRID
 #define PS_FOOTER_GRID 1
 #endif
+#ifndef PS_ACTION_BUTTONS
+#define PS_ACTION_BUTTONS 1
+#endif
 #ifndef PS_KEYCAP_PROMINENT_STYLE
 #define PS_KEYCAP_PROMINENT_STYLE "\033[0;1;30;43m"
 #endif
@@ -53,6 +56,16 @@ static inline int ps_style_key_token(const char *text,unsigned length) {
         "Left","Right","Enter/Space","W/R/O","+/-","1-9","n","d","c","/","W","R","O","F","G",
         "^S","^Q/Esc","^Z","^A/^E","S","D","Backspace","0","Ctrl-C"};
     unsigned i,j;
+    if(length>=2&&length<=3&&text[0]=='F'){
+        for(i=1;i<length&&text[i]>='0'&&text[i]<='9';++i){}
+        if(i==length)return 1;
+    }
+    if(length>=2&&text[0]=='^'){
+        for(i=0;i<length;){
+            if(i+1>=length||text[i]!='^'||text[i+1]<'A'||text[i+1]>'Z')break;
+            i+=2;if(i==length)return 1;if(text[i++]!='/')break;
+        }
+    }
     for(i=0;i<PS_COUNT_OF(keys);++i){
         for(j=0;j<length&&keys[i][j]&&keys[i][j]==text[j];++j){}
         if(j==length&&!keys[i][j])return 1;
@@ -151,6 +164,20 @@ static inline const char *ps_style_surface(unsigned theme, int rgb, unsigned act
         return active == 1   ? "\033[48;2;209;111;232m\033[38;2;30;16;40m"
                  : active == 2 ? "\033[48;2;62;37;78m"
                                : "\033[48;2;45;31;59m\033[38;2;225;194;247m";
+}
+
+/* Action affordances share semantic colors; named palettes remain opt-in. */
+enum { PS_BUTTON_IDLE, PS_BUTTON_FOCUSED, PS_BUTTON_DISABLED, PS_BUTTON_PENDING };
+static inline const char *ps_style_button(unsigned theme, int rgb, unsigned state) {
+    if (!PS_STYLE_THEMES) return state==PS_BUTTON_FOCUSED?"\033[0;1;7m":"\033[0;1m";
+    if (state==PS_BUTTON_DISABLED)
+        return rgb?"\033[0;38;2;151;160;175;48;2;36;41;50m":"\033[0;38;5;247;48;5;236m";
+    if (state==PS_BUTTON_PENDING)
+        return rgb?"\033[0;1;38;2;255;204;102;48;2;68;53;29m":"\033[0;1;38;5;221;48;5;58m";
+    if (theme!=PS_THEME_DEFAULT) return ps_style_surface(theme,rgb,state==PS_BUTTON_FOCUSED?1:0);
+    if (state==PS_BUTTON_FOCUSED)
+        return rgb?"\033[0;1;38;2;24;26;31;48;2;112;211;235m":"\033[0;1;38;5;234;48;5;80m";
+    return rgb?"\033[0;1;38;2;112;211;235;48;2;26;62;73m":"\033[0;1;38;5;80;48;5;23m";
 }
 
 /* Prompt-only consumers must not retain whole table palettes in static RAM. */
