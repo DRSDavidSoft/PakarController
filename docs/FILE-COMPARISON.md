@@ -2190,7 +2190,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `862dd06b91efdfbc09f4d895e305ecec71d84637a7bf7d4d95d907bcd3b83566`.
 
-- Target: `README.md:43 [UTF8-LF sha256=a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4; anchor=## Get started]`.
+- Target: `README.md:45 [UTF8-LF sha256=36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676; anchor=## Get started]`.
 - Target: `docs/README.md:7 [UTF8-LF sha256=006973cc50167b64df88e80d539604df763b3edffac561a9ada86fcc7b69683b; anchor=## Operate and recover]`.
 - Retained: Task-oriented quick start, distinct surfaces, engineering-download provenance, maintained guide hub and truthful source/physical verification boundary adapted to actual Pakar contracts.
 - Omitted/replaced code: `PCController hardware map, media/seat operations, Go/C ABI examples`. Disposition: **not-applicable**. Reason: Different product hardware/runtime; copying would misdirect wiring or invent Pakar commands.
@@ -3249,7 +3249,7 @@ Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. O
 
 Verdict: **scoped-improvement**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `4e78a6c486bfc7d78adc6d34552bddfd67c89997edb8d2bae0b46e70c705dcb6`.
 
-- Target: `README.md:7 [UTF8-LF sha256=a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4; anchor=Connected boards. One contextual control workspace.]`.
+- Target: `README.md:9 [UTF8-LF sha256=36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676; anchor=Connected boards. One contextual control workspace.]`.
 - Target: `tools/generate-readme-artwork.mjs:1 [UTF8-LF sha256=83ac3f09a45dace80865eda69d7f69cb22a3af8042edf69a3ae12cf8022c6580; anchor=README uses the same bytes]`.
 - Retained: Pealayer's actual centered logo/title/tagline, badge row, visual preview, section navigation, architecture, build, docs, contribution and license structure adapted to Pakar.
 - Omitted/replaced code: `Media engine, NLE cue/timeline walkthroughs, playback APIs/shortcuts and libmpv installation sections`. Disposition: **not-applicable**. Reason: These describe Pealayer media business/runtime rather than Pakar board control. README links actual controller APIs, wiring and release/acceptance instead; no mpv is linked.

@@ -18102,7 +18102,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "Connected boards. One contextual control workspace."
         },
         {
@@ -26256,7 +26256,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "## Get started"
         },
         {
