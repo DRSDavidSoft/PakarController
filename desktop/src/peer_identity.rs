@@ -1,11 +1,12 @@
 //! Descriptive peer identity and minimum supported releases. API paths and
 //! optional fields remain one living contract, never version-selected adapters.
+use crate::protocol_opcodes::pakar as wire;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const PRODUCT: &str = "pakarcontroller-native";
-pub const USB_REPORT: u8 = 0x61;
+pub const USB_REPORT: u8 = wire::PEER_REPORT;
 const POLICY: &str = include_str!("../../interfaces/peer-policy.json");
 pub fn session_id() -> &'static str {
     static ID: OnceLock<String> = OnceLock::new();
@@ -326,7 +327,7 @@ impl UsbReportSupport {
     ) -> bool {
         if !enforce
             && request.0 == USB_REPORT
-            && response == (0x82, request.1)
+            && response == (wire::ERROR_RESPONSE, request.1)
             && payload == [USB_REPORT, 2]
         {
             self.unavailable = true;
@@ -357,7 +358,7 @@ pub fn report_chunks(
 /// Rejection is not necessarily a release-policy mismatch: report validation,
 /// capacity, maintenance and malformed responses must remain distinguishable.
 pub fn usb_introduction_error(request: u8, response: u8, payload: &[u8]) -> String {
-    if response == 0x82 && payload.len() == 2 && payload[0] == request {
+    if response == wire::ERROR_RESPONSE && payload.len() == 2 && payload[0] == request {
         let reason = match payload[1] {
             1 => "bad envelope",
             2 => "unsupported caller or introduction",

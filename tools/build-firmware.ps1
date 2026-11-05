@@ -50,6 +50,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+& node (Join-Path $PSScriptRoot '../interfaces/controller-wire/consumer.mjs') --pakar --check | ForEach-Object { Write-Host $_ }
+if ($LASTEXITCODE -ne 0) { throw 'Canonical opcode bindings are stale.' }
 if($PSBoundParameters.ContainsKey('KeyMiniGames') -and ($Target -ne 'esp32s3' -or $GameMode -ne 'first-wins')){throw 'Key mini-game inclusion flags require the ESP32-S3 keycontroller role.'}
 if($GameMode -eq 'first-wins' -and -not $KeyMiniGames.Count){throw 'Include at least one key minigame.'}
 if($BoardSnake -and ($Target -ne 'esp32s3' -or $GameMode -ne 'table-selection')) { throw 'Board Snake is opt-in for ESP32-S3 table builds only.' }

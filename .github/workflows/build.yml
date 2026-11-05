@@ -54,6 +54,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: '24'
+      - name: Verify pinned upstream controller opcode source
+        run: node interfaces/controller-wire/consumer.mjs --pakar --check --upstream
       - uses: arduino/setup-arduino-cli@81d310742121c928ea9c8bbd407b4217b432ae02 # v2
       - name: Install pinned host-test headers only (no board SDKs)
         shell: pwsh

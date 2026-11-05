@@ -1,0 +1,10 @@
+{
+  "owner": "atomicdeploy/PCController",
+  "commit": "3b8fabe6b4833262a2b76f64c2ef648c8b4c8e96",
+  "files": {
+    "Project/ProtocolContract.json": "b72621de05550b724eeb312276b9cff8a86003e4acec3fcee860418f60944eb9",
+    "interfaces/controller-wire/registry.mjs": "4c9b408145ce8db277fd312262b77106129c931398f50b66ff18cea14f9d7694",
+    "interfaces/controller-wire/published.json": "eb66e7453bdf246bf03a6ea6bd90ab340b9f7716941119d33a7f828225e6010c",
+    "interfaces/controller-wire/consumer.mjs": "51ca4aaa9cb8f1ba74cabc001be34c8ec82a90d14a27e6b4ed793d72c7660484"
+  }
+}

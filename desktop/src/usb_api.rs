@@ -1,10 +1,11 @@
 //! Bounded API transfer on the existing USB owner; execute once, never replay.
 //! Uses the same open/append/execute/read/close contract as mobile UsbTransport.
+use crate::protocol_opcodes::pakar as wire;
 use crate::{DeviceStatus, usb_table};
 use serde_json::Value;
 use std::{sync::{mpsc::Sender, Arc, atomic::{AtomicBool, Ordering}}, time::{Duration, Instant}};
-pub const OPCODE: u8 = 0x6a;
-pub const RESPONSE: u8 = 0xbd;
+pub const OPCODE: u8 = wire::USB_API;
+pub const RESPONSE: u8 = wire::USB_API_RESPONSE;
 
 pub struct Work {
     pub admission: usb_table::Admission,
@@ -67,7 +68,7 @@ impl Transaction {
     }
     pub fn accept(&mut self, opcode: u8, bytes: &[u8]) -> Result<Option<Value>, String> {
         if self.action == 4 {
-            return if opcode == 0x80 && bytes == [OPCODE, 0] { Ok(self.value.take()) }
+            return if opcode == wire::ACK && bytes == [OPCODE, 0] { Ok(self.value.take()) }
                 else { Err("USB API close not acknowledged; result not replayed".into()) };
         }
         if opcode != RESPONSE || !(9..=48).contains(&bytes.len()) || bytes[0] != self.action {

@@ -2,7 +2,7 @@
   "schema": 1,
   "authority": "docs/file-comparison-evidence.json",
   "concerns": [
-    {"id":"transport-convergence","origins":["PCController","Pealayer"],"path_pattern":"(^Project/(ProtocolCodec\\.h|UartProtocol\\.(h|cpp))$|^Tools/Controller/(internal/native/(cobs|frame)\\.go|transport/udp/.*)$|^docs/BINARY-UDP\\.md$|^src/(four_d/protocol|server/(udp_codec|binary_udp|udp_client))\\.rs$)","required_reviews":["PCController|Project/ProtocolCodec.h"],"issue":41},
+    {"id":"transport-convergence","origins":["PCController","Pealayer"],"path_pattern":"(^Project/(ProtocolCodec\\.h|ProtocolContract\\.(h|json)|UartProtocol\\.(h|cpp))$|^Tools/Build/generate-protocol-contract\\.mjs$|^Tools/Controller/(internal/native/(cobs|frame)\\.go|transport/udp/.*)$|^docs/BINARY-UDP\\.md$|^src/(four_d/protocol|server/(udp_codec|binary_udp|udp_client))\\.rs$)","required_reviews":["PCController|Project/ProtocolCodec.h","PCController|Tools/Build/generate-protocol-contract.mjs"],"issue":41},
     {"id":"ssh-transport","origins":["PU850-ESP"],"path_pattern":"^LocalLib/Shell\\.(cpp|h)$","required_reviews":["PU850-ESP|LocalLib/Shell.cpp","PU850-ESP|LocalLib/Shell.h"],"issue":33},
     {"id":"host-wifi","origins":["PCController"],"path_pattern":"^mobile/android/app/src/main/kotlin/ir/digitalogic/pakar/pakarcontroller/DiscoveryChannel\\.kt$","required_reviews":["PCController|mobile/android/app/src/main/kotlin/ir/digitalogic/pakar/pakarcontroller/DiscoveryChannel.kt"],"issue":31},
     {"id":"drs-snake","origins":["DRS-jSnake"],"path_pattern":".*","required_reviews":["DRS-jSnake|DRS-JSnake.html"],"issue":30},

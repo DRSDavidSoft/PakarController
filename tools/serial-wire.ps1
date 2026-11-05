@@ -1,6 +1,7 @@
 # Shared bounded USB wire transport extracted verbatim from set-device-network.ps1.
-# Loading this file only defines functions; it never opens a port or sends frames.
+# Loading this file defines generated types/functions; never opens a port or sends frames.
 # Existing PakarNetwork function names remain stable for reviewed callers/tests.
+if (-not ('PakarOpcode' -as [type])) { . (Join-Path $PSScriptRoot 'ProtocolOpcodes.ps1') }
 function Get-PakarNetworkCrc8([byte[]]$Bytes,[int]$Count=-1) {
     [int]$crc=0
     if($Count -lt 0){$Count=$Bytes.Length}
@@ -53,15 +54,15 @@ function Receive-PakarNetworkReply($Serial,[byte]$Sequence,[byte]$ResponseOpcode
         }
         if($dropping){$dropping=$false;$received.Clear();continue}
         [byte[]]$reply=ConvertFrom-PakarNetworkCobs $received.ToArray();$received.Clear()
-        if(-not $reply -or $reply.Length -lt 6 -or $reply[0] -ne 0xa5 -or
-            $reply[1] -ne 0 -or $reply[3] -ne $Sequence -or $reply[4] -gt 48){continue}
+        if(-not $reply -or $reply.Length -lt 6 -or $reply[0] -ne ([byte][PakarEnvelope]::Magic) -or
+            $reply[1] -ne ([byte][PakarEnvelope]::Reserved) -or $reply[3] -ne $Sequence -or $reply[4] -gt 48){continue}
         if($reply.Length -ne $reply[4]+6 -or
             (Get-PakarNetworkCrc8 $reply[0..($reply.Length-2)]) -ne $reply[-1]){continue}
-        if($reply[2] -eq 0x82 -and $reply[4] -eq 2 -and $reply[5] -eq $RequestOpcode) {
+        if($reply[2] -eq ([byte][PakarOpcode]::ErrorResponse) -and $reply[4] -eq 2 -and $reply[5] -eq $RequestOpcode) {
             throw "ESP rejected USB request (error code $($reply[6])); no automatic mutation retry was attempted."
         }
         if($reply[2] -ne $ResponseOpcode){continue}
-        if($ResponseOpcode -eq 0x80 -and
+        if($ResponseOpcode -eq ([byte][PakarOpcode]::Ack) -and
             ($reply[4] -ne 2 -or $reply[5] -ne $RequestOpcode -or $reply[6] -ne 0)){continue}
         return ,$reply
     }
@@ -71,7 +72,7 @@ function Send-PakarNetworkRequest($Serial,[byte]$Opcode,[byte]$Sequence,
     [byte[]]$Payload,[byte]$ResponseOpcode,[int]$DeadlineMs) {
     if($Payload.Length -gt 48){throw 'USB payload exceeds its bounded contract'}
     [byte[]]$raw=[byte[]]::new($Payload.Length+6)
-    $raw[0]=0xa5;$raw[1]=0;$raw[2]=$Opcode;$raw[3]=$Sequence;$raw[4]=$Payload.Length
+    $raw[0]=([byte][PakarEnvelope]::Magic);$raw[1]=([byte][PakarEnvelope]::Reserved);$raw[2]=$Opcode;$raw[3]=$Sequence;$raw[4]=$Payload.Length
     [Array]::Copy($Payload,0,$raw,5,$Payload.Length)
     [byte[]]$wire=@()
     try {
@@ -85,7 +86,7 @@ function Send-PakarNetworkRequest($Serial,[byte]$Opcode,[byte]$Sequence,
     }
 }
 function Assert-PakarNetworkEspHello([byte[]]$Reply) {
-    if($Reply.Length -lt 15 -or $Reply[2] -ne 0x81 -or
+    if($Reply.Length -lt 15 -or $Reply[2] -ne ([byte][PakarOpcode]::HelloResponse) -or
         $Reply[5] -ne 0 -or $Reply[6] -ne 2 -or
         (($Reply[7] -bor ([int]$Reply[8] -shl 8)) -band 0x2000) -eq 0) {
         throw 'USB peer did not acknowledge ESP role and host-serial capability; no network settings were changed.'

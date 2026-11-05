@@ -17,8 +17,8 @@ function Read-PakarAvrRxUint32([byte[]]$Bytes,[int]$Offset) {
     return [uint32]$value
 }
 function Assert-PakarAvrRxPrefix([byte[]]$Reply,[byte]$Action) {
-    if($Reply.Length -lt 8 -or $Reply[0] -ne 0xa5 -or $Reply[1] -ne 0 -or
-        $Reply[2] -ne 0xb4 -or $Reply[4] -gt 48 -or $Reply.Length -ne $Reply[4]+6 -or
+    if($Reply.Length -lt 8 -or $Reply[0] -ne ([byte][PakarEnvelope]::Magic) -or $Reply[1] -ne ([byte][PakarEnvelope]::Reserved) -or
+        $Reply[2] -ne ([byte][PakarOpcode]::AvrRxDiagnosticResponse) -or $Reply[4] -gt 48 -or $Reply.Length -ne $Reply[4]+6 -or
         $Reply[5] -ne $Action){throw 'Invalid or mismatched passive-capture response; no diagnostic success is assumed.'}
     if($Reply[6] -ne 0){throw "ESP rejected passive-capture action (error code $($Reply[6])); no automatic start retry was attempted."}
 }
@@ -56,7 +56,7 @@ function Read-PakarAvrRxChunk([byte[]]$Reply,[byte]$Offset,[int]$Remaining) {
     return ,$bytes
 }
 function Assert-PakarAvrRxPaused([byte[]]$Reply) {
-    if($Reply.Length -lt 48 -or $Reply[2] -ne 0x90 -or $Reply[4] -lt 42 -or
+    if($Reply.Length -lt 48 -or $Reply[2] -ne ([byte][PakarOpcode]::StatusResponse) -or $Reply[4] -lt 42 -or
         $Reply.Length -ne $Reply[4]+6 -or $Reply[46] -ne 0){
         throw 'Normal AVR link is not explicitly acknowledged paused; passive capture was not started. Use the reviewed quiet commissioning firmware.'
     }
@@ -65,13 +65,13 @@ function Invoke-PakarAvrRxCapture($Serial,[ValidateSet(38400,115200)][int]$Captu
     [ValidateRange(100,7500)][int]$CaptureWindowMs,[int]$DeadlineMs,
     [scriptblock]$Wait={param($Milliseconds)Start-Sleep -Milliseconds $Milliseconds}) {
     [byte]$sequence=1
-    $hello=Send-PakarNetworkRequest $Serial 0x01 $sequence ([byte[]]@()) 0x81 $DeadlineMs
+    $hello=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::Hello) $sequence ([byte[]]@()) ([byte][PakarOpcode]::HelloResponse) $DeadlineMs
     Assert-PakarNetworkEspHello $hello
     $sequence++
-    $status=Send-PakarNetworkRequest $Serial 0x02 $sequence ([byte[]]@()) 0x90 $DeadlineMs
+    $status=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::GetStatus) $sequence ([byte[]]@()) ([byte][PakarOpcode]::StatusResponse) $DeadlineMs
     Assert-PakarAvrRxPaused $status
     $sequence++
-    $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(0)) 0xb4 $DeadlineMs
+    $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(0)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
     $before=Read-PakarAvrRxSnapshot $reply 0
     if($before.Active -or -not $before.PinsSafe -or -not $before.Reset10OutputKnown -or
         $before.Reset10OutputEnabled){throw 'Existing capture or unsafe/unknown pad ownership; no passive capture was started.'}
@@ -79,7 +79,7 @@ function Invoke-PakarAvrRxCapture($Serial,[ValidateSet(38400,115200)][int]$Captu
     try {
         $sequence++;$startAttempted=$true
         [byte]$baudCode=if($CaptureBaud -eq 38400){0}else{1}
-        $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(1,$baudCode)) 0xb4 $DeadlineMs
+        $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(1,$baudCode)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
         $start=Read-PakarAvrRxSnapshot $reply 1
         if(-not $start.Active -or -not $start.PinsSafe -or $start.Baud -ne $CaptureBaud -or
             -not $start.Reset10OutputKnown -or $start.Reset10OutputEnabled){
@@ -87,16 +87,16 @@ function Invoke-PakarAvrRxCapture($Serial,[ValidateSet(38400,115200)][int]$Captu
         }
         & $Wait $CaptureWindowMs
         $sequence++
-        $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(0)) 0xb4 $DeadlineMs
+        $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(0)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
         $observed=Read-PakarAvrRxSnapshot $reply 0
         $sequence++;$stopAttempted=$true
-        $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(2)) 0xb4 $DeadlineMs
+        $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(2)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
         $stop=Read-PakarAvrRxSnapshot $reply 2
         if($stop.Active){throw 'Passive capture stop was not confirmed; do not retry blindly. Firmware has an eight-second auto-stop.'}
         [byte[]]$captured=[byte[]]::new($stop.Stored)
         for($offset=0;$offset -lt $captured.Length;$offset+=32){
             $sequence++
-            $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(3,[byte]$offset)) 0xb4 $DeadlineMs
+            $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(3,[byte]$offset)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
             [byte[]]$chunk=Read-PakarAvrRxChunk $reply ([byte]$offset) ($captured.Length-$offset)
             [Array]::Copy($chunk,0,$captured,$offset,$chunk.Length)
         }
@@ -114,7 +114,7 @@ function Invoke-PakarAvrRxCapture($Serial,[ValidateSet(38400,115200)][int]$Captu
             # exclusively owned by this call. Never replay start or retry stop.
             $stopAttempted=$true;$sequence++
             try {
-                $reply=Send-PakarNetworkRequest $Serial 0x5b $sequence ([byte[]]@(2)) 0xb4 $DeadlineMs
+                $reply=Send-PakarNetworkRequest $Serial ([byte][PakarOpcode]::AvrRxDiagnostic) $sequence ([byte[]]@(2)) ([byte][PakarOpcode]::AvrRxDiagnosticResponse) $DeadlineMs
                 $cleanup=Read-PakarAvrRxSnapshot $reply 2
                 if($cleanup.Active){Write-Warning 'Capture stop not confirmed; firmware auto-stop is eight seconds. No stop retry was attempted.'}
             } catch {Write-Warning 'Capture cleanup stop outcome is uncertain; firmware auto-stop is eight seconds. No stop retry was attempted.'}

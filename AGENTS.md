@@ -1,5 +1,13 @@
 # PakarController continuation
 
+- Wire opcode ownership: PCController Project/ProtocolContract.json owns stable
+  namespace allocations. Reuse its pinned interfaces/controller-wire generator;
+  never maintain numeric opcode tables in firmware, clients or provisioning tools.
+  Run consumer.mjs --pakar --check before builds. Native A5/1 and Pakar A5/0 are
+  fixed namespace admission, not versions: never relax marker checks, guess a
+  dialect, reinterpret an unknown opcode or assume ACK for an unknown request.
+  Keep published assignments append-only; capability omissions return Unsupported.
+
 - 2026-10-29 keycontroller authorization: David directly approved paired ESP/AVR deployment and testing through the tablet and said, "from now on no asking for the keycontroller." Continue scoped keycontroller updates/tests without repeated approval or PBX calls, preserving its saved configuration and rollback. This does not lift ledcontroller's separate production hold. David also instructed to skip PBX and ask directly in chat whenever a different action actually requires approval.
 
 - LED incident exception: David directly authorized immediate ESP board updates and diagnostics for the first22-cell/480-pixel output regression without another permission/PBX round-trip. This scoped authority covers the LED recovery deployment, reboot and output comparison/feedback; it does not lift the production hold for unrelated features or AVR programming. Preserve the saved scene and verified rollback, and never claim optical success from GPIO capture/counters alone.

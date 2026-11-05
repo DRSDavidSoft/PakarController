@@ -1,11 +1,12 @@
 //! Consumer leases, adapted from PCController's shared status subscription hub:
 //! no subscribers means no full snapshots; the one physical owner coalesces all readers.
+use crate::protocol_opcodes::pakar as wire;
 use std::{
     sync::Mutex,
     time::{Duration, Instant},
 };
-pub const REQUEST: u8 = 0x64;
-pub const RESPONSE: u8 = 0xba;
+pub const REQUEST: u8 = wire::HOST_DEMAND;
+pub const RESPONSE: u8 = wire::HOST_DEMAND_RESPONSE;
 pub const STATUS: u16 = 1;
 pub const PANEL: u16 = 2;
 pub const PERIPHERAL: u16 = 4;

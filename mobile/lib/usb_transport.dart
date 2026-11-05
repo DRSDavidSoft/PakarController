@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'protocol_opcodes.dart';
+
 import 'package:flutter/services.dart';
 
 import 'models.dart';
@@ -35,7 +37,10 @@ class UsbFrame {
     if (payload.length > 48 || payload.any((b) => b < 0 || b > 255)) {
       throw const FormatException('USB payload exceeds 48 bytes');
     }
-    final raw = [165, 0, opcode, sequence, payload.length, ...payload];
+    if (opcode < 0 || opcode > 255 || sequence < 0 || sequence > 255) {
+      throw const FormatException('USB opcode/sequence is not a byte');
+    }
+    final raw = [PakarOpcode.magic, PakarOpcode.reserved, opcode, sequence, payload.length, ...payload];
     raw.add(crc(raw));
     final out = [0];
     var at = 0, code = 1;
@@ -75,8 +80,8 @@ class UsbFrame {
       }
     }
     if (raw.length < 6 ||
-        raw[0] != 165 ||
-        raw[1] != 0 ||
+        raw[0] != PakarOpcode.magic ||
+        raw[1] != PakarOpcode.reserved ||
         raw[4] > 48 ||
         raw.length != raw[4] + 6 ||
         crc(raw.take(raw.length - 1)) != raw.last) {
@@ -202,7 +207,7 @@ class PakarUsbTransport {
           'USB application release is not representable',
         );
       }
-      final hello = await _exchange(1, [3, ...version.parts], {0x81});
+      final hello = await _exchange(PakarOpcode.hello, [3, ...version.parts], {PakarOpcode.helloResponse});
       if (hello.payload.length < 9 || hello.payload[1] != 2) {
         throw const FormatException('USB HELLO is not an ESP board');
       }
@@ -211,7 +216,7 @@ class PakarUsbTransport {
       );
       for (var offset = 0; offset < report.length; offset += 44) {
         final end = (offset + 44).clamp(0, report.length);
-        await _ack(0x61, [
+        await _ack(PakarOpcode.peerReport, [
           ..._u16(report.length),
           ..._u16(offset),
           ...report.sublist(offset, end),
@@ -299,27 +304,27 @@ class PakarUsbTransport {
       final pending = _pending[frame.sequence];
       if (pending != null &&
           (_expected[frame.sequence]!.contains(frame.opcode) ||
-              frame.opcode == 0x82)) {
+              frame.opcode == PakarOpcode.errorResponse)) {
         _pending.remove(frame.sequence);
         _expected.remove(frame.sequence);
         pending.complete(frame);
       } else if (ready &&
-          frame.opcode == 0xb8 &&
+          frame.opcode == PakarOpcode.panelEvent &&
           (_captureAge?.elapsedMilliseconds ?? 8000) < 8000) {
         final value = _panelEvent(frame.payload);
         if (value != null) {
           events.add(value);
         }
       } else if (ready && (frame.sequence == 0 || frame.sequence == 254)) {
-        if (frame.opcode == 0x90 ||
-            frame.opcode == 0xa5 ||
-            frame.opcode == 0xa3) {
+        if (frame.opcode == PakarOpcode.statusResponse ||
+            frame.opcode == PakarOpcode.cellEvent ||
+            frame.opcode == PakarOpcode.gameState) {
           events.add({
             'type': 'changed',
             'board_id': latest!.json['board_id'],
             'boot_id': latest!.json['boot_id'],
           });
-        } else if (frame.opcode == 0xb8 || frame.opcode == 0xb0) {
+        } else if (frame.opcode == PakarOpcode.panelEvent || frame.opcode == PakarOpcode.pcContractResponse) {
           events.add({
             'type': 'usb-peripheral',
             'opcode': frame.opcode,
@@ -413,7 +418,7 @@ class PakarUsbTransport {
       if (owner != _epoch) {
         throw const FormatException('USB owner retired');
       }
-      if (frame.opcode == 0x82) {
+      if (frame.opcode == PakarOpcode.errorResponse) {
         throw FormatException(
           'Board rejected USB request 0x${op.toRadixString(16)} (code ${frame.payload.length > 1 ? frame.payload[1] : "unknown"}); not retried',
         );
@@ -426,7 +431,7 @@ class PakarUsbTransport {
   }
 
   Future<void> _ack(int op, List<int> p) async {
-    final frame = await _exchange(op, p, {0x80});
+    final frame = await _exchange(op, p, {PakarOpcode.ack});
     if (frame.payload.length != 2 ||
         frame.payload[0] != op ||
         frame.payload[1] != 0) {
@@ -451,13 +456,13 @@ class PakarUsbTransport {
         await _renewDemand();
       }
       final f = await _exchange(
-        0x5d,
+        PakarOpcode.getTableSnapshot,
         [
           _nonce,
           ..._u16(bytes.length),
           ...List.generate(4, (i) => token >> (8 * i) & 255),
         ],
-        {0xb6},
+        {PakarOpcode.tableSnapshotResponse},
       );
       final p = f.payload;
       if (p.length < 10 || p[0] != _nonce || _le(p, 7, 2) != bytes.length) {
@@ -625,9 +630,9 @@ class PakarUsbTransport {
     }
     final flags = _foreground ? _demand | (_diagnosticPixels ? 8 : 0) : 0;
     final response = await _exchange(
-      0x64,
+      PakarOpcode.hostDemand,
       [..._u16(flags), ..._u16(flags == 0 ? 0 : 3000)],
-      {0xba},
+      {PakarOpcode.hostDemandResponse},
     );
     if (response.payload.length != 4 ||
         _le(response.payload, 0, 2) != flags ||
@@ -719,7 +724,7 @@ class PakarUsbTransport {
       }
       if (_demandAge.elapsedMilliseconds >= 900) await _renewDemand();
       admit();
-      final frame = await _exchange(0x6a, [action, ...payload], {0xbd});
+      final frame = await _exchange(PakarOpcode.usbApi, [action, ...payload], {PakarOpcode.usbApiResponse});
       admit();
       final p = frame.payload;
       if (p.length < 9 ||
@@ -795,7 +800,7 @@ class PakarUsbTransport {
     } finally {
       if (token != 0 && owner == _epoch && ready && authorize()) {
         try {
-          await _ack(0x6a, [4, ...tokenBytes()]);
+          await _ack(PakarOpcode.usbApi, [4, ...tokenBytes()]);
         } on Object {
           /* No replay. */
         }
@@ -1071,7 +1076,7 @@ class PakarUsbTransport {
             'Acknowledged AVR game press unavailable',
           );
         }
-        op = 0x68;
+        op = PakarOpcode.gamePress;
         payload = [integer('key', 1, 9)];
       case '/api/game/settings':
         if (values.containsKey('presentation')) {
@@ -1085,7 +1090,7 @@ class PakarUsbTransport {
           if (current is! Map) {
             throw const FormatException('Presentation readback unavailable');
           }
-          op = 0x69;
+          op = PakarOpcode.keyPresentation;
           if (patch.containsKey('groups')) {
             final groups = patch['groups'] as List;
             if (patch.length != 1 || groups.length != 1) {
@@ -1144,7 +1149,7 @@ class PakarUsbTransport {
         if (hasMelodies && !features.has('game-melodies')) {
           throw const FormatException('USB game melodies not acknowledged');
         }
-        op = 0x67;
+        op = PakarOpcode.keySettings;
         payload = List.filled(hasMelodies ? 19 : 17, 0);
         const fields = [
           'enabled_mask',
@@ -1181,7 +1186,7 @@ class PakarUsbTransport {
         if (!features.has('leds')) {
           throw const FormatException('USB LEDs not acknowledged');
         }
-        op = 0x4c;
+        op = PakarOpcode.cellAction;
         payload = [
           integer('id', 1, 80),
           state(values['state']),
@@ -1196,7 +1201,7 @@ class PakarUsbTransport {
         for (final id in ids) {
           bitmap[(id - 1) ~/ 8] |= 1 << ((id - 1) % 8);
         }
-        op = 0x5f;
+        op = PakarOpcode.cellsAction;
         payload = [
           state(values['state']),
           _effect(values['effect']),
@@ -1215,19 +1220,19 @@ class PakarUsbTransport {
           bitmap[i ~/ 8] |= 1 << (i % 8);
           packed[i ~/ 4] |= state(entry.value) << ((i % 4) * 2);
         }
-        op = 0x62;
+        op = PakarOpcode.cellAssignments;
         payload = [...bitmap, ...packed];
       case '/api/cells/lock':
         if (!features.has('cell-lock')) {
           throw const FormatException('USB lock not acknowledged');
         }
-        op = 0x63;
+        op = PakarOpcode.cellLock;
         payload = [_boolean(values['enabled'])];
       case '/api/brightness':
-        op = 0x51;
+        op = PakarOpcode.setBrightness;
         payload = [integer('value', 1, 255)];
       case '/api/effect':
-        op = 0x52;
+        op = PakarOpcode.setLedPattern;
         payload = [
           switch (values['value']) {
             'none' => 0,
@@ -1241,7 +1246,7 @@ class PakarUsbTransport {
         if (values['value'] != before.mode) {
           throw const FormatException('This board has one baked-in game mode');
         }
-        op = 0x4b;
+        op = PakarOpcode.setMode;
         payload = [
           switch (values['value']) {
             'cell' => 1,
@@ -1256,10 +1261,10 @@ class PakarUsbTransport {
             'Acknowledged game reset is not supported by this firmware',
           );
         }
-        op = 0x4d;
+        op = PakarOpcode.gameReset;
         payload = [];
       case '/api/led/output':
-        op = 0x5c;
+        op = PakarOpcode.setLedOutput;
         if (values.containsKey('backend') && !features.allows(path, values)) {
           throw const FormatException(
             'This LED transmitter is not available on the connected board',
@@ -1301,7 +1306,7 @@ class PakarUsbTransport {
         }
         _diagnosticPixels = true;
         await _renewDemand();
-        op = 0x65;
+        op = PakarOpcode.pixelDiagnostic;
         payload = [
           ..._u16(index),
           count,
@@ -1326,15 +1331,15 @@ class PakarUsbTransport {
       );
     }
     // One physical dispatch only. ACK is not accepted as an applied state.
-    final reply = await _exchange(0x5e, [...fence, op, ...payload], {0x80});
+    final reply = await _exchange(PakarOpcode.tableCommand, [...fence, op, ...payload], {PakarOpcode.ack});
     if (reply.payload.length != 2 ||
         reply.payload[0] != op ||
         reply.payload[1] != 0) {
       throw const FormatException('USB command receipt mismatch; no replay');
     }
     var actual = await _snapshot();
-    if (op == 0x67 && gameMelodyPatch(values) ||
-        op == 0x5c && values.containsKey('backend')) {
+    if (op == PakarOpcode.keySettings && gameMelodyPatch(values) ||
+        op == PakarOpcode.setLedOutput && values.containsKey('backend')) {
       // The ESP persists first; AVR playback configuration settles on its next
       // service turn. Observe that receipt without replaying the mutation.
       final started = Stopwatch()..start();
@@ -1345,7 +1350,7 @@ class PakarUsbTransport {
             actual.json['boot_id'] != before.json['boot_id']) {
           throw const FormatException('Command owner retired; no replay');
         }
-        if (op == 0x5c) {
+        if (op == PakarOpcode.setLedOutput) {
           final driver = LedBackendState.fromStatus(actual.json);
           if (driver?.failed == true) {
             throw FormatException(driver!.failureDescription);
@@ -1355,7 +1360,7 @@ class PakarUsbTransport {
         actual = await _snapshot();
       }
     }
-    if (op == 0x65) {
+    if (op == PakarOpcode.pixelDiagnostic) {
       final start = Stopwatch()..start();
       while ((actual.json['pixel_frame'] as Map?)?['pending'] == true &&
           start.elapsed < const Duration(seconds: 5)) {
@@ -1380,22 +1385,22 @@ class PakarUsbTransport {
         'USB command owner retired; outcome not claimed',
       );
     }
-    if ((op == 0x67 || op == 0x69) &&
+    if ((op == PakarOpcode.keySettings || op == PakarOpcode.keyPresentation) &&
             !commandReadbackMatches(actual, path, values) ||
-        op == 0x4d &&
+        op == PakarOpcode.gameReset &&
             (actual.winner != 0 ||
                 actual.effect != 'none' ||
                 actual.ledOutputEnabled != true) ||
-        op == 0x4c && actual.json['cells'][payload[0] - 1] != values['state'] ||
-        op == 0x5f &&
+        op == PakarOpcode.cellAction && actual.json['cells'][payload[0] - 1] != values['state'] ||
+        op == PakarOpcode.cellsAction &&
             _ids(values['ids'])
                 .any((id) => actual.json['cells'][id - 1] != values['state']) ||
-        op == 0x63 && actual.json['red_lock'] != (payload[0] == 1) ||
-        op == 0x51 && actual.brightness != payload[0] ||
-        op == 0x52 && actual.effect != values['value'] ||
-        op == 0x4b && actual.mode != values['value'] ||
-        op == 0x5c && !commandReadbackMatches(actual, path, values) ||
-        op == 0x62 &&
+        op == PakarOpcode.cellLock && actual.json['red_lock'] != (payload[0] == 1) ||
+        op == PakarOpcode.setBrightness && actual.brightness != payload[0] ||
+        op == PakarOpcode.setLedPattern && actual.effect != values['value'] ||
+        op == PakarOpcode.setMode && actual.mode != values['value'] ||
+        op == PakarOpcode.setLedOutput && !commandReadbackMatches(actual, path, values) ||
+        op == PakarOpcode.cellAssignments &&
             CellAssignments.fromRows(jsonDecode(values['assignments']!))
                 .values
                 .entries
@@ -1445,7 +1450,10 @@ class PakarUsbTransport {
         if (!ready) {
           throw const FormatException('USB board not ready');
         }
-        return _exchange(0x56, [opcode, ...payload], {0xb0});
+        if (!ControllerOpcode.requests.contains(opcode)) {
+          throw const FormatException('Unknown controller request; no dialect fallback');
+        }
+        return _exchange(PakarOpcode.pcContract, [opcode, ...payload], {PakarOpcode.pcContractResponse});
       });
   Future<void> cue(String cue) => _exclusive(() async {
     const names = [
@@ -1469,7 +1477,7 @@ class PakarUsbTransport {
     if (index < 0 || latest?.audioCues.contains(cue) != true) {
       throw const FormatException('Melody not acknowledged by this USB board');
     }
-    await _ack(0x11, [index]);
+    await _ack(PakarOpcode.audioCue, [index]);
   });
   Future<BoardSound> boardSound({bool? silent}) => _exclusive(() async {
     if (latest?.avrOnline != true ||
@@ -1478,8 +1486,8 @@ class PakarUsbTransport {
       throw const FormatException('USB AVR sound settings unavailable');
     }
     Future<BoardSound> read() async {
-      final f = await _exchange(0x56, [4], {0xb0});
-      if (f.payload.length != 23 || f.payload.first != 0x91) {
+      final f = await _exchange(PakarOpcode.pcContract, [ControllerOpcode.getSettings], {PakarOpcode.pcContractResponse});
+      if (f.payload.length != 23 || f.payload.first != ControllerOpcode.settingsResponse) {
         throw const FormatException('USB AVR settings response does not match');
       }
       return BoardSound.parse(BoardSound.encode(f.payload.skip(1)));
@@ -1495,10 +1503,10 @@ class PakarUsbTransport {
         for (var i = 0; i < expected.length; i += 2)
           int.parse(expected.substring(i, i + 2), radix: 16),
       ];
-      final reply = await _exchange(0x56, [5, ...bytes], {0xb0});
+      final reply = await _exchange(PakarOpcode.pcContract, [ControllerOpcode.setSettings, ...bytes], {PakarOpcode.pcContractResponse});
       if (reply.payload.length != 3 ||
-          reply.payload[0] != 0x80 ||
-          reply.payload[1] != 5 ||
+          reply.payload[0] != ControllerOpcode.ack ||
+          reply.payload[1] != ControllerOpcode.setSettings ||
           reply.payload[2] != 0) {
         throw const FormatException('USB AVR settings ACK mismatch; no replay');
       }
@@ -1540,7 +1548,7 @@ class PakarUsbTransport {
         repeat < 0) {
       throw const FormatException('Invalid display timing');
     }
-    await _ack(0x38, [
+    await _ack(PakarOpcode.displayText, [
       5,
       ..._u16(speed),
       text.length,

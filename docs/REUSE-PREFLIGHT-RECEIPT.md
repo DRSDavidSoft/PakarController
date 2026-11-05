@@ -1,5 +1,60 @@
 # Donor-first preflight receipt
 
+## Canonical opcode ownership and namespace admission, 2026-10-30 (#41 / PC#702)
+
+Read the actual complete PCController contract generator and canonical registry,
+Pakar Protocol.h and active client routing slices, PC UART/Go dispatch boundaries,
+and Pealayer's complete native/compact decoder source. Reuse the donor generator
+as the shared portable source rather than create another hand-maintained table.
+Native opcodes remain byte-stable; Pakar's existing published assignments become
+an explicit second namespace in that same canonical source. Consumer source pins,
+generated C++/Rust/Dart and generated Go names prevent independent numeric drift.
+
+PC UART's advisory marker acceptance was an actual cross-namespace hazard:
+Pakar0x11 audio could reach PWM. PC firmware and Go now reject every foreign
+fixed marker; the actual C++ test exercises all255 and recovery to a valid frame.
+Pealayer's native decoder receives the same gate and generated command constants.
+Unknown operations inside the admitted namespace retain Unsupported semantics.
+The explicit tunneled adapter is preserved; no payload semantics are conflated.
+
+Five generator tests, stable-path native/UDP tests and actual UART fixtures pass.
+The full96-test build-tool suite initially caught the new sync entrypoint missing
+loadProjectEnv; reread its exact env loader/test and reuse the mandatory import,
+without weakening the test. All96 then pass. Consumer/API/build and physical
+acceptance remain separate. Local raw-GitHub upstream byte verification timed out;
+offline pinned-byte/generation checks pass and mandatory CI upstream verification
+is still independent evidence. No production board, settings or runtime changed.
+
+The immutable four-file source pin was subsequently verified through authenticated
+GitHub API byte reads, with no downloaded code executed. Flutter analysis and14 USB
+tests pass; Pealayer's actual protocol suite passes11. Pakar's two compiled native
+namespace/response-coverage tests pass. Name/access provisioners now reuse the
+shared bounded serial owner rather than their duplicate decoders/loose ACK checks.
+Actual mock provisioning/RX tests pass without opening a serial device.
+
+Full protocol testing exposed an unchanged baseline fixture bug: its snapshot
+slice ended at an earlier configureNtp forward declaration. Verified both source/
+test files unchanged against HEAD, reread the actual definition and demand owner,
+then require an end boundary after the asserted definition. The original demand/
+privacy assertions remain and the scoped demand tests pass; the earlier aborted
+large wrapper is not retroactively certified complete. Generated-symbol source
+guards were updated without removing the actual wire/rejection/no-replay tests.
+
+The broader compiled Pakar USB filter also passes all 49 tests, covering actual
+serial actor, correlated responses, settings, snapshots and subscriptions. The
+transport-convergence donor consultation passes with zero stale mapped sources.
+The Pealayer inventory was refreshed after publishing its canonical imports;
+the complete changed workflow was reread and its source hash rebound. Newly
+inventoried files remain pending, not silently accepted as completed comparisons.
+Local quality passed its prefix up to the stale generated comparison report;
+after explicit metadata refresh, the failed report check and remaining suffix
+were rerun separately. This is segmented evidence, not an invented single green
+full-suite run. Paired source reviews are PCController PR704 and Pealayer PR223.
+The existing structured mobile-plan test caught success text from the new opcode
+preflight leaking onto PowerShell's object pipeline. Route that informational
+output through Write-Host in all three build wrappers; keep the mandatory check,
+nonzero-exit rejection and the existing plan assertions unchanged.
+
 ## Controller transport convergence first slice, 2026-10-30 (#41 / PC#702)
 
 Read current repository instructions, transport and merge-readiness documents;
@@ -12000,3 +12055,26 @@ and CRLF cases. No guard is removed and no check is suppressed. The existing
 bluetooth/source wiring was inspected; this is fixture repair, not BLE radio
 acceptance. Combined shell and audit fixtures pass; final SSH/quality/SDK/client
 CI remains a separate exact-head gate. No boards or production apps changed.
+
+## Windows WebSocket-bootstrap fixture repair (2026-10-30, PR43)
+
+Actions run41080991373 failed in the loopback server at peer_http.rs:746:
+Winsock10035 (WouldBlock) on the first HTTP request read, followed by the
+client's connection-reset error. The listener deliberately polls accept, but
+Windows can inherit its nonblocking mode into accepted sockets. Explicitly
+restore blocking mode before the existing bounded HTTP/WebSocket reads. Apply
+the same correction to the adjacent cached-HTTP-route fixture. Preserve all
+hostname, Host-header, verified-TCP-address, identity, revocation and deadline
+assertions; no production transport code or command admission changes.
+
+Consulted peer-binding's three mapped PCController session/admission sources
+and outstanding lifecycle gaps, plus the actual netpolicy HTTP URL and public
+transport tests. Those Go tests retain explicit route assertions, but their
+net.Pipe/Go runtime does not supply a Rust/Winsock socket-mode fix. Keep Pakar's
+existing bounded loopback fixture rather than replace production resolution.
+
+The canonical focused native-test wrapper was attempted and refused before
+Cargo: live Pealayer tracked-file inventory drift. Do not bypass that gate,
+change its checkout, relabel unread donor changes as reviewed or claim a local
+native pass. Exact-head Windows CI must execute the retained regression and
+the broader native suite. No boards, installed apps or device settings changed.

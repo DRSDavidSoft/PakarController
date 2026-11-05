@@ -2,9 +2,9 @@
 
 Whole-repository superiority is **not established**. This report exposes retained code, scoped improvements, omissions and gaps; it does not turn missing reviews into exclusions.
 
-Routing: 1466 paths have no specialist capability match. They remain visible through `consult-reuse.ps1 -Concern donor-audit` and issue #3; lack of a keyword match is NOT an exclusion. Every CSV row includes capability routing and owning issue links.
+Routing: 1472 paths have no specialist capability match. They remain visible through `consult-reuse.ps1 -Concern donor-audit` and issue #3; lack of a keyword match is NOT an exclusion. Every CSV row includes capability routing and owning issue links.
 
-Inventory: 4738 files; 436 complete source-file comparisons; 4302 pending comparisons; 310 compared files with known parity gaps. Header/implementation pairs can describe the same gap. Missing sparse files remain pending.
+Inventory: 4744 files; 437 complete source-file comparisons; 4307 pending comparisons; 311 compared files with known parity gaps. Header/implementation pairs can describe the same gap. Missing sparse files remain pending.
 
 Every inventoried path, source revision/hash, target/proof file and line, omitted code, disposition and concrete reason is in `file-comparison.csv`. Hash-bound manual decisions are in `file-comparison-evidence.json`. Donor SHA-256 values bind original bytes; target/proof SHA-256 values bind UTF-8 without BOM with LF newlines. Anchors are recomputed into exact line numbers. Test-code presence is not test execution; execution receipts are in `FILE-COMPARISON-RECEIPTS.md`.
 
@@ -16,8 +16,8 @@ Every inventoried path, source revision/hash, target/proof file and line, omitte
 | ControllerBoardMini/Puzzles | 18 | 18 | 0 | 8 |
 | DRS-jSnake | 18 | 16 | 2 | 16 |
 | esp32WS2811 | 24 | 16 | 8 | 9 |
-| PCController | 1517 | 118 | 1399 | 106 |
-| Pealayer | 639 | 66 | 573 | 47 |
+| PCController | 1517 | 119 | 1398 | 107 |
+| Pealayer | 645 | 66 | 579 | 47 |
 | portable-shell | 23 | 23 | 0 | 0 |
 | PU850-ESP | 109 | 109 | 0 | 96 |
 | PuzzleBoard | 22 | 22 | 0 | 1 |
@@ -29,7 +29,7 @@ Every inventoried path, source revision/hash, target/proof file and line, omitte
 
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `15e208f1026c9c6bcc144d842cf4d2df0bd32b9aea5b169f486dc03fe45eafd5`.
 
-- Target: `tools/build-firmware.ps1:188 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=MiniCore:avr:328:bootloader=uart0]`.
+- Target: `tools/build-firmware.ps1:190 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=MiniCore:avr:328:bootloader=uart0]`.
 - Retained: Read the complete Timer donor profile. Its MiniCore ATmega328P board, UART0 Urboot, EEPROM keep, 115200 bootloader baud, modelP, 2.7 V BOD, size-LTO and external 16 MHz selections match the Puzzles profile and are retained by the canonical AVR build owner.
 - Omitted/replaced code: `fixed Puzzle_WithTimer.ino, COM12 port and USBasp programmer`. Disposition: **replaced**. Reason: The combined build selects its role/target and the currently inventoried device explicitly; retaining a retired Timer sketch name or stale host COM/programmer assumption could build or write the wrong target.
 - Omitted/replaced code: `editor-owned build output`. Disposition: **replaced**. Reason: The guarded wrapper owns one canonical low-write output/cache layout instead of allowing an editor extension to create an untracked duplicate build tree.
@@ -42,7 +42,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `f94454e8edf978f7eb7d5ac1ed93c06186b35a03ac5e81b314855ba6a0551e9d`.
 
 - Target: `.vscode/settings.json:5 [UTF8-LF sha256=2373a0d9d9a7af54872b0ae854ccf1ff95116ef8f80aebfad513fe3031914d5f; anchor="*.ino": "cpp"]`.
-- Target: `tools/build-firmware.ps1:235 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
+- Target: `tools/build-firmware.ps1:237 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
 - Retained: Read all 539 Timer donor lines through EOF and confirmed byte identity with the reviewed Puzzles snapshot. AVR/Arduino language ownership and compile-profile intent are retained by portable editor associations and the actual MiniCore compile command.
 - Omitted/replaced code: `absolute Arduino15 compiler/core/library paths and copied avr-g++ predefined macros`. Disposition: **replaced**. Reason: Generated host/version paths and compiler-owned macros go stale and can misdescribe the selected MCU. The canonical build resolves the installed pinned toolchain and supplies the real FQBN/options.
 - Omitted/replaced code: `gcc-x64 IntelliSense mode and USBCON define for ATmega328P`. Disposition: **replaced**. Reason: Those generated values do not describe the AVR target ABI and can falsely advertise USB capability; real compiler invocation remains authoritative.
@@ -235,7 +235,7 @@ Verdict: **scoped-improvement**. Revision: `filesystem-snapshot`. Original-byte 
 
 Verdict: **scoped-improvement**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `afe04b5cd7cda37b9650dcbc0937f1d6a7f8f831c7f105ac4e2c84bdf9e687bf`.
 
-- Target: `tools/build-firmware.ps1:188 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=MiniCore:avr:328:bootloader=uart0]`.
+- Target: `tools/build-firmware.ps1:190 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=MiniCore:avr:328:bootloader=uart0]`.
 - Target: `tools/update-firmware.mjs:216 [UTF8-LF sha256=f1661663563a2dcd4eaed9d1a054cc986cf03d8e3b0806bc93d6bf07560ad068; anchor=export async function updateFirmware(]`.
 - Retained: Read the complete batch file. Download-before-program and explicit ATmega328P/UART bootloader intent are retained in the guarded firmware build/update pipeline.
 - Omitted/replaced code: `unauthenticated curl localhost:800 and delete-old-before-content-verification`. Disposition: **replaced**. Reason: The update owner requires peer identity, admission, expected image metadata, verified backup and hash/readback instead of accepting any HTTP body or deleting rollback first.
@@ -265,7 +265,7 @@ Verdict: **parity-gap**. Revision: `filesystem-snapshot`. Original-byte SHA-256:
 
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `674d0df0aec5c7448b8c27a47b03951d2a40ee8c5a295bd62b7ca50aa85ea1f4`.
 
-- Target: `tools/build-firmware.ps1:188 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=MiniCore:avr:328:bootloader=uart0]`.
+- Target: `tools/build-firmware.ps1:190 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=MiniCore:avr:328:bootloader=uart0]`.
 - Retained: Read the complete donor profile. Its MiniCore ATmega328P board, UART0 Urboot, EEPROM keep, 115200 bootloader baud, modelP, 2.7 V BOD, size-LTO and external 16 MHz selections are retained by the canonical AVR build owner.
 - Omitted/replaced code: `fixed COM12 port and USBasp programmer`. Disposition: **replaced**. Reason: Production discovery and explicit deployment select the currently inventoried device; committing a stale host COM number or assuming a programmer would risk writing the wrong board.
 - Omitted/replaced code: `sketch/output fields owned by the retired Arduino VS Code extension`. Disposition: **replaced**. Reason: The guarded build wrapper owns the target sketch, shared cache and low-write output layout for AVR and ESP profiles rather than allowing an editor extension to create an untracked build directory.
@@ -278,7 +278,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `f94454e8edf978f7eb7d5ac1ed93c06186b35a03ac5e81b314855ba6a0551e9d`.
 
 - Target: `.vscode/settings.json:5 [UTF8-LF sha256=2373a0d9d9a7af54872b0ae854ccf1ff95116ef8f80aebfad513fe3031914d5f; anchor="*.ino": "cpp"]`.
-- Target: `tools/build-firmware.ps1:235 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
+- Target: `tools/build-firmware.ps1:237 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
 - Retained: Read all 539 donor lines through EOF. The useful AVR/Arduino C and C++ language ownership and compile-profile intent are retained by editor associations plus the actual MiniCore compile command.
 - Omitted/replaced code: `absolute C:\Users\David Arduino15 compiler/core/library include paths`. Disposition: **replaced**. Reason: These generated host/version paths are not portable source configuration and go stale whenever Arduino packages move. The build wrapper resolves the installed pinned toolchain and passes the real FQBN/options to arduino-cli.
 - Omitted/replaced code: `hundreds of copied avr-g++ predefined macros including USBCON`. Disposition: **replaced**. Reason: Compiler-owned predefined macros must come from the selected AVR compiler invocation; committing a generated snapshot can lie to IntelliSense about the active MCU and USB capability.
@@ -1126,7 +1126,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 
 - Target: `firmware/avr/TonePlayer.h:19 [UTF8-LF sha256=c102c4d0a789f9d19e8c94db92001caf489beca04e65dead01186d91998c2cde; anchor=bool enqueue]`.
 - Target: `firmware/avr/TonePlayer.cpp:87 [UTF8-LF sha256=6c578fb07b1c5059d1d03690beed73806a77b9d28cd05359d9f225b945275ed1; anchor=startsAt = stepEndsAt_]`.
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -1145,7 +1145,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 - Test-code evidence: `tests/tone_player_test.cpp:51 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=player.setMuted(false)]`.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
 - Test-code evidence: `tests/tone_player_test.cpp:208 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=fifteen finite cues]`.
@@ -1160,7 +1160,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 
 - Target: `firmware/avr/TonePlayer.h:19 [UTF8-LF sha256=c102c4d0a789f9d19e8c94db92001caf489beca04e65dead01186d91998c2cde; anchor=bool enqueue]`.
 - Target: `firmware/avr/TonePlayer.cpp:87 [UTF8-LF sha256=6c578fb07b1c5059d1d03690beed73806a77b9d28cd05359d9f225b945275ed1; anchor=startsAt = stepEndsAt_]`.
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -1177,7 +1177,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 - Test-code evidence: `tests/tone_player_test.cpp:51 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=player.setMuted(false)]`.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
 - Test-code evidence: `tests/tone_player_test.cpp:208 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=fifteen finite cues]`.
@@ -1230,7 +1230,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `UpgradeChannel construction/lifecycle and whole-activity discovery/tone/app-update parity`. Disposition: **pending**. Reason: Pakar separately owns AppUpdateChannel, peer-discovery, BLE and tone channels; this row certifies only the inspected SAF adaptation, not full donor upgrade/automation/discovery/mirroring equivalence or provider/OS behavior. Keep their owning rows and remaining acceptance rather than infer parity from class names.
 - Test-code evidence: `mobile/test/documents_test.dart:64 [UTF8-LF sha256=641aee7d7a005c5c309683cf98154f571c1e3c398dd5674fc68b020807807df0; anchor=S3 document intake above 2MiB uses one bounded slot policy]`.
 - Test-code evidence: `mobile/test/documents_test.dart:38 [UTF8-LF sha256=641aee7d7a005c5c309683cf98154f571c1e3c398dd5674fc68b020807807df0; anchor=Changed owner while choosing export abandons token; never writes or deletes]`.
-- Test-code evidence: `mobile/test/usb_transport_test.dart:324 [UTF8-LF sha256=c18934fdea3c2001264dcab582a4ebf1c1f5b7897c9ffc514821e4c6047c563f; anchor=Real channel session performs HELLO introduction snapshot and atomic batch without HTTP or DNS]`.
+- Test-code evidence: `mobile/test/usb_transport_test.dart:348 [UTF8-LF sha256=5be41161b7d31bd348b31c7d0f3c0cc836f632cf0ba5a1c3f5ecebdfcf0a3410; anchor=Real channel session performs HELLO introduction snapshot and atomic batch without HTTP or DNS]`.
 - Test-code evidence: `mobile/test/firmware_image_test.dart:215 [UTF8-LF sha256=81f47d2e4a07740c1dab37cf55849a8a5c91eddf47631e7b631da5dad7b6ca4b; anchor=Wrong chip or observed small slot cannot reach manual mutation]`.
 - Remaining: Verify actual Android document providers, cancellation, process/activity destruction, exact selected-byte upload/export and one-use-token failure behavior on the authorized phone. Dart MethodChannel fixtures are not native SAF/provider or physical OTA proof. Finish useful omitted automation/preferences/new-intent/upgrade lifecycle imports with exact source evidence.
 
@@ -1649,7 +1649,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp32s3/src/LedWire.h:37 [UTF8-LF sha256=9d83e653d1d78a30142037519bc5bf9f5ab6487a354e245403b8ff25fdcf7dda; anchor=inline constexpr uint16_t zeroHigh=12]`.
 - Target: `firmware/esp/src/LedRenderAdmission.h:7 [UTF8-LF sha256=a6dc69b69cba74db1fff54fd75b8940bf88958404f6c3ac971b27797d5b13c50; anchor=inline bool uartWindowReady(]`.
 - Target: `firmware/esp/application.ino:1340 [UTF8-LF sha256=a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41; anchor=uint8_t defaultPhysicalCell]`.
-- Target: `tools/build-firmware.ps1:40 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=CellChaseOnBoot]`.
+- Target: `tools/build-firmware.ps1:40 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=CellChaseOnBoot]`.
 - Target: `firmware/esp32s3/src/LedOutput.h:13 [UTF8-LF sha256=46f0e3cc947e5262451e6b3659bdfedb9cc3fa3d5de8bc4779ec6ddc97f81fec; anchor=#if !defined(PAKAR_S3_LED_GPIO_ENABLED)]`.
 - Target: `firmware/esp32s3/src/LedDmaGuard.h:16 [UTF8-LF sha256=6418b38a2773c592ccd48dd9c2cbfaaa1ff0a8f0aab99437e68c1a7c419a2a65; anchor=class LedDmaSetupScope]`.
 - Target: `firmware/esp32s3/src/LedDmaGuard.cpp:68 [UTF8-LF sha256=c2c2b90ee34d7919d22c0e4dc6c651c077b9acc0ed833090aab57e2c335e1d7e; anchor=newCacheSafeLedChannel]`.
@@ -1736,7 +1736,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp32s3/src/LedWire.h:37 [UTF8-LF sha256=9d83e653d1d78a30142037519bc5bf9f5ab6487a354e245403b8ff25fdcf7dda; anchor=inline constexpr uint16_t zeroHigh=12]`.
 - Target: `firmware/esp/src/LedRenderAdmission.h:7 [UTF8-LF sha256=a6dc69b69cba74db1fff54fd75b8940bf88958404f6c3ac971b27797d5b13c50; anchor=inline bool uartWindowReady(]`.
 - Target: `firmware/esp/application.ino:1340 [UTF8-LF sha256=a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41; anchor=uint8_t defaultPhysicalCell]`.
-- Target: `tools/build-firmware.ps1:40 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=CellChaseOnBoot]`.
+- Target: `tools/build-firmware.ps1:40 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=CellChaseOnBoot]`.
 - Target: `firmware/esp32s3/src/LedOutput.h:13 [UTF8-LF sha256=46f0e3cc947e5262451e6b3659bdfedb9cc3fa3d5de8bc4779ec6ddc97f81fec; anchor=#if !defined(PAKAR_S3_LED_GPIO_ENABLED)]`.
 - Target: `firmware/esp32s3/src/LedDmaGuard.h:16 [UTF8-LF sha256=6418b38a2773c592ccd48dd9c2cbfaaa1ff0a8f0aab99437e68c1a7c419a2a65; anchor=class LedDmaSetupScope]`.
 - Target: `firmware/esp32s3/src/LedDmaGuard.cpp:68 [UTF8-LF sha256=c2c2b90ee34d7919d22c0e4dc6c651c077b9acc0ed833090aab57e2c335e1d7e; anchor=newCacheSafeLedChannel]`.
@@ -1921,11 +1921,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 - Target: `docs/PC-CONTROLLER-MERGE-READINESS.md:68 [UTF8-LF sha256=a023cd4573108622cbd76a62cb52115c7dd6735d1b15999b73df1e5a2a9b96d5; anchor=### Framing and dispatch]`.
 - Target: `libraries/BoardCore/src/WireCodec.h:41 [UTF8-LF sha256=8f9bf8a72b39e03415b295ec8b326fb9ba4c20c719ea12263cbad1b61972347c; anchor=if (input[readIndex] == 0) return 0;]`.
-- Target: `docs/TRANSPORT-CONVERGENCE.md:9 [UTF8-LF sha256=91b59a9967f1eed8f8ac3381147b6a26c9b595e69cab105fe7648320b555e0ef; anchor=## Decision: shared semantics, appropriate carriers]`.
+- Target: `docs/TRANSPORT-CONVERGENCE.md:9 [UTF8-LF sha256=7d4b449dec8b072d08139a66e45cc512051bcf9ccd53ad01fe8d250c9a146f1d; anchor=## Decision: shared semantics, appropriate carriers]`.
 - Retained: Read all bounded C++11 CRC/COBS algorithms and complete Pakar WireCodec.h. CRC/decoder structure is common; encoder bounds and ownership wrappers differ. Documented the path toward one dependency-free codec rather than silently replacing the live implementation.
 - Retained: 2026-10-30: reread both complete primitives against the preserved b0111ae0 donor snapshot. Apply the same zero-in-data-block COBS rejection to both current projects, retaining valid bytes, fixed buffers, in-place decode and owning/borrowed frame boundaries. PC Go host UDP uses its corrected shared Go decoder; the Pakar Rust/Dart adapters gain equivalent validation and targeted regressions. The cross-repository fixture and first-pass decision do not claim complete carrier/API or stock-board interoperability.
 - Omitted/replaced code: `One-source codec and zero-copy UART integration`. Disposition: **pending**. Reason: A raw algorithm import must preserve maximum framing/capacity behavior, partial RX, synchronous nested replies and 328P stack lifetime. Equal CRC conventions do not justify swapping owning Frame arrays for borrowed views without all consumers.
-- Test-code evidence: `tests/protocol_test.cpp:15 [UTF8-LF sha256=4d2f38e2823672336bd512240ae35c4ff3e234f95766509efba80f86fa100144; anchor=Same malformed COBS vectors as PCController]`.
+- Test-code evidence: `tests/protocol_test.cpp:23 [UTF8-LF sha256=b3ae3673e4953e4b44251d2b17482e08c27c9ed6664db283fc74d03943033d04; anchor=Same malformed COBS vectors as PCController]`.
 - Test-code evidence: `tests/fixtures/cobs.json:2 [UTF8-LF sha256=81683deafa749b231e483d2b75e4c45cae2a3262cab014ad0a20c74a82b31694; anchor=COBS delimiter-free]`.
 - Remaining: Issues #41 and PC#702 coordinate shared core ownership, typed service/opcode compatibility, optional capabilities and full transport/client parity. First-slice fixtures/strict malformed rejection are implemented; AVR lifetime, flash/stack deltas, full-boundary/resource, deployed/LAN/physical and complete shared-code acceptance remain open.
 
@@ -1993,7 +1993,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 - Target: `firmware/esp/application.ino:1464 [UTF8-LF sha256=a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41; anchor=void serviceScenePersistence(bool flush)]`.
 - Target: `firmware/esp/src/LedPreferences.h:29 [UTF8-LF sha256=303c1469003fec6fc2777ce459c1fae872c73d67241871463b7a32135bd51aac; anchor=inline bool applyLedBootPreferences(]`.
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -2026,11 +2026,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Test-code evidence: `tests/s3_platform_wiring_test.mjs:149 [UTF8-LF sha256=8b362da60381843154a12cc07b0c0401ec3885eb4cba2f0a2ed7815496dff6c3; anchor=sceneStore.begin]`.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
-- Test-code evidence: `desktop/src/board_silent.rs:401 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_settings_full_apply_requires_fresh_baseline_ack_and_exact_persistent_readback()]`.
-- Test-code evidence: `desktop/src/board_silent.rs:299 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_settings_require_each_changed_hardware_capability_and_no_programming_latch()]`.
+- Test-code evidence: `desktop/src/board_silent.rs:401 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_settings_full_apply_requires_fresh_baseline_ack_and_exact_persistent_readback()]`.
+- Test-code evidence: `desktop/src/board_silent.rs:299 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_settings_require_each_changed_hardware_capability_and_no_programming_latch()]`.
 - Test-code evidence: `desktop/src/device_settings.rs:950 [UTF8-LF sha256=5bce7f14b9d6225d9aaa660838b8d07f7e14bda364c520a51f1c92e83d302ed6; anchor=fn avr_editor_owns_dirty_draft_pending_receipt_and_same_peer_readback()]`.
 - Test-code evidence: `tests/scene_store_test.cpp:156 [UTF8-LF sha256=bde2386fcfab1043f052bcd9cf8d8ff2de2d478adfbdffd15aaa7c4a464e8a9e; anchor=Continuous edits have bounded save delay]`.
 - Test-code evidence: `tests/boot_audio_test.mjs:10 [UTF8-LF sha256=882dc32b024997c0411e04754bc549d0dbedf20371c4704bafc0167c657729fc; anchor=Restating the active role must ACK without resetting the winner]`.
@@ -2054,7 +2054,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `ccdcfb6e1ab186abd6a4f0b5a302bb14bab295c9a0bd9b4a306036fa32f1eaf3`.
 
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -2070,11 +2070,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `Donor relay, motion, PWM, temperature,14-page and boot restore field layouts`. Disposition: **pending**. Reason: The current hardware has a separate validated21-byte Pakar profile. Preserve all its fields and settings ownership; do not copy unrelated peripheral storage or overwrite EEPROM regions. Generic donor editors remain pending where hardware/capabilities later match.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
-- Test-code evidence: `desktop/src/board_silent.rs:401 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_settings_full_apply_requires_fresh_baseline_ack_and_exact_persistent_readback()]`.
-- Test-code evidence: `desktop/src/board_silent.rs:299 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_settings_require_each_changed_hardware_capability_and_no_programming_latch()]`.
+- Test-code evidence: `desktop/src/board_silent.rs:401 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_settings_full_apply_requires_fresh_baseline_ack_and_exact_persistent_readback()]`.
+- Test-code evidence: `desktop/src/board_silent.rs:299 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_settings_require_each_changed_hardware_capability_and_no_programming_latch()]`.
 - Test-code evidence: `desktop/src/device_settings.rs:950 [UTF8-LF sha256=5bce7f14b9d6225d9aaa660838b8d07f7e14bda364c520a51f1c92e83d302ed6; anchor=fn avr_editor_owns_dirty_draft_pending_receipt_and_same_peer_readback()]`.
 - Test-code evidence: `tests/pixel_corrections_test.cpp:15 [UTF8-LF sha256=1b86a9f70dd3d79bda4e94c0eb04fcbfb38aab17aa2618a1f08ce10996501723; anchor=rules[0].enabled=false]`.
 - Test-code evidence: `tests/pixel_correction_store_test.cpp:31 [UTF8-LF sha256=73443a0e323ea7ab0b971d1c5605e2ef61b6c4488f3ffa9e22815997c917e008; anchor=Existing enabled-only records remain readable]`.
@@ -2159,8 +2159,8 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 - Target: `firmware/esp/src/HostDemand.h:9 [UTF8-LF sha256=ed625496269aacbfc22ee281879893a58d9695cad2e2338c24934a6d1018e1b8; anchor=class HostDemand]`.
 - Target: `firmware/esp/src/HostSerial.h:26 [UTF8-LF sha256=d7dee1d9329e3959d2e362783295de00e6345dfd66cdde3f2ee1def0856fc1da; anchor=serial.enableReboot(false)]`.
-- Target: `desktop/src/usb_demand.rs:84 [UTF8-LF sha256=1901dd438e454e83718feb769745bd83175a28808d746b5385d523e3c0155dac; anchor=pub struct Lease]`.
-- Target: `mobile/lib/usb_transport.dart:89 [UTF8-LF sha256=6b7600fb34460397f778d5d46239e2e90954c33ae1a2b28f0b37a492185dd13b; anchor=class PakarUsbTransport]`.
+- Target: `desktop/src/usb_demand.rs:85 [UTF8-LF sha256=961ca5901617970235dbfc6ee6e6e169a4158253135a5e2b7a2ab7018d8662c2; anchor=pub struct Lease]`.
+- Target: `mobile/lib/usb_transport.dart:94 [UTF8-LF sha256=6d316b3b7ab94ed00d67cc92735696e860638bd8a91f5d9376d63dfe6b915eff; anchor=class PakarUsbTransport]`.
 - Target: `libraries/BoardCore/src/SerialLink.h:26 [UTF8-LF sha256=99373bc4c090e34324cfd2ae8c94d6666c227ad7e157a47fbd85125aac6c13a0; anchor=UartFlow::receiveBudget(serial_.available())]`.
 - Target: `libraries/BoardCore/src/UartFlow.h:25 [UTF8-LF sha256=44f8638f725c9cf83a6f53639144f107aace1556dd254d6dcebcaed4853c6469; anchor=constexpr uint16_t serviceBudget = 64]`.
 - Retained: Fully read actual UART API and synchronous payload lifetime contract. Shared SerialLink keeps AVR HardwareSerial ownership, separate RX/TX frame storage and handler/opaque context; Stream constructor preserves the S3 explicit pins/buffers.
@@ -2171,7 +2171,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `advisory unknown reserved envelope byte acceptance`. Disposition: **replaced**. Reason: Pakar deliberately requires its fixed zero reserved byte and valid CRC, per living API fail-closed integrity policy. No numbered generation negotiation or compatibility alias is introduced. Existing protocol_test preserves CRC-correct nonzero rejection; optional opcodes still reach semantic dispatch.
 - Test-code evidence: `tests/host_demand_test.cpp:22 [UTF8-LF sha256=aaf8339b0acafc270aece95144b9310e84cc150193003567bc339a98d5731923; anchor=int main()]`.
 - Test-code evidence: `tests/host_usb_test.cpp:4 [UTF8-LF sha256=777369c0955c5eced1b601e0c30c88d6df128bd59e507ef93d16a44976f9f071; anchor=int main()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:1062 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn usb_demand_actual_worker_has_no_full_capture_without_reader_and_releases_lease]`.
+- Test-code evidence: `desktop/src/usb_table.rs:1063 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn usb_demand_actual_worker_has_no_full_capture_without_reader_and_releases_lease]`.
 - Test-code evidence: `tests/serial_link_test.cpp:52 [UTF8-LF sha256=c103ffb2c7530bb4c85373433b123fe072bb6649f2d97b82f70fa08d404eeae8; anchor=Actual donor split-RX/synchronous-TX isolation]`.
 - Scoped advantage: Bounded large-ring RX, negative availability/read rejection and paired buffered build mode without busy GPIO.
 - Remaining: Optimize zero-copy/storage only with full shared consumer and AVR stack/RAM proof; no claim of donor-wide protocol parity.
@@ -2203,7 +2203,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `5e5607d54af43ead28eddb747e48b6e2450dd45ef7c47202203c4f5cfc8991ab`.
 
 - Target: `tools/prepare-avr-image.mjs:65 [UTF8-LF sha256=0d4e2a5a87967031393a6079e07938c7612e6fbfcb0d38c9a2a3ae419e86d525; anchor=export function mergeUrboot(]`.
-- Target: `tools/build-firmware.ps1:312 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor='prepare-avr-image.mjs']`.
+- Target: `tools/build-firmware.ps1:314 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor='prepare-avr-image.mjs']`.
 - Retained: Read the complete donor builder and README. Adapted actual Intel HEX/checksum parsing, AVR jump decoding/encoding, wrapped reset RJMP, ELF __bad_interrupt unused-vector proof, metadata-selected application trampoline, erased-gap fill, full-flash binary/HEX round trip and exact source hash validation into the canonical AVR build. No chip, fuse, EEPROM or UART operation is performed by packaging.
 - Retained: Found and corrected Pakar stock merged image reset vector bypassing its included vector Urboot. Preserve stock MiniCore UART0 autobaud, reset-register r2, EEPROM and chip-erase features with a pinned 384-byte image; never silently substitute the donor custom 512-byte backend.
 - Omitted/replaced code: `u8.0.1 custom 512-byte backend, progress hook and TM1637 D13/PB5 CLK, D11/PB3 DIO implementation`. Disposition: **pending**. Reason: This board uses A5 CLK/A4 DIO and the stock 384-byte application ceiling. Do not deploy a wrong-pin backend or silently shrink available application space. Adapt the backend/pin profile and revalidate flash budget before any optional custom bootloader installation.
@@ -2218,7 +2218,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `2ec873e7f23b56a6997a0c83de1e258ae2ce9b75cf1eb7cf08b40da5aaa68090`.
 
 - Target: `tools/prepare-avr-image.mjs:65 [UTF8-LF sha256=0d4e2a5a87967031393a6079e07938c7612e6fbfcb0d38c9a2a3ae419e86d525; anchor=export function mergeUrboot(]`.
-- Target: `tools/build-firmware.ps1:312 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor='prepare-avr-image.mjs']`.
+- Target: `tools/build-firmware.ps1:314 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor='prepare-avr-image.mjs']`.
 - Retained: Read the complete donor builder and README. Adapted actual Intel HEX/checksum parsing, AVR jump decoding/encoding, wrapped reset RJMP, ELF __bad_interrupt unused-vector proof, metadata-selected application trampoline, erased-gap fill, full-flash binary/HEX round trip and exact source hash validation into the canonical AVR build. No chip, fuse, EEPROM or UART operation is performed by packaging.
 - Retained: Found and corrected Pakar stock merged image reset vector bypassing its included vector Urboot. Preserve stock MiniCore UART0 autobaud, reset-register r2, EEPROM and chip-erase features with a pinned 384-byte image; never silently substitute the donor custom 512-byte backend.
 - Omitted/replaced code: `u8.0.1 custom 512-byte backend, progress hook and TM1637 D13/PB5 CLK, D11/PB3 DIO implementation`. Disposition: **pending**. Reason: This board uses A5 CLK/A4 DIO and the stock 384-byte application ceiling. Do not deploy a wrong-pin backend or silently shrink available application space. Adapt the backend/pin profile and revalidate flash budget before any optional custom bootloader installation.
@@ -2227,6 +2227,24 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Test-code evidence: `tests/avr_boot_image_test.mjs:20 [UTF8-LF sha256=6cae18f7420e6309045f6b25b741373698f4d306dfa6c3f8c8b126425f9e712d; anchor='Application input is never patched in place']`.
 - Remaining: Physical ISP signature/fuse/flash/EEPROM backup and byte verification; correct the measured clock/BOD profile before deployment; prove reset enters Urboot and returns to the application, then real hardware UART round-trip.
 - Remaining: Optional custom progress backend adaptation for A4/A5 with explicit profile/size and physical display acceptance.
+
+### PCController: `Tools/Build/generate-protocol-contract.mjs`
+
+Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `e065ecb653e72a0c7b7c71d315725c7d08eb42062629c5fcc7151199ab10b424`.
+
+- Target: `interfaces/controller-wire/registry.mjs:280 [UTF8-LF sha256=4c9b408145ce8db277fd312262b77106129c931398f50b66ff18cea14f9d7694; anchor=export function validatePublishedBindings]`.
+- Target: `interfaces/controller-wire/consumer.mjs:50 [UTF8-LF sha256=51ca4aaa9cb8f1ba74cabc001be34c8ec82a90d14a27e6b4ed793d72c7660484; anchor=Canonical opcode ownership]`.
+- Target: `libraries/BoardCore/src/ProtocolOpcodes.h:18 [UTF8-LF sha256=87f4c683f16a162a95e503998b351f9505bd35a6f6b5130337a1d65a150adcf9; anchor=kAudioCue = 0x11]`.
+- Target: `desktop/src/protocol_opcodes.rs:3 [UTF8-LF sha256=d81b3e3f6208b10572ed7af3db41d2df53e8865a86401f3044554ecc6a95f803; anchor=pub mod pakar]`.
+- Target: `mobile/lib/protocol_opcodes.dart:2 [UTF8-LF sha256=5a16fb520522d029ddf9fdc04653106b3f7f94cca6f8181bd32545e4a44ab8ff; anchor=class PakarOpcode]`.
+- Target: `tools/ProtocolOpcodes.ps1:3 [UTF8-LF sha256=b7e58c80118cf4bc088509e36bc55031fde82c94a125a2817feabb41013d9d16; anchor=enum PakarOpcode]`.
+- Retained: Read the complete actual donor generator, validation, native C++/Go renderers and negative tests. Its portable validation/rendering core is extracted, enhanced with Pakar namespace allocations, pinned to canonical owner3b8fabe6 and reused byte-for-byte. Original native wire assignments/source API remain; Go names and consumer views are generated, not handwritten.
+- Retained: Both independent published fixtures and actual protected-base CI comparisons prevent old assignments being renumbered/removed even if regenerated snapshots change. Consumer pins verify exact source bytes; optional upstream verification never executes downloaded source. PowerShell provisioning and the native response matcher now consume canonical opcode references too.
+- Omitted/replaced code: `Existing native payload semantics and complete transport/service parity`. Disposition: **pending**. Reason: Shared allocations and namespace admission do not merge incompatible HELLO/settings/event payloads or certify hardware; retain the explicit tunnel and issues41/702.
+- Test-code evidence: `tests/opcode_registry_test.mjs:20 [UTF8-LF sha256=14009108212aa23e2c43eb96b6103affdfe4a4c23aa073eb626cdf31706fd8da; anchor=one generated owner]`.
+- Test-code evidence: `tests/protocol_test.cpp:15 [UTF8-LF sha256=b3ae3673e4953e4b44251d2b17482e08c27c9ed6664db283fc74d03943033d04; anchor=Every other namespace]`.
+- Test-code evidence: `mobile/test/usb_transport_test.dart:201 [UTF8-LF sha256=5be41161b7d31bd348b31c7d0f3c0cc836f632cf0ba5a1c3f5ecebdfcf0a3410; anchor=opcode namespaces never fall back]`.
+- Remaining: Complete carrier/service parity and real deployed interoperability, timing, stack/RAM and physical acceptance separately.
 
 ### PCController: `Tools/Controller/docs/Go-Embedding-API.md`
 
@@ -2245,7 +2263,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `cea9f315404028716f708a2a7ffe3fc71950a3ccb2996673708d977517af0e3f`.
 
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -2254,7 +2272,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `Full board/host/both/none mirroring routes, runtime overrides, OS backend/executable resolution and watched app configuration`. Disposition: **pending**. Reason: Reuse the known/unknown/pending/verified board-setting ownership, not an unimplemented host audio backend. Actual host routing parity needs independent implementation and acoustic acceptance; this change must not mute Windows notifications by accident.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
 - Remaining: Focused fixtures/builds are source evidence only. Physical ASUS USB/Wi-Fi, reboot persistence, muted welcome/menu/cue audio and subsequent unmute require the actual AVR; SSH8022 is currently unavailable. Full donor host routing/backend/configuration parity is not established.
@@ -2433,7 +2451,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=870da3158a7edbf09572ff28eb7878ca4fc4d91d72b3c321a342abff6ee8bfe1; anchor=pub struct Advertiser]`.
 - Target: `libraries/BoardCore/src/PeerCompatibility.h:27 [UTF8-LF sha256=530d8de10f3715db8cb3404dc511634152bcea12c14d9e6ebb578645307fd26b; anchor=namespace BoardCore { namespace PeerCompatibility {]`.
 - Target: `firmware/esp/src/ClientTelemetry.h:18 [UTF8-LF sha256=71f78fe48b0208aabe6505d9cf5986484ee8d5e77c1fea8a7b2737afecfb112a; anchor=class ClientTelemetry {]`.
-- Target: `desktop/src/peer_identity.rs:394 [UTF8-LF sha256=18eb925ae24b4f69e08205c33f12a798d73020313fcf4311d51a9118042f0979; anchor=pub fn sanitize_report(]`.
+- Target: `desktop/src/peer_identity.rs:395 [UTF8-LF sha256=bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2; anchor=pub fn sanitize_report(]`.
 - Target: `mobile/lib/peer_identity.dart:28 [UTF8-LF sha256=dd3b1cabc0af9ed7e706aaebcb898313cf0dc85a91bb20a61278149b33d43441; anchor=class PeerIdentity]`.
 - Retained: Read entire source. Preserve instance.id vs physical board identity and push-fed nonsecret current-owner metadata: bridge path/hostname are additive, board_id/boot_id/hostname remain downstream-owned; current status is fed without independent serial acquisition.
 - Retained: Adapt the donor's observed-vs-declared metadata separation and bounded nonsecret push reports across the board, native and mobile peer registries. Shared release-range admission is a new user requirement, not copied donor version negotiation; no exact-build adapter or numbered route is introduced.
@@ -2442,7 +2460,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Test-code evidence: `desktop/src/bridge.rs:2037 [UTF8-LF sha256=a05278f91cf4fe82a4043e4c746422f265b07d070c29c892677211db8af2b2d5; anchor=fn bridge_status_keeps_board_identity_and_only_available_route_capabilities]`.
 - Test-code evidence: `tests/peer_compatibility_test.cpp:29 [UTF8-LF sha256=1a99a731b1c980523c52bbdfa21d0d4bdd034d9c80e7dcfd1a91d92765953df3; anchor=assert(numericAppAllowed(0,2,8));]`.
 - Test-code evidence: `tests/client_telemetry_test.cpp:48 [UTF8-LF sha256=bae7479cdbedc4896b86299bd1cc7c046e29f3ff9dd1b1a2a7c33f5b50d523d1; anchor=assert(detail[0]["observed_ip"].isNull()]`.
-- Test-code evidence: `desktop/src/peer_identity.rs:630 [UTF8-LF sha256=18eb925ae24b4f69e08205c33f12a798d73020313fcf4311d51a9118042f0979; anchor=fn reports_drop_secrets_and_never_replace_observed_ip()]`.
+- Test-code evidence: `desktop/src/peer_identity.rs:631 [UTF8-LF sha256=bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2; anchor=fn reports_drop_secrets_and_never_replace_observed_ip()]`.
 - Remaining: Issue #2: Complete discoveryMetadata rich TXT, five-second coalesced refresh and all HostIdentity fields. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 - Remaining: Issue #2: Actual default-on/disabled-build peer admission and multicast discovery between installed releases remain live acceptance. Direct clients are reported to the MCU; a bridge keeps downstream reports locally. Forwarding those indirect reports through the exclusive USB owner requires a bounded correlated report queue; do not relabel indirect reported IPs as MCU-observed.
 
@@ -2451,7 +2469,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `30454374bc87aeed2d4a536f27a24aa8c382920e9047b40d68a42faef47990c4`.
 
 - Target: `desktop/src/bridge.rs:110 [UTF8-LF sha256=a05278f91cf4fe82a4043e4c746422f265b07d070c29c892677211db8af2b2d5; anchor=pub struct Runtime]`.
-- Target: `desktop/src/main.rs:2455 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=SerialCommand::Bridge(target]`.
+- Target: `desktop/src/main.rs:2459 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=SerialCommand::Bridge(target]`.
 - Retained: Read through EOF. Preserve primary selected owner and explicit Disconnect/revocation; sharing never opens another serial handle or acquires a board from discovery. Bridge listener starts only on opt-in and closes through owned stop lifetime.
 - Omitted/replaced code: `Complete host suspend/resume lifecycleInstruction service/Windows power-event integration`. Disposition: **pending**. Reason: Current bridge is scoped to the existing app runtime/connection Gate, not a new always-running service. Listener suspend/resume behavior and platform power callbacks require additional integration and actual host acceptance.
 - Test-code evidence: `desktop/src/bridge.rs:2179 [UTF8-LF sha256=a05278f91cf4fe82a4043e4c746422f265b07d070c29c892677211db8af2b2d5; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
@@ -2485,7 +2503,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `7e711f22ce5a8e0c01f7a935e0f0091ed1d305e04a7563aae57a772059f391ef`.
 
 - Target: `desktop/src/bridge.rs:110 [UTF8-LF sha256=a05278f91cf4fe82a4043e4c746422f265b07d070c29c892677211db8af2b2d5; anchor=pub struct Runtime]`.
-- Target: `desktop/src/usb_table.rs:590 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=pub struct Intent]`.
+- Target: `desktop/src/usb_table.rs:591 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=pub struct Intent]`.
 - Target: `firmware/esp/src/PeerRelay.h:19 [UTF8-LF sha256=b59e020b680b3d726e8bed915ecf73ba8ae79d7fcaf6ce2ca435429c1582b0db; anchor=class PeerRelay]`.
 - Target: `firmware/esp/src/PeerRouteStore.h:9 [UTF8-LF sha256=93e58147fbf62072c7a6ce22abe39d0dd2cf3840cd41e70bcdea8c5693889756; anchor=class PeerRouteStore]`.
 - Target: `firmware/esp/src/PeerNetworkCommission.h:21 [UTF8-LF sha256=3d8ec120b978a6e5c2d523a2b7dd229c8cc3f0c5e8be2d7597405f2fc30f7115; anchor=class PeerNetworkCommission]`.
@@ -2494,7 +2512,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Retained: 2026-10-28 reread complete peer_response.go and its tests. Retain strict receipt identity and uncertain/no-replay outcomes while replacing per-job task allocation and full raw history with one reusable worker and eight SHA256 fingerprints. Filter downstream JSON envelope to bound heap; read-only connection recovery never replays a POST. Explicit saved-route stage/readback/rename is loop-owned, independently of worker observations. Current and historical internal-memory metrics are distinct; no claimed cause for the historical 216-byte minimum.
 - Omitted/replaced code: `Generic PCController peerRPCSession JSON-RPC/WebSocket/Socket.IO response envelope`. Disposition: **pending**. Reason: Pakar uses its existing living /api/command and board/boot/deadline contract, not an unimplemented promise of generic PCController RPC compatibility. Full manager.go route/authority/transport adapters remain pending review.
 - Test-code evidence: `desktop/src/bridge.rs:2179 [UTF8-LF sha256=a05278f91cf4fe82a4043e4c746422f265b07d070c29c892677211db8af2b2d5; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
-- Test-code evidence: `desktop/src/usb_table.rs:842 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback]`.
+- Test-code evidence: `desktop/src/usb_table.rs:843 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback]`.
 - Test-code evidence: `tests/peer_relay_test.cpp:140 [UTF8-LF sha256=30aa409380278617eacba57eba16589bb4e7b4671479e9c44087817882494ba2; anchor=int main()]`.
 - Test-code evidence: `tests/peer_network_commission_test.cpp:34 [UTF8-LF sha256=ec7bc2ebc0037b133588e44cd8fdd23afb7fb587243488272007cd2222740f0d; anchor=Acceptance alone never switches Wi-Fi.]`.
 - Remaining: Issue #2: Generic PCController peerRPCSession JSON-RPC/WebSocket/Socket.IO response envelope. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
@@ -2557,7 +2575,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/WebAccess.h:36 [UTF8-LF sha256=774b524f4cd81c003e4139d0bb6cf3353d987674bbfb49d7a1b989ee2a232294; anchor=ApiPolicy::numberedRoute]`.
 - Retained: Actual TestVersionedCoreAPIRoutesAreRejected test cases adapted into the C++ helper exercised by ESP async middleware; generalized to all numbered API roots and pre-auth rejection.
 - Omitted/replaced code: `TestCanonicalRESTRouteInventory, TestRESTAppActionCannotInjectCoordinatorNavigationMetadata, typed app launch/action outcome lifecycle`. Disposition: **pending**. Reason: These exercise the full PCController Go host coordinator, not the ESP handlers. Applicable generic typed action/outcome/auth ownership and full real multiplexer route inventory still need explicit Pakar contracts and tests. The narrower source/wire tests here do not claim end-to-end async server acceptance.
-- Test-code evidence: `tests/protocol_test.cpp:85 [UTF8-LF sha256=4d2f38e2823672336bd512240ae35c4ff3e234f95766509efba80f86fa100144; anchor=Actual donor TestVersionedCoreAPIRoutesAreRejected cases]`.
+- Test-code evidence: `tests/protocol_test.cpp:93 [UTF8-LF sha256=b3ae3673e4953e4b44251d2b17482e08c27c9ed6664db283fc74d03943033d04; anchor=Actual donor TestVersionedCoreAPIRoutesAreRejected cases]`.
 - Test-code evidence: `tests/living_contract_test.mjs:26 [UTF8-LF sha256=67389b8a5ef0a051959d1938d52abb6b48edeb194e8a73f51235d376c8121d59; anchor=pre-auth 404 wiring]`.
 - Remaining: Port applicable real top-level route inventory, typed app outcomes and coordinator-owned metadata spoof tests after mapping the actual Pakar host coordinator.
 
@@ -2566,14 +2584,14 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `b03498f9df5a9f8e5bc3c94eabec71ab4fb412b53c1fb1729fe63a45ec1ba3b9`.
 
 - Target: `mobile/test/selection_batch_network_test.dart:19 [UTF8-LF sha256=41eb7d501bf707974913ef8d1813b0e18d841b85266c032778acd15848f09dc3; anchor=test(]`.
-- Target: `desktop/src/peer_http.rs:959 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn local_address_cache_accepts_only_verified_tcp_peer_not_advertised_ip]`.
+- Target: `desktop/src/peer_http.rs:963 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn local_address_cache_accepts_only_verified_tcp_peer_not_advertised_ip]`.
 - Retained: Adapted actual cached-address reuse and changed-DHCP-address scenarios with injected lookups/dials. Added actual loopback HTTP Host identity, authentication/timeout retention, selection/batch/readback and melody fixtures.
 - Retained: Native fixtures exercise actual reqwest loopback TCP, cached subsequent resolution, original HTTP Host and explicit port, provenance rejection, finite cache/replacement and invalidation. They are not Windows mDNS, Android DNS or DHCP physical acceptance.
 - Retained: Current native discovery fixtures cover persisted route roundtrip, endpoint/board/scheme/port fencing and credential-free failed-hostname recovery. Flutter trusted-CA HTTPS/WSS fixtures exercise actual numeric TCP fallback with original logical certificate identity, wrong-board rejection and shared-route reuse without repeated DNS. Separate ControlShell widget fixtures cover startup, manual Disconnect and editor handoff holds; none contacts production.
 - Omitted/replaced code: `Go net.TCPConn placeholders, netip addresses and go test runtime`. Disposition: **replaced**. Reason: Tests exercise the Dart resolver used by this application and a real local HTTP listener; Go donor tests are not executed as Flutter evidence. Physical phone/Wi-Fi and audible melody acceptance remain separate.
 - Test-code evidence: `mobile/test/lan_resolver_transport_test.dart:12 [UTF8-LF sha256=bf4a46ca2ce7a9639b66bd7c03f9ecd57065b58a2d7fb2cc5e8f6a0edc3f637e; anchor=void main()]`.
 - Test-code evidence: `mobile/test/selection_batch_network_test.dart:19 [UTF8-LF sha256=41eb7d501bf707974913ef8d1813b0e18d841b85266c032778acd15848f09dc3; anchor=test(]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1110 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn local_address_cache_bounds_replaces_and_invalidates_without_ttl_or_authority]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1114 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn local_address_cache_bounds_replaces_and_invalidates_without_ttl_or_authority]`.
 - Test-code evidence: `mobile/test/network_route_recovery_test.dart:11 [UTF8-LF sha256=e353a06b0fab6f9dd84cc7ce24aee1a5e8517c6e179b3975826f6adaa52f951f; anchor=void main()]`.
 - Test-code evidence: `mobile/test/configuration_event_transport_test.dart:9 [UTF8-LF sha256=4c48e1641b05832a0c0fd5945a9a63e080b8563515f00970f03bb7fcdee9dd08; anchor=void main()]`.
 - Test-code evidence: `tests/peer_relay_test.cpp:140 [UTF8-LF sha256=30aa409380278617eacba57eba16589bb4e7b4671479e9c44087817882494ba2; anchor=int main()]`.
@@ -2588,8 +2606,8 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `mobile/lib/api.dart:181 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=final LanResolver resolver;]`.
 - Target: `mobile/lib/discovery.dart:116 [UTF8-LF sha256=8cb3956f80a50c5be2c134829bc7d323a3f4c58fbbcf1ea5d5e1aaa10ac7fbba; anchor=class DiscoveryCatalog]`.
 - Target: `mobile/lib/devices_page.dart:73 [UTF8-LF sha256=73b22cde59bac6f882fd989e6494a09d3d19b010b0fc8e5ae69e55591eca44c0; anchor=catalog]`.
-- Target: `desktop/src/peer_http.rs:339 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=pub fn device_client_builder]`.
-- Target: `desktop/src/main.rs:818 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=peer_http::remember_address]`.
+- Target: `desktop/src/peer_http.rs:339 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=pub fn device_client_builder]`.
+- Target: `desktop/src/main.rs:820 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=peer_http::remember_address]`.
 - Target: `firmware/esp/src/PeerLanResolver.h:13 [UTF8-LF sha256=2413d89e26403aae1a9a528c60da09acf4ea5079067b8c1183e7e6c4d8f41546; anchor=class PeerLanResolver]`.
 - Retained: Actual complete donor resolver and tests read from canonical PCController; adapted successful-address caching, retaining URL hostname/HTTP Host/TLS SNI rather than replacing the public identity with an IP.
 - Retained: 2026-10-28 reread resolver.go and resolver_test.go through EOF for ESP-to-ESP recovery. Adapt its reconnect-sticky successful address to a four-entry board+hostname+boot-verified cache. .local explicitly uses SDK mdns_query_a with a 900ms budget; unicast uses TCPIP-owned asynchronous IPv4 DNS and object-owned late callbacks instead of unbounded getaddrinfo. Explicit saved-route hints are reverified after reboot. HTTP Host remains the configured hostname; no cache/discovery record grants authorization or causes command replay.
@@ -2601,7 +2619,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `Go mutex, process-global resolver, Linux platform NBNS fallback and unbounded address candidates`. Disposition: **replaced**. Reason: Dart isolate ownership and a shared per-API resolver replace Go synchronization/global state. DNS and each dial have deadlines, successful cache is bounded64 hosts and candidates2; platform discovery remains separate. Android OS/mDNS resolution and DHCP movement still need actual phone/LAN acceptance; no platform helper or multicast success is inferred.
 - Test-code evidence: `mobile/test/lan_resolver_transport_test.dart:12 [UTF8-LF sha256=bf4a46ca2ce7a9639b66bd7c03f9ecd57065b58a2d7fb2cc5e8f6a0edc3f637e; anchor=void main()]`.
 - Test-code evidence: `mobile/test/selection_batch_network_test.dart:19 [UTF8-LF sha256=41eb7d501bf707974913ef8d1813b0e18d841b85266c032778acd15848f09dc3; anchor=test(]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1199 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn local_verified_address_override_preserves_http_hostname_and_explicit_port]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1203 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn local_verified_address_override_preserves_http_hostname_and_explicit_port]`.
 - Test-code evidence: `tests/peer_relay_test.cpp:140 [UTF8-LF sha256=30aa409380278617eacba57eba16589bb4e7b4671479e9c44087817882494ba2; anchor=int main()]`.
 - Scoped advantage: Session-sticky routing plus hostname-first durable same-board recovery; authentication and generic HTTP failures never grant discovery or mutation replay authority.
 - Remaining: Verify physical Android DNS-SD/mDNS resolution, reconnect/DHCP change, TLS hostname identity and retained discovery records under real network loss. Preserve explicit Disconnect and identity fencing.
@@ -2619,7 +2637,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Test-code evidence: `desktop/src/platform/discovery.rs:229 [UTF8-LF sha256=126098720cf4b0d91a74e7147b41954f2361960f4ae7d210896f8c762ae24fd3; anchor=fn discovery_auto_selects_one_physical_identity_not_one_interface]`.
 - Test-code evidence: `mobile/test/automatic_board_connection_test.dart:32 [UTF8-LF sha256=cee36549184c34fbc52bf695f2bf92a507b60315c6b8534b04f2cc8ebae08616; anchor=void main()]`.
 - Test-code evidence: `mobile/test/automatic_connection_widget_test.dart:65 [UTF8-LF sha256=fdcf213e00e2e2e0f4840a5a89151435358b1ecbf9c05cf13979c1a536b67d34; anchor=void main()]`.
-- Test-code evidence: `tests/protocol_test.cpp:27 [UTF8-LF sha256=4d2f38e2823672336bd512240ae35c4ff3e234f95766509efba80f86fa100144; anchor=admission.needsHello(2000,0)]`.
+- Test-code evidence: `tests/protocol_test.cpp:35 [UTF8-LF sha256=b3ae3673e4953e4b44251d2b17482e08c27c9ed6664db283fc74d03943033d04; anchor=admission.needsHello(2000,0)]`.
 - Remaining: Issue #2/#10: installed native/Android startup, real router/AP discovery, DHCP and hostname rename/reconnect acceptance remain open. Read-only socket/widget fixtures do not prove physical network or production deployment; unsaved drafts and maintenance owners still block new-board handoff.
 
 ### PCController: `Tools/Controller/internal/link/request_admission_test.go`
@@ -2627,8 +2645,8 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `0148ea4aac3cf230050045756a4308157adf786a2b6ca2d4fd99bcf665a622c1`.
 
 - Target: `desktop/src/connection.rs:28 [UTF8-LF sha256=b87a15893bb66b66dbfa84ff9ffb611a40532dc679991397651267045e14e9b0; anchor=pub struct Gate]`.
-- Target: `desktop/src/main.rs:2263 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=fn serial_worker(]`.
-- Target: `desktop/src/usb_table.rs:101 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=pub struct Operation]`.
+- Target: `desktop/src/main.rs:2267 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=fn serial_worker(]`.
+- Target: `desktop/src/usb_table.rs:102 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=pub struct Operation]`.
 - Retained: Lamp-background checkpoint reread actual request-admission fixture and current selected-USB worker/HTTP-isolation regression. App-only presentation IPC is separate from physical admission; selected transport, lease and no-late-write contracts remain unchanged. Inspected main.rs target/proof rebound without execution or physical claims.
 - Retained: Fully read all489lines through EOF. Adapted queued-intent revocation/no-late-write and ownership-before/after admission assertions as Rust selected-method epoch tests. The production Gate keeps revoked owners until their resource leases drop and never admits a competing route or a second USB handle.
 - Retained: New main fixture invokes the actual HTTP worker against a live loopback listener while USB is selected, asserting zero accepted connections and zero failure events. This is an unexecuted source fixture reference until the guarded owner runs tests, not live USB or electrical proof.
@@ -2637,9 +2655,9 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `PulseDTR cancellation/restoration/write exclusion and live physical port acquisition/late-close tests`. Disposition: **pending**. Reason: This pass intentionally adds no automatic reset and keeps AVR/ISP/audio deferred. Inactive DTR on Rust open is source configuration, not measured electrical behavior; OS acquisition/cancellation/retryable-close ownership still needs dedicated fake-handle and real-host acceptance.
 - Test-code evidence: `desktop/src/connection.rs:129 [UTF8-LF sha256=b87a15893bb66b66dbfa84ff9ffb611a40532dc679991397651267045e14e9b0; anchor=fn handoff_waits_for_all_actual_old_resources_and_rejects_stale_epoch()]`.
 - Test-code evidence: `desktop/src/connection.rs:117 [UTF8-LF sha256=b87a15893bb66b66dbfa84ff9ffb611a40532dc679991397651267045e14e9b0; anchor=fn usb_offline_never_admits_network_and_disconnect_revokes_everything()]`.
-- Test-code evidence: `desktop/src/main.rs:6230 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=fn usb_selected_http_worker_never_contacts_even_a_live_network_endpoint()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:842 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:735 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
+- Test-code evidence: `desktop/src/main.rs:6234 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=fn usb_selected_http_worker_never_contacts_even_a_live_network_endpoint()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:843 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:736 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
 - Scoped advantage: User-required exclusive Wi-Fi-or-USB lifecycle replaces Both rather than silently falling back; physical resources retire before the new method opens. Source evidence only until guarded tests and runtime observations.
 - Remaining: Run guarded native tests and verify selected USB causes no HTTP/DNS/SSDP/telemetry or second physical connection; validate bounded route retirement, dirty-draft protection and retired outcomes in actual runtime. Do not infer whole donor parity or electrical acceptance from Gate tests.
 
@@ -2647,10 +2665,10 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `ff6c7b21f72bfb944d232c87210f8ffa139dfe016e8b5756f2582604489fffc4`.
 
-- Target: `tests/protocol_test.cpp:68 [UTF8-LF sha256=4d2f38e2823672336bd512240ae35c4ff3e234f95766509efba80f86fa100144; anchor=Adapt donor matching-identity/request assertions]`.
+- Target: `tests/protocol_test.cpp:76 [UTF8-LF sha256=b3ae3673e4953e4b44251d2b17482e08c27c9ed6664db283fc74d03943033d04; anchor=Adapt donor matching-identity/request assertions]`.
 - Target: `desktop/src/terminal_ui.rs:1412 [UTF8-LF sha256=762c7ee8137a21fdbd83a40bb776238a6f75b943da35d01073bbff6b2dd64379; anchor=fn server_reboot_between_preflight_and_post_stops_without_replay()]`.
-- Target: `desktop/src/peer_http.rs:1561 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_settings_pin_every_nested_request_and_verify_same_boot()]`.
-- Target: `desktop/src/usb_table.rs:101 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=pub struct Operation]`.
+- Target: `desktop/src/peer_http.rs:1567 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_settings_pin_every_nested_request_and_verify_same_boot()]`.
+- Target: `desktop/src/usb_table.rs:102 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=pub struct Operation]`.
 - Retained: Actual fakePort matching/mismatched request and identity scenarios read fully and adapted to C++ peer validation and native same-host reboot/pinned-header/409 no-replay HTTP fixtures.
 - Retained: Old receipts stay in Events, not new peer's confirmed output.
 - Retained: Full session_test.go reread through EOF and live hash reverified. Admission revocation, peer mismatch and no-replay assertions adapted to actual native GUI HTTP loopback fixtures, not claims of importing Go fakePort acquisition/reset/ACK routing.
@@ -2661,13 +2679,13 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `compact HELLO schemas/build stamp and DTR reset/inactive control-line tests`. Disposition: **pending**. Reason: Build stamp is not board/boot identity; numbered public generation negotiation conflicts with living API. Adapt additive identity and explicit one-shot reset policy with serial owner, without schema selectors/reset-on-connect.
 - Test-code evidence: `desktop/src/terminal_ui.rs:1484 [UTF8-LF sha256=762c7ee8137a21fdbd83a40bb776238a6f75b943da35d01073bbff6b2dd64379; anchor=fn shared_cli_mutation_inherits_pinned_epoch_headers()]`.
 - Test-code evidence: `tests/peer_fence_test.mjs:23 [UTF8-LF sha256=09291cb48a20e945aef09f5176eb9089db1bf7440fc45deb73daf9e832a456c4; anchor=Upload callbacks precede middleware]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1590 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_preflight_reboot_or_capability_loss_never_dispatches_mutation()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1623 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_readback_from_new_boot_is_not_applied()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1682 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_unfenced_mutation_fails_before_network_and_preserves_correlation()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1607 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_server_boot_conflict_is_not_replayed()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1596 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_preflight_reboot_or_capability_loss_never_dispatches_mutation()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1629 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_readback_from_new_boot_is_not_applied()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1688 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_unfenced_mutation_fails_before_network_and_preserves_correlation()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1613 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_server_boot_conflict_is_not_replayed()]`.
 - Test-code evidence: `tests/web_access_fence_test.cpp:121 [UTF8-LF sha256=a6d3b4d5a9fd3703c6265d093acaa21bd2cb17a30cda92ba9b4e18848e322a72; anchor=Real async queue + real fence recheck]`.
-- Test-code evidence: `desktop/src/usb_table.rs:842 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:735 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:843 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:736 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
 - Remaining: GUI HTTP and Web pin adoption implemented as bounded slices; native WebSocket/USB/mobile/standalone CLI/cloud fencing, remembered pairing and AVR-only boot identity remain pending; ESP32-S3 application not integrated.
 - Remaining: Port remaining useful serial lifecycle/priority/ACK/reset tests; fixtures/source/compile are not physical acceptance.
 
@@ -2683,11 +2701,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/WebAccess.h:92 [UTF8-LF sha256=774b524f4cd81c003e4139d0bb6cf3353d987674bbfb49d7a1b989ee2a232294; anchor=bool peerAllowed(]`.
 - Target: `firmware/esp/application.ino:2077 [UTF8-LF sha256=a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41; anchor=bool authenticate()]`.
 - Target: `assets/web/peer-http.js:90 [UTF8-LF sha256=9613bb23bfa007afcde525d49a193b25b93788b0f24e6a0374ce4f49560f8f9e; anchor=function assertOwner(peer)]`.
-- Target: `desktop/src/peer_http.rs:590 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=pub fn admit(]`.
-- Target: `desktop/src/main.rs:845 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=fn scoped_http_request(]`.
-- Target: `desktop/src/usb_table.rs:571 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=pub struct Admission]`.
+- Target: `desktop/src/peer_http.rs:590 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=pub fn admit(]`.
+- Target: `desktop/src/main.rs:847 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=fn scoped_http_request(]`.
+- Target: `desktop/src/usb_table.rs:572 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=pub struct Admission]`.
 - Target: `mobile/lib/command_readback.dart:14 [UTF8-LF sha256=c920c79353178bfb46aaed6e80a467951b9131f7f3cab0653d970f6408d8703c; anchor=bool commandReadbackMatches(]`.
-- Target: `desktop/src/cell_batch.rs:15 [UTF8-LF sha256=e1c9e090e67ac7d1da3487a8219067d0a4bc9fd471a13d6a24f7a9462bead947; anchor=pub struct Correlation]`.
+- Target: `desktop/src/cell_batch.rs:16 [UTF8-LF sha256=453787112bc914d571886b1a64a1244552d2041548bf0ea97f65e448dce7b389; anchor=pub struct Correlation]`.
 - Target: `desktop/src/realtime.rs:8 [UTF8-LF sha256=134977c4f18998b92ebb2e8d763147a1c0eeb2039c019a603cb7de712502fa01; anchor=pub struct Intent]`.
 - Target: `mobile/lib/command_wire.dart:49 [UTF8-LF sha256=5b60bf4d43874d5ef071dbc118cbbc581c2c59d1af8491116aba56570298a3cb; anchor=String commandPacket(]`.
 - Target: `libraries/BoardCore/src/CommandReceipts.h:8 [UTF8-LF sha256=061d79642fdeb1e07f528a63438ba466c3784fc96aef7ff9ca881508675dd2dc; anchor=class CommandReceipts]`.
@@ -2698,7 +2716,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/BleRoutes.h:219 [UTF8-LF sha256=b89a7a050b6f1f4121d8de0809dfce67cca404170e40a252cce66e95e5aa7b5d; anchor=String bleRequest(]`.
 - Target: `services/remote-panel/gateway.mjs:12 [UTF8-LF sha256=6092a0b79c3277ef171d25e4228b42831eb06990689b84f40101b9b898ac872a; anchor=export class Gateway]`.
 - Target: `services/remote-panel/service.mjs:13 [UTF8-LF sha256=724a7a0167e09af540c7dc6329bd2cc7ae5ed7ce496dfeaa3297a1b6d06a3737; anchor=export function createPanel]`.
-- Target: `desktop/src/peer_identity.rs:359 [UTF8-LF sha256=18eb925ae24b4f69e08205c33f12a798d73020313fcf4311d51a9118042f0979; anchor=pub fn usb_introduction_error(]`.
+- Target: `desktop/src/peer_identity.rs:360 [UTF8-LF sha256=bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2; anchor=pub fn usb_introduction_error(]`.
 - Retained: Lamp-background checkpoint reread all 916 canonical donor lines plus native HTTP admission/producer-envelope checks, selected serial lease and batch ACK correlation. Flutter peer-retirement/command admission/readback and lifecycle proof inspected after compact-footer change. New app-local CellBackgrounds command never enters board request queue or replay path. Only inspected consumers rebound; no new hardware/transport acceptance.
 - Retained: Actual Session.Request closing/context checks before and after admission adapted to TUI atomic stop checks before/after fresh preflight; no post-dispatch replay.
 - Retained: Full source read. Fail-closed identity checks strengthened with HTTP server-side board/boot fences; donor HELLO/build stamp is NOT a boot epoch.
@@ -2730,21 +2748,21 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `WithRequestWriteGuard final transport admission;750ms strip ACK/background priority and active-opcode slot diagnostics`. Disposition: **pending**. Reason: Selected-method lease checks precede normal Rust serial writes, retaining the old physical-owner lease until resource drop. Native HTTP now adapts donor queued priority selection, but USB request-priority scheduling, reserved macro sequence and single-inflight opcode/sequence ACK ownership remain pending; OS-inflight bytes are non-retractable. Rust USB/PnP close/open cancellation, timing and no-network handoff still require runtime acceptance.
 - Omitted/replaced code: `Bluetooth transport is not Go serial acquisition or a complete firmware-file transport`. Disposition: **pending**. Reason: S3 has no Classic/SPP/audio hardware. UART DTR/reset/acquisition/quarantine and macro-priority mechanisms are not GATT operations; existing serial implementation is preserved, not removed. Direct BLE firmware binary transfer/raw pixel streaming, authenticated encrypted/bonded BLE, full donor serial suites and real phone/RF/coexistence/mirroring acceptance remain pending in issue #20; remote firmware jobs reuse the existing updater and require its network route.
 - Test-code evidence: `desktop/src/terminal_ui.rs:1136 [UTF8-LF sha256=762c7ee8137a21fdbd83a40bb776238a6f75b943da35d01073bbff6b2dd64379; anchor=fn same_hostname_reboot_revokes_drafts_and_old_receipts()]`.
-- Test-code evidence: `desktop/src/peer_identity.rs:504 [UTF8-LF sha256=18eb925ae24b4f69e08205c33f12a798d73020313fcf4311d51a9118042f0979; anchor=fn usb_introduction_error_preserves_actual_board_reason_without_suggesting_policy_bypass()]`.
+- Test-code evidence: `desktop/src/peer_identity.rs:505 [UTF8-LF sha256=bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2; anchor=fn usb_introduction_error_preserves_actual_board_reason_without_suggesting_policy_bypass()]`.
 - Test-code evidence: `mobile/test/bridge_discovery_test.dart:37 [UTF8-LF sha256=1e650a1f6897c67ce9e87de864ff28ed98e0a818ca95ba6b413897b5cd99a905; anchor=Same-host board/boot replacement retires firmware owners synchronously]`.
 - Test-code evidence: `tests/peer_fence_test.mjs:23 [UTF8-LF sha256=09291cb48a20e945aef09f5176eb9089db1bf7440fc45deb73daf9e832a456c4; anchor=Upload callbacks precede middleware]`.
 - Test-code evidence: `tests/web_peer_http_test.mjs:24 [UTF8-LF sha256=db715ef84572ee0279db89cdb3bc5700bbd6e7ebe206a8fdedf335b60d60d048; anchor=Same-host reboot between draft creation and preflight]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1640 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_revocation_during_preflight_stops_before_write()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1660 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_revocation_after_dispatch_reports_uncertainty_not_success()]`.
-- Test-code evidence: `desktop/src/main.rs:887 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=// The mapping response identifies its own producer.]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1442 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_enveloped_read_needs_no_http_status_preflight()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1459 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_foreign_or_previous_boot_response_is_never_adopted()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1481 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_incomplete_or_invalid_envelope_is_not_legacy()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1504 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_revoked_inflight_result_is_not_applied()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1521 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_expired_queue_does_not_contact_device()]`.
-- Test-code evidence: `desktop/src/peer_http.rs:1534 [UTF8-LF sha256=4e824caea5ef7bea0b2fc81af1ba1571bb7f3374582c3d641223cf0ce20cae50; anchor=fn gui_mapping_without_envelope_retains_both_legacy_status_fences()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1646 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_revocation_during_preflight_stops_before_write()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1666 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_revocation_after_dispatch_reports_uncertainty_not_success()]`.
+- Test-code evidence: `desktop/src/main.rs:889 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=// The mapping response identifies its own producer.]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1448 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_enveloped_read_needs_no_http_status_preflight()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1465 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_foreign_or_previous_boot_response_is_never_adopted()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1487 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_incomplete_or_invalid_envelope_is_not_legacy()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1510 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_revoked_inflight_result_is_not_applied()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1527 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_expired_queue_does_not_contact_device()]`.
+- Test-code evidence: `desktop/src/peer_http.rs:1540 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=fn gui_mapping_without_envelope_retains_both_legacy_status_fences()]`.
 - Test-code evidence: `tests/web_access_fence_test.cpp:121 [UTF8-LF sha256=a6d3b4d5a9fd3703c6265d093acaa21bd2cb17a30cda92ba9b4e18848e322a72; anchor=Real async queue + real fence recheck]`.
-- Test-code evidence: `desktop/src/usb_table.rs:1539 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn table_write_is_exact_boot_fenced_and_post_ack_values_are_not_assumed()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:1540 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn table_write_is_exact_boot_fenced_and_post_ack_values_are_not_assumed()]`.
 - Test-code evidence: `mobile/test/connection_lifecycle_test.dart:254 [UTF8-LF sha256=7c3e281d1e98ee1cf49e9116a0cc8c85a9adcc33683992d225b6258dcd94bce4; anchor=Lost post-ACK readback stops bulk without discarding a fresh workspace]`.
 - Test-code evidence: `desktop/src/ui/cell_table.rs:1866 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=Even identical values require the exact operation ID]`.
 - Test-code evidence: `desktop/src/realtime.rs:786 [UTF8-LF sha256=134977c4f18998b92ebb2e8d763147a1c0eeb2039c019a603cb7de712502fa01; anchor=fn realtime_actual_ws_worker_delivers_receipt_without_http_or_poll_tick()]`.
@@ -2754,9 +2772,9 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Test-code evidence: `tests/cloud_command_guard_test.cpp:28 [UTF8-LF sha256=2de44ca916fe1670eba11edeb706e88dfdafc4994d0a9d07301a279ef71c0581; anchor=Receipts::Conflict]`.
 - Test-code evidence: `mobile/test/workspace_lifecycle_test.dart:422 [UTF8-LF sha256=537941477dab0a2460cf42aab9220a7baf8d1aecf36eb140b21179674985071e; anchor=Background/resume retains selection]`.
 - Test-code evidence: `mobile/test/realtime_transport_test.dart:74 [UTF8-LF sha256=ef8a5a39abe37c40e3393cdde5b3f012dbc5a7adfc2e2cd104571ca04cd5de7e; anchor=HTTP refresh cannot impersonate]`.
-- Test-code evidence: `desktop/src/usb_table.rs:842 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:735 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
-- Test-code evidence: `desktop/src/usb_table.rs:1411 [UTF8-LF sha256=13c191e37a4a881d96fb668c0ccb99fa2f168955e6abb78bb37940a629434042; anchor=fn actual_usb_worker_windows_read_latency_does_not_expire_large_capture]`.
+- Test-code evidence: `desktop/src/usb_table.rs:843 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:736 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn compact_usb_readback_validates_all_values_without_renewing_full_observations()]`.
+- Test-code evidence: `desktop/src/usb_table.rs:1412 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_windows_read_latency_does_not_expire_large_capture]`.
 - Test-code evidence: `tests/ble_wire_test.cpp:15 [UTF8-LF sha256=bf5675db9debf06160e8ef72d59e7c764bc3f88cde508cfcbb32a989f004c34e; anchor=int main()]`.
 - Test-code evidence: `tests/ble_firmware_test.mjs:130 [UTF8-LF sha256=7bfd1e524abb6303f16bc0d9bf75a80ba892876d9c72548575954de34fd8a4f0; anchor=BLE firmware integration source guards]`.
 - Test-code evidence: `tests/ble_storage_test.cpp:51 [UTF8-LF sha256=22f4c0e4fc0846492ddaa6c04a01e113ace607d86e9edeac1d2c69b8ee46a349; anchor=Do not retain an internal bulk-buffer fallback]`.
@@ -3101,7 +3119,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 ### Pealayer: `.github/dependabot.yml`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `fa4791635251ad7d5be26ce70d71a8e59aa7b814a4f09f2b5b749d8a49908225`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `fa4791635251ad7d5be26ce70d71a8e59aa7b814a4f09f2b5b749d8a49908225`.
 
 - Target: `.github/dependabot.yml:1 [UTF8-LF sha256=136887ba77b56544d0bcd367a31d2daaa7637ecdb8b997d63df6cb552d6f08e8; anchor=version: 2]`.
 - Retained: Actual donor weekly grouped github-actions and Cargo updates, with Cargo path adapted to the existing desktop workspace.
@@ -3111,15 +3129,16 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `.github/workflows/ci-cd.yml`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `bba9a295ee7b59e318f76e0b6f6a80f0aec631e249f7d8c798f6c92c0bb7fd8c`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `2e5c933b7c1646d5cb26ddd8a10f88529de15bd205b525295858755d5044988b`.
 
-- Target: `.github/workflows/build.yml:2 [UTF8-LF sha256=2011a5c6db4cce2042b223c1724d4fc6481d140f7aaf68527bc0f8ccf79c363e; anchor=name: "🚀 Build · Test · Release"]`.
-- Target: `tools/build-desktop.ps1:47 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=--test-threads=1]`.
-- Target: `tools/ci-checks.mjs:278 [UTF8-LF sha256=ccc3d394d143d99959677140fe0321c1a9826f6963de91433dd30e7a51c9ec8a; anchor=export function runChecks]`.
+- Target: `.github/workflows/build.yml:2 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🚀 Build · Test · Release"]`.
+- Target: `tools/build-desktop.ps1:49 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=--test-threads=1]`.
+- Target: `tools/ci-checks.mjs:280 [UTF8-LF sha256=c33954b785a09f8bf3b469fdf9a8b12133c75bf1198fa76ac050678c5ceaa64c; anchor=export function runChecks]`.
 - Target: `tools/prepare-release.mjs:18 [UTF8-LF sha256=820cefc9698d46f95cf39b4cd667494a05cd03d119a1c54f9892b2a35d8b824b; anchor=export function firmwareManifest]`.
 - Retained: Actual donor branch/PR/tag/dispatch/merge-group triggers, concurrency policy, pinned actions without checkout credentials, health-before-build jobs, timeouts, Rust cache reuse, locked tests/builds, packaging, curated notes, manifest/checksums/provenance and aggregate results adapted to current Windows/ESP/AVR/Android targets.
 - Retained: Release content is gated on all supported-target builds, created as an immutable draft prerelease, with the matched S3/AVR buffered pair and raw HTTPS update manifests. Explicit legacy packaging is preserved but the overflowing ESP8266 image is not promised as a release output. Untrusted PRs do not execute publishing code with a write token.
 - Retained: Actual donor serial native test execution, isolated test configuration and RUST_BACKTRACE=1 restored. Runtime harness flags are separated from compile jobs; immediate panic output remains available even if a later test aborts before its summary.
+- Retained: Reread the full workflow at 10fc6604 and its exact diff from the previous inventory: the only added step verifies pinned canonical opcode bindings against the owner before builds. Pakar includes the equivalent mandatory upstream check; newly inventoried donor files remain pending unless separately compared.
 - Omitted/replaced code: `LIBMPV_WINDOWS_RELEASES_API_URL, MPV_DLL_PATH, Windows GNU libmpv linking, Linux/macOS mpv dependencies and standalone pealayer-downloader`. Disposition: **not-applicable**. Reason: Pakar deliberately excludes the media runtime and standalone media utility. Copying this setup would introduce forbidden mpv and unrelated package dependencies.
 - Omitted/replaced code: `macOS Intel/Apple silicon and Linux native platform matrix/packages`. Disposition: **pending**. Reason: Current accepted native target is Windows; firmware and Android use Linux runners. Full donor reread includes the new scripts/run-ci-rust-tests.sh macOS sampling helper and 15-minute native test step. Linux/macOS native matrix and diagnostic sampling remain useful pending work; they require actual Pakar platform coverage, not donor's unrelated acceptance.
 - Omitted/replaced code: `UPX checksum-locked packing and packed native package smoke/resource checks`. Disposition: **pending**. Reason: Existing Windows wrappers preserve donor resource/donor/cache gates and CLI runtime tests, but Pakar has no accepted compressed native package probe. Do not call a source or CLI test full packed GUI runtime acceptance.
@@ -3130,7 +3149,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `.github/workflows/codeql.yml`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `fc3c298cf966d77f50b575614b4c26f24f1606459f07749a46880cd482f1cb53`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `fc3c298cf966d77f50b575614b4c26f24f1606459f07749a46880cd482f1cb53`.
 
 - Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba; anchor=name: "🛡️ Security · CodeQL"]`.
 - Retained: Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary.
@@ -3139,7 +3158,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `assets/themes/palettes.json`
 
-Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501`.
+Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501`.
 
 - Target: `assets/themes/palettes.json:2 [UTF8-LF sha256=11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501; anchor="studio"]`.
 - Retained: Byte-identical Studio/Native light/dark JSON catalog, all fourteen semantic roles.
@@ -3150,7 +3169,7 @@ Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6a
 
 ### Pealayer: `build.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `68fb1bdd9e7c7523ab303e37001d3a5252dcb03abe85e489432fe913be7b2e0f`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `68fb1bdd9e7c7523ab303e37001d3a5252dcb03abe85e489432fe913be7b2e0f`.
 
 - Target: `desktop/build.rs:16 [UTF8-LF sha256=a7c694cdd2cfd17e3359db8970ce9ffd7db699110145543dde7c73703ca017ef; anchor=brand_image::native_icon_bytes(brand_image::icon_bytes())]`.
 - Target: `docs/BRANDING-PARITY.md:60 [UTF8-LF sha256=0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3; anchor=## Explicit unfinished useful code and reasons]`.
@@ -3162,7 +3181,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `docs/releases/next.md`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `71f81fa503d0494a85dd700e16cabdb23e1a6dcd6abbb0abc1af47000584b3f7`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `71f81fa503d0494a85dd700e16cabdb23e1a6dcd6abbb0abc1af47000584b3f7`.
 
 - Target: `docs/releases/next.md:1 [UTF8-LF sha256=9e83c4d1a348af3bc275a5ec924abea7317ba22d1f0e66eac63d6f5499efbeec; anchor=# PakarController development packages]`.
 - Retained: Actual donor curated preview notes explicitly distinguish a development milestone from stable-release, physical and platform acceptance.
@@ -3171,7 +3190,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `docs/REVIEW-COMMENT-AUDIT.md`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `7a91d9fa8778383ee37e33d861ceebc5ab210e46bedab6af8be82d56c27523cc`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `7a91d9fa8778383ee37e33d861ceebc5ab210e46bedab6af8be82d56c27523cc`.
 
 - Target: `tools/audit-github-conversations.mjs:59 [UTF8-LF sha256=0bd597414af4e28668d2da96e250a27a99550fff9b86e5d58136b7de583a1dcf; anchor=export function collect]`.
 - Target: `docs/GITHUB-COORDINATION.md:1 [UTF8-LF sha256=64a078407d296db907e8645e07dc25a6392168cb1cb2e39cc8bb18a9bce01f0d; anchor=# Conversation-aware integration]`.
@@ -3183,11 +3202,11 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `docs/superpowers/plans/2026-09-28-windows-taskbar-and-tray-suite.md`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `033a82778e4ed8258bbbf99600d16039f523043386e302032d6df8849624ea9f`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `033a82778e4ed8258bbbf99600d16039f523043386e302032d6df8849624ea9f`.
 
 - Target: `desktop/src/platform/windows_tray.rs:17 [UTF8-LF sha256=94bd79acba0dd4d572222cb064e451a274ee38579a392c95c56d997779cc35bf; anchor=struct TooltipSync]`.
 - Target: `desktop/src/platform/windows_notifications.rs:158 [UTF8-LF sha256=71f2254825ba2b16d83696ce0e0cf74ec7c95eedda5f60e1c3d167826693ec1a; anchor=fn tooltip_data(]`.
-- Target: `desktop/src/main.rs:5202 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=event_log.failure("Windows tray tooltip", &error)]`.
+- Target: `desktop/src/main.rs:5206 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=event_log.failure("Windows tray tooltip", &error)]`.
 - Retained: Full donor plan read through EOF as source requirements, not trusted commands. Generic existing tray lifecycle/menu/disposal retained; actual windows.rs NIM_MODIFY/TIP sections read and adapted to the owned GUID rather than duplicate registration. Tooltip Shell acceptance is separated from object presence; failed writes retain pending latest state with bounded retry/incident recovery and observed restart epoch invalidation.
 - Omitted/replaced code: `Playback percent/error/paused inputs, media thumbnail toolbar Previous/Play/Next/Mute and video-only iconic clipping`. Disposition: **not-applicable**. Reason: Pakar is explicitly mpv-free and owns controller operations, not playback/chapter/video. No synthetic media percentages or nonexistent actions are imported; actual pending-operation activity remains.
 - Omitted/replaced code: `Full root taskbar initialization/retry, thumbnail toolbar lifecycle, visible tray/menu/notification clicks and all Windows shell suite acceptance`. Disposition: **pending**. Reason: This fixes only GUID-bound tooltip synchronization on an already owned tray object. Mock clocks, NOTIFYICONDATA assertions and observed restart messages cannot certify complete root shell readiness or user-visible action delivery.
@@ -3199,7 +3218,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `docs/verification/LOCAL-WORKSPACE-HYGIENE.md`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `c024125307f6e466c924e1b8874f869a575b085b2a05bb4493bfd1d1e9f38975`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `c024125307f6e466c924e1b8874f869a575b085b2a05bb4493bfd1d1e9f38975`.
 
 - Target: `docs/REUSE-PREFLIGHT.md:42 [UTF8-LF sha256=13521024e5b18f314abcc71af4e9c722262a7cb04c17f03155b1e88d0cf0972e; anchor=Mandatory sequence on every task]`.
 - Retained: Actual canonical-cache/stable-staging/preservation/blocked-operation and separate runtime-acceptance guidance read and adopted in mandatory continuation policy and tooling.
@@ -3212,7 +3231,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `docs/WINDOWS-SHELL-RECOVERY.md`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `57fbd904e18d8f0036dd67e2c866d357ab282075689a1cbf6b38a64270875492`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `57fbd904e18d8f0036dd67e2c866d357ab282075689a1cbf6b38a64270875492`.
 
 - Target: `desktop/src/platform/windows_tray.rs:14 [UTF8-LF sha256=94bd79acba0dd4d572222cb064e451a274ee38579a392c95c56d997779cc35bf; anchor=Shell acceptance, not object presence]`.
 - Target: `desktop/src/ui/shell.rs:1332 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=value["tray_shell"]]`.
@@ -3228,7 +3247,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `README.md`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `4e78a6c486bfc7d78adc6d34552bddfd67c89997edb8d2bae0b46e70c705dcb6`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `4e78a6c486bfc7d78adc6d34552bddfd67c89997edb8d2bae0b46e70c705dcb6`.
 
 - Target: `README.md:7 [UTF8-LF sha256=6ef2bde812ca8aaf889f5ad1c8313ae6e4e5ac079b93424ef4be6e2cdd007da5; anchor=Connected boards. One contextual control workspace.]`.
 - Target: `tools/generate-readme-artwork.mjs:1 [UTF8-LF sha256=2162d1ad3760618260eb9d659dfebb6651ad1e5f5b4eb2c37c12cde1ef7ff8d2; anchor=README uses the same bytes]`.
@@ -3240,7 +3259,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `scripts/capture-visible-window-windows.ps1`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f`.
 
 - Target: `tools/capture-window-windows.ps1:75 [UTF8-LF sha256=c9f48604a224599ea0252638558e80f4025beb4b53834112af9e48af03ae73d0; anchor=public static extern bool PrintWindow]`.
 - Retained: Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior.
@@ -3251,7 +3270,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `scripts/check-crate-boundary.mjs`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `da9b469ac596e6eb1999e4d499742a51ebf289335285549569116c1124963e38`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `da9b469ac596e6eb1999e4d499742a51ebf289335285549569116c1124963e38`.
 
 - Target: `tools/check-crate-boundary.mjs:10 [UTF8-LF sha256=4a8fbcecaf424460c051de61d5e44658532ec64527460ce21d4d86ec95c0550e; anchor=export function checkCrateBoundary]`.
 - Retained: Actual donor module extraction/intersection, thin executable and MSVC duplicate resource linkage guards imported/adapted. Native build wrapper and CI execute this read-only guard before compiling.
@@ -3262,7 +3281,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `scripts/libmpv-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ab6e48f3e0a55a2d86ad1dbb19c01a23c751891cb5a7ed61875a21b1e52645e5`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ab6e48f3e0a55a2d86ad1dbb19c01a23c751891cb5a7ed61875a21b1e52645e5`.
 
 - Target: `tools/windows-build-host.ps1:16 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Get-PakarCargoTargetDirectory]`.
 - Target: `tools/windows-build-host.ps1:46 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Test-PakarFileContentEqual]`.
@@ -3279,7 +3298,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `scripts/package-probe-windows.ps1`
 
-Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `f4516884990ad76c020fbc6534d902c4949abae0b48da8ea40c008afa44dfd4f`.
+Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `f4516884990ad76c020fbc6534d902c4949abae0b48da8ea40c008afa44dfd4f`.
 
 - Target: `tools/package-probe-windows.ps1:27 [UTF8-LF sha256=71604ab464776891dbc95db7123218c22b3ede09ce2835fe4659d75c6d0b9d5e; anchor=function Invoke-PackageProbe]`.
 - Target: `tools/replace-desktop.ps1:71 [UTF8-LF sha256=95a7f84383869622426e97d7c21d579ce93fd5c55d2bd4607697b6b352bbe525; anchor=$reply=Invoke-PackageProbe]`.
@@ -3291,7 +3310,7 @@ Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6a
 
 ### Pealayer: `scripts/package-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `5651709cfb58c2f1e0d7052b3ca604df154563ce552498a066c6e67b8f9baedf`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `5651709cfb58c2f1e0d7052b3ca604df154563ce552498a066c6e67b8f9baedf`.
 
 - Target: `tools/windows-build-host.ps1:62 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Assert-PakarPackageSourceStable]`.
 - Target: `tools/stage-desktop.ps1:38 [UTF8-LF sha256=1bbfe87fe8c9e6936e140c7911c5493f5937eceac1402ca386661dcabb40c4bd; anchor=Invoke-PackageProbe]`.
@@ -3307,9 +3326,9 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `scripts/run-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `013e5c67e227ed851f8a3d26b27654e38c8816edca2965381bbb1b48d10a750d`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `013e5c67e227ed851f8a3d26b27654e38c8816edca2965381bbb1b48d10a750d`.
 
-- Target: `tools/build-desktop.ps1:33 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Get-PakarCargoTargetDirectory]`.
+- Target: `tools/build-desktop.ps1:35 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Get-PakarCargoTargetDirectory]`.
 - Retained: Shared resolver call and locked native build flow mapped to Pakar wrapper. Existing canonical cache is reused; explicit Check/Test/Release and storage/reuse gates avoid unnecessary links.
 - Omitted/replaced code: `RustBin machine/user/toolchain executable fallback selection and rustc -vV host detection`. Disposition: **pending**. Reason: Pakar currently uses installed Cargo from PATH. Alternate host/toolchain executable fallback and recorded host triple are reusable infrastructure and remain unported.
 - Omitted/replaced code: `libmpv host resolution/environment/profile and DLL copy`. Disposition: **not-applicable**. Reason: These operations configure the excluded mpv renderer. Pakar uses its own mpv-free linked dependencies.
@@ -3320,10 +3339,10 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `scripts/storage-hygiene.ps1`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `0d8fdeb3e15fb52b917784d4cb3875c68bc12c6c6ed78cd16f2ff8ee3561d89c`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `0d8fdeb3e15fb52b917784d4cb3875c68bc12c6c6ed78cd16f2ff8ee3561d89c`.
 
 - Target: `tools/storage-hygiene.ps1:11 [UTF8-LF sha256=3d1091c2761add106a5104f671bf12793c9621803f38bd898b193f597eabb329; anchor=function Get-DirectorySummary]`.
-- Target: `tools/build-mobile.ps1:85 [UTF8-LF sha256=43982d06947af7703e0374aa9092ddd62c032fc0643445c3a21cab87206ef072; anchor=$taskCache=Get-DirectorySummary]`.
+- Target: `tools/build-mobile.ps1:87 [UTF8-LF sha256=0c5eee09b25ad17fc062555da65024fc84a9d8cc7c4a057d6d2e8a53d2ed8fb4; anchor=$taskCache=Get-DirectorySummary]`.
 - Retained: Actual Get-DirectorySummary imported into tools/storage-hygiene.ps1 with Pakar canonical cache, board cache, mobile build and stable staging paths. Read-only by default and warns at the existing 8 GiB budget; logical sizes explicitly distinguished from disk allocation or wear.
 - Retained: build-mobile.ps1 now calls the actual imported summary for its sole mobile/build cache and verifies free space before compilation. Existing SDK path comes from mobile README; no auto-install, dependency upgrade, cache relocation or clean.
 - Omitted/replaced code: `PruneRepositoryTarget exact-child/git-ignore/allowed-child/running-process checks and recursive deletion`. Disposition: **replaced**. Reason: New explicit user authorization permits obsolete debug-only deletion. Adapt the actual donor exact-child, ignore, allowed-content, reparse and writer checks to the owned desktop/target/debug; add tracked-file refusal and Plan. Never remove the target root, release cache, settings or rollback. The verified 10.408 GiB debug tree was pruned; stronger guards keep the read-only default intact.
@@ -3336,7 +3355,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `scripts/update-screenshots-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `48507f6e9395c8c312c5557db729d05ed8d6a83e980d57a9b01e77ea525db287`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `48507f6e9395c8c312c5557db729d05ed8d6a83e980d57a9b01e77ea525db287`.
 
 - Target: `tools/capture-window-windows.ps1:75 [UTF8-LF sha256=c9f48604a224599ea0252638558e80f4025beb4b53834112af9e48af03ae73d0; anchor=public static extern bool PrintWindow]`.
 - Retained: Actual PrintWindow(PW_RENDERFULLCONTENT), near-uniform-black sampler, GetWindowDC/BitBlt/screen fallback and PID/dimension validation imported. Pakar fixture supplies isolated profile/selected surfaces; app-owned framebuffer capture does not depend on WGC.
@@ -3350,7 +3369,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/application_shortcuts.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `1f173bef8acc2904eac5b0a91407aa4f7629ce65c88ea3a8ac78f8c13321d203`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `1f173bef8acc2904eac5b0a91407aa4f7629ce65c88ea3a8ac78f8c13321d203`.
 
 - Target: `desktop/src/application_shortcuts.rs:13 [UTF8-LF sha256=a970f63b589923be7a11260ad192a921e79b0fd33b7faeb631c6ab99d94750c1; anchor=pub struct ApplicationShortcuts]`.
 - Target: `desktop/src/config.rs:186 [UTF8-LF sha256=b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414; anchor=pub application_shortcuts:]`.
@@ -3366,7 +3385,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/branding.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ee6ef94e685a86e72258e4609692a9fefa516d5935d75d15a5abe0ee42ada3c1`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ee6ef94e685a86e72258e4609692a9fefa516d5935d75d15a5abe0ee42ada3c1`.
 
 - Target: `desktop/src/branding.rs:75 [UTF8-LF sha256=13a85d887a09acb79aed6acb7b8c0e38f9ea1ba2e35e9306c8bf7558211bc211; anchor=pub fn icon_data_from_bytes]`.
 - Target: `desktop/src/brand_image.rs:25 [UTF8-LF sha256=ab71607dcde16d7af14b0a292982f902186dacf6b5b78b3f4c983e37464428e9; anchor=pub fn native_icon_bytes]`.
@@ -3389,7 +3408,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/cli.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `412b553fcdcd4436075af6bc93c956a4b7d9ac93a552a3458f2afabb8aa1448f`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `412b553fcdcd4436075af6bc93c956a4b7d9ac93a552a3458f2afabb8aa1448f`.
 
 - Target: `desktop/src/cli_output.rs:28 [UTF8-LF sha256=135bdb2862fb8e1946164e685059aadbb12e19db096056224a16632e8333bc89; anchor=pub fn parse_cli_output(]`.
 - Retained: Actual format_help_message and PrintHelp/PrintVersion flag branches adapted with native short/long help/version assertions; terminate before config, network, GUI ownership and windows. Share device command help with existing TUI instead of duplicate stale strings.
@@ -3401,10 +3420,10 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/diagnostics.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `92b065a4d8ff01ae3b4a81fa11fb6e5b671f85bb1f667be6af389e692fef9f71`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `92b065a4d8ff01ae3b4a81fa11fb6e5b671f85bb1f667be6af389e692fef9f71`.
 
 - Target: `desktop/src/cli_console.rs:26 [UTF8-LF sha256=bdf70294c5d4a40007baaf637a8ee26a8576f6dfd03604274fdd9a7d3de2a4ac; anchor=fn write_output(]`.
-- Target: `desktop/src/main.rs:5813 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=cli_println!("{reply}")]`.
+- Target: `desktop/src/main.rs:5817 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=cli_println!("{reply}")]`.
 - Target: `desktop/src/terminal_ui.rs:994 [UTF8-LF sha256=762c7ee8137a21fdbd83a40bb776238a6f75b943da35d01073bbff6b2dd64379; anchor=cli_eprintln!(]`.
 - Retained: Lamp-background checkpoint scoped rereview of actual cli_output/write_cli_line and complete Pakar cli_console.rs. New explicit CLI option retains inherited pipe handles and fallible non-panicking output; GUI launches never attach or allocate a terminal. Inspected consumer hashes are rebound without claiming unrelated diagnostic/reporting parity.
 - Retained: Read complete152-line6485-byte donor through EOF. Actual cli_println/cli_eprintln, cli_output, write_cli_line and disconnected_cli_output_returns_an_error_without_panicking are adapted into cli_console. All primary native stdout/stderr call sites use fallible writes, including IPC, help/version, shell errors, management and TUI startup. Partial print support retains the existing table text interface without adding newline artifacts.
@@ -3418,9 +3437,9 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/main.rs`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `452eb004c52bdcff6936de5602cfdddf5c925d58db9e1e48220fc9a21075b696`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `452eb004c52bdcff6936de5602cfdddf5c925d58db9e1e48220fc9a21075b696`.
 
-- Target: `desktop/src/main.rs:2 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=#![cfg_attr(windows, windows_subsystem = "windows")]]`.
+- Target: `desktop/src/main.rs:2 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=#![cfg_attr(windows, windows_subsystem = "windows")]]`.
 - Target: `desktop/src/cli_console.rs:69 [UTF8-LF sha256=bdf70294c5d4a40007baaf637a8ee26a8576f6dfd03604274fdd9a7d3de2a4ac; anchor=pub fn prepare(]`.
 - Target: `desktop/src/application_identity.rs:3 [UTF8-LF sha256=c37a32df5c00a1cc559c58d226b87d6e9756e7d837b56488646bd0ecc54f26bb; anchor=pub const WINDOWS_APP_ID]`.
 - Target: `desktop/src/platform/windows_jump_list.rs:13 [UTF8-LF sha256=847796332bd1ba7dd3c51a38a1699b0881ae7efe29249d8129de00d2a481d841; anchor=wide_null(crate::application_identity::WINDOWS_APP_ID)]`.
@@ -3435,7 +3454,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `src/messaging.rs`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `44ba995614f2acc3230f6adc13c00500e6844db81aa36d5e60e7eeb9e90d6f9f`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `44ba995614f2acc3230f6adc13c00500e6844db81aa36d5e60e7eeb9e90d6f9f`.
 
 - Target: `desktop/src/messaging.rs:83 [UTF8-LF sha256=57e357298d9dd8ae515a21bd13a4959ef77e684b345aed02da9dab818f5a204c; anchor=pub fn publish(]`.
 - Target: `desktop/src/ui/shell.rs:1309 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=value["messages"]]`.
@@ -3450,7 +3469,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `src/network.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `22abaf1ca05c64d7e694b7b1d8216904df23cb84f47a0d23c6e91e78d40b86f2`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `22abaf1ca05c64d7e694b7b1d8216904df23cb84f47a0d23c6e91e78d40b86f2`.
 
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=870da3158a7edbf09572ff28eb7878ca4fc4d91d72b3c321a342abff6ee8bfe1; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/ui/preferences.rs:500 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=Enable API bridge / repeater]`.
@@ -3461,7 +3480,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/platform/window_icons.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e`.
 
 - Target: `desktop/src/platform/windows_window_icons.rs:138 [UTF8-LF sha256=bc430351f14d15d6559e6f1dd8a593329c1e05cf7661278856d959b9ab539f6b; anchor=pub fn apply(]`.
 - Target: `desktop/src/ui/shell.rs:1167 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=desktop.set_icon(&icon)]`.
@@ -3474,7 +3493,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/platform/windows_quick_actions.rs`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `35f6de708a0e402f6958a4d8feeead5037b42174286050ddc98c494d4173e4cb`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `35f6de708a0e402f6958a4d8feeead5037b42174286050ddc98c494d4173e4cb`.
 
 - Target: `desktop/src/platform/windows_quick_actions.rs:15 [UTF8-LF sha256=432e49b73bdd263fd21de74cdded3de2115605f203f4f3a455e1e2d8553cc0a3; anchor=pub const WINDOWS_QUICK_ACTIONS]`.
 - Retained: Actual typed action/resource catalog, equality traits, explicit negative resource-index selection, Preferences, Exit and generic Toggle fullscreen. Controller actions share the launch/IPC dispatcher and resource compiler.
@@ -3484,7 +3503,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `src/platform/windows_shell_icons.rs`
 
-Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a`.
+Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a`.
 
 - Target: `desktop/src/platform/windows_shell_icons.rs:45 [UTF8-LF sha256=e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a; anchor=pub fn shell_icon_ico]`.
 - Retained: Byte-identical actual Phosphor rasterizer, centered glyph coverage, all seven ICO resolutions, bottom-up BGRA, DWORD-aligned AND masks and explicit directory offsets. Pakar build.rs keeps it for semantic quick-action assets; application PE/window/tray artwork now uses the shared master and actual Pealayer branding conversion.
@@ -3493,7 +3512,7 @@ Verdict: **equivalent-file**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6a
 
 ### Pealayer: `src/server/discovery.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `a707a76b8424353a304ec28e344e467e89823b81c1f4dca321ec3b7060069c6c`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `a707a76b8424353a304ec28e344e467e89823b81c1f4dca321ec3b7060069c6c`.
 
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=870da3158a7edbf09572ff28eb7878ca4fc4d91d72b3c321a342abff6ee8bfe1; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/platform/discovery.rs:174 [UTF8-LF sha256=126098720cf4b0d91a74e7147b41954f2361960f4ae7d210896f8c762ae24fd3; anchor=pub fn ssdp_locations]`.
@@ -3505,13 +3524,13 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/board_info.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ab1c99e674e902e37626963e2dd5cf7d993965334411d5e33dafd1ea2bf79e51`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ab1c99e674e902e37626963e2dd5cf7d993965334411d5e33dafd1ea2bf79e51`.
 
 - Target: `desktop/src/capabilities.rs:7 [UTF8-LF sha256=fe68fb6d4d5262079bae60446dd4dfbfc8f69ecce59cd7b12084f7d2cf6eb2a7; anchor=pub struct Manifest]`.
 - Target: `desktop/src/ui/shell.rs:1062 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=fn synchronize_context(]`.
 - Target: `desktop/src/ui/device_settings.rs:23 [UTF8-LF sha256=c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6; anchor=pub(crate) fn available(]`.
 - Target: `docs/DEVICE-CONTEXT.md:84 [UTF8-LF sha256=3d7c4a2b05e71ed13fc0f048d852c84d31b52cb1cf63e76180591a6f17a22fe8; anchor=## Exact reuse and remaining useful code]`.
-- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=pub struct Transaction]`.
+- Target: `desktop/src/board_silent.rs:128 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=pub struct Transaction]`.
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
@@ -3530,7 +3549,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 - Test-code evidence: `desktop/src/capabilities.rs:605 [UTF8-LF sha256=fe68fb6d4d5262079bae60446dd4dfbfc8f69ecce59cd7b12084f7d2cf6eb2a7; anchor=fn no_profile_or_individual_ack_means_no_controls]`.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
 - Test-code evidence: `tests/pc_contract_test.cpp:118 [UTF8-LF sha256=d8aef9e99392072845e5110ecc9be0421435b0988daff633e1d7ec0da66bdc1c; anchor=silentRequest[22]]`.
-- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=e9c8ad97498076d6d7d84531b8558e18c2251aa1e4e0dce2d8b21918eb4c1e54; anchor=fn board_silent_preserves_other_settings]`.
+- Test-code evidence: `desktop/src/board_silent.rs:446 [UTF8-LF sha256=2cf67f00a3675949b1328bef8e51240e5dc294608d289cae98d368e1c043b307; anchor=fn board_silent_preserves_other_settings]`.
 - Test-code evidence: `mobile/test/board_sound_test.dart:229 [UTF8-LF sha256=e37acd59e38b8dc8696eb190f3018444352128cf0eb13ad59d125cf007cd5a45; anchor=Silent API uses actual AVR ACK/readback]`.
 - Test-code evidence: `tests/board_silent_test.mjs:9 [UTF8-LF sha256=95f4c3048054666df7673c618f09f57d7e2c37d34f42276b0fcd021037772825; anchor=for (const mode of []`.
 - Remaining: Typed PCController adapter, donor tests and native runtime proof remain #10/#3/#6. No whole-file equivalence or application superiority claimed.
@@ -3539,7 +3558,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/color_picker.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `fe2bf96c968d83874903f5d06085775f5787cf24467fb0c7be3fcf53077c1aa4`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `fe2bf96c968d83874903f5d06085775f5787cf24467fb0c7be3fcf53077c1aa4`.
 
 - Target: `desktop/src/ui/color_picker.rs:25 [UTF8-LF sha256=3a42e1d960fab77e1496899d7c708882f5db1ece1e92c01bd3192bc3e9eef0d5; anchor=pub fn remember_color(]`.
 - Target: `desktop/src/ui/color_picker.rs:243 [UTF8-LF sha256=3a42e1d960fab77e1496899d7c708882f5db1ece1e92c01bd3192bc3e9eef0d5; anchor=pub fn accent_picker(]`.
@@ -3558,7 +3577,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/control_density.rs`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed`.
 
 - Target: `desktop/src/ui/control_density.rs:7 [UTF8-LF sha256=d5e8b6ae76c101f6473297f4305061ca8b5d83a7e1f4137850383a66b9b1ff6c; anchor=pub fn configure(style: &mut egui::Style, density: UiControlDensity)]`.
 - Target: `desktop/src/config.rs:38 [UTF8-LF sha256=b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414; anchor=pub enum UiControlDensity]`.
@@ -3576,7 +3595,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `src/ui/controls.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `f5211d73c38438f9cff2543ac234965a8dabd26f4a532fb8b8ecf51248fc0a56`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `f5211d73c38438f9cff2543ac234965a8dabd26f4a532fb8b8ecf51248fc0a56`.
 
 - Target: `desktop/src/ui/cell_table.rs:368 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn find_field(]`.
 - Target: `desktop/src/ui/cell_table.rs:394 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn table_helper(]`.
@@ -3598,7 +3617,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/dialog.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `8a396d67862578f8727e43a952e82120b20c9c582ebcc5366ab0968ba8f704d8`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `8a396d67862578f8727e43a952e82120b20c9c582ebcc5366ab0968ba8f704d8`.
 
 - Target: `desktop/src/ui/preferences.rs:364 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);]`.
 - Target: `desktop/src/ui/cell_table.rs:725 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn manager_selector(]`.
@@ -3648,7 +3667,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/dropdown.rs`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `134f1613df05c9db44f8ccd178981a8eca4fb6c254ced6466229afca66b40ee9`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `134f1613df05c9db44f8ccd178981a8eca4fb6c254ced6466229afca66b40ee9`.
 
 - Target: `desktop/src/ui/dropdown.rs:398 [UTF8-LF sha256=92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8; anchor=pub trait DropdownUiExt]`.
 - Target: `desktop/src/ui/cell_table.rs:763 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn cell_order_controls(]`.
@@ -3682,7 +3701,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `src/ui/elegance_theme.rs`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `8d11f915ccf56e5ab67232ceac7432051437484d1faecacabab62ec5403d63bd`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `8d11f915ccf56e5ab67232ceac7432051437484d1faecacabab62ec5403d63bd`.
 
 - Target: `desktop/src/ui/elegance_theme.rs:23 [UTF8-LF sha256=a494def22553b0c21b4bb9b2f786f9d117b26ed163b2a254f0ec43f3f979556f; anchor=pub fn sync_elegance_theme(ctx: &Context)]`.
 - Retained: Read all 321 donor lines through EOF. Pakar retains the actual host-style-preserving Elegance adapter: palette caching, opacity, WCAG 4.5:1 filled-action correction, typography, radius and spacing derivation are unchanged. All three donor tests are now imported and execute against Pakar's real configuration owner.
@@ -3694,7 +3713,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `src/ui/i18n.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `811a48221c47c903c1d70ca904ead90a7a6b7f5ee0ba9a5f26a7e60dd30a75c3`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `811a48221c47c903c1d70ca904ead90a7a6b7f5ee0ba9a5f26a7e60dd30a75c3`.
 
 - Target: `desktop/src/ui/i18n.rs:6 [UTF8-LF sha256=0f06c9f2f84e5710fe5bbea7a83221c0c527e61ba52ab0b63ee032974ced6739; anchor=pub(crate) fn configure_ui_fonts]`.
 - Target: `desktop/src/ui/dialog.rs:18 [UTF8-LF sha256=854b8e1ca332650ad9964cb3e36f6a6304607502e953fa1bdf660bafb00f117f; anchor=pub fn singleline_text_edit]`.
@@ -3716,7 +3735,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/icons.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `cd56a5849a0be621d8472b440c9cbac8b91bcaf603d228cb6148bba1eb554fc9`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `cd56a5849a0be621d8472b440c9cbac8b91bcaf603d228cb6148bba1eb554fc9`.
 
 - Target: `desktop/src/ui/icons.rs:581 [UTF8-LF sha256=cd5fe34a628b22220e9be47bf4de262e5e8eeec8e7c045f6dde76414c511a40b; anchor=pub fn searchable_workspace_icon_picker(]`.
 - Target: `desktop/src/ui/shell.rs:4404 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=icons::searchable_workspace_icon_picker]`.
@@ -3738,7 +3757,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/menu.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `a0196878c7b76b898d0a5791b122181d9045d3fbbe9f56de52bc43242edf2d9d`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `a0196878c7b76b898d0a5791b122181d9045d3fbbe9f56de52bc43242edf2d9d`.
 
 - Target: `desktop/src/ui/menu.rs:15 [UTF8-LF sha256=80c2a5130e97fd8dfe62206034a48347b691fe06bb65998049937afeee37f602; anchor=pub fn top_menu_button<R>(]`.
 - Target: `desktop/src/ui/shell.rs:1426 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=menu::top_menu_button(ui, crate::ui::i18n::text("File")]`.
@@ -3765,7 +3784,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/palette.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `c169db6a61b79ebb2ce00f0ca442305eefeea7b34740720a2cdf6424d6fef85d`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `c169db6a61b79ebb2ce00f0ca442305eefeea7b34740720a2cdf6424d6fef85d`.
 
 - Target: `desktop/src/ui/palette.rs:36 [UTF8-LF sha256=3d04f723252650661f9fdacd2e1929f3ad28fac4cd3dc40720bca32eac4f3a7c; anchor=pub fn apply(]`.
 - Retained: Native semantic visual-role mapping and actual palette JSON; appearance geometry is not overwritten.
@@ -3779,7 +3798,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/preferences.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `1fa2482a389fee84c79eef3d69ad8cc0ecb922c319fd222219af3e90d7e6f965`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `1fa2482a389fee84c79eef3d69ad8cc0ecb922c319fd222219af3e90d7e6f965`.
 
 - Target: `desktop/src/ui/preferences.rs:365 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=egui::Panel::bottom(ui.id().with("preferences-footer"))]`.
 - Target: `desktop/src/ui/preferences.rs:67 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn sync_connection_owner(]`.
@@ -3810,7 +3829,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/status_bar.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `e407025a1ee959230634f8350de20d58432313d6dd0f734ada735b8fc9fec4db`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `e407025a1ee959230634f8350de20d58432313d6dd0f734ada735b8fc9fec4db`.
 
 - Target: `desktop/src/ui/status_bar.rs:409 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn item_menu(]`.
 - Target: `desktop/src/ui/status_bar.rs:36 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=impl<'de> Deserialize<'de> for Items]`.
@@ -3842,7 +3861,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 - Test-code evidence: `desktop/src/ui/status_bar.rs:629 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_connection_and_rgb_require_current_route_not_cached_peer_or_websocket()]`.
 - Test-code evidence: `desktop/src/ui/status_bar.rs:650 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_measured_progress_distinguishes_unknown_zero_and_completion()]`.
 - Test-code evidence: `desktop/src/ui/status_bar.rs:668 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_progress_and_focus_use_visible_accent_with_actual_dark_app_palette()]`.
-- Test-code evidence: `desktop/src/main.rs:5915 [UTF8-LF sha256=a0c7410e1acbc534c2aa514610ecb48a2706cf605bd19681f461360e00909c3a; anchor=fn status_bar_startup_message_respects_disconnected_and_selected_route()]`.
+- Test-code evidence: `desktop/src/main.rs:5919 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=fn status_bar_startup_message_respects_disconnected_and_selected_route()]`.
 - Test-code evidence: `desktop/src/ui/status_bar.rs:701 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_real_egui_slots_stay_single_row_in_narrow_rtl_and_scaled_views()]`.
 - Test-code evidence: `desktop/src/ui/status_bar.rs:726 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_telemetry_changes_preserve_slot_bounds_and_never_request_save()]`.
 - Test-code evidence: `desktop/src/ui/status_bar.rs:741 [UTF8-LF sha256=1cca3d0a2080d33b1239ca22fa3f975c071c3a2c2c4f8cab8c1d87c136e744a9; anchor=fn status_buttons_dispatch_click_and_keyboard_without_passive_actions()]`.
@@ -3857,7 +3876,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/ui/toasts.rs`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `30d4ff8c9a30b783f9513a3508787e9ca233881bb3a9bda2e1b9f9cd1bc9c989`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `30d4ff8c9a30b783f9513a3508787e9ca233881bb3a9bda2e1b9f9cd1bc9c989`.
 
 - Target: `desktop/src/ui/toasts.rs:4 [UTF8-LF sha256=c6dee228dbe78715b11711d60db187601a7d116499677ea8e6499ddb4e69e5e7; anchor=pub fn draw(ctx:]`.
 - Retained: Actual donor root-only overlay: four newest messages, severity icons and semantic palette roles, bounded width, scrollable text, title, dismiss and deadline-driven repaint. The current optional details disclosure and localized label are imported unchanged in behavior.
@@ -3869,7 +3888,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `src/ui/workspace_profiles.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `410d274f51e5e7db7ce81582d36166a97240b097e993cec5fee8707a95183e2f`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `410d274f51e5e7db7ce81582d36166a97240b097e993cec5fee8707a95183e2f`.
 
 - Target: `mobile/lib/output_panel.dart:27 [UTF8-LF sha256=3cf8895bbbdfc82cb7f4c12ed8e1895623099975722753d5dc722d3eb7ebe9c3; anchor=class OutputPanel]`.
 - Target: `assets/web/feature-workspaces.js:108 [UTF8-LF sha256=13a51897342b90e6d328d84da0c7272fd6f909fb84996de23a164bb48feb88fa; anchor=function diagnosticWorkspace(value)]`.
@@ -3914,7 +3933,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `src/update.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `909e8aa4f903d1a8a63589fd2e371d77ff7b8c6c6bcb3fc9949609ab55440652`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `909e8aa4f903d1a8a63589fd2e371d77ff7b8c6c6bcb3fc9949609ab55440652`.
 
 - Target: `desktop/src/client_management.rs:278 [UTF8-LF sha256=29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1; anchor=pub fn newer(]`.
 - Target: `desktop/src/client_install.rs:273 [UTF8-LF sha256=d6088c3223ee29219a4b1048d7aa5d35d03f1906e371039dd7032145e9f87186; anchor=pub fn helper(]`.
@@ -3928,7 +3947,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `tests/config_persistence_test.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `e06205e3e023e47e8a8c646e881044ce967e793628f7d52159fbbdf589a6f0d7`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `e06205e3e023e47e8a8c646e881044ce967e793628f7d52159fbbdf589a6f0d7`.
 
 - Target: `desktop/src/native_workspace.rs:48 [UTF8-LF sha256=15688543f8999613f064f17e60d453f50d59a05c564e927379fb86d50bc4f0d8; anchor=pub struct Snapshot]`.
 - Retained: Completely reread actual test. Adapt fresh-session serde roundtrip and persisted layout/state assertions to the actual native board/application workspace store, using actual egui ScrollArea state and DockState. No media dependencies or per-test temporary-directory cleanup copied.
@@ -3938,7 +3957,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `tests/i18n_surface_audit_test.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `504768bc9cf2fda32a8dab8b0f50d573c74e45001734f45c7ff3120f36333f63`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `504768bc9cf2fda32a8dab8b0f50d573c74e45001734f45c7ff3120f36333f63`.
 
 - Target: `tests/localization_test.mjs:86 [UTF8-LF sha256=da500a29e5ebdb93f52cf275ec1e77f34881d5a66e729f99b67d3e29e1472249; anchor=Adapt Pealayer tests/i18n_surface_audit_test.rs]`.
 - Retained: Actual donor known-raw-caption prohibition and required localized-boundary audit pattern adapted to real shell menu captions, not renamed timeline/media files. Added peer text exclusion and reversible placeholder/language tests.
@@ -3949,7 +3968,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `tests/windows_shell_suite_test.rs`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `3f1f8f7709dd7b0e9dad2c58d1b345e9a7b054bb1bcfbcff9c6aede6598791c6`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `3f1f8f7709dd7b0e9dad2c58d1b345e9a7b054bb1bcfbcff9c6aede6598791c6`.
 
 - Target: `desktop/src/platform/windows_notifications.rs:201 [UTF8-LF sha256=71f2254825ba2b16d83696ce0e0cf74ec7c95eedda5f60e1c3d167826693ec1a; anchor=assert!(Hook::new(42).is_err())]`.
 - Retained: Actual Preferences action/resource catalog is validated; invalid HWND registration rejects rather than claiming success; owner exclusion is tested. Live notification acceptance and shown-callback evidence are recorded independently.
@@ -3961,7 +3980,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/scripts/appearance.test.mjs`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc`.
 
 - Target: `tests/web_appearance_test.mjs:1 [UTF8-LF sha256=f755365a55727e1f0ad3e3e57fdf9f93e990f16d4445840694e264b88710aa7f; anchor=First four tests port the actual Pealayer]`.
 - Retained: All four actual donor contract tests ported: Neutral helper default, preference merge without unrelated-field loss/resolution leakage, host/offline theme/accent and repeated native event/explicit-theme handling. Additional shipped-code tests cover all palette roles, cancel/apply, contrast, identical-write skip, media events, malformed storage, cross-tab updates and session-only storage failure.
@@ -3972,7 +3991,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `web_ui/src/App.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ba2d7a35e2f887ec556b681cca24aaa6f263295208cbc80678bc248b61949845`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ba2d7a35e2f887ec556b681cca24aaa6f263295208cbc80678bc248b61949845`.
 
 - Target: `firmware/esp/src/WebUi.h:2475 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function createWorkspaceStorage]`.
 - Target: `assets/web/device-settings.js:93 [UTF8-LF sha256=28b490c94a63c0b55df4cac22405b02d9ef43725ee08d5e9e3cc418ae8df5492; anchor=function settingsObserve]`.
@@ -3987,7 +4006,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/appearance.ts`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58`.
 
 - Target: `assets/themes/appearance.js:4 [UTF8-LF sha256=62a7ebba994ad44f4e2d647bb97684aac9b563104f3f707b43573289e514ecdd; anchor=export function mergeAppearance]`.
 - Target: `tools/generate-web-appearance.mjs:33 [UTF8-LF sha256=e57a615bf5134b718d6df7b644e56faced0c0ef73e8662cf8cb06c05e23e59b4; anchor=replaceBlock('// BEGIN SHARED APPEARANCE']`.
@@ -4003,7 +4022,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/ColorDropdown.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `49d37654faab5033df04954456d0fe980571ccbc66478caaab7007dae1b8c151`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `49d37654faab5033df04954456d0fe980571ccbc66478caaab7007dae1b8c151`.
 
 - Target: `mobile/lib/color_picker.dart:50 [UTF8-LF sha256=8d1b4206d9b99bf4067df432e0147fdfc7fe67f60c6dab83ceb04478de2560c2; anchor=class _ColorPicker]`.
 - Retained: Read the full donor. Retained a single focused picker, bounded scrollable content, named presets and keyboard-focusable controls, with session recents shared across callers. Flutter dialog owns Cancel/Apply and returns a color rather than inventing another state or transport owner.
@@ -4014,7 +4033,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/ColorPicker.tsx`
 
-Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `024fdabb482a714c38a91d0dde5d0be11486b20859a019f4fbc2d3dd34295022`.
+Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `024fdabb482a714c38a91d0dde5d0be11486b20859a019f4fbc2d3dd34295022`.
 
 - Target: `mobile/lib/color_picker.dart:33 [UTF8-LF sha256=8d1b4206d9b99bf4067df432e0147fdfc7fe67f60c6dab83ceb04478de2560c2; anchor=Future<int?> showLedColorPicker]`.
 - Retained: Read the complete actual donor before implementation. Adapted preset selection, uppercase RGB representation and twelve deduplicated session recent colors into the shared Flutter picker used by semantic state appearance, temporary test color and game group overrides. An explicit Apply commits the local picker choice; Cancel makes no command or recent-color write.
@@ -4027,7 +4046,7 @@ Verdict: **scoped-improvement**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cd
 
 ### Pealayer: `web_ui/src/components/ControlBar.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `cbd6ebc09cbf23e4958c4d1979974d3e856f2096bcc2dcfd1556c5ef4c45cafd`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `cbd6ebc09cbf23e4958c4d1979974d3e856f2096bcc2dcfd1556c5ef4c45cafd`.
 
 - Target: `web/modules/components.js:98 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=const actionIcons=]`.
 - Target: `assets/web/application-utilities.js:47 [UTF8-LF sha256=20744bfcfc0968df0205a46aeb3bdd513b205f0f91796b168dd99dcb16fdbbf1; anchor=function refreshLabels(]`.
@@ -4041,7 +4060,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/DesignerFieldLabel.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ed527ea04c4dc8e9f51e755c0dc92b8cd9a71a414b2fbcfbaba96e97cd7916a7`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ed527ea04c4dc8e9f51e755c0dc92b8cd9a71a414b2fbcfbaba96e97cd7916a7`.
 
 - Target: `web/modules/components.js:99 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=const controlIcons=]`.
 - Target: `assets/web/localization.js:43 [UTF8-LF sha256=fc7a39cae41e490fba858a8c7129abf0a7064811c486ddf9ba1b115b79e7c0fb; anchor=function renderUiText(]`.
@@ -4054,7 +4073,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/EffectGroupDialog.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `8c90f7a85286efada6d5a1e24212a03dd1ae14e51bea1767f8d195a538ec8f80`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `8c90f7a85286efada6d5a1e24212a03dd1ae14e51bea1767f8d195a538ec8f80`.
 
 - Target: `assets/web/feature-workspaces.js:383 [UTF8-LF sha256=13a51897342b90e6d328d84da0c7272fd6f909fb84996de23a164bb48feb88fa; anchor=async function reloadCorrections(]`.
 - Target: `web/modules/components.js:135 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=function dialog(]`.
@@ -4074,7 +4093,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/HeaderBar.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `ad53ee284d969054f69b65e8447a313498b5928eae0aed2564e95f8c71e70d04`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ad53ee284d969054f69b65e8447a313498b5928eae0aed2564e95f8c71e70d04`.
 
 - Target: `tools/generate-branding.mjs:3 [UTF8-LF sha256=816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367; anchor=Pakar embeds it for the standalone ESP surface]`.
 - Target: `mobile/lib/header_controls.dart:17 [UTF8-LF sha256=fdbae404068b75de261d1add7d5768e1b6844272ddfe4edb1b92b338f6cf4f87; anchor=class HeaderLayout]`.
@@ -4101,7 +4120,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/NumericValueControl.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `6f1e99cd5ae8ef0bae30d43a86f22a22371c6543498c5d8938e486cff151d218`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `6f1e99cd5ae8ef0bae30d43a86f22a22371c6543498c5d8938e486cff151d218`.
 
 - Target: `mobile/lib/pixel_corrections_editor.dart:115 [UTF8-LF sha256=7b307453c53c084f22bb5e3845b43ba56e34a83633447b36041c4b1facad64c5; anchor=class PixelCorrectionNumberControl]`.
 - Target: `assets/web/pixel-groups.js:44 [UTF8-LF sha256=24abe18fbf1f11fe248f2f1ac5fe6b7149014be1290fae0f8b3bef59c256e617; anchor=function create(options)]`.
@@ -4132,7 +4151,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/PlaybackButton.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `10b2c97e2b85d1f5390790992b53a8250dc49847ce0c4b1679f5928e30b9fe5a`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `10b2c97e2b85d1f5390790992b53a8250dc49847ce0c4b1679f5928e30b9fe5a`.
 
 - Target: `assets/web/application-utilities.js:37 [UTF8-LF sha256=20744bfcfc0968df0205a46aeb3bdd513b205f0f91796b168dd99dcb16fdbbf1; anchor=function setControlCaption(]`.
 - Target: `web/index.html:3274 [UTF8-LF sha256=aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d; anchor=function renderAssignmentTools(]`.
@@ -4146,7 +4165,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/PreferencesTab.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1`.
 
 - Target: `mobile/lib/device_settings_page.dart:18 [UTF8-LF sha256=b187bcc1ed640dc8b7052ce03c4f36a840289396f8908dbc77b967190eb9e9ee; anchor=class DeviceSettingsPage]`.
 - Target: `mobile/lib/device_settings.dart:413 [UTF8-LF sha256=0c10e5c712bae2b4fe2f706326115ee703f07e426a64a50728c09575efb71e9a; anchor=class DeviceSettingsSession]`.
@@ -4175,7 +4194,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/components/ServerFilePicker.tsx`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `df5b59007e0b726c815bed0eafcce87e4f5a6e4a59e8c79a1414f2cc7be89316`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `df5b59007e0b726c815bed0eafcce87e4f5a6e4a59e8c79a1414f2cc7be89316`.
 
 - Target: `assets/web/user-files.js:35 [UTF8-LF sha256=8b25d6925e5a604b95769d844c1c1d7d06ae9e49a33a9e2307bae5c75d77ec5f; anchor=function create(o)]`.
 - Target: `mobile/lib/documents.dart:19 [UTF8-LF sha256=9b447b248f21e855c2481e28c6c31e66969af5ab837fd32e4d57eb76164b9ff5; anchor=class AndroidDocuments]`.
@@ -4199,7 +4218,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/i18n.ts`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc`.
 
 - Target: `assets/web/localization.js:19 [UTF8-LF sha256=fc7a39cae41e490fba858a8c7129abf0a7064811c486ddf9ba1b115b79e7c0fb; anchor=function uiTr(text,values)]`.
 - Target: `tools/generate-font-assets.mjs:62 [UTF8-LF sha256=fdf6b75dac5afebad8598abbe408cd44bbf09cb306d4db91ee515add5ebb1412; anchor=const dictionary={}]`.
@@ -4216,7 +4235,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/preferenceFiles.ts`
 
-Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `4580d1396b36f5a907cad6cf2f33a38486c3a7e6948a3bb222974e1b8a2a4af4`.
+Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `4580d1396b36f5a907cad6cf2f33a38486c3a7e6948a3bb222974e1b8a2a4af4`.
 
 - Target: `mobile/lib/documents.dart:6 [UTF8-LF sha256=9b447b248f21e855c2481e28c6c31e66969af5ab837fd32e4d57eb76164b9ff5; anchor=bool preferenceFileAllowed]`.
 - Target: `assets/web/cell-assignments.js:3 [UTF8-LF sha256=510c03217f05a1938a27466a4dd571446d8db96cdffeb204109c5865632391d2; anchor=function cellAssignmentFileAllowed]`.
@@ -4229,7 +4248,7 @@ Verdict: **equivalent-behavior**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1c
 
 ### Pealayer: `web_ui/src/timelineWheel.ts`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `1910311a3acba2f1d22d9d4fb57d43e08bcf6ee91f3ea567e381ae90e8a487cd`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `1910311a3acba2f1d22d9d4fb57d43e08bcf6ee91f3ea567e381ae90e8a487cd`.
 
 - Target: `web/modules/table-layout.js:7 [UTF8-LF sha256=30162a2894f72d2467b34fc2cb3e682e09b4da0a1b252ccf6579a25273b53542; anchor=function zoomAt]`.
 - Target: `mobile/lib/table_viewport.dart:158 [UTF8-LF sha256=d7fe024ea911c1610e36e88a8a1fc412e0b95c615584ebb30322d5870ee032a7; anchor=void zoomAt]`.
@@ -4245,7 +4264,7 @@ Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. O
 
 ### Pealayer: `web_ui/src/webPlatform.ts`
 
-Verdict: **parity-gap**. Revision: `5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad`. Original-byte SHA-256: `d6ee8217c05e96be2e20f9a40ab4c46249d57f58871c661a31c33e2310a92f0e`.
+Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `d6ee8217c05e96be2e20f9a40ab4c46249d57f58871c661a31c33e2310a92f0e`.
 
 - Target: `tools/generate-branding.mjs:18 [UTF8-LF sha256=816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367; anchor='FAVICON':]`.
 - Target: `firmware/esp/src/WebUi.h:142 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=<!-- BEGIN SHARED BRAND FAVICON -->]`.
@@ -4560,7 +4579,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `49d608184ca52242cc845026d05384081669eec57007733f43ede09539c79cb6`.
 
-- Target: `.github/workflows/build.yml:106 [UTF8-LF sha256=2011a5c6db4cce2042b223c1724d4fc6481d140f7aaf68527bc0f8ccf79c363e; anchor=name: "🔧 ESP32-S3 + AVR"]`.
+- Target: `.github/workflows/build.yml:108 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🔧 ESP32-S3 + AVR"]`.
 - Target: `tools/firmware-report.mjs:57 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function artifactMarkdown]`.
 - Retained: Adapt actual artifact size/checksum/download summary and staged build workflow mechanisms into existing Pealayer-derived build.yml plus firmware-report.mjs. Retain separate matched firmware outputs and draft-release provenance; no external progress image or rewritten timestamp header.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
@@ -4573,7 +4592,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `06b31df1731e5ab45fb0f1c714f95c46470cf1006f6c50150dc9a461d95a52d0`.
 
-- Target: `.github/workflows/build.yml:74 [UTF8-LF sha256=2011a5c6db4cce2042b223c1724d4fc6481d140f7aaf68527bc0f8ccf79c363e; anchor=name: "🧰 Scripts · ${{ matrix.os }}"]`.
+- Target: `.github/workflows/build.yml:76 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🧰 Scripts · ${{ matrix.os }}"]`.
 - Target: `.github/actionlint.yaml:3 [UTF8-LF sha256=5b3c6b07ca38aaadb14a1d6eb2d35ac83b705f065901fdafba8210afc9be4960; anchor=pakar-deploy]`.
 - Retained: Adapt actual tooling verification intent into Windows/Linux/macOS fixture/plan matrix before product jobs. Use one Node/PowerShell owner with explicit Windows-only utility boundaries; no donor-client build/test execution is falsely certified.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
@@ -5394,7 +5413,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 - Target: `libraries/BoardCore/src/SerialLink.h:12 [UTF8-LF sha256=99373bc4c090e34324cfd2ae8c94d6666c227ad7e157a47fbd85125aac6c13a0; anchor=class SerialLink {]`.
 - Target: `libraries/BoardCore/src/UartFlow.h:26 [UTF8-LF sha256=44f8638f725c9cf83a6f53639144f107aace1556dd254d6dcebcaed4853c6469; anchor=inline uint16_t receiveBudget(]`.
-- Target: `libraries/BoardCore/src/Protocol.h:219 [UTF8-LF sha256=6031ecc3f760f2e4fc7a766e5977b1ea990a602de27808ddb060e56bf81c6f47; anchor=inline bool decode(]`.
+- Target: `libraries/BoardCore/src/Protocol.h:137 [UTF8-LF sha256=331f68dfe248de399304210d34bfc51d97a39d84610731d7abe6d44587634059; anchor=inline bool decode(]`.
 - Target: `docs/PU850-PARITY.md:141 [UTF8-LF sha256=90fd0fcaa4c6bfab14639db6e6fa479a2f70729100ed5800edd73020f494d1a3; anchor=## Exhaustive continuation: C++ transfer and UART, 2026-10-19]`.
 - Retained: Every transport and endpoint function read through EOF; current bounded COBS/CRC/sequence/explicit ownership remains, with exact generic pending and business-only omissions.
 - Retained: Complete section/function decisions and concrete unsafe legacy defects recorded in the C++ transfer and UART section of docs/PU850-PARITY.md.
@@ -5409,7 +5428,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 - Target: `libraries/BoardCore/src/SerialLink.h:12 [UTF8-LF sha256=99373bc4c090e34324cfd2ae8c94d6666c227ad7e157a47fbd85125aac6c13a0; anchor=class SerialLink {]`.
 - Target: `libraries/BoardCore/src/UartFlow.h:26 [UTF8-LF sha256=44f8638f725c9cf83a6f53639144f107aace1556dd254d6dcebcaed4853c6469; anchor=inline uint16_t receiveBudget(]`.
-- Target: `libraries/BoardCore/src/Protocol.h:219 [UTF8-LF sha256=6031ecc3f760f2e4fc7a766e5977b1ea990a602de27808ddb060e56bf81c6f47; anchor=inline bool decode(]`.
+- Target: `libraries/BoardCore/src/Protocol.h:137 [UTF8-LF sha256=331f68dfe248de399304210d34bfc51d97a39d84610731d7abe6d44587634059; anchor=inline bool decode(]`.
 - Target: `docs/PU850-PARITY.md:141 [UTF8-LF sha256=90fd0fcaa4c6bfab14639db6e6fa479a2f70729100ed5800edd73020f494d1a3; anchor=## Exhaustive continuation: C++ transfer and UART, 2026-10-19]`.
 - Retained: Every transport and endpoint function read through EOF; current bounded COBS/CRC/sequence/explicit ownership remains, with exact generic pending and business-only omissions.
 - Retained: Complete section/function decisions and concrete unsafe legacy defects recorded in the C++ transfer and UART section of docs/PU850-PARITY.md.
@@ -5483,7 +5502,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `54df8b54e56a589f85b981f15996813e447fc14245ea8048c5f87cfd1f3fdf51`.
 
 - Target: `tools/firmware-dependencies.json:2 [UTF8-LF sha256=95a5da284e415b35c47d8f4e9048381ec41c3e181261c437ec91b9cdcf1090c1; anchor="platforms"]`.
-- Target: `tools/build-firmware.ps1:208 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=esp32:esp32:esp32s3:CDCOnBoot]`.
+- Target: `tools/build-firmware.ps1:210 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=esp32:esp32:esp32s3:CDCOnBoot]`.
 - Retained: Read complete donor board profile/platform/library locks. Retain exact ESP8266 core/ArduinoJson/ESP Async TCP pins where applicable, preserve existing reviewed Pakar dependency pins, and keep actual S3/AVR FQBN/flags in the canonical wrapper.
 - Omitted/replaced code: `PU-specific board/profile and separate dependency/config write paths`. Disposition: **replaced**. Reason: Reuse applicable exact versions/official registries in one reviewed pin owner. Preserve operator config and Pakar hardware flags; no silent downgrade, duplicate Arduino_JSON API, unsupported library additions or automatic SDK initialization.
 - Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
@@ -5549,7 +5568,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `f3e6a8ed2eae52c8ab7f1f178b85c3a1fe4ad2a85bce2a27a67a0b1c07a24d6c`.
 
-- Target: `tools/build-desktop.ps1:81 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Invoke-PakarNative -WorkingDirectory]`.
+- Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
 - Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
 - Retained: Adapt actual native-command failure preservation and build/test/publish stage dispatch into script-runtime.ps1 and build-all.ps1. Existing Rust/Flutter owners remain responsible for Pakar client outputs, with an explicit Release/preview choice.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
@@ -5748,7 +5767,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `7379ae908f01676ed3db145f11579bb2bf07b79a7b5da2bdfe3cc8baa172e297`.
 
-- Target: `tools/build-desktop.ps1:81 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Invoke-PakarNative -WorkingDirectory]`.
+- Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
 - Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
 - Retained: Retain executable preflight, bounded native failure handling and explicit selected component dispatch in shared PowerShell helpers. Windows package/capture utilities remain explicitly platform-specific, not advertised as Unix binaries.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
@@ -5763,7 +5782,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `0af1f4b0ba2a7014d7f0938f69885b7d7a46763513408058cffeab4772d5827d`.
 
-- Target: `tools/build-desktop.ps1:81 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Invoke-PakarNative -WorkingDirectory]`.
+- Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
 - Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
 - Retained: Retain Bash preflight/delegation to an explicit component owner. pakar.sh shares dispatch with Windows and CI; a MinGW cross-build of WinHTTP is not represented as a Linux-native Pakar application.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
@@ -5885,7 +5904,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `7a7d58167051cdfa2bab660a4128d0b29400c17a653bdf751226f86607da246a`.
 
-- Target: `tools/build-desktop.ps1:81 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Invoke-PakarNative -WorkingDirectory]`.
+- Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
 - Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
 - Retained: Adapt actual selected-target orchestration, tool preflight and raw native exit preservation without installing a duplicate Go application stack. Existing Rust checks/tests/Release and Flutter preview remain explicit.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
@@ -5900,7 +5919,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `746e6667fba804bce07d90acf6bf370e0f7b62100c83d806cf057ef77f600ff7`.
 
-- Target: `tools/build-desktop.ps1:81 [UTF8-LF sha256=8ebd02ebcd5556bd70f97216faed6ea3c03ec8e92950514118e1b9901132e037; anchor=Invoke-PakarNative -WorkingDirectory]`.
+- Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
 - Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
 - Retained: Retain shell launcher preflight and one delegated owner with explicit testing/build selection. Pakar Bash and Windows now reach identical guarded component wrappers rather than separate drifting build recipes.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
@@ -6094,7 +6113,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `60754d1116254eeac6b10e626c2e2b4506e60ad3ecd0296ce59645d63858e540`.
 
 - Target: `tools/script-console.mjs:5 [UTF8-LF sha256=2243be58e4dce21a7592865121e94ebdb64f21286f3333358c8259bb2bdedafb; anchor=export const EXIT]`.
-- Target: `.github/workflows/build.yml:90 [UTF8-LF sha256=2011a5c6db4cce2042b223c1724d4fc6481d140f7aaf68527bc0f8ccf79c363e; anchor=node tests/script_tooling_test.mjs]`.
+- Target: `.github/workflows/build.yml:92 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=node tests/script_tooling_test.mjs]`.
 - Retained: Retain explicit Node20.19 minimum and direct Node entrypoints, tests and help without an additional npm install. Shared logger/CLI use Node standard libraries; unavailable watch mode is recorded as a gap.
 - Omitted/replaced code: `New chalk/chokidar/readdirp npm installation for one-shot tools`. Disposition: **replaced**. Reason: Currently required console/argv behavior uses Node standard libraries and no file watcher is advertised. Preserve zero additional npm tree; advanced watcher parity remains explicit.
 - Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
@@ -6190,7 +6209,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `fa26772dc3f07e02815543e65fe5d90de6415c5b0803aa0e4416aeb8a63b0b31`.
 
-- Target: `tools/build-firmware.ps1:188 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor=MiniCore:avr:328:bootloader=uart0]`.
+- Target: `tools/build-firmware.ps1:190 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=MiniCore:avr:328:bootloader=uart0]`.
 - Retained: Read the complete donor profile. External 16 MHz operation, UART bootloader, EEPROM retention and 2.7 V brownout protection remain explicit in the canonical AVR build owner.
 - Omitted/replaced code: `MightyCore ATmega32 board/pinout`. Disposition: **replaced**. Reason: The fitted controller is ATmega328P. MiniCore modelP is the reviewed target; copying this editor profile would compile for the wrong MCU and memory/pin map.
 - Omitted/replaced code: `fixed COM1 and USBasp programmer`. Disposition: **replaced**. Reason: COM1 is commonly the ASUS built-in port. Backup-first deployment inventories and pins the newly enumerated device/programmer instead of risking a stale fixed target.
@@ -6203,7 +6222,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `ca7d6699a966afa9e1132a4a83359978fa9ace81d2bee295662fa5ba0bd8ca53`.
 
 - Target: `.vscode/settings.json:5 [UTF8-LF sha256=2373a0d9d9a7af54872b0ae854ccf1ff95116ef8f80aebfad513fe3031914d5f; anchor="*.ino": "cpp"]`.
-- Target: `tools/build-firmware.ps1:235 [UTF8-LF sha256=5268a71688fc600de1faf4704358735006b4e9d78420aa02aefc79ede3d7ee4d; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
+- Target: `tools/build-firmware.ps1:237 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor='compile', '--jobs', "$Jobs", '--fqbn']`.
 - Retained: Read all 536 donor lines through EOF. Arduino/AVR C++ source association and target compile-profile intent are retained by portable workspace associations and the actual arduino-cli invocation.
 - Omitted/replaced code: `absolute Arduino15 compiler/core/include paths and tool version`. Disposition: **replaced**. Reason: Generated per-user paths become stale when packages move. The wrapper resolves the installed toolchain and selected FQBN at build time.
 - Omitted/replaced code: `ATmega32/USBCON and hundreds of copied compiler predefined macros`. Disposition: **replaced**. Reason: The selected compiler must define its real ATmega328P ABI and capabilities; a committed ATmega32 snapshot would make IntelliSense contradict the production build.

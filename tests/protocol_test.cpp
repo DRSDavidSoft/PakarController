@@ -12,6 +12,14 @@
 using namespace BoardCore::Protocol;
 
 int main() {
+  // Every other namespace is rejected even with a valid CRC and colliding0x11.
+  for (unsigned discriminator = 1; discriminator < 256; ++discriminator) {
+    uint8_t raw[] = {kMagic, static_cast<uint8_t>(discriminator), 0x11, 7, 1, 4, 0};
+    raw[6] = BoardCore::WireCodec::crc8(raw, 6);
+    uint8_t encoded[kMaximumEncoded]; Frame foreign{};
+    const auto size = BoardCore::WireCodec::cobsEncode(raw, sizeof(raw), encoded, sizeof(encoded));
+    assert(size && !decode(encoded, size, foreign));
+  }
   // Same malformed COBS vectors as PCController. Rejected before frame/CRC
   // dispatch; in-place decoding must retain the existing bounded ownership.
   uint8_t decodedScratch[3] = {};

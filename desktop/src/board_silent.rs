@@ -143,25 +143,25 @@ impl Transaction {
     }
     pub fn request(&self) -> (u8, Vec<u8>) {
         if self.phase == 1 {
-            (5, self.next.as_ref().unwrap().bytes.to_vec())
+            (crate::protocol_opcodes::controller::SET_SETTINGS, self.next.as_ref().unwrap().bytes.to_vec())
         } else {
-            (4, vec![])
+            (crate::protocol_opcodes::controller::GET_SETTINGS, vec![])
         }
     }
     pub fn accept(&mut self, opcode: u8, payload: &[u8]) -> Result<Option<Settings>, String> {
-        if opcode == 0x82 {
+        if opcode == crate::protocol_opcodes::controller::ERROR_RESPONSE {
             return Err(format!(
                 "Board rejected settings: {payload:02x?}; nothing retried"
             ));
         }
         if self.phase == 1 {
-            if opcode != 0x80 || payload != [5, 0] {
+            if opcode != crate::protocol_opcodes::controller::ACK || payload != [crate::protocol_opcodes::controller::SET_SETTINGS, 0] {
                 return Err("Missing AVR settings ACK; outcome unknown, no replay".into());
             }
             self.phase = 2;
             return Ok(None);
         }
-        if opcode != 0x91 {
+        if opcode != crate::protocol_opcodes::controller::SETTINGS_RESPONSE {
             return Err("AVR settings response did not match; no state assumed".into());
         }
         let settings = Settings::parse(&pc_contract::encode_hex(payload))?;
