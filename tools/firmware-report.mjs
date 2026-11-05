@@ -8,13 +8,24 @@ import {execFileSync} from 'node:child_process';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {portableGzip} from './portable-gzip.mjs';
 import {createFirmwareManifest} from './firmware-manifest.mjs';
+import {parseHex} from './prepare-avr-image.mjs';
 export const expectedArtifacts=[
-  ...['','-busy-wire','-buffered'].map(mode=>`avr${mode}/avr.ino.with_bootloader.bin`),
+  ...['','-busy-wire','-buffered'].flatMap(mode=>['avr.ino.with_bootloader.bin','avr.ino.hex','avr.ino.with_bootloader.hex'].map(file=>`avr${mode}/${file}`)),
   'esp32s3-buffered/esp32s3.ino.bin',
 ];
 // Preserved for explicit legacy builds; these are not promised release outputs.
 export const legacyArtifacts=['','-busy-wire'].map(mode=>`esp8266${mode}/esp8266.ino.bin`);
 const digest=(algorithm,bytes)=>createHash(algorithm).update(bytes).digest('hex');
+export function validateAvrHex(bytes,binary=null){
+  if(bytes.some(byte=>byte>127))throw Error('Non-ASCII Intel HEX');
+  const memory=parseHex(bytes.toString('ascii'));
+  if(!memory.has(0)||!memory.has(1))throw Error('AVR HEX lacks reset vector');
+  if(binary){
+    if(binary.length!==32768||memory.size!==32768||
+       [...memory].some(([at,value])=>binary[at]!==value))throw Error('Merged AVR HEX differs from verified full-flash binary');
+  }
+  return memory.size;
+}
 export function unchangedWrite(path,bytes) {
   // A missing file is an open result, not a pathname check followed by reopen.
   try{if(readFileSync(path).equals(Buffer.from(bytes)))return false;}
@@ -44,9 +55,11 @@ export function collectArtifacts(directory,{required=false,compress=false,includ
     let bytes;
     try{bytes=readArtifact(path,root);}
     catch(error){if(error.code!=='ENOENT')throw error;if(required)throw Error('Missing expected firmware artifact: '+name);continue;}
-    if(name.startsWith('avr')&&bytes.length!==32768)throw Error('AVR image must include full flash/Urboot');
+    const hex=name.endsWith('.hex');
+    if(hex)validateAvrHex(bytes,name.endsWith('.with_bootloader.hex')?readArtifact(path.replace(/\.hex$/,'.bin'),root):null);
+    else if(name.startsWith('avr')&&bytes.length!==32768)throw Error('AVR image must include full flash/Urboot');
     if(name.startsWith('esp')&&bytes[0]!==0xe9)throw Error('ESP application must remain raw; do not rename gzip to .bin');
-    artifacts.push({path:name,size:bytes.length,sha256:digest('sha256',bytes),md5:digest('md5',bytes),format:'raw'});
+    artifacts.push({path:name,size:bytes.length,sha256:digest('sha256',bytes),md5:digest('md5',bytes),format:hex?'intel-hex':'raw'});
     if(compress&&name.startsWith('esp8266')){
       const gz=portableGzip(bytes),manifest=createFirmwareManifest(bytes,gz,name.split('/').at(-1)+'.gz');
       unchangedWrite(path+'.gz',gz);unchangedWrite(path+'.gz.md5',manifest.content);

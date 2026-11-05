@@ -38,8 +38,8 @@ dependencies:
   web_socket_channel: ^3.0.3
   shared_preferences: ^2.5.6
   flutter_secure_storage: ^11.2.0
-  mqtt_client: ^10.13.0
-  crypto: ^3.0.7
+  mqtt_client: ^10.14.0
+  crypto: ^3.0.8
   # Bounded OOXML cell assignment documents; no native Excel dependency.
   archive: ^4.5.2
   xml: ^7.1.0

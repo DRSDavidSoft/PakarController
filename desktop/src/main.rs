@@ -45,6 +45,7 @@ mod led_backend;
 mod messaging;
 mod native_workspace;
 mod pc_contract;
+mod protocol_opcodes;
 mod peer_http;
 mod peer_identity;
 mod pixel_diagnostic;
@@ -65,24 +66,25 @@ mod workspace_layout;
 
 use base64::{Engine, engine::general_purpose::STANDARD as BASE64};
 use connection::Method as Transport;
+use protocol_opcodes::{pakar as wire, controller as pc_wire};
 use eframe::egui;
 use reqwest::blocking::Client;
 use serde::Deserialize;
 use tungstenite::{Message, client::IntoClientRequest};
 
-const OP_GET_STATUS: u8 = 0x02;
-const OP_BUZZER: u8 = 0x10;
-const OP_AUDIO: u8 = 0x11;
-const OP_DISPLAY: u8 = 0x38;
-const OP_SET_MODE: u8 = 0x4b;
-const OP_CELL_ACTION: u8 = 0x4c;
-const OP_RESET: u8 = 0x4d;
-const OP_OUTPUT_MASK: u8 = 0x4e;
-const OP_BRIGHTNESS: u8 = 0x51;
-const OP_PATTERN: u8 = 0x52;
-const OP_LED_OUTPUT: u8 = 0x5c;
-const OP_NETWORK_CONFIG: u8 = 0x53;
-const OP_STATUS: u8 = 0x90;
+const OP_GET_STATUS: u8 = wire::GET_STATUS;
+const OP_BUZZER: u8 = wire::BUZZER;
+const OP_AUDIO: u8 = wire::AUDIO_CUE;
+const OP_DISPLAY: u8 = wire::DISPLAY_TEXT;
+const OP_SET_MODE: u8 = wire::SET_MODE;
+const OP_CELL_ACTION: u8 = wire::CELL_ACTION;
+const OP_RESET: u8 = wire::GAME_RESET;
+const OP_OUTPUT_MASK: u8 = wire::OUTPUT_MASK;
+const OP_BRIGHTNESS: u8 = wire::SET_BRIGHTNESS;
+const OP_PATTERN: u8 = wire::SET_LED_PATTERN;
+const OP_LED_OUTPUT: u8 = wire::SET_LED_OUTPUT;
+const OP_NETWORK_CONFIG: u8 = wire::NETWORK_CONFIG;
+const OP_STATUS: u8 = wire::STATUS_RESPONSE;
 
 #[derive(Clone, PartialEq)]
 struct Endpoint {
@@ -2170,7 +2172,7 @@ fn cobs_decode(input: &[u8]) -> Option<Vec<u8>> {
     Some(out)
 }
 fn wire_frame(opcode: u8, sequence: u8, payload: &[u8]) -> Vec<u8> {
-    let mut raw = vec![0xa5, 0, opcode, sequence, payload.len() as u8];
+    let mut raw = vec![wire::MAGIC, wire::RESERVED, opcode, sequence, payload.len() as u8];
     raw.extend_from_slice(payload);
     raw.push(crc8(&raw));
     cobs_encode(&raw)
@@ -2179,10 +2181,12 @@ fn decode_frame(encoded: &[u8]) -> Option<(u8, Vec<u8>)> {
     decode_envelope(encoded).map(|(op, _, payload)| (op, payload))
 }
 fn decode_envelope(encoded: &[u8]) -> Option<(u8, u8, Vec<u8>)> {
+    if encoded.len() > wire::MAXIMUM_PAYLOAD + 7 { return None; }
     let raw = cobs_decode(encoded)?;
     if raw.len() < 6
-        || raw[0] != 0xa5
-        || raw[1] != 0
+        || raw[0] != wire::MAGIC
+        || raw[1] != wire::RESERVED
+        || usize::from(raw[4]) > wire::MAXIMUM_PAYLOAD
         || raw.len() != raw[4] as usize + 6
         || crc8(&raw[..raw.len() - 1]) != raw[raw.len() - 1]
     {
@@ -2391,14 +2395,14 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
             Option<(u8, Instant)>,
         )> = None;
         let mut reported_depth = 0;
-        let mut intro_wait = Some((0x01_u8, sequence, Instant::now()));
+        let mut intro_wait = Some((wire::HELLO, sequence, Instant::now()));
         let mut intro_chunks = std::collections::VecDeque::<Vec<u8>>::new();
         let mut peer_reports = peer_identity::UsbReportSupport::default();
         let mut introduced = false;
         let mut reintroductions = 0_u8;
         let mut last_peer_report = Instant::now();
         if port
-            .write_all(&wire_frame(0x01, sequence, &peer_identity::hello()))
+            .write_all(&wire_frame(wire::HELLO, sequence, &peer_identity::hello()))
             .is_err()
         {
             continue;
@@ -2751,7 +2755,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                 if !lease.current()
                     || !admission.current(physical_session, table_snapshot.as_ref())
                     || port
-                        .write_all(&wire_frame(0x56, sequence, &payload))
+                        .write_all(&wire_frame(wire::PC_CONTRACT, sequence, &payload))
                         .is_err()
                 {
                     let _ = events.send(Event::BoardSilentFinished(
@@ -2824,7 +2828,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                         continue 'connected;
                     }
                     if port
-                        .write_all(&wire_frame(0x55, sequence, &payload))
+                        .write_all(&wire_frame(wire::DEVICE_NAME, sequence, &payload))
                         .is_err()
                     {
                         break;
@@ -2834,7 +2838,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                 } else if let Some(reader) = &read {
                     if read_wait.is_none() {
                         if port
-                            .write_all(&wire_frame(0x59, sequence, &reader.request()))
+                            .write_all(&wire_frame(wire::GET_IDENTITY, sequence, &reader.request()))
                             .is_err()
                         {
                             break;
@@ -2864,8 +2868,8 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
             {
                 let pixel_command = operation
                     .as_ref()
-                    .is_some_and(|op| op.intent.opcode == 0x65)
-                    || intents.iter().any(|op| op.opcode == 0x65);
+                    .is_some_and(|op| op.intent.opcode == wire::PIXEL_DIAGNOSTIC)
+                    || intents.iter().any(|op| op.opcode == wire::PIXEL_DIAGNOSTIC);
                 demand_lease
                     .desired(demand.flags | if pixel_command { usb_demand::PIXELS } else { 0 });
                 if let Some(payload) = demand_lease.request(sequence) {
@@ -2915,7 +2919,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                 decode_envelope(&encoded)
                             {
                                 if api.as_ref().is_some_and(|work| work.wait.is_some_and(|(seq,_)| seq == response_sequence))
-                                    && matches!(op, usb_api::RESPONSE | 0x80 | 0x82) {
+                                    && matches!(op, usb_api::RESPONSE | wire::ACK | wire::ERROR_RESPONSE) {
                                     let work = api.as_mut().unwrap(); work.wait = None;
                                     match work.transaction.accept(op, &payload) {
                                         Ok(Some(value)) => { let work = api.take().unwrap(); let _ = work.reply.send(Ok(value));
@@ -2932,11 +2936,11 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                     context.request_repaint();
                                 }
                                 if intro_wait.is_some_and(|(_, seq, _)| seq == response_sequence)
-                                    && matches!(op, 0x80 | 0x81 | 0x82)
+                                    && matches!(op, wire::ACK | wire::HELLO_RESPONSE | wire::ERROR_RESPONSE)
                                 {
                                     let (expected, expected_sequence, _) =
                                         intro_wait.take().unwrap();
-                                    let result = if expected == 0x01 && op == 0x81 {
+                                    let result = if expected == wire::HELLO && op == wire::HELLO_RESPONSE {
                                         peer_identity::validate_usb_hello(&payload).and_then(|_| {
                                             if peer_reports.supported() {
                                                 intro_chunks = peer_identity::report_chunks(
@@ -2950,7 +2954,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                             Ok(())
                                         })
                                     } else if expected == peer_identity::USB_REPORT
-                                        && op == 0x80
+                                        && op == wire::ACK
                                         && payload.as_slice() == [peer_identity::USB_REPORT, 0]
                                     {
                                         if intro_chunks.is_empty() {
@@ -2997,9 +3001,9 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                             event,
                                         ));
                                     } // No full snapshot/command ACK lease is refreshed by this event.
-                                } else if op == 0xb0
+                                } else if op == wire::PC_CONTRACT_RESPONSE
                                     && matches!(response_sequence, 0 | 0xfe)
-                                    && payload.first() == Some(&0x9c)
+                                    && payload.first() == Some(&pc_wire::SEGMENT_CHANGED)
                                 {
                                     if table_observed.elapsed() < Duration::from_secs(8)
                                         && let Some(status) = table_snapshot.as_mut()
@@ -3013,14 +3017,14 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                             frame,
                                         ));
                                     }
-                                } else if (op == 0xb0 || op == 0x82)
+                                } else if (op == wire::PC_CONTRACT_RESPONSE || op == wire::ERROR_RESPONSE)
                                     && silent.as_ref().is_some_and(|(_, _, _, wait)| {
                                         wait.is_some_and(|(s, _)| s == response_sequence)
                                     })
                                 {
                                     let (id, _, transaction, wait) = silent.as_mut().unwrap();
                                     *wait = None;
-                                    let result = if op == 0xb0 && !payload.is_empty() {
+                                    let result = if op == wire::PC_CONTRACT_RESPONSE && !payload.is_empty() {
                                         transaction.accept(payload[0], &payload[1..])
                                     } else {
                                         Err("ESP rejected board settings; refresh before retrying"
@@ -3205,7 +3209,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                                 operation.as_ref().filter(|op| op.ack.is_some() && !backend_pending)
                                             {
                                                 let intent = &active.intent;
-                                                let pixel_revision=intent.opcode!=0x65 || (snapshot.status.led_output["diagnostic"]["revision"].as_u64().unwrap_or(0)>table_snapshot.as_ref().and_then(|s|s.led_output["diagnostic"]["revision"].as_u64()).unwrap_or(0)
+                                                let pixel_revision=intent.opcode!=wire::PIXEL_DIAGNOSTIC || (snapshot.status.led_output["diagnostic"]["revision"].as_u64().unwrap_or(0)>table_snapshot.as_ref().and_then(|s|s.led_output["diagnostic"]["revision"].as_u64()).unwrap_or(0)
                                                 && snapshot.status.pixel_frame.as_ref().is_some_and(|frame|frame.revision>table_snapshot.as_ref().and_then(|s|s.pixel_frame.as_ref()).map_or(0,|f|f.revision)));
                                                 let result = if intent.admission.peer == pin
                                                     && intent.verify(&snapshot.status)
@@ -3344,7 +3348,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                 } else if operation.as_ref().is_some_and(|active| {
                                     active.matches(op, response_sequence, &payload)
                                 }) {
-                                    if op == 0x80 && payload[1] == 0 {
+                                    if op == wire::ACK && payload[1] == 0 {
                                         if usb_table::table_command(
                                             operation.as_ref().unwrap().intent.opcode,
                                         ) {
@@ -3370,7 +3374,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                             Err(cell_assignments::usb_rejection(payload[1])),
                                         ));
                                     }
-                                } else if op == 0x82
+                                } else if op == wire::ERROR_RESPONSE
                                     && payload.first() == Some(&usb_table::READ)
                                     && table_wait.is_some_and(|(s, _)| s == response_sequence)
                                 {
@@ -3406,7 +3410,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                         ));
                                         if port
                                             .write_all(&wire_frame(
-                                                0x01,
+                                                wire::HELLO,
                                                 sequence,
                                                 &peer_identity::hello(),
                                             ))
@@ -3414,7 +3418,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                         {
                                             break 'connected;
                                         }
-                                        intro_wait = Some((0x01, sequence, Instant::now()));
+                                        intro_wait = Some((wire::HELLO, sequence, Instant::now()));
                                         sequence = sequence.wrapping_add(1);
                                         encoded.clear();
                                         continue 'connected;
@@ -3437,7 +3441,7 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                             Err(error),
                                         ));
                                     }
-                                } else if op == 0xb2
+                                } else if op == wire::IDENTITY_RESPONSE
                                     && read_wait.is_some_and(|(s, _)| s == response_sequence)
                                 {
                                     read_wait = None;
@@ -3471,11 +3475,11 @@ fn serial_worker_with<P: Read + Write, F: FnMut(&str) -> Result<P, String>>(
                                         }
                                     }
                                 } else if write_wait.is_some_and(|(s, _)| s == response_sequence)
-                                    && (op == 0x80 || op == 0x82)
-                                    && payload.first() == Some(&0x55)
+                                    && (op == wire::ACK || op == wire::ERROR_RESPONSE)
+                                    && payload.first() == Some(&wire::DEVICE_NAME)
                                 {
                                     write_wait = None;
-                                    if op == 0x82 {
+                                    if op == wire::ERROR_RESPONSE {
                                         packets.clear();
                                         expected = None;
                                         let _=events.send(Event::SerialIdentitySaved(connected_port.clone(),Err(format!("Board rejected identity write ({:?}); no replay attempted",payload.get(1)))));
@@ -6503,6 +6507,19 @@ mod tests {
         let (op, payload) = decode_frame(&encoded[..encoded.len() - 1]).unwrap();
         assert_eq!(op, OP_CELL_ACTION);
         assert_eq!(payload, vec![80, 2, 1]);
+    }
+    #[test]
+    fn opcode_namespace_rejects_foreign_frames_without_fallback() {
+        for discriminator in 1..=255_u8 {
+            let mut raw = vec![wire::MAGIC, discriminator, wire::AUDIO_CUE, 7, 1, 4];
+            raw.push(crc8(&raw));
+            let encoded = cobs_encode(&raw);
+            assert!(decode_envelope(&encoded[..encoded.len()-1]).is_none());
+        }
+        let valid = wire_frame(wire::AUDIO_CUE, 7, &[4]);
+        assert_eq!(decode_frame(&valid[..valid.len()-1]), Some((wire::AUDIO_CUE, vec![4])));
+        let unknown = wire_frame(0xfc, 7, &[]);
+        assert_eq!(decode_frame(&unknown[..unknown.len()-1]), Some((0xfc, vec![])));
     }
     #[test]
     fn shared_cobs_vectors() {

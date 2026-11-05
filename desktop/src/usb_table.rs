@@ -1,12 +1,13 @@
 //! Frozen USB table reads reuse the existing identity chunk shape, not its
 //! mutable identity revision. PCController Session's matched ACK/admission and
 //! no-replay rules apply to one operation on the selected USB owner.
+use crate::protocol_opcodes::pakar as wire;
 use crate::{CellMapping, CellMappingResponse, DeviceStatus, peer_http};
 use std::time::{Duration, Instant};
-pub const READ: u8 = 0x5d;
-pub const RESPONSE: u8 = 0xb6;
-pub const COMMAND: u8 = 0x5e;
-pub const COMMAND_STATE: u8 = 0xb7;
+pub const READ: u8 = wire::GET_TABLE_SNAPSHOT;
+pub const RESPONSE: u8 = wire::TABLE_SNAPSHOT_RESPONSE;
+pub const COMMAND: u8 = wire::TABLE_COMMAND;
+pub const COMMAND_STATE: u8 = wire::TABLE_COMMAND_STATE;
 // A command can overtake the next unsent background chunk, never bytes already
 // on wire. Adapted from PCController Session.grantNextLocked request priority.
 pub fn yield_snapshot(
@@ -106,10 +107,10 @@ pub struct Operation {
 }
 impl Operation {
     pub fn matches(&self, op: u8, seq: u8, p: &[u8]) -> bool {
-        matches!(op, 0x80 | 0x82)
+        matches!(op, wire::ACK | wire::ERROR_RESPONSE)
             && self.sequence == seq
             && p.len() == 2
-            && (p[0] == self.intent.opcode || (op == 0x82 && p[0] == COMMAND))
+            && (p[0] == self.intent.opcode || (op == wire::ERROR_RESPONSE && p[0] == COMMAND))
     }
     pub fn timing(&self, session: u64, confirmation: &'static str) -> Timing {
         let now = Instant::now();
@@ -341,7 +342,7 @@ impl Reader {
 pub fn table_command(op: u8) -> bool {
     matches!(
         op,
-        0x4b | 0x4c | 0x4d | 0x51 | 0x52 | 0x5c | 0x5f | 0x62 | 0x63 | 0x65 | 0x67 | 0x68 | 0x69
+        wire::SET_MODE | wire::CELL_ACTION | wire::GAME_RESET | wire::SET_BRIGHTNESS | wire::SET_LED_PATTERN | wire::SET_LED_OUTPUT | wire::CELLS_ACTION | wire::CELL_ASSIGNMENTS | wire::CELL_LOCK | wire::PIXEL_DIAGNOSTIC | wire::KEY_SETTINGS | wire::GAME_PRESS | wire::KEY_PRESENTATION
     )
 }
 const KEY_FIELDS: [(&str, usize, usize, u32); 6] = [
@@ -487,19 +488,19 @@ pub(crate) fn key_settings_verify(s: &DeviceStatus, p: &[u8]) -> bool {
         })
 }
 pub fn fenced(status: &DeviceStatus, op: u8, payload: &[u8]) -> Result<Vec<u8>, String> {
-    if op == 0x5c && payload.first() == Some(&3)
+    if op == wire::SET_LED_OUTPUT && payload.first() == Some(&3)
         && !(payload.len() == 2 && crate::led_backend::name(payload[1])
             .is_some_and(|backend| crate::led_backend::allowed(status, backend))) {
         return Err("LED backend unavailable, switching or invalid; nothing sent".into());
     }
-    if matches!(op, 0x68 | 0x69) {
-        let feature = if op == 0x68 { "game-press" } else { "game-presentation" };
-        let valid = if op == 0x68 { matches!(payload, [1..=9]) } else { crate::game_presentation::decode(payload).is_some() };
+    if matches!(op, wire::GAME_PRESS | wire::KEY_PRESENTATION) {
+        let feature = if op == wire::GAME_PRESS { "game-press" } else { "game-presentation" };
+        let valid = if op == wire::GAME_PRESS { matches!(payload, [1..=9]) } else { crate::game_presentation::decode(payload).is_some() };
         if !valid || !status.capabilities.as_ref().is_some_and(|c| c.role == "first-wins" && c.has(feature)) {
             return Err("Game control unavailable or invalid".into());
         }
     }
-    if op == 0x67
+    if op == wire::KEY_SETTINGS
         && payload.first().is_some_and(|mask| mask & 192 != 0)
         && !status
             .capabilities
@@ -508,7 +509,7 @@ pub fn fenced(status: &DeviceStatus, op: u8, payload: &[u8]) -> Result<Vec<u8>, 
     {
         return Err("Game melodies unavailable".into());
     }
-    if op == 0x67
+    if op == wire::KEY_SETTINGS
         && (!key_settings_valid(payload)
             || !status
                 .capabilities
@@ -528,13 +529,13 @@ pub fn fenced(status: &DeviceStatus, op: u8, payload: &[u8]) -> Result<Vec<u8>, 
             "Atomic USB cell batch unavailable/invalid; nothing sent, no per-cell fallback".into(),
         );
     }
-    if op == 0x62
+    if op == wire::CELL_ASSIGNMENTS
         && (!crate::cell_assignments::supported(status)
             || crate::cell_assignments::Document::from_payload(payload).is_err())
     {
         return Err("Invalid or unavailable atomic assignments".into());
     }
-    if op == 0x63
+    if op == wire::CELL_LOCK
         && (!matches!(payload, [0] | [1])
             || !status
                 .capabilities
@@ -543,7 +544,7 @@ pub fn fenced(status: &DeviceStatus, op: u8, payload: &[u8]) -> Result<Vec<u8>, 
     {
         return Err("Invalid or unavailable red lock".into());
     }
-    if op == 0x65
+    if op == wire::PIXEL_DIAGNOSTIC
         && (!crate::pixel_diagnostic::usb_supported(status)
             || crate::pixel_groups::advertised(status)
             || crate::pixel_diagnostic::profile(status).is_none_or(|(pixels, group)| {
@@ -595,8 +596,8 @@ pub struct Intent {
 }
 impl Intent {
     pub fn needs_full_snapshot(&self) -> bool {
-        matches!(self.opcode, 0x65 | 0x67 | 0x69)
-            || self.opcode == 0x5c && self.payload.first() == Some(&3)
+        matches!(self.opcode, wire::PIXEL_DIAGNOSTIC | wire::KEY_SETTINGS | wire::KEY_PRESENTATION)
+            || self.opcode == wire::SET_LED_OUTPUT && self.payload.first() == Some(&3)
     }
     pub fn reply(&self, result: Result<DeviceStatus, String>) {
         if let Some(reply) = &self.reply {
@@ -616,25 +617,25 @@ impl Intent {
     }
     pub fn verify(&self, s: &DeviceStatus) -> bool {
         match (self.opcode, self.payload.as_slice()) {
-            (0x5c, [3, backend]) => crate::led_backend::name(*backend)
+            (wire::SET_LED_OUTPUT, [3, backend]) => crate::led_backend::name(*backend)
                 .is_some_and(|name| crate::led_backend::confirmed(s, name)),
-            (0x67, payload) => key_settings_verify(s, payload),
-            (0x68, [1..=9]) => true, // Completion requires the correlated AVR ACK, then authoritative readback.
-            (0x69, payload) => crate::game_presentation::decode(payload).is_some_and(|patch| crate::game_presentation::verify(&s.key_game["presentation"], &patch)),
-            (0x65, payload) => crate::pixel_diagnostic::usb_verify(s, payload),
-            (0x62, payload) => {
+            (wire::KEY_SETTINGS, payload) => key_settings_verify(s, payload),
+            (wire::GAME_PRESS, [1..=9]) => true, // Completion requires the correlated AVR ACK, then authoritative readback.
+            (wire::KEY_PRESENTATION, payload) => crate::game_presentation::decode(payload).is_some_and(|patch| crate::game_presentation::verify(&s.key_game["presentation"], &patch)),
+            (wire::PIXEL_DIAGNOSTIC, payload) => crate::pixel_diagnostic::usb_verify(s, payload),
+            (wire::CELL_ASSIGNMENTS, payload) => {
                 crate::cell_assignments::Document::from_payload(payload).is_ok_and(|d| d.verify(s))
             }
-            (0x63, [value]) if *value <= 1 => s.red_lock == Some(*value != 0),
-            (0x5f, payload) => self.admission.batch.as_ref().is_some_and(|batch| {
+            (wire::CELL_LOCK, [value]) if *value <= 1 => s.red_lock == Some(*value != 0),
+            (wire::CELLS_ACTION, payload) => self.admission.batch.as_ref().is_some_and(|batch| {
                 batch.request.payload() == payload
                     && crate::peer_http::Pin::from_status(s).as_ref() == Some(&batch.peer)
                     && batch.request.verify(s)
             }),
-            (0x4b, [mode]) => ["unknown", "cell", "first-wins", "snake"]
+            (wire::SET_MODE, [mode]) => ["unknown", "cell", "first-wins", "snake"]
                 .get(*mode as usize)
                 .is_some_and(|v| s.mode == *v),
-            (0x4c, [id, state, ..]) => {
+            (wire::CELL_ACTION, [id, state, ..]) => {
                 *id >= 1
                     && *id <= 80
                     && ["white", "red", "off"]
@@ -645,15 +646,15 @@ impl Intent {
                                 .is_some_and(|actual| actual.as_str() == *v)
                         })
             }
-            (0x4d, []) => s.cells.iter().all(|v| v == "white") && s.winner == 0,
-            (0x51, [brightness]) => s.brightness == *brightness,
-            (0x52, [pattern]) => ["none", "rainbow", "fire"]
+            (wire::GAME_RESET, []) => s.cells.iter().all(|v| v == "white") && s.winner == 0,
+            (wire::SET_BRIGHTNESS, [brightness]) => s.brightness == *brightness,
+            (wire::SET_LED_PATTERN, [pattern]) => ["none", "rainbow", "fire"]
                 .get(*pattern as usize)
                 .is_some_and(|v| s.effect == *v),
-            (0x5c, [enabled]) if *enabled <= 1 => {
+            (wire::SET_LED_OUTPUT, [enabled]) if *enabled <= 1 => {
                 s.led_output["enabled"].as_bool() == Some(*enabled != 0)
             }
-            (0x5c, [2, mode]) if *mode <= 1 => {
+            (wire::SET_LED_OUTPUT, [2, mode]) if *mode <= 1 => {
                 s.led_output["mode"].as_str() == Some(if *mode == 0 { "static" } else { "effects" })
             }
             _ => false,

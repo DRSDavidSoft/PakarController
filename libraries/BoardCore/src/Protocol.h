@@ -4,94 +4,12 @@
 #include <string.h>
 
 #include "WireCodec.h"
+#include "ProtocolOpcodes.h"
 
 namespace BoardCore {
 namespace Protocol {
 
-constexpr uint8_t kMagic = 0xA5;
-// Fixed reserved byte. Evolution uses opcodes/capabilities, not generations.
-constexpr uint8_t kReserved = 0;
-constexpr uint8_t kMaximumPayload = 48;
-constexpr uint8_t kRawOverhead = 6;
-constexpr uint8_t kMaximumRaw = kMaximumPayload + kRawOverhead;
-constexpr uint8_t kMaximumEncoded = kMaximumRaw + 2;
-
-enum Opcode : uint8_t {
-  kHello = 0x01,
-  kGetStatus = 0x02,
-  kSetStreamPeriod = 0x03,
-  kBuzzer = 0x10,
-  kAudioCue = 0x11,
-  kAudioStream = 0x12, // Bounded AVR tone ring: action,id16,offset16,packed steps.
-  kAudioStreamResponse = 0xBC, // error,id16,nextOffset16,credits,state,muted.
-  kDisplayText = 0x38,
-  kSetMode = 0x4B,
-  kCellAction = 0x4C,
-  kGameReset = 0x4D,
-  kOutputMask = 0x4E,
-  kPing = 0x4F,
-  kProgrammingState = 0x50,
-  kSetBrightness = 0x51,
-  kSetLedPattern = 0x52,
-  kNetworkConfig = 0x53,
-  kAccessConfig = 0x54, // ESP physical USB only: reset staging, user/password chunks, commit.
-  kDeviceName = 0x55, // ESP physical USB: reset(0), label chunks(1), persist/apply(2).
-  kPcContract = 0x56, // [PCController opcode, payload]; isolated from legacy 0x11 audio.
-  kPcContractChunk = 0x57, // Full 48-byte donor request, bounded two-frame assembly.
-  kGetTelemetry = 0x58, // Read-only; does not renew PCController's host/control lease.
-  kGetIdentity = 0x59, // ESP USB: [nonce, offset16], bounded read-only identity chunks.
-  kEspPanel = 0x5A, // Paired ESP settings: state offer or AVR physical-menu action.
-  kAvrRxDiagnostic = 0x5B, // Physical ESP USB only, quiet S3 build: bounded RX-only capture.
-  kSetLedOutput = 0x5C, // ESP only: one boolean; independent of presentation/game mode.
-  kGetTableSnapshot = 0x5D, // USB [nonce,offset16,token32]; zero token/offset captures immutable table state.
-  kTableCommand = 0x5E, // USB [boot_id16,inner opcode,<=31 bytes]; bounded table-only, ACK names inner opcode.
-  kCellsAction = 0x5F, // ESP only: [state,effect,10-byte logical-cell bitmap], one atomic loop-owner update.
-  kShellRequest = 0x60, // ESP only: boot-fenced Open, token/sequence Input, Close and bounded output Poll.
-  kPeerReport = 0x61, // USB: [totalLE16,offsetLE16,<=44 JSON bytes], bounded sequential peer introduction.
-  kCellAssignments = 0x62, // ESP table-selection: selection bitmap10 + two-bit states20; one atomic transaction.
-  kCellLock = 0x63, // ESP table-selection: enabled boolean; persistent red-to-white guard.
-  kHostDemand = 0x64, // ESP USB: [flagsLE16,leaseMsLE16]; zero pair releases optional observations.
-  kPixelDiagnostic = 0x65, // Boot-fenced table inner: [indexLE16,count,R,G,B,off]; one pixel or six aligned pixels.
-  kKeyMask = 0x66, // Paired first-wins AVR: keys LE16, optional winner/reset cue bytes when HELLO[16] ACKs support; 255=silent.
-  kKeySettings = 0x67, // ESP fenced patch: mask8, keys16, RGB24 x3, effects8, autoReset32; optional winner/reset bytes17/18 via mask64/128.
-  kGamePress = 0x68, // One enabled key (1..9), same first-winner latch as physical Down.
-  kKeyPresentation = 0x69, // Fenced ESP patch: global [0,count,on16,gap16,fade16,pulse16,chase16] or group [1,id,override,winRGB24,loseRGB24,winMotion,loseMotion].
-  kUsbApi = 0x6A, // Bounded boot-fenced API transaction; see UsbApiRequest.h.
-  kUsbApiResponse = 0xBD, // [action,token32,total16,offset16,<=39 response bytes].
-  kHostDemandResponse = 0xBA, // Correlated [effectiveFlagsLE16,remainingMsLE16], not an actuator ACK.
-  kShellResponse = 0xB9, // Encapsulated terminal output; no raw bytes interleaved with COBS.
-  kTableSnapshotResponse = 0xB6, // [nonce,token32,total16,offset16,<=39 immutable JSON bytes].
-  kTableCommandState = 0xB7, // Post-ACK readback: inner opcode, boot16, 7 scalar fields, 80 packed two-bit cell states.
-  kPanelEvent = 0xB8, // ESP semantic presentation event; requested, NOT confirmed segment rendering.
-  kAvrRxDiagnosticResponse = 0xB4, // Action/error + actual capture/pad observations; never AVR ACK.
-  kResetTelemetryResponse = 0xB5, // [MCUSR cause,countLE32,journal_verified]; optional GET_TELEMETRY companion.
-  kEspPanelResponse = 0xB3, // Correlated action, error and authoritative ESP readback.
-  kIdentityResponse = 0xB2, // [nonce, revision32, total16, offset16, <=39 JSON bytes].
-  kTelemetryResponse = 0xB1, // 46 bytes; actual AVR observations.
-  kPcContractResponse = 0xB0, // [PCController response opcode, payload].
-
-  kAck = 0x80,
-  kHelloResponse = 0x81,
-  kErrorResponse = 0x82,
-  kStatusResponse = 0x90,
-  kGameState = 0xA3,
-  kInputEvent = 0xA4,
-  kCellEvent = 0xA5,
-  kPong = 0xA6,
-};
-
-enum Error : uint8_t {
-  kNoError = 0,
-  kBadEnvelope = 1,
-  kUnsupported = 2,
-  kBadPayload = 3,
-  kHardwareUnavailable = 4,
-  kBusy = 5,
-  kUnsafe = 6,
-  kRedCellsLocked = 7,
-  kInvalidCellAssignments = 8,
-  kUnsupportedBoardRole = 9,
-};
+// Envelope, opcodes and errors come from the canonical generated registry.
 
 enum DeviceRole : uint8_t { kRoleAvr = 1, kRoleEsp = 2, kRoleHost = 3 };
 

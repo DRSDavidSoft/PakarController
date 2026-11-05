@@ -1,10 +1,11 @@
 //! One board-owned atomic selection mutation, never a fan-out/replay queue.
 //! Reuses PCController Session's intent admission/ACK/no-late-write rule through
 //! the existing HTTP Pin and USB Admission; the board owns transition timing.
+use crate::protocol_opcodes::pakar as wire;
 use crate::{DeviceStatus, Endpoint, peer_http};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 
-pub const OPCODE: u8 = 0x5f;
+pub const OPCODE: u8 = wire::CELLS_ACTION;
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Request {
     pub ids: Vec<u8>,

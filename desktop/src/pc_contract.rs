@@ -1,8 +1,30 @@
 use reqwest::blocking::Client;
 use serde_json::Value;
 use std::time::{Duration, Instant};
+use crate::protocol_opcodes::controller as wire;
 
 pub const PROFILE: u8 = 0x50;
+pub fn expected_response(opcode: u8, payload: &[u8]) -> Option<u8> {
+    match opcode {
+        wire::HELLO => Some(wire::HELLO_RESPONSE),
+        wire::GET_STATUS => Some(wire::STATUS_RESPONSE),
+        wire::GET_SETTINGS => Some(wire::SETTINGS_RESPONSE),
+        wire::TEMPERATURE_LIST => Some(wire::TEMPERATURE_LIST_RESPONSE),
+        wire::PWM_GET => Some(wire::PWM_VALUES_RESPONSE),
+        wire::STATUS_PROFILE_GET => Some(wire::STATUS_PROFILE_RESPONSE),
+        wire::RADIO_LEARN_LIST => Some(wire::RADIO_LEARN_LIST_RESPONSE),
+        wire::I2C_TRANSFER => Some(wire::I2C_TRANSFER_RESPONSE),
+        wire::FRONT_PANEL_GET => Some(wire::FRONT_PANEL_RESPONSE),
+        wire::MENU_LIST => Some(wire::MENU_LIST_RESPONSE),
+        wire::MENU_LAYOUT_GET => Some(wire::MENU_LAYOUT_RESPONSE),
+        wire::HOST_MENU_STATE_GET => Some(wire::HOST_MENU_STATE_RESPONSE),
+        wire::AUTOMATION_LIST => Some(wire::AUTOMATION_LIST_RESPONSE),
+        wire::AUTOMATION_PUT => Some(wire::AUTOMATION_RECORD_RESPONSE),
+        wire::MACRO_STEP if matches!(payload.first().copied(), Some(2 | 5)) => Some(wire::MACRO_STATUS_RESPONSE),
+        wire::SET_STREAM_PERIOD | wire::SET_SETTINGS | wire::BUZZER | wire::PWM_SET | wire::PWM_ALL_OFF | wire::STATUS_RGB | wire::ADDRESSABLE_LED | wire::STATUS_EFFECT | wire::STATUS_PROFILE_SET | wire::RADIO_TRANSMIT | wire::RADIO_LEARN_START | wire::RADIO_LEARN_CANCEL | wire::RADIO_LEARN_CLEAR | wire::RADIO_LEARN_REMOVE | wire::MENU_ACTION | wire::RELAY_SET | wire::RELAY_SIDE | wire::RELAY_ALL_OFF | wire::RELAY_TEST | wire::RESET | wire::MENU_SET_PAGE | wire::DISPLAY_TEXT | wire::MACRO_START | wire::MACRO_CANCEL | wire::MACRO_STEP | wire::REMOTE_KEY_GESTURE | wire::RADIO_LEARN_REPLACE | wire::MENU_LAYOUT_SET | wire::HOST_MENU_DIRECTORY | wire::HOST_MENU_CONTENT | wire::PROGRAM_STATE | wire::AUTOMATION_REMOVE | wire::AUTOMATION_CLEAR => Some(wire::ACK),
+        _ => None,
+    }
+}
 
 pub fn decode_hex(input: &str) -> Result<Vec<u8>, String> {
     if input.len() > 96 || input.len() % 2 != 0 || !input.is_ascii() {
@@ -237,7 +259,8 @@ pub fn request(
     if payload.len() > 48 {
         return Err("PCController payload exceeds 48 bytes".into());
     }
-    let payload_for_request = payload;
+    let expected = u64::from(expected_response(opcode, payload)
+        .ok_or("Unknown controller response contract; nothing sent, no fallback")?);
     let value: Value = client
         .post(format!("{}/api/avr/contracts", base.trim_end_matches('/')))
         .basic_auth(user, Some(password))
@@ -285,7 +308,7 @@ pub fn request(
                         .as_str()
                         .ok_or("Missing response payload")?,
                 )?;
-                if response == 0x82 {
+                if response == u64::from(wire::ERROR_RESPONSE) {
                     if payload.len() != 2 || payload[0] != opcode || !(1..=6).contains(&payload[1])
                     {
                         return Err(
@@ -299,25 +322,7 @@ pub fn request(
                         "AVR rejected opcode 0x{opcode:02x}: {payload:02x?}"
                     ));
                 }
-                let expected = match opcode {
-                    1 => 0x81,
-                    2 => 0x90,
-                    4 => 0x91,
-                    6 => 0x95,
-                    0x15 => 0x92,
-                    0x18 => 0x9f,
-                    0x24 => 0x94,
-                    0x36 => 0x93,
-                    0x3c => 0x96,
-                    0x3e => 0x97,
-                    0x40 => 0x99,
-                    0x44 => 0x9b,
-                    0x46 => 0xa1,
-                    0x47 => 0xa2,
-                    0x3b if matches!(payload_for_request.first().copied(), Some(2 | 5)) => 0x98,
-                    _ => 0x80,
-                };
-                if response != expected || (response == 0x80 && payload != [opcode, 0]) {
+                if response != expected || (response == u64::from(wire::ACK) && payload != [opcode, 0]) {
                     return Err(
                         "Response does not match the request; operation outcome is unknown".into(),
                     );
@@ -341,6 +346,19 @@ pub fn request(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn opcode_namespace_has_explicit_response_contract_for_every_registered_request() {
+        let registry: Value = serde_json::from_str(include_str!("../../docs/pccontroller/ProtocolContract.json")).unwrap();
+        for opcode in 0..=255_u8 {
+            let request = registry["opcodes"].as_array().unwrap().iter().any(|row|
+                row["value"].as_u64() == Some(u64::from(opcode)) && opcode < 128);
+            assert_eq!(expected_response(opcode, &[]).is_some(), request);
+        }
+        assert_eq!(expected_response(wire::MACRO_STEP, &[2]), Some(wire::MACRO_STATUS_RESPONSE));
+        assert_eq!(expected_response(wire::MACRO_STEP, &[5]), Some(wire::MACRO_STATUS_RESPONSE));
+        assert_eq!(expected_response(wire::MACRO_STEP, &[0]), Some(wire::ACK));
+        assert_eq!(expected_response(0xfc, &[]), None);
+    }
     #[test]
     fn actual_donor_registry_has_no_pwm_audio_alias() {
         assert_eq!(opcode("PWM_SET").unwrap(), 0x11);

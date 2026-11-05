@@ -9,10 +9,10 @@
       "source_sha256": "af30319345d28fbae9fb2fb2cee755252a224ce79c31ad3bd8039b27ab279a1f",
       "source_read": "complete",
       "target": "docs/pccontroller/ProtocolContract.json",
-      "target_sha256_utf8_lf": "af30319345d28fbae9fb2fb2cee755252a224ce79c31ad3bd8039b27ab279a1f",
+      "target_sha256_utf8_lf": "b72621de05550b724eeb312276b9cff8a86003e4acec3fcee860418f60944eb9",
       "line": 5,
       "anchor": "\"maximumPayload\"",
-      "retained": "Imported actual registry unchanged. All registered requests classified in PC-CONTROLLER-CONTRACTS.md.",
+      "retained": "Imported actual registry unchanged. All registered requests classified in PC-CONTROLLER-CONTRACTS.md. Opcode ownership follow-up: numeric definitions now come from the pinned canonical generator; native wire assignments, bounded framing and the explicit tunnel are unchanged.",
       "omitted_code_and_reason": "None."
     },
     {
@@ -31,10 +31,10 @@
       "source_sha256": "287a95a65a9b9655e64a15ece051bc792a06564b648a1b53eed4f373c564e458",
       "source_read": "complete",
       "target": "libraries/BoardCore/src/Protocol.h",
-      "target_sha256_utf8_lf": "6031ecc3f760f2e4fc7a766e5977b1ea990a602de27808ddb060e56bf81c6f47",
-      "line": 39,
-      "anchor": "kPcContract = 0x56",
-      "retained": "Retains native opcode/error values in isolated tunneled dialect; existing COBS/CRC shared transport owns framing. Fully reread after additive USB snapshot, boot-fenced table command, atomic cell bitmap and post-ACK command-state additions: envelope bounds, CRC validation and 0x56/0x57 tunneled dialect remain unchanged. Reread semantic-panel and shell additions: 0xB8 reports requested presentation, not observed segment masks; 0x60/0xB9 carry bounded shell traffic inside COBS rather than interleaving raw terminal bytes. Fixed reserved zero, 48-byte payload and CRC rejection remain unchanged. No second UART owner is introduced.",
+      "target_sha256_utf8_lf": "331f68dfe248de399304210d34bfc51d97a39d84610731d7abe6d44587634059",
+      "line": 7,
+      "anchor": "#include \"ProtocolOpcodes.h\"",
+      "retained": "Retains native opcode/error values in isolated tunneled dialect; existing COBS/CRC shared transport owns framing. Fully reread after additive USB snapshot, boot-fenced table command, atomic cell bitmap and post-ACK command-state additions: envelope bounds, CRC validation and 0x56/0x57 tunneled dialect remain unchanged. Reread semantic-panel and shell additions: 0xB8 reports requested presentation, not observed segment masks; 0x60/0xB9 carry bounded shell traffic inside COBS rather than interleaving raw terminal bytes. Fixed reserved zero, 48-byte payload and CRC rejection remain unchanged. No second UART owner is introduced. Opcode ownership follow-up: numeric definitions now come from the pinned canonical generator; native wire assignments, bounded framing and the explicit tunnel are unchanged.",
       "omitted_code_and_reason": "Donor Stream-owning wrapper replaced by existing SerialLink; copying a second UART owner would collide. Direct donor opcode namespace cannot alias Pakar 0x11 audio."
     },
     {

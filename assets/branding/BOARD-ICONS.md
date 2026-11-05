@@ -20,7 +20,9 @@ signature and uses the same generic-artwork fallback. Renaming a hostname does
 not switch identity; fresh capability metadata does. No new protocol selector.
 
 OS launcher packaging is separate: these are board identities, not two new
-applications. Existing Pakar launcher assets remain unchanged. Dedicated Apple
+applications. Pakar's application mark is now app-icon.svg with a 1024px native/
+README/Android master and a bounded 64px peer derivative; see BRANDING-PARITY.md.
+Dedicated Apple
 layered/tinted icon catalogs, Android role shortcuts, and per-role Windows
 launcher resources are not implemented or tested by this change. Platform
 references: Apple HIG App icons; Android adaptive icons; Microsoft Windows app

@@ -1,5 +1,104 @@
 # Donor-first preflight receipt
 
+## Firmware HEX delivery and high-DPI artwork, 2026-10-30 (#11 / #5)
+
+The existing CI already emitted application HEX; the actual AVR packaging owner
+also generated bootloader-inclusive HEX but artifact upload/report/release
+omitted it. Reuse prepare-avr-image's actual Intel HEX parser/encoder and
+full-flash image rather than a second objcopy or fake extension. Validate HEX
+checksums/reset presence and compare every byte of merged HEX against its BIN.
+Both HEX forms now participate in CI integrity reports and release archives;
+ESP application binaries remain unchanged/raw and no board is programmed.
+
+Read the actual donor branding/native ICO conversion, header artwork binding
+and Web favicon owner. Retain multi-resolution ICO/Lanczos and cached textures,
+but replace the prototype Circuitry art with an editable SVG control-grid mark.
+The external existing Sharp rasterizer renders 24–1024px assets once; committed
+source/output hashes make ordinary checks dependency-free and low-write.
+Native/README/Android launcher use the high-resolution master while firmware
+identity and inline Web art retain the strict 4096-character compact derivative.
+Generic compact peer artwork still resolves by role rather than masking it.
+
+An initial lookup used a nonexistent branding concern; consult the existing
+application-identity route instead. The concurrent Pealayer owner's new tracked
+paths required a selective inventory refresh before consultation; new rows
+remain unreviewed, not accepted omissions. The existing Pakar PR43 Windows
+WebSocket-bootstrap test failure is separate from this icon/HEX work; its
+507-passing/one-failing run is not called all-green. No production runtime,
+pin/cache configuration or hardware state is changed in this pass.
+
+Branding/no-write generation, role/UPnP image metadata, Web identity, script
+tooling, manifest/governance and actual release-ZIP fixtures pass. The retained
+local outputs validate all six application/full-flash HEX artifacts; they are
+not attributed to a newly rebuilt firmware image. Ordinary/check artwork paths
+need no Sharp installation; 1024px native master is 94,542 bytes and the 64px
+identity PNG is 2,570 bytes (within the existing base64 identity limit).
+
+Selective donor refresh detected 13 unrelated previously reviewed files changed
+by the active Pealayer owner. Keep those actual historical per-file pins rather
+than falsely rebind their completed comparisons to unread new code; new tracked
+paths are inventoried. Live-source checks still expose drift. The guarded native
+branding test attempt stopped at the changed i18n donor before Cargo compiled;
+it is not a passed Rust/runtime test. A scratch inventory helper initially hit
+Node's 1 MiB subprocess buffer and was corrected to a bounded 4 MiB read; no
+repository files were modified by that failed read. Generated comparison checks
+pass after the explicit reviewed-pin preservation and changed-target rebinding.
+
+## Canonical opcode ownership and namespace admission, 2026-10-30 (#41 / PC#702)
+
+Read the actual complete PCController contract generator and canonical registry,
+Pakar Protocol.h and active client routing slices, PC UART/Go dispatch boundaries,
+and Pealayer's complete native/compact decoder source. Reuse the donor generator
+as the shared portable source rather than create another hand-maintained table.
+Native opcodes remain byte-stable; Pakar's existing published assignments become
+an explicit second namespace in that same canonical source. Consumer source pins,
+generated C++/Rust/Dart and generated Go names prevent independent numeric drift.
+
+PC UART's advisory marker acceptance was an actual cross-namespace hazard:
+Pakar0x11 audio could reach PWM. PC firmware and Go now reject every foreign
+fixed marker; the actual C++ test exercises all255 and recovery to a valid frame.
+Pealayer's native decoder receives the same gate and generated command constants.
+Unknown operations inside the admitted namespace retain Unsupported semantics.
+The explicit tunneled adapter is preserved; no payload semantics are conflated.
+
+Five generator tests, stable-path native/UDP tests and actual UART fixtures pass.
+The full96-test build-tool suite initially caught the new sync entrypoint missing
+loadProjectEnv; reread its exact env loader/test and reuse the mandatory import,
+without weakening the test. All96 then pass. Consumer/API/build and physical
+acceptance remain separate. Local raw-GitHub upstream byte verification timed out;
+offline pinned-byte/generation checks pass and mandatory CI upstream verification
+is still independent evidence. No production board, settings or runtime changed.
+
+The immutable four-file source pin was subsequently verified through authenticated
+GitHub API byte reads, with no downloaded code executed. Flutter analysis and14 USB
+tests pass; Pealayer's actual protocol suite passes11. Pakar's two compiled native
+namespace/response-coverage tests pass. Name/access provisioners now reuse the
+shared bounded serial owner rather than their duplicate decoders/loose ACK checks.
+Actual mock provisioning/RX tests pass without opening a serial device.
+
+Full protocol testing exposed an unchanged baseline fixture bug: its snapshot
+slice ended at an earlier configureNtp forward declaration. Verified both source/
+test files unchanged against HEAD, reread the actual definition and demand owner,
+then require an end boundary after the asserted definition. The original demand/
+privacy assertions remain and the scoped demand tests pass; the earlier aborted
+large wrapper is not retroactively certified complete. Generated-symbol source
+guards were updated without removing the actual wire/rejection/no-replay tests.
+
+The broader compiled Pakar USB filter also passes all 49 tests, covering actual
+serial actor, correlated responses, settings, snapshots and subscriptions. The
+transport-convergence donor consultation passes with zero stale mapped sources.
+The Pealayer inventory was refreshed after publishing its canonical imports;
+the complete changed workflow was reread and its source hash rebound. Newly
+inventoried files remain pending, not silently accepted as completed comparisons.
+Local quality passed its prefix up to the stale generated comparison report;
+after explicit metadata refresh, the failed report check and remaining suffix
+were rerun separately. This is segmented evidence, not an invented single green
+full-suite run. Paired source reviews are PCController PR704 and Pealayer PR223.
+The existing structured mobile-plan test caught success text from the new opcode
+preflight leaking onto PowerShell's object pipeline. Route that informational
+output through Write-Host in all three build wrappers; keep the mandatory check,
+nonzero-exit rejection and the existing plan assertions unchanged.
+
 ## Controller transport convergence first slice, 2026-10-30 (#41 / PC#702)
 
 Read current repository instructions, transport and merge-readiness documents;
@@ -12000,3 +12099,35 @@ and CRLF cases. No guard is removed and no check is suppressed. The existing
 bluetooth/source wiring was inspected; this is fixture repair, not BLE radio
 acceptance. Combined shell and audit fixtures pass; final SSH/quality/SDK/client
 CI remains a separate exact-head gate. No boards or production apps changed.
+
+## Windows WebSocket-bootstrap fixture repair (2026-10-30, PR43)
+
+Actions run41080991373 failed in the loopback server at peer_http.rs:746:
+Winsock10035 (WouldBlock) on the first HTTP request read, followed by the
+client's connection-reset error. The listener deliberately polls accept, but
+Windows can inherit its nonblocking mode into accepted sockets. Explicitly
+restore blocking mode before the existing bounded HTTP/WebSocket reads. Apply
+the same correction to the adjacent cached-HTTP-route fixture. Preserve all
+hostname, Host-header, verified-TCP-address, identity, revocation and deadline
+assertions; no production transport code or command admission changes.
+
+Consulted peer-binding's three mapped PCController session/admission sources
+and outstanding lifecycle gaps, plus the actual netpolicy HTTP URL and public
+transport tests. Those Go tests retain explicit route assertions, but their
+net.Pipe/Go runtime does not supply a Rust/Winsock socket-mode fix. Keep Pakar's
+existing bounded loopback fixture rather than replace production resolution.
+
+The canonical focused native-test wrapper was attempted and refused before
+Cargo: live Pealayer tracked-file inventory drift. Do not bypass that gate,
+change its checkout, relabel unread donor changes as reviewed or claim a local
+native pass. Exact-head Windows CI must execute the retained regression and
+the broader native suite. No boards, installed apps or device settings changed.
+
+The stacked artwork PR44 also exposed two stale PU route target bindings in
+run41091875727. Reviewed the three generated WebUi.h changes: shared header
+artwork, application icon bytes and favicon bytes only. Both existing remote
+update anchors and route implementations remain unchanged at line417. Refresh
+only those two target hashes in PU850-ROUTE-PARITY.json, keeping donor hashes,
+route classifications and remaining acceptance unchanged. The actual50-route
+checker, Web identity test and no-write application-artwork check pass. This is
+not execution of native tests, firmware compilation or OTA/physical acceptance.

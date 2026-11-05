@@ -58,4 +58,5 @@ fn main() {
     println!("cargo:rerun-if-changed=src/platform/windows_quick_actions.rs");
     println!("cargo:rerun-if-changed=src/brand_image.rs");
     println!("cargo:rerun-if-changed=../assets/branding/app-icon.png.base64");
+    println!("cargo:rerun-if-changed=../assets/branding/app-icon-1024.png");
 }
