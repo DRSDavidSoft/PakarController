@@ -1891,6 +1891,10 @@ impl PakarControllerApp {
                             self.reset_workspace_layout();
                         }
                     });
+                } else if self.config.workspace_ui == crate::config::WorkspaceUi::CraftUi {
+                    self.open_panels = self.dock.iter_all_tabs().map(|(_, p)| *p).collect();
+                    super::craft_workspace::show(self, ui);
+                    self.open_panels.clear();
                 } else {
                     self.open_panels = self.dock.iter_all_tabs().map(|(_, p)| *p).collect();
                     // An offline error must not turn the event log into the

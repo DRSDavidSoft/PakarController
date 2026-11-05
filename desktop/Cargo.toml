@@ -12,6 +12,8 @@ repository = "https://github.com/atomicdeploy/PakarController"
 eframe = { version = "0.36.2", features = ["glow", "persistence"] }
 egui-phosphor = { version = "0.14.0", default-features = false, features = ["regular"] }
 egui_dock = { version = "0.21.1", features = ["serde"] }
+# Upstream's egui 0.36 line: do not mix the current 0.37 CraftUI with this family.
+craft-ui = { git = "https://github.com/storytold/craft-libs.git", rev = "9c5ebb782eb6dde4c55383737257261a11cc202d" }
 egui-elegance = "=0.16.2"
 uuid = { version = "1.26.1", features = ["v4", "serde"] }
 rfd = "0.17.2"

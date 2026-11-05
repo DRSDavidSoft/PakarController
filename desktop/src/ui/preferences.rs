@@ -461,6 +461,17 @@ fn editor_contents(draft: &mut PreferencesDraft, ui: &mut egui::Ui, board: &Boar
                         if draft.matches("Preferences navigation groups headings") {
                             ui.checkbox(&mut draft.config.preferences_grouped_navigation, super::i18n::text("Group Preferences navigation"));
                         }
+                        if draft.matches("Workspace interface CraftUI egui Dock") {
+                            dialog::setting_row(ui, icons::TABS, "Workspace interface", None, |ui| {
+                                super::dropdown::ComboBox::from_id_salt("workspace-ui")
+                                    .selected_text(draft.config.workspace_ui.label())
+                                    .show_ui(ui, |ui| {
+                                        for mode in crate::config::WorkspaceUi::ALL {
+                                            ui.dropdown_value(&mut draft.config.workspace_ui, mode, mode.label());
+                                        }
+                                    });
+                            });
+                        }
                         if draft.matches("Theme system light dark"){dialog::setting_row(ui,icons::SUN,"Theme",None,|ui|{super::dropdown::ComboBox::from_id_salt("theme").selected_text(super::i18n::text(&format!("{:?}",draft.config.theme))).show_ui(ui,|ui|{for t in [AppTheme::System,AppTheme::Light,AppTheme::Dark]{ui.dropdown_value(&mut draft.config.theme,t,super::i18n::text(&format!("{t:?}")));}});});}
                         if draft.matches("Palette Studio native"){dialog::setting_row(ui,icons::PALETTE,"Palette",None,|ui|{super::dropdown::ComboBox::from_id_salt("palette").selected_text(super::i18n::text(&format!("{:?}",draft.config.color_palette))).show_ui(ui,|ui|{for p in [ColorPalette::Studio,ColorPalette::Native]{ui.dropdown_value(&mut draft.config.color_palette,p,super::i18n::text(&format!("{p:?}")));}});});}
                         if draft.matches("Accent color"){dialog::setting_row(ui,icons::DIAMOND,"Accent color",None,|ui|{super::color_picker::accent_picker(ui,&mut draft.config.accent,180.0);});}
@@ -929,14 +940,17 @@ mod tests {
     fn grouped_navigation_is_a_previewable_preference_without_changing_page_identity() {
         let original = AppConfig::default();
         assert!(original.preferences_grouped_navigation);
+        assert_eq!(original.workspace_ui, crate::config::WorkspaceUi::EguiDock);
         let mut draft = PreferencesDraft::new(original.clone());
         draft.select_page(page_index("connection").unwrap());
         draft.config.preferences_grouped_navigation = false;
+        draft.config.workspace_ui = crate::config::WorkspaceUi::CraftUi;
         assert!(draft.is_dirty());
         assert!(!draft.take_preview_update().unwrap().preferences_grouped_navigation);
         assert_eq!(draft.tab, page_index("connection").unwrap());
         let round_trip: AppConfig = serde_json::from_str(&serde_json::to_string(&draft.config).unwrap()).unwrap();
         assert!(!round_trip.preferences_grouped_navigation);
+        assert_eq!(round_trip.workspace_ui, crate::config::WorkspaceUi::CraftUi);
         draft.config = draft.saved_config.clone();
         assert!(!draft.is_dirty());
         assert!(draft.take_preview_update().unwrap().preferences_grouped_navigation);

@@ -12192,10 +12192,28 @@ regression were added. Rebound those four target/proof hashes after reviewing
 the narrow diffs; no donor source-read claims were advanced. The two preexisting
 README target-hash corrections remain preserved and separately owned.
 
-Verification is blocked before Cargo by stale Pealayer localization evidence
-(`src/ui/i18n.rs`). Comparison regeneration also reports unrelated donor drift
-at `.github/dependabot.yml` after the mandatory inventory refresh. Do not bypass
-the wrapper, silently certify new donor code, or claim a tested/deployed Pakar
-binary. Reconcile the donor comparisons, regenerate the existing reports, then
-run `tools/build-desktop.ps1 -Mode Test -TestFilter preferences -Jobs 2` and capture
-the grouped/flat rails. No firmware or output actuation belongs to this change.
+The initial native gate was blocked by stale Pealayer localization evidence.
+The subsequent pass reread the complete current `src/ui/i18n.rs` (1594 lines)
+and `src/ui/dropdown.rs` (652 lines), retaining logical Unicode, fallback and
+focus ownership. Import the donor's temporary Body-to-Button font alignment in
+the shared ComboBox, including restoration after popup rendering. Rebind only
+the reviewed changed consumers and these two source hashes. Native Check now
+passes through the required wrapper. The first attempt correctly rejected a
+missing locked CraftUI dependency; a targeted offline Cargo lock update added
+only CraftUI, then the same gated wrapper passed.
+
+The user clarified that both products offer both presentations. Read the entire
+Pealayer `src/ui/egui_dock.rs` adapter and CraftUI's egui 0.36 docking model,
+renderer entry points and action semantics. Adapt its read-only tree projection
+but dispatch gestures into Pakar's existing DockState rather than reconstructing
+the durable workspace. Existing capability filtering/hidden-panel ownership,
+panel body/menu renderers and native palette are retained. No UI-family upgrade,
+duplicate settings writer or hardware command path was added. See
+WORKSPACE-PRESENTATION.md for floating split/group limits.
+
+Broader comparison regeneration still reports unrelated changed donors including
+`.github/dependabot.yml`; exhaustive lookup additionally detects RayanLamp
+filesystem inventory drift. Those records were not blindly rebound or declared
+complete. Reconcile their actual current sources with the owning task before
+merging. UI tests and package/capture acceptance are separate checkpoints.
+No firmware or output actuation belongs to this change.

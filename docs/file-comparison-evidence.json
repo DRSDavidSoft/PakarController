@@ -5,6 +5,46 @@
   "files": [
     {
       "origin": "Pealayer",
+      "path": "src/ui/egui_dock.rs",
+      "sha256": "749f7960e4af7dbb29710818d8b7f178827ad2ffd0b1260aca89332cf91ab742",
+      "source_read": "complete",
+      "verdict": "parity-gap",
+      "preserved": [
+        "Read the complete 382-line donor. Reuse its presentation adapter approach, stable panel identities, existing panel body/menu renderer, palette-derived styling and modal input protection. Pakar retains DockState as its canonical owner while Pealayer retains CraftUI Layout; neither application stores a second parallel workspace.",
+        "Pakar's adapter projects read-only state and applies validated CraftUI gestures to the original DockState, preserving hidden-panel ownership, native persistence and nested floating/collapsed state. Existing board session, capability filtering and hardware commands are not duplicated."
+      ],
+      "targets": [
+        {
+          "path": "desktop/src/ui/craft_workspace.rs",
+          "sha256": "2484e9d497d3a0aac2d1b9e2b0b567864808f1a50f131321eb11c3cefee1ad3b",
+          "anchor": "pub fn show("
+        }
+      ],
+      "proof": [
+        {
+          "path": "desktop/src/ui/craft_workspace.rs",
+          "sha256": "2484e9d497d3a0aac2d1b9e2b0b567864808f1a50f131321eb11c3cefee1ad3b",
+          "anchor": "fn craft_moves_resize_and_close_update_the_same_workspace()"
+        }
+      ],
+      "omissions": [
+        {
+          "code": "Pealayer-specific video/window hosting and workspace commit reconstruction",
+          "disposition": "not-applicable",
+          "reason": "Pakar has no media player and already owns a DockState with its own hidden-panel persistence. Rebuilding it from a second schema would lose unrelated state."
+        },
+        {
+          "code": "Nested floating splits and whole floating-group redocking in CraftUI",
+          "disposition": "pending",
+          "reason": "The pinned egui 0.36 CraftUI surface presents floating groups as tabs. Original nested splits survive in storage and return in egui Dock; individual tabs can redock. Broader floating-surface parity needs a reviewed upstream adapter."
+        }
+      ],
+      "remaining": [
+        "Real native captures and deployed acceptance are separate from the passing 173 UI tests; no physical hardware evidence is implied."
+      ]
+    },
+    {
+      "origin": "Pealayer",
       "path": "src/platform/window_icons.rs",
       "sha256": "63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e",
       "source_read": "complete",
@@ -21,7 +61,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "desktop.set_icon(&icon)"
         }
       ],
@@ -1571,7 +1611,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn draw_table(",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         }
       ],
       "proof": [
@@ -1608,7 +1648,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn table_scene_fits_small_dock_and_zooms_at_pointer()",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         }
       ],
       "omissions": [
@@ -1642,24 +1682,24 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn device_settings_link(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn editor_contents(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -1692,14 +1732,14 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -1739,7 +1779,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "egui::Scene::new()",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         }
       ],
       "proof": [
@@ -7916,7 +7956,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn app_management(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "proof": [
@@ -8535,7 +8575,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "value[\"pixel_preview\"]"
         },
         {
@@ -9599,7 +9639,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "Enable API bridge / repeater",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "omissions": [
@@ -13684,7 +13724,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -13825,7 +13865,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -16411,7 +16451,7 @@
       "source_read": "complete",
       "targets": [
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "pub trait DropdownUiExt",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16426,7 +16466,7 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "super::dropdown::ComboBox::from_id_salt(\"theme\")",
           "path": "desktop/src/ui/preferences.rs"
         },
@@ -16436,7 +16476,7 @@
           "path": "desktop/src/ui/device_settings.rs"
         },
         {
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/shell.rs"
         },
@@ -16451,7 +16491,7 @@
           "anchor": "pub fn finish_network("
         }
       ],
-      "sha256": "134f1613df05c9db44f8ccd178981a8eca4fb6c254ced6466229afca66b40ee9",
+      "sha256": "561539d9cae8e823796e16f9314fe7a7bf90cc894c6535540bb2ae8b88a01584",
       "remaining": [
         "Installed native Output-panel visual acceptance and real USB/Wi-Fi switching in both directions with power-cycle persistence remain pending; native source/loopback tests do not prove optical output or full application parity."
       ],
@@ -16470,28 +16510,29 @@
         "Native box-workspace checkpoint scoped rereview: donor ComboBox/show_ui, dropdown_style, menu_ui focus ownership, choice_with_close and DropdownUiExt were compared with the unchanged imported dropdown module and current shell consumers. The new key_boxes canvas delegation retains existing melody/menu dropdowns. Fixed full-row allocation, inside focus stroke, Button font, temporary density restoration and enabled/selected keyboard registration remain in use. Only the changed shell target hash is refreshed here; historical complete donor review is not recertified by this scoped pass. Native build and visual capture remain separate.",
         "Runtime LED transmitter checkpoint reuses the fully read actual donor ComboBox/DropdownUiExt, not a second widget. effect_controls.rs renders a compact setting row from advertised compiled choices with observed active backend, pending/disabled state and explicit driver/storage errors, never an optimistic selected value. led_backend.rs is new Pakar transport logic, not claimed as donor code: one mutation, bounded same-board/boot observation-only completion, persisted/requested/active/readiness checks and no uncertain-write replay over HTTP, WebSocket or USB.",
         "Preferences geometry checkpoint reread the complete current actual src/ui/dropdown.rs through EOF at the canonical Pealayer source path and compared the theme, density, language, direction and compact-category consumers. Theme, language and direction expressions are unchanged; the new narrow Preferences category selector uses the same ComboBox/DropdownUiExt focus owner and inside-stroke rows. No duplicate dropdown implementation or optimistic configuration write was introduced; only this reviewed Preferences target is rebound.",
-        "Native-table owner compared the current complete-read donor with cell_order_controls and replaced its stock Shape selector with the existing imported ComboBox/DropdownUiExt. Enabled/selected registration, full-width keyboard choices and closed-popup ownership now match the shared selector; the donor relay_style.dart was also compared for semantic styling but no Flutter sizing code is falsely attributed as a Rust import."
+        "Native-table owner compared the current complete-read donor with cell_order_controls and replaced its stock Shape selector with the existing imported ComboBox/DropdownUiExt. Enabled/selected registration, full-width keyboard choices and closed-popup ownership now match the shared selector; the donor relay_style.dart was also compared for semantic styling but no Flutter sizing code is falsely attributed as a Rust import.",
+        "Workspace modes pass reread all 652 current donor lines. Imported the temporary Body-to-Button font substitution around the native ComboBox and its restoration, preserving existing focus/navigation and full-width row owners. Both workspace choices use this same selector. Native wrapper Check and all 173 UI tests passed; visual and production acceptance remain distinct."
       ],
       "improvement": "Preserves all current donor dropdown behavior while adding the locked egui from_label trigger identity for existing labeled settings and actual connection-control keyboard ownership with busy-port rejection. Clears texture ownership before native assertions to avoid a second panic masking a failure. Native execution and production visual acceptance remain separate from source wiring.",
       "verdict": "scoped-improvement",
       "proof": [
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_arrows_seed_focus_skip_disabled_commit_enter_and_cancel_escape()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_search_keeps_text_focus_until_arrow_enters_choices()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_color_rows_are_full_width_equal_height_and_hover_stable()",
           "path": "desktop/src/ui/dropdown.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn from_label_keeps_locked_egui_trigger_identity()",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16501,7 +16542,7 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "fn dropdown_unregistered_editor_retains_arrow_keys()",
           "path": "desktop/src/ui/dropdown.rs"
         },
@@ -16595,17 +16636,17 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "pub enum UiControlDensity"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "from_id_salt(\"control-density\")"
         },
         {
           "path": "desktop/src/ui/dropdown.rs",
-          "sha256": "92376984276d5bc4714cd59270ba839fa3b00b66d68ba9e8a03e7024870af4d8",
+          "sha256": "fa6351af0f8f0085a2de31b838527a224b7c13df7a5750c19a26715a2d4521fb",
           "anchor": "crate::ui::control_density::paint_chevron"
         },
         {
@@ -16661,12 +16702,12 @@
           "path": "desktop/src/ui/color_picker.rs"
         },
         {
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "super::color_picker::accent_picker",
           "path": "desktop/src/ui/preferences.rs"
         },
         {
-          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "\"Recent colors\"",
           "path": "desktop/src/ui/i18n.rs"
         }
@@ -17922,7 +17963,7 @@
     {
       "origin": "Pealayer",
       "path": "src/ui/i18n.rs",
-      "sha256": "811a48221c47c903c1d70ca904ead90a7a6b7f5ee0ba9a5f26a7e60dd30a75c3",
+      "sha256": "bc01f8442cb8a002243e12339bf1fb23c42f0d7028262493011318c90147b5f9",
       "source_read": "complete",
       "verdict": "parity-gap",
       "preserved": [
@@ -17930,12 +17971,13 @@
         "Actual donor platform/UI face loading, Vazirmatn and Phosphor registration, application dictionary, identity-preserving visual_text, script detection, input alignment and horizontal/vertical direction helpers retained and wired into real native controls.",
         "Monospace Persian fallback and preference-driven priority refresh added without discarding later widget font registrations. Actual donor contextual glyph test adapted to both families; saved Unicode and peer identifiers never manually reversed.",
         "Native control/grid checkpoint scoped rereview: donor visual_text, contains_arabic_script, input_alignment, layout/vertical_layout and logical-Unicode/alignment tests were compared with current singleline_text_edit and changed primary action styling. Input alignment still follows logical text/direction with centered Button-font geometry; action labels remain localized with explicit Button font. New key-box application-owned translations do not translate peer identifiers or reverse text. Font installation and shaping/font-retention tests remain intact. Updated current target/proof hashes after examining these portions, without claiming a new complete-file donor read or build/capture acceptance.",
-        "Preferences geometry checkpoint reread complete actual src/ui/i18n.rs through EOF at canonical Pealayer revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Persian/System/English selection and independent automatic/LTR/RTL direction controls remain identical, with logical Unicode, native shaping and the retained bundled Vazirmatn path. The footer now reserves actions on the appropriate trailing edge, with clipped status in its remaining lane; its regression covers both directions. Untranslated application-management copy, named emphasis/font-family preferences and deployed Persian visual acceptance remain open, not resolved by a consumer hash refresh."
+        "Preferences geometry checkpoint reread complete actual src/ui/i18n.rs through EOF at canonical Pealayer revision 5a6961ce6a477a4726b7baf8a84d12fde1cdf6ad. Persian/System/English selection and independent automatic/LTR/RTL direction controls remain identical, with logical Unicode, native shaping and the retained bundled Vazirmatn path. The footer now reserves actions on the appropriate trailing edge, with clipped status in its remaining lane; its regression covers both directions. Untranslated application-management copy, named emphasis/font-family preferences and deployed Persian visual acceptance remain open, not resolved by a consumer hash refresh.",
+        "Workspace modes pass reread all 1594 current donor lines. The donor now delegates native/custom font resolution to fonts.rs; that separate implementation is not claimed as imported into Pakar. Logical Unicode, direction, Persian fallback and existing font registration remain intact. Added only grouped Preferences and workspace chrome translations; native UI tests passed."
       ],
       "targets": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "pub(crate) fn configure_ui_fonts"
         },
         {
@@ -17945,7 +17987,7 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "AppLanguage::Persian"
         },
         {
@@ -17982,12 +18024,12 @@
       "proof": [
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "fn contextual_persian_in_labels_and_monospace_inputs"
         },
         {
           "path": "desktop/src/ui/i18n.rs",
-          "sha256": "6bbc4339ba59e6abe569f7620839bbd11ea6c5d5736146c5df712286bfba4d74",
+          "sha256": "410c9b6948b919bc738896ff3a499209ab25abfb899cfd1e290685cfec0a60ca",
           "anchor": "fn changing_language_preserves_widget_fonts"
         },
         {
@@ -18436,12 +18478,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "fn save_status_bar_preferences("
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "let firmware_progress = self.firmware_observation().filter(|p| p.active);"
         },
         {
@@ -18796,7 +18838,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "fn synchronize_context("
         },
         {
@@ -18817,7 +18859,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -19230,7 +19272,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "menu::top_menu_button(ui, crate::ui::i18n::text(\"File\")"
         },
         {
@@ -19728,17 +19770,17 @@
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "pub application_shortcuts:"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "Keyboard shortcuts"
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "crate::application_shortcuts::take_action"
         }
       ],
@@ -19848,7 +19890,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20018,7 +20060,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20244,7 +20286,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "value[\"messages\"]",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         },
         {
           "path": "desktop/src/platform/notifications.rs",
@@ -20325,7 +20367,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "icons::searchable_workspace_icon_picker"
         },
         {
@@ -21999,11 +22041,12 @@
     {
       "origin": "Pealayer",
       "path": "scripts/capture-visible-window-windows.ps1",
-      "sha256": "94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f",
+      "sha256": "54d099cdb7e3cfb757cf55572f7a490ff3667a210dab878ead2c63b8c3a6200d",
       "source_read": "complete",
       "verdict": "scoped-improvement",
       "preserved": [
-        "Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior."
+        "Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior.",
+        "Workspace modes pass reread the complete 73-line donor and complete Pakar capture helper. The donor now accepts an optional ExpectedProcessId; Pakar already requires it and validates window ownership and no-overwrite semantics. No additional capture implementation was added."
       ],
       "targets": [
         {
@@ -22270,7 +22313,7 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);"
         },
         {
@@ -23216,7 +23259,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "value[\"tray_shell\"]"
         },
         {
@@ -23349,22 +23392,22 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "egui::Panel::bottom(ui.id().with(\"preferences-footer\"))"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn sync_connection_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn sync_status_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn connection_summary("
         },
         {
@@ -23375,7 +23418,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "pub(super) fn draw_led_settings(",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         }
       ],
       "omissions": [
@@ -23411,38 +23454,38 @@
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()"
         },
         {
           "path": "desktop/src/config.rs",
-          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8",
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b",
           "anchor": "fn cell_background_preference_is_opt_in_and_roundtrips_without_other_changes()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn lamp_background_preview_and_discard_preserve_saved_configuration()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn external_connection_owner_updates_all_baselines_without_losing_unrelated_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn status_bar_changes_survive_preferences_save_or_discard_without_erasing_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f",
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d",
           "anchor": "fn connection_summary_is_contextual_and_dirty_preferences_cannot_open_another_editor()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         }
       ],
       "improvement": "One connection owner instead of conflicting Preferences editors, while preserving unrelated drafts and the donor's triple-baseline merge mechanism."
@@ -23484,7 +23527,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "0b0ad4b12bff750bfc5a7126190992b301ec5607c987f8855e23c152aadf3b7f"
+          "sha256": "71d8acb90d2fb5d865493207bee77cfee3dd6b3b27385abfdb4dcc2871697b9d"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -24427,7 +24470,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -24764,7 +24807,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8",
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -24974,7 +25017,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn synchronize_context",
-          "sha256": "015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8"
+          "sha256": "a487c7de75bc4b7f067f98f81f1f49ffd3e3d285f4615a3895f2e6a5864d2164"
         },
         {
           "path": "desktop/src/ui/layout.rs",
@@ -24989,7 +25032,7 @@
         {
           "path": "desktop/src/config.rs",
           "anchor": "pub native_workspaces",
-          "sha256": "e1f8ccb907cedddfd1ac206921cf63cdab124103841d057c4298f6b247b103c8"
+          "sha256": "200b327ad342deb2e26973829c1a3b7e46de313136aae517e8c5dd1323dd3b2b"
         },
         {
           "path": "mobile/lib/table_workspace.dart",

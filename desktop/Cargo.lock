@@ -943,6 +943,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "craft-ui"
+version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs.git?rev=9c5ebb782eb6dde4c55383737257261a11cc202d#9c5ebb782eb6dde4c55383737257261a11cc202d"
+dependencies = [
+ "egui",
+]
+
+[[package]]
 name = "crc32fast"
 version = "1.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3635,6 +3643,7 @@ dependencies = [
  "ab_glyph",
  "base64 0.23.1",
  "calamine",
+ "craft-ui",
  "crossterm",
  "eframe",
  "egui-elegance",
