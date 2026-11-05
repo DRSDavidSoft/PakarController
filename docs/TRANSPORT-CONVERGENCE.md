@@ -16,9 +16,19 @@ delivery properties; bootloader protocols are external recovery contracts.
 
 Do not remove the current native-service boundary: outer opcode0x11 is an audio
 cue in Pakar but PWM in PCController. Both use A5/COBS/CRC-8/ATM and48-byte payloads,
-yet reserved-byte admission, HELLO/status/settings, timestamped ACK/events and
+yet HELLO/status/settings, timestamped ACK/events and
 EEPROM layouts differ. Sharing codec mathematics does not make these semantics
 interchangeable. See PC-CONTROLLER-MERGE-READINESS.md for the preserved comparison.
+
+Opcode hardening now gives both namespaces a single allocation owner in
+PCController Project/ProtocolContract.json. The actual original generator was
+extracted into a portable core, pinned and reused for firmware/Rust/Flutter views
+and Pealayer's native sender. Published allocations and CI base comparisons forbid
+renumbering, removal or reserved-slot reuse. Native A5/1 and Pakar A5/0 are fixed
+namespace admission, not generation selectors. Both sides reject foreign markers
+before dispatch; the existing explicit contract tunnel remains. Do not restore
+advisory marker acceptance or cross-dialect fallback. Payload/service parity and
+deployment still have their separate acceptance gates.
 
 ## Actual implementation comparison
 

@@ -723,6 +723,10 @@ mod tests {
                 let accept = || loop {
                     match listener.accept() {
                         Ok((stream, _)) => {
+                            // Winsock may inherit the listener's nonblocking mode.
+                            // Only accept is polled; fixture HTTP/WS I/O must wait
+                            // for bytes within the bounded socket timeouts below.
+                            stream.set_nonblocking(false).unwrap();
                             stream
                                 .set_read_timeout(Some(Duration::from_secs(2)))
                                 .unwrap();
@@ -1221,6 +1225,8 @@ mod tests {
                     }
                     Err(error) => panic!("{error}"),
                 };
+                // Do not inherit the polled listener's mode on Windows.
+                socket.set_nonblocking(false).unwrap();
                 socket
                     .set_read_timeout(Some(Duration::from_secs(2)))
                     .unwrap();

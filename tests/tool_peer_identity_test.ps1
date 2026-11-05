@@ -34,9 +34,9 @@ Assert-PakarToolUsbHello $reply
 $reply[13]=7;$rejected=$false;try{Assert-PakarToolUsbHello $reply}catch{$rejected=$true};Assert $rejected 'USB old board release admitted'
 foreach($path in @('set-device-name.ps1','set-device-access.ps1','set-device-network.ps1')){
   $source=Get-Content -LiteralPath (Join-Path $PSScriptRoot ('../tools/'+$path)) -Raw
-  Assert ($source -match 'Send-PakarNetworkRequest \$serial 0x01 .*New-PakarToolUsbHello') 'Provisioner lacks controller release introduction'
+  Assert ($source -match 'Send-PakarNetworkRequest \$serial \(\[byte\]\[PakarOpcode\]::Hello\).*New-PakarToolUsbHello') 'Provisioner lacks controller release introduction'
   $check=$source.IndexOf('Assert-PakarToolUsbHello $hello')
-  $firstMutation=if($path -eq 'set-device-name.ps1'){$source.IndexOf('Send-NameChunk ([byte[]] @(0))')}elseif($path -eq 'set-device-access.ps1'){$source.IndexOf('Send-AccessChunk ([byte[]] @(0))')}else{$source.IndexOf('$null=Send-PakarNetworkRequest $serial 0x53')}
+  $firstMutation=if($path -eq 'set-device-name.ps1'){$source.IndexOf('Send-NameChunk ([byte[]] @(0))')}elseif($path -eq 'set-device-access.ps1'){$source.IndexOf('Send-AccessChunk ([byte[]] @(0))')}else{$source.IndexOf('$null=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::NetworkConfig)')}
   Assert ($check -ge 0 -and $firstMutation -gt $check) 'Provisioner writes before reciprocal compatibility check'
 }
 # Execute the actual provisioning request functions against a byte queue. Never

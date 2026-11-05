@@ -10,6 +10,7 @@ import 'package:pakarcontroller/usb_transport.dart';
 import 'package:pakarcontroller/lan_resolver.dart';
 import 'package:pakarcontroller/pixel_diagnostic.dart';
 import 'package:pakarcontroller/models.dart' show audioCueNames;
+import 'package:pakarcontroller/protocol_opcodes.dart';
 
 class UsbFixture {
   UsbFixture() {
@@ -197,6 +198,29 @@ class UsbFixture {
 }
 
 void main() {
+  test('opcode namespaces never fall back across valid-CRC frames', () {
+    List<int> encoded(List<int> raw) {
+      raw.add(UsbFrame.crc(raw));
+      final out = <int>[0];
+      var at = 0, code = 1;
+      for (final value in raw) {
+        if (value == 0) { out[at] = code; at = out.length; out.add(0); code = 1; }
+        else { out.add(value); code++; }
+      }
+      out[at] = code;
+      return out;
+    }
+    for (var discriminator = 1; discriminator < 256; discriminator++) {
+      expect(UsbFrame.decode(encoded([165, discriminator, 0x11, 7, 1, 4])), isNull);
+    }
+    final current = UsbFrame(PakarOpcode.audioCue, 7, [4]).encode();
+    expect(UsbFrame.decode(current.sublist(0, current.length-1))!.opcode, PakarOpcode.audioCue);
+    expect(() => UsbFrame(0x111, 7, []).encode(), throwsFormatException);
+    final optional = UsbFrame(0xfc, 7, []).encode();
+    expect(UsbFrame.decode(optional.sublist(0, optional.length-1))!.opcode, 0xfc);
+    expect(ControllerOpcode.requests.contains(ControllerOpcode.pwmSet), isTrue);
+    expect(ControllerOpcode.requests.contains(ControllerOpcode.ack), isFalse);
+  });
   test('COBS rejects embedded delimiters even with a valid envelope CRC', () {
     final raw = [165, 0, 1, 1, 0];
     raw.add(UsbFrame.crc(raw));

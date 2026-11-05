@@ -56,6 +56,11 @@ Engineering packages are attached to successful [Build workflow runs](https://gi
 Select the intended commit, not just the newest timestamp. Firmware, Windows and
 Android outputs are separate artifacts; release packaging adds SHA-256 manifests
 and provenance. A successful build is not a deployment or a stable-release claim.
+The firmware artifact includes AVR application-only `avr.ino.hex` and verified
+full-flash `avr.ino.with_bootloader.hex` for polling, busy-wire and buffered
+links. Draft release ZIPs include both as well. The latter contains Urboot and
+is intended for explicit full-flash/ISP recovery; neither HEX writes EEPROM or
+fuses. ESP32-S3 application/OTA images remain raw `.bin`, not Intel HEX.
 See [release policy and verification](docs/REPOSITORY-GOVERNANCE.md).
 
 <details>

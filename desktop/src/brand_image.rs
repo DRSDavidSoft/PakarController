@@ -3,6 +3,11 @@
 use base64::{Engine, engine::general_purpose::STANDARD};
 
 pub fn icon_bytes() -> &'static [u8] {
+    include_bytes!("../../assets/branding/app-icon-1024.png")
+}
+
+/// Bounded identity-wire derivative of the same editable application master.
+pub fn compact_icon_bytes() -> &'static [u8] {
     static BYTES: std::sync::OnceLock<Vec<u8>> = std::sync::OnceLock::new();
     BYTES.get_or_init(|| {
         STANDARD

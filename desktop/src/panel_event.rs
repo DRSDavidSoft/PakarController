@@ -3,13 +3,14 @@
 //! deadlines and no-replay semantics from hostbridge/buzzer_mirror.go. The
 //! donor's motion/relay/menu-page IDs do not describe this board and are not
 //! imported as capability authority (Project/FrontPanelModel.h).
+use crate::protocol_opcodes::pakar as wire;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::VecDeque,
     time::{Duration, Instant},
 };
 
-pub const USB_OPCODE: u8 = 0xb8;
+pub const USB_OPCODE: u8 = wire::PANEL_EVENT;
 const KINDS: [&str; 13] = [
     "rest", "cell", "mode", "effect", "pixel", "network", "progress", "fault", "complete",
     "output", "menu", "scan", "state",

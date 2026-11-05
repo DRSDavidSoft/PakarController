@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" fill="none">
+  <title>PakarController — illuminated control grid</title>
+  <desc>A luminous emerald control pad with a white cell, active green cells and a circular button, on a deep teal application tile.</desc>
+  <defs>
+    <linearGradient id="surface" x1="76" y1="40" x2="438" y2="490" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173F3B"/><stop offset=".52" stop-color="#092B2B"/><stop offset="1" stop-color="#071C25"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="64" y1="32" x2="436" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5BE7B1" stop-opacity=".7"/><stop offset=".45" stop-color="#3CD9A0" stop-opacity=".12"/><stop offset="1" stop-color="#0F4443"/>
+    </linearGradient>
+    <linearGradient id="white" x1="106" y1="94" x2="242" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#C5EBDD"/>
+    </linearGradient>
+    <linearGradient id="green" x1="120" y1="238" x2="392" y2="352" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8EF2B8"/><stop offset=".5" stop-color="#35DE95"/><stop offset="1" stop-color="#0DA879"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="264" y1="118" x2="408" y2="242" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#57EACB"/><stop offset="1" stop-color="#16B99E"/>
+    </linearGradient>
+    <linearGradient id="button" x1="274" y1="270" x2="404" y2="394" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#234D48"/><stop offset="1" stop-color="#113B39"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="30" width="464" height="464" rx="112" fill="#031415" fill-opacity=".2"/>
+  <rect x="24" y="18" width="464" height="464" rx="112" fill="url(#surface)"/>
+  <rect x="25.5" y="19.5" width="461" height="461" rx="110.5" stroke="url(#edge)" stroke-width="3"/>
+  <path d="M94 66C137 43 184 38 241 38" stroke="#BCFFE0" stroke-opacity=".12" stroke-width="3" stroke-linecap="round"/>
+  <rect x="100" y="96" width="132" height="132" rx="31" fill="#031B1C" fill-opacity=".6" transform="translate(0 9)"/>
+  <rect x="100" y="96" width="132" height="132" rx="31" fill="url(#white)"/>
+  <path d="M122 115H206" stroke="white" stroke-opacity=".75" stroke-width="3" stroke-linecap="round"/>
+  <rect x="252" y="118" width="132" height="132" rx="31" fill="#031B1C" fill-opacity=".6" transform="translate(0 9)"/>
+  <rect x="252" y="118" width="132" height="132" rx="31" fill="url(#mint)"/>
+  <path d="M275 137H359" stroke="#C8FFEC" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+  <rect x="124" y="250" width="132" height="132" rx="31" fill="#031B1C" fill-opacity=".6" transform="translate(0 9)"/>
+  <rect x="124" y="250" width="132" height="132" rx="31" fill="url(#green)"/>
+  <path d="M147 269H231" stroke="#D8FFE8" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+  <rect x="276" y="272" width="132" height="132" rx="31" fill="#031B1C" fill-opacity=".6" transform="translate(0 9)"/>
+  <rect x="276" y="272" width="132" height="132" rx="31" fill="url(#button)" stroke="#57CBB0" stroke-opacity=".35" stroke-width="2"/>
+  <circle cx="342" cy="338" r="34" stroke="#91F4C4" stroke-width="10"/>
+  <circle cx="342" cy="338" r="20" fill="#40DCA0"/>
+  <circle cx="342" cy="331" r="9" fill="#AEF8D1" fill-opacity=".55"/>
+  <rect x="208" y="433" width="64" height="5" rx="2.5" fill="#397F6A"/>
+  <circle cx="290" cy="435.5" r="4.5" fill="#F4CB77"/>
+</svg>

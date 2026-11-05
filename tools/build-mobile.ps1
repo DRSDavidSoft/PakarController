@@ -14,6 +14,8 @@ param(
     [switch]$Plan
 )
 $ErrorActionPreference='Stop'
+& node (Join-Path $PSScriptRoot '../interfaces/controller-wire/consumer.mjs') --pakar --check | ForEach-Object { Write-Host $_ }
+if ($LASTEXITCODE -ne 0) { throw 'Canonical opcode bindings are stale.' }
 . (Join-Path $PSScriptRoot 'script-runtime.ps1')
 & (Join-Path $PSScriptRoot 'verify-versions.ps1')
 & (Join-Path $PSScriptRoot 'consult-reuse.ps1') -Concern api-contract -Gate | Out-Null

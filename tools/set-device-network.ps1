@@ -14,7 +14,7 @@ $ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot 'serial-wire.ps1')
 . (Join-Path $PSScriptRoot 'peer-identity.ps1')
 function Read-PakarNetworkStatus([byte[]]$Reply,[bool]$StationEnabled,[bool]$ApEnabled) {
-    if($Reply[2] -ne 0x90 -or $Reply[4] -lt 19 -or $Reply[20] -gt 1 -or $Reply[21] -gt 1) {
+    if($Reply[2] -ne ([byte][PakarOpcode]::StatusResponse) -or $Reply[4] -lt 19 -or $Reply[20] -gt 1 -or $Reply[21] -gt 1) {
         throw 'ESP returned an invalid status observation after save; do not automatically repeat provisioning.'
     }
     # Payload15 is station CONNECTED; payload16 is AP started. Neither is a
@@ -59,28 +59,28 @@ try {
     $serial.DtrEnable=$false;$serial.RtsEnable=$false;$serial.ReadTimeout=100
     $serial.Open();Start-Sleep -Milliseconds 250;$serial.DiscardInBuffer()
     [byte]$sequence=1
-    $hello=Send-PakarNetworkRequest $serial 0x01 $sequence (New-PakarToolUsbHello) 0x81 $TimeoutMs
+    $hello=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::Hello) $sequence (New-PakarToolUsbHello) ([byte][PakarOpcode]::HelloResponse) $TimeoutMs
     Assert-PakarNetworkEspHello $hello # Premutation role/capability/read integrity gate.
     Assert-PakarToolUsbHello $hello # Mutual release policy before any staged setting.
     $sequence++
-    $null=Send-PakarNetworkRequest $serial 0x53 $sequence ([byte[]]@(0)) 0x80 $TimeoutMs
+    $null=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::NetworkConfig) $sequence ([byte[]]@(0)) ([byte][PakarOpcode]::Ack) $TimeoutMs
     foreach($entry in @(@{Kind=1;Bytes=$ssidBytes},@{Kind=2;Bytes=$passwordBytes})){
         for($offset=0;$offset -lt $entry.Bytes.Length;$offset+=47){
             $length=[Math]::Min(47,$entry.Bytes.Length-$offset)
             $chunk=[byte[]]::new($length+1);$chunk[0]=$entry.Kind
             [Array]::Copy($entry.Bytes,$offset,$chunk,1,$length)
             $sequence++
-            try{$null=Send-PakarNetworkRequest $serial 0x53 $sequence $chunk 0x80 $TimeoutMs}
+            try{$null=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::NetworkConfig) $sequence $chunk ([byte][PakarOpcode]::Ack) $TimeoutMs}
             finally{[Array]::Clear($chunk,0,$chunk.Length)}
         }
     }
     $sequence++
-    $null=Send-PakarNetworkRequest $serial 0x53 $sequence ([byte[]]@(3,[byte]$stationEnabled,[byte]$apEnabled)) 0x80 $TimeoutMs
+    $null=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::NetworkConfig) $sequence ([byte[]]@(3,[byte]$stationEnabled,[byte]$apEnabled)) ([byte][PakarOpcode]::Ack) $TimeoutMs
     # Commit ACK is not connected. Give the scheduled interface apply time, then
     # perform one read-only query; the script does not retry any stage/commit.
     Start-Sleep -Milliseconds 750
     $sequence++
-    $status=Send-PakarNetworkRequest $serial 0x02 $sequence ([byte[]]@()) 0x90 $TimeoutMs
+    $status=Send-PakarNetworkRequest $serial ([byte][PakarOpcode]::GetStatus) $sequence ([byte[]]@()) ([byte][PakarOpcode]::StatusResponse) $TimeoutMs
     Read-PakarNetworkStatus $status $stationEnabled $apEnabled
 } finally {
     if($secretPointer -ne [IntPtr]::Zero){[Runtime.InteropServices.Marshal]::ZeroFreeBSTR($secretPointer)}

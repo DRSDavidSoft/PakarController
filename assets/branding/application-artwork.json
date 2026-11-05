@@ -1,0 +1,14 @@
+{
+  "source": "assets/branding/app-icon.svg",
+  "source_sha256": "9f554d00ecb84361f5371a1c800db0040b3fec4c63244550905bbad9c9b006ac",
+  "outputs": {
+    "assets/branding/app-icon-24.png": "e19239958b712562c6a5914dabc456de5a62cac089aae6334a1c6f0d4056178a",
+    "assets/branding/app-icon-32.png": "629c70966b7aa843afd473b5c7861fba267e0230b1611bd208224add21ea3111",
+    "assets/branding/app-icon-64.png": "cdb7ea4ccf02e71eb01107b70e3267e47241b5f2155db070878129fc402bfd0b",
+    "assets/branding/app-icon.png.base64": "71b8cf5cb03da6097d0776f9e5401a5b5c808ad72bf289e56297e68d413bccdf",
+    "assets/branding/app-icon-128.png": "1ee56481ded568155c0d5d81a4676db6d2cd9c823b485561e6e51beca0fdc6a2",
+    "assets/branding/app-icon-256.png": "6ab3f51ac979232a5892d7324d962a33018c8eaf9a81db634169da704f7a105e",
+    "assets/branding/app-icon-512.png": "383b2cbd51db540c1e3cfb079dd44902a6ae648ae103a46f67b97e7f7c67417e",
+    "assets/branding/app-icon-1024.png": "35cb15b03ac789701ac0b2e0b0970ac1a0b3a758ce061ec99b365cec2a274fe7"
+  }
+}

@@ -7,7 +7,8 @@ import {spawnSync} from 'node:child_process';
 import {createLogger,sanitizeText,runChild} from '../tools/script-console.mjs';
 import {main,portableArguments,legacyBuildArguments,doctor,scriptPath} from '../tools/pakar.mjs';
 import {compareVersions,installationPlan,validatePins,checkDependencies,applyUpdates,dependencyMarkdown,fetchIndex} from '../tools/firmware-dependencies.mjs';
-import {collectArtifacts,readArtifact,expectedArtifacts,legacyArtifacts,unchangedWrite,artifactMarkdown} from '../tools/firmware-report.mjs';
+import {collectArtifacts,readArtifact,expectedArtifacts,legacyArtifacts,unchangedWrite,artifactMarkdown,validateAvrHex} from '../tools/firmware-report.mjs';
+import {encodeHex} from '../tools/prepare-avr-image.mjs';
 import {trustedBuild,verifiedArtifact,deployArtifact} from '../tools/deploy-artifact.mjs';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const memory=()=>({value:'',write(text){this.value+=text;}});
@@ -77,17 +78,24 @@ const invalidCli=spawnSync(process.execPath,['tools/update-firmware.mjs','--imag
 assert.notEqual(invalidCli.status,0);assert.match(invalidCli.stderr,/Mode must be/);assert.doesNotMatch(invalidCli.stderr,/ECONNREFUSED/);
 const observed=collectArtifacts(artifacts);assert.equal(observed.length,1);assert.equal(observed[0].format,'raw');assert.ok(!existsSync(imagePath+'.gz'));
 assert.throws(()=>collectArtifacts(artifacts,{required:true}),/Missing expected/);
-assert.equal(expectedArtifacts.length,4);assert(expectedArtifacts.every(name=>!name.startsWith('esp8266')));
+assert.equal(expectedArtifacts.length,10);assert(expectedArtifacts.every(name=>!name.startsWith('esp8266')));
+assert.throws(()=>validateAvrHex(Buffer.from(':00000001FE\n')),/checksum/);
+assert.throws(()=>validateAvrHex(Buffer.from([0xff])),/Non-ASCII/);
+assert.equal(validateAvrHex(Buffer.from(encodeHex(Buffer.alloc(32)))),32);
 for(const name of expectedArtifacts.filter(name=>name.startsWith('avr'))){
-  const path=resolve(artifacts,name);mkdirSync(resolve(path,'..'),{recursive:true});writeFileSync(path,Buffer.alloc(32768));
+  const path=resolve(artifacts,name);mkdirSync(resolve(path,'..'),{recursive:true});const data=Buffer.alloc(32768);writeFileSync(path,name.endsWith('.hex')?encodeHex(data):data);
 }
-assert.equal(collectArtifacts(artifacts,{required:true}).length,4);
+assert.equal(collectArtifacts(artifacts,{required:true}).length,10);
 assert.throws(()=>collectArtifacts(artifacts,{required:true,includeLegacy:true}),/Missing expected.*esp8266/);
 for(const name of legacyArtifacts){
   const path=resolve(artifacts,name);mkdirSync(resolve(path,'..'),{recursive:true});writeFileSync(path,image);
 }
-assert.equal(collectArtifacts(artifacts,{required:true}).length,4,'Old cached legacy artifacts are not primary release artifacts');
-assert.equal(collectArtifacts(artifacts,{required:true,includeLegacy:true,compress:true}).length,8,'Explicit legacy raw/gzip collection is preserved');
+assert.equal(collectArtifacts(artifacts,{required:true}).length,10,'Old cached legacy artifacts are not primary release artifacts');
+assert.equal(collectArtifacts(artifacts,{required:true,includeLegacy:true,compress:true}).length,14,'Explicit legacy raw/gzip collection is preserved');
+const badHex=resolve(artifacts,'avr/avr.ino.with_bootloader.hex');
+writeFileSync(badHex,encodeHex(Buffer.alloc(32768,1)));
+assert.throws(()=>collectArtifacts(artifacts,{required:true}),/HEX differs/);
+writeFileSync(badHex,encodeHex(Buffer.alloc(32768)));
 assert.deepEqual(readArtifact(imagePath,realpathSync(artifacts)),image,'Actual descriptor read retains original application bytes');
 const emptyPath=resolve(artifacts,'empty.bin'),oversizedPath=resolve(artifacts,'oversized.bin'),aliasPath=resolve(artifacts,'alias.bin');
 writeFileSync(emptyPath,Buffer.alloc(0),{flag:'wx'});

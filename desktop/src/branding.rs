@@ -1,5 +1,5 @@
 //! Actual Pealayer image decoder adapted to Pakar's single cross-surface master.
-pub use crate::brand_image::icon_bytes;
+pub use crate::brand_image::{icon_bytes, compact_icon_bytes};
 use eframe::egui;
 use std::hash::{Hash, Hasher};
 use base64::Engine;
@@ -29,7 +29,7 @@ pub fn sync_peer(
     }
     let icon = app
         .and_then(|a| a.icon_bytes())
-        .filter(|b| b.as_slice() != icon_bytes())
+        .filter(|b| b.as_slice() != icon_bytes() && b.as_slice() != compact_icon_bytes())
         .and_then(|b| icon_data_from_bytes(&b))
         .or_else(|| {
             let encoded = match peer.filter(|p| p.known()).map(|p| p.role.as_str()) {
@@ -113,6 +113,26 @@ pub fn logo(ui: &mut egui::Ui, size: f32) {
 mod tests {
     use super::*;
     #[test]
+    fn compact_default_does_not_mask_the_connected_board_role() {
+        let ctx = egui::Context::default();
+        let peer = crate::capabilities::Manifest {
+            board_kind: "controller".into(),
+            role: "first-wins".into(),
+            application: Some(crate::identity::Application {
+                id: "keys.app".into(), name: "Keys".into(), title: "Keys".into(),
+                icon_png_base64: include_str!("../../assets/branding/app-icon.png.base64").trim().into(),
+            }),
+            ..Default::default()
+        };
+        let expected = base64::engine::general_purpose::STANDARD
+            .decode(include_str!("../../assets/branding/keys.png.base64").trim()).unwrap();
+        let expected = icon_data_from_bytes(&expected).unwrap();
+        let mut output = ctx.run_ui(egui::RawInput::default(), |_| {
+            assert_eq!(sync_peer(&ctx, Some(&peer)).unwrap().rgba, expected.rgba);
+        });
+        output.textures_delta.clear();
+    }
+    #[test]
     fn peer_icon_lifecycle_reuses_refresh_and_revokes_on_disconnect() {
         let ctx = egui::Context::default();
         let mut peer = crate::capabilities::Manifest {
@@ -151,9 +171,9 @@ mod tests {
     #[test]
     fn bundled_artwork_decodes_without_files_or_theme_specific_replacements() {
         let icon = window_icon();
-        assert_eq!((icon.width, icon.height), (64, 64));
+        assert_eq!((icon.width, icon.height), (1024, 1024));
         assert_eq!(
-            icon.rgba.as_slice(),
+            crate::brand_image::rgba_at_size(64).as_slice(),
             &include_bytes!(concat!(env!("OUT_DIR"), "/pakar-icon-64.rgba"))[..]
         );
         assert_eq!(
@@ -208,7 +228,7 @@ mod tests {
                 .set
                 .values()
                 .flatten()
-                .any(|delta| delta.image.size() == [64, 64]);
+                .any(|delta| delta.image.size() == [1024, 1024]);
             // Headless tests have no texture backend. Drain before assertions
             // so a failed assertion cannot cause a second destructor panic.
             output.textures_delta.clear();
@@ -222,7 +242,7 @@ mod tests {
                 .set
                 .values()
                 .flatten()
-                .any(|delta| delta.image.size() == [64, 64]);
+                .any(|delta| delta.image.size() == [1024, 1024]);
             output.textures_delta.clear();
             assert!(!uploaded_again, "do not decode/upload on every frame");
         }

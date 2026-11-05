@@ -80,5 +80,19 @@ $taskText=Get-Content -LiteralPath $taskSource -Raw
 Assert ($taskText -match 'SecureStringToBSTR' -and $taskText -match 'ZeroFreeBSTR' -and $taskText -notmatch 'PtrToStringBSTR') 'Secret copied into an immutable managed string'
 Assert ($taskText -match 'DtrEnable=\$false;\$serial.RtsEnable=\$false') 'DTR/RTS reset safety missing'
 Assert ($taskText -match '\[Array\]::Clear\(\$passwordBytes') 'Secret buffer clearing missing'
-Assert ($taskText.IndexOf('Assert-PakarNetworkEspHello $hello') -lt $taskText.IndexOf('$null=Send-PakarNetworkRequest $serial 0x53')) 'Mutation preceded peer verification'
+$taskMutations=@($taskAst.FindAll({param($node)
+    $node -is [Management.Automation.Language.CommandAst] -and
+    $node.GetCommandName() -eq 'Send-PakarNetworkRequest' -and
+    $node.Extent.Text.Contains('[PakarOpcode]::NetworkConfig')
+},$true))
+Assert ($taskMutations.Count -gt 0) 'Network mutation AST was not found'
+foreach($taskGate in @('Assert-PakarNetworkEspHello','Assert-PakarToolUsbHello')){
+    $taskChecks=@($taskAst.FindAll({param($node)
+        $node -is [Management.Automation.Language.CommandAst] -and $node.GetCommandName() -eq $taskGate
+    },$true))
+    Assert ($taskChecks.Count -eq 1) 'Missing or ambiguous commissioning peer gate'
+    foreach($taskMutation in $taskMutations){
+        Assert ($taskChecks[0].Extent.EndOffset -lt $taskMutation.Extent.StartOffset) 'Mutation preceded peer verification'
+    }
+}
 Write-Output 'USB network commissioning host contracts pass: COBS/CRC, role, strict ACK, overlength drop, uncertainty no-replay, mode readback and buffer hygiene; no serial device was opened.'
