@@ -292,6 +292,7 @@ does not certify that a current GitHub run passed or a device was updated.
 | [Documentation hub](docs/README.md) | Task-oriented reading order, tooling and verification boundaries |
 | [Hardware](docs/HARDWARE.md) | Pin mapping and wiring |
 | [API](docs/API.md) | Device transport and commands |
+| [OpenRGB / SignalRGB](docs/RGB-INPUT.md) | Native host RGB inputs, lighting protocols and SignalRGB plugin |
 | [Bluetooth LE](docs/BLUETOOTH.md) | S3 offline Android control, identity, settings and transport limits |
 | [Client updates & monitoring](docs/CLIENT-MANAGEMENT.md) | Configurable release endpoint, enrollment, telemetry and safe cleanup |
 | [Architecture](docs/ARCHITECTURE.md) | Board responsibilities |

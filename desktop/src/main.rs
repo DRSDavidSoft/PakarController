@@ -58,6 +58,7 @@ mod game_presentation;
 mod minigame;
 mod state_appearance;
 mod streaming;
+mod rgb_input;
 mod terminal_ui;
 mod ui;
 mod usb_demand;
@@ -446,6 +447,7 @@ fn websocket_status(text: &str) -> Option<DeviceStatus> {
     websocket_status_ready(&status).then_some(status)
 }
 enum WsCommand {
+    Rgb(Option<rgb_input::Request>),
     Control(realtime::Intent),
     Connect(Endpoint, u64),
     Disconnect,
@@ -1560,6 +1562,7 @@ fn ws_worker(
                 Ok(WsCommand::Rate(value)) => fps = value.min(streaming::MAX_FPS),
                 Ok(WsCommand::Mapping(value)) => mapping = value,
                 Ok(WsCommand::Stream(v)) => streaming = v,
+                Ok(WsCommand::Rgb(request)) => {if let Some(request)=request {rgb_input::reject(request,"Connect a ready board before starting RGB input");}},
                 Ok(WsCommand::Sample(v)) => sampling = v,
                 Ok(WsCommand::PixelSubscribe(v)) => pixel_subscription = v,
                 Ok(WsCommand::Pixel(request) | WsCommand::ArmPixel(request)) => {
@@ -1597,6 +1600,7 @@ fn ws_worker(
                 WsCommand::Rate(value) => fps = value.min(streaming::MAX_FPS),
                 WsCommand::Mapping(value) => mapping = value,
                 WsCommand::Stream(v) => streaming = v,
+                WsCommand::Rgb(request) => {if let Some(request)=request {rgb_input::reject(request,"RGB input cannot start while reconnecting");}},
                 WsCommand::Sample(v) => sampling = v,
                 WsCommand::PixelSubscribe(v) => pixel_subscription = v,
                 WsCommand::Pixel(request) | WsCommand::ArmPixel(request) => {
@@ -1659,6 +1663,9 @@ fn ws_worker(
             let mut sample_layout: Option<pixel_groups::Layout> = None;
             let mut configuration_notice: Option<(String, String, u64, String)> = None;
             let mut pending_arm: Option<(pixel_diagnostic::Request, bool)> = None;
+            // Connection-local owner; reconnect never restarts an output stream.
+            let mut rgb: Option<rgb_input::Input> = None;
+            let mut rgb_ready = false;
             context.request_repaint();
             let mut hue = 0_u16;
             let mut last_stream = Instant::now() - Duration::from_millis(50);
@@ -1703,6 +1710,7 @@ fn ws_worker(
                 }
                 match commands.try_recv() {
                     Ok(WsCommand::Control(request)) => {
+                        if let Some(input)=rgb.take(){input.fail("RGB input released for an explicit board command");}
                         if let Err(error) = request.admit() {
                             request.emit(&events.sender, Err(error));
                         } else if controls.len() >= 8 {
@@ -1746,12 +1754,20 @@ fn ws_worker(
                         }
                     }
                     Ok(WsCommand::Stream(value)) => {
+                        if value && rgb.is_some() {
+                            let _=events.send(for_endpoint(&current,Event::DiagnosticFailure("Streaming".into(),"Stop RGB input before starting rainbow".into())));
+                            context.request_repaint();continue;
+                        }
                         streaming = value;
                         if value {
                             sampling = false;
                         }
                     }
                     Ok(WsCommand::Sample(value)) => {
+                        if value && rgb.is_some() {
+                            let _=events.send(for_endpoint(&current,Event::DiagnosticFailure("Streaming".into(),"Stop RGB input before starting screen sampling".into())));
+                            context.request_repaint();continue;
+                        }
                         sampling = value && streaming::valid_mapping(&mapping)
                             && sample_layout.is_some()
                             && observed_peer.as_ref().is_some_and(|(_, at, _, _)| at.elapsed() < Duration::from_secs(8));
@@ -1767,6 +1783,7 @@ fn ws_worker(
                         if request.endpoint != current
                             || request.at.elapsed() >= Duration::from_secs(3)
                             || pending_arm.is_some()
+                            || rgb.is_some()
                             || streaming
                             || sampling
                             || !observed_peer
@@ -1796,6 +1813,7 @@ fn ws_worker(
                                 || !lease.current()
                                 || streaming
                                 || sampling
+                                || rgb.is_some()
                                 || pending_arm.is_some()
                                 || !observed_peer.as_ref().is_some_and(|(peer, at, ready, _)| {
                                     peer == &request.peer
@@ -1831,8 +1849,47 @@ fn ws_worker(
                             events.send(for_endpoint(&current, Event::PixelSent(request, result)));
                         context.request_repaint();
                     }
+                    Ok(WsCommand::Rgb(request)) => {
+                        if let Some(request)=request {
+                            if rgb.is_some() || streaming || sampling || pending_arm.is_some() || !rgb_ready
+                                || request.at.elapsed()>Duration::from_secs(3)
+                                || !observed_peer.as_ref().is_some_and(|(pin,at,_,_)|pin==&request.peer && at.elapsed()<Duration::from_secs(8)) {
+                                rgb_input::reject(request,"Stop other streams and select the same ready table board in Effects output mode");
+                            } else {
+                                let view=request.view.clone();
+                                match rgb_input::Input::open(request,&mapping,sample_layout.as_ref()) {
+                                    Ok(input)=>rgb=Some(input),
+                                    Err(error)=>{let mut s=view.lock().unwrap();s.status.pending=false;s.status.error=error;}
+                                }
+                            }
+                        } else {rgb=None;}
+                        context.request_repaint();
+                    }
                     Err(TryRecvError::Disconnected) => return Ok(()),
                     Err(TryRecvError::Empty) => {}
+                }
+                if let Some(input)=rgb.as_ref() {
+                    let valid=rgb_ready && lease.current()
+                        && observed_peer.as_ref().is_some_and(|(pin,at,_,_)|pin==&input.peer && at.elapsed()<Duration::from_secs(8))
+                        && input.topology_current(&mapping,sample_layout.as_ref());
+                    let pending=if valid {input.poll(last_stream.elapsed()>=streaming::interval(fps))}
+                        else {Err("Board identity, mode, capability or layout changed; RGB input stopped".into())};
+                    match pending {
+                        Err(error)=>{input.fail(error);rgb=None;context.request_repaint();}
+                        Ok(Some(pixels))=>{
+                            let result=(||->Result<(),String>{
+                                for (offset,commit) in [(0,false),(240,true)] {
+                                    if !lease.current(){return Err("Connection released; frame not replayed".into());}
+                                    socket.send(Message::Binary(pixel_packet(&pixels,offset,240,commit).into()))
+                                        .map_err(|_|"RGB frame write outcome unknown; no replay".to_string())?;
+                                }
+                                Ok(())
+                            })();
+                            if let Err(error)=result {input.fail(error.clone());return Err(error);}
+                            input.sent();last_stream=Instant::now();sent_frames+=1;
+                        }
+                        Ok(None)=>{if last_stream.elapsed()>=streaming::interval(fps){last_stream=Instant::now();}}
+                    }
                 }
                 if streaming && last_stream.elapsed() >= streaming::interval(fps) {
                     let frame_at = Instant::now();
@@ -1873,7 +1930,7 @@ fn ws_worker(
                 }
                 peer_http::websocket_read_timeout(
                     &mut socket,
-                    streaming::read_budget(streaming || sampling, fps, last_stream.elapsed()),
+                    streaming::read_budget(streaming || sampling || rgb.is_some(), fps, last_stream.elapsed()),
                 )?;
                 match socket.read() {
                     Ok(Message::Text(text)) => {
@@ -1915,6 +1972,7 @@ fn ws_worker(
                                 && configuration_notice.as_ref() != Some(&notice)
                             {
                                 configuration_notice = Some(notice);
+                                if let Some(input)=rgb.take(){input.fail("Board configuration changed; restart RGB input explicitly");}
                                 // Ask on the existing socket, not the possibly
                                 // retired HTTP Host name. Never seed an address
                                 // or actuation directly from event metadata.
@@ -1984,6 +2042,7 @@ fn ws_worker(
                         }
                         if let Some(status) = websocket_status(&text) {
                             peer_identity::validate_board(&status)?;
+                            rgb_ready=rgb_input::ready(&status);
                             sample_layout = streaming::sampling_layout(&status);
                             pixel_events_supported = status.capabilities.as_ref().is_some_and(|c| c.has("pixel-events"));
                             last_status = Instant::now();
@@ -2090,6 +2149,7 @@ fn ws_worker(
                 Ok(WsCommand::Rate(value)) => fps = value.min(streaming::MAX_FPS),
                 Ok(WsCommand::Mapping(value)) => mapping = value,
                 Ok(WsCommand::Stream(value)) => streaming = value,
+                Ok(WsCommand::Rgb(request)) => {if let Some(request)=request {rgb_input::reject(request,"RGB input cannot start while reconnecting");}},
                 Ok(WsCommand::Sample(value)) => sampling = value,
                 Ok(WsCommand::PixelSubscribe(value)) => pixel_subscription = value,
                 Ok(WsCommand::Pixel(request) | WsCommand::ArmPixel(request)) => {
@@ -3668,6 +3728,7 @@ struct PakarControllerApp {
     serial_live: bool,
     streaming: bool,
     sampling: bool,
+    rgb_input: rgb_input::ui::Controls,
     stream_sent_fps: Option<(f64, Instant)>,
     palette: ui::palette::Palette,
     mappings: Vec<CellMapping>,
@@ -3861,6 +3922,7 @@ impl PakarControllerApp {
             serial_live: false,
             streaming: false,
             sampling: false,
+            rgb_input: rgb_input::ui::Controls::default(),
             stream_sent_fps: None,
             palette: ui::palette::Palette::Studio,
             mappings: Vec::new(),

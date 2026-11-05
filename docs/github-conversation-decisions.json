@@ -337,6 +337,27 @@
       "content_sha256": "0c94346b82403f1ef65d5ad1e6c3961900549aa61f9f31d79724ed1803076a2d",
       "scope": "full-record",
       "application": "Read full body; no comments, reviews or threads. Complete audit-tool/test/projection diff reviewed. Normally merged as1dce537 after exact c2e1d909 passed Build40798880183 and CodeQL40798880271. Refreshed records merge by repository/number without deleting historical donor evidence or promoting fetched records to reviewed. Remaining source/conversation and physical acceptance stays pending."
+    },
+    {
+      "repository": "atomicdeploy/PakarController",
+      "number": 52,
+      "scope": "full-record",
+      "content_sha256": "e518c85ecb2efc51abbf95c6d03a30a4e18312e14993acb810edc87512a3bf67",
+      "application": "Read complete body and all paginated conversation records; no comments, reviews or review threads exist at this checkpoint. Reviewed implementation diffs and preserved all original branch histories in the integration candidate. Checks are pending; this record does not claim merge, deployment or physical acceptance."
+    },
+    {
+      "repository": "atomicdeploy/portable-shell",
+      "number": 79,
+      "scope": "full-record",
+      "content_sha256": "83f8e4ecdd076c233d2fd70f89e5ba8f437b81b7fceacb6e13761011e0996dd1",
+      "application": "Read complete body and all paginated conversation records; no comments, reviews or review threads exist at this checkpoint. Reviewed implementation diffs and preserved all original branch histories in the integration candidate. Checks are pending; this record does not claim merge, deployment or physical acceptance."
+    },
+    {
+      "repository": "atomicdeploy/portable-shell",
+      "number": 81,
+      "scope": "full-record",
+      "content_sha256": "63f4a64824e21183171676101d4bdd68a3440f921ba8f5bc41a6113445374331",
+      "application": "Read complete body and all paginated conversation records; no comments, reviews or review threads exist at this checkpoint. Reviewed implementation diffs and preserved all original branch histories in the integration candidate. Checks are pending; this record does not claim merge, deployment or physical acceptance."
     }
   ]
 }

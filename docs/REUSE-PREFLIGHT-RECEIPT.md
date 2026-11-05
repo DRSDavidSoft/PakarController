@@ -1,5 +1,62 @@
 # Donor-first preflight receipt
 
+## Merge integration validation, 2026-11-05
+
+Preserved both terminal and external RGB changes in the same candidate. Rechecked
+the immutable Pealayer 9dfc54d..e2819ac translation diff and repaired its ledger
+revision/byte count to match the existing reviewed hash. Regenerated the full
+comparison report against the actual combined working tree; all 4,918 files
+remain accounted for. The actual release-package fixture passes. The guarded
+local RGB test command stops before Cargo on live Pealayer src/update.rs drift;
+GitHub compilation/tests remain required before merging. No donor draft, build
+gate, physical acceptance claim, or source-history branch was discarded.
+
+## External RGB host port, 2026-11-05 (#2)
+
+Read the complete actual PCController protocol.go, network_protocols.go,
+receiver.go, serial.go, protocol_test.go, network_protocols_test.go,
+control/rgb_input.go and SignalRGB/PCController.js. The older inventory had none
+of these files: exact-source donor-audit lookup failed rather than proving an
+exclusion. Added their original-byte hashes and the external-rgb route to the
+existing authorities; consulted the broader PCController inventory as well.
+The external-rgb reviewed-slice gate passes for all eight sources.
+
+Actual Rust adaptations are in desktop/src/rgb_input, invoked by the existing
+WebSocket worker and native Streaming panel, with the branded SignalRGB plugin
+and Windows release package entries. See RGB-INPUT.md for transport/pixel limits,
+source pinning, lifecycle cancellation and explicit missing surfaces/acceptance.
+Tests are added but not executed, per the user's deferral. rustfmt parsing and
+JavaScript syntax checks pass; these are not Rust type-check or runtime proof.
+
+The complete owned main.rs/shell.rs diff was reviewed before rebinding their
+existing target hashes: changes are restricted to RGB module/state, WebSocket
+source admission/cancellation and Streaming controls. Existing startup subsystem,
+tray, HTTP/USB ownership, table geometry, menus and preferences remain intact.
+No UI font or language implementation was replaced. The localization source
+checkpoint was stale: the prior reviewed hash exactly matches Pealayer9dfc54d;
+the complete9dfc54d..e2819ac diff adds27 strip-designer and7 hardware-shortcut
+translations only. That incremental diff was read and its source hash rebound;
+the corresponding application features and full font/dictionary parity remain
+pending, not accepted by this refresh. This is incremental review atop the
+existing full-read record, not a new complete dictionary read.
+
+Canonical build-desktop.ps1 -Mode Check was attempted, without running tests.
+After the localized evidence repair, a concurrent donor inventory refresh
+briefly blocked admission; a fresh exact path comparison then matched. The next
+gate rejects live Pealayer src/update.rs drift from its recorded909e8aa4 hash.
+That unrelated updater work is not overwritten or relabeled as reviewed. No
+direct cargo bypass, test/CI run, deployment, firmware action or LED write was
+performed. Compile, full comparison-report regeneration and source publication
+must be completed against a reconciled owner snapshot; do not call this runtime
+ready from the source checkpoint.
+
+The added README documentation row, retained license notice and nested Windows
+plugin package entries were also reviewed before refreshing their existing
+target references. Full comparison regeneration then stopped on concurrently
+changed PU850 Shell.cpp -> firmware/esp/src/ShellTuiBinding.h evidence; the
+RGB work does not certify or overwrite that separate shell task. Its report and
+publication remain pending with the native compile gate above.
+
 ## Firmware HEX delivery and high-DPI artwork, 2026-10-30 (#11 / #5)
 
 The existing CI already emitted application HEX; the actual AVR packaging owner

@@ -3984,6 +3984,17 @@ impl PakarControllerApp {
         }
     }
     fn draw_streaming(&mut self, ui: &mut egui::Ui) {
+        let rgb_peer=self.live_status().filter(|s|rgb_input::ready(s))
+            .and_then(peer_http::Pin::from_status).filter(|_|self.websocket_live);
+        let busy=self.streaming||self.sampling
+            || (self.rgb_input.cells && (!streaming::valid_mapping(&self.mappings)
+                || self.live_status().and_then(streaming::sampling_layout).is_none()));
+        if let Some(command)=self.rgb_input.show(ui,rgb_peer,busy,&self.config.serial_port) {
+            if let Err(error)=self.ws_tx.send(command) {
+                if let WsCommand::Rgb(Some(request))=error.0 {rgb_input::reject(request,"Board worker is unavailable");}
+            }
+        }
+        ui.add_space(10.0);
         dialog::section(ui, icons::MONITOR_PLAY, "Stream source", |ui| {
             ui.horizontal_wrapped(|ui| {
                 badge(ui, "WebSocket", self.websocket_live);
@@ -4010,7 +4021,7 @@ impl PakarControllerApp {
                         "Stream rainbow"
                     },
                     self.streaming,
-                    self.streaming || self.websocket_live,
+                    !self.rgb_input.active() && (self.streaming || self.websocket_live),
                 )
                 .clicked()
                 {
@@ -4033,9 +4044,9 @@ impl PakarControllerApp {
                         "Sample screen"
                     },
                     self.sampling,
-                    self.sampling
+                    !self.rgb_input.active() && (self.sampling
                         || (self.websocket_live && streaming::valid_mapping(&self.mappings)
-                            && self.live_status().and_then(streaming::sampling_layout).is_some()),
+                            && self.live_status().and_then(streaming::sampling_layout).is_some())),
                 )
                 .on_hover_text(crate::ui::i18n::text(
                     "Requires a complete validated cell map and physical group layout from this board",
@@ -4060,7 +4071,7 @@ impl PakarControllerApp {
                             .range(0..=streaming::MAX_FPS)
                             .suffix(" FPS"),
                     )
-                    .on_hover_text("0 = uncapped. Shared by rainbow and screen sampling.")
+                    .on_hover_text("0 = uncapped. Shared by RGB input, rainbow and screen sampling.")
                     .changed()
                 {
                     let _ = self.ws_tx.send(WsCommand::Rate(self.config.stream_fps));
