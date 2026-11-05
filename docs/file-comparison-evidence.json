@@ -27249,7 +27249,7 @@
       "path": "firmware/modem_bridge/WebAssetPolicy.h",
       "sha256": "686d98824ddfb5730a4d68009f93535b32d2af0d060a6e36785c1401ea5ad3ff",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 22,
       "read_ranges": [
         {
@@ -27296,7 +27296,7 @@
       "path": "firmware/modem_bridge/EventStoragePolicy.h",
       "sha256": "f40db91119f9c76de404093c2976726263a57b441855d374abf63185811bd444",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 25,
       "read_ranges": [
         {
@@ -27338,7 +27338,7 @@
       "path": "firmware/modem_bridge/HttpDate.h",
       "sha256": "00d4a20a65e868f9c6d91481bb8a3b29ae2e3688a71c292a6a989b66b65d3286",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 19,
       "read_ranges": [
         {
@@ -27372,7 +27372,7 @@
       "path": "firmware/modem_bridge/HttpRepresentationPolicy.h",
       "sha256": "9ca60c3433d1e0388e0733736e1a1f2891c1d047d7d7b04808ad4dc41b3bcdd6",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 56,
       "read_ranges": [
         {
@@ -27404,14 +27404,14 @@
     {
       "origin": "Orbit",
       "path": "firmware/modem_bridge/VerifiedFileWrite.h",
-      "sha256": "8dea63dd222d87015edd7b63f5d40b9e5e4644bbde943f4f58d1a6bf177838bc",
+      "sha256": "0839866b5acd953bceeee80102a9024fdbf724c93b8d50385b99ca3f3423e28a",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
-      "source_lines": 24,
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
+      "source_lines": 26,
       "read_ranges": [
         {
           "first": 1,
-          "last": 24
+          "last": 26
         }
       ],
       "verdict": "equivalent-behavior",
@@ -27440,7 +27440,7 @@
       "path": "firmware/modem_bridge/HttpFileValidators.h",
       "sha256": "a70f80643a30bd0913f6a55836b747d484bde0fbe7e4429f604ea3bd0dd9376b",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 15,
       "read_ranges": [
         {
@@ -27482,7 +27482,7 @@
       "path": "firmware/modem_bridge/StorageFiles.h",
       "sha256": "d3bac19a00ace59c20af2fb892e9b70cc5d1c0d3c5ed5acd38710c1f7f958e79",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 49,
       "read_ranges": [
         {
@@ -27529,7 +27529,7 @@
       "path": "firmware/modem_bridge/WebAsset.h",
       "sha256": "a76b22f9cd9b3ce3a131ed3c7b27d007659e040a2597c760dcdeb36ee3df163d",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 87,
       "read_ranges": [
         {
@@ -27576,7 +27576,7 @@
       "path": "firmware/modem_bridge/FirmwareWifiRange.h",
       "sha256": "efc788e9f45a5a124de97a533a519be93cb6f7207b24ef95ab615741ffde6e56",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 24,
       "read_ranges": [
         {
@@ -27623,7 +27623,7 @@
       "path": "firmware/modem_bridge/AtomicEventRecord.h",
       "sha256": "7dc8f88f42bbaee85227bfdafa382de0a5ad16da4baa04679014b9d0227bebf2",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 21,
       "read_ranges": [
         {
@@ -27665,7 +27665,7 @@
       "path": "firmware/common/board_pins.h",
       "sha256": "7a2cbd5039e80f1ead458415041d39a678bd09048dd23922dd2d4182e7f4ba69",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 29,
       "read_ranges": [
         {
@@ -27699,7 +27699,7 @@
       "path": "firmware/i2c_scanner/i2c_scanner.ino",
       "sha256": "bc7988946e9dbcbc7c74a52b638f4020459a6793cde4031e9f55f4c509438fa9",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 18,
       "read_ranges": [
         {
@@ -27733,7 +27733,7 @@
       "path": "firmware/modem_console/modem_console.ino",
       "sha256": "81aa40b7e93edf747930fa35b81ed187f32ccc496fd7236e37f67bd8109f5b3a",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 17,
       "read_ranges": [
         {
@@ -27767,7 +27767,7 @@
       "path": "firmware/modem_bridge/DiagnosticProfiles.h",
       "sha256": "62356bfee14884ae2442bfaab9029d564059651c5756e4ecf1feb9855501394f",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 25,
       "read_ranges": [
         {
@@ -27801,7 +27801,7 @@
       "path": "firmware/modem_bridge/HttpActionResult.h",
       "sha256": "707ba3687db9c2b68c4d2cbf36fbe6c5191f3c833d901dff795bc460f6bc966a",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 19,
       "read_ranges": [
         {
@@ -27835,7 +27835,7 @@
       "path": "firmware/modem_bridge/HttpBinaryFrames.h",
       "sha256": "e15cec7f21447ba146c0b89d62a356f0aba05822ac38fc3fa77bb610c8bf466a",
       "source_read": "complete",
-      "source_revision": "da50c877a59cdc61f7a4381a05797886c9a7abf5",
+      "source_revision": "98a699e61970d28ebec409fcbfdd410ecea4477b",
       "source_lines": 36,
       "read_ranges": [
         {

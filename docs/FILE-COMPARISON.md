@@ -909,7 +909,7 @@ Verdict: **scoped-improvement**. Revision: `0222ef025f2b8e03f8c8aef35d63c545a98a
 
 ### Orbit: `firmware/common/board_pins.h`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `7a2cbd5039e80f1ead458415041d39a678bd09048dd23922dd2d4182e7f4ba69`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `7a2cbd5039e80f1ead458415041d39a678bd09048dd23922dd2d4182e7f4ba69`.
 
 - Complete text read: lines 1-29, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:61 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/common/board_pins.h`]`.
@@ -918,7 +918,7 @@ Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5
 
 ### Orbit: `firmware/i2c_scanner/i2c_scanner.ino`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `bc7988946e9dbcbc7c74a52b638f4020459a6793cde4031e9f55f4c509438fa9`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `bc7988946e9dbcbc7c74a52b638f4020459a6793cde4031e9f55f4c509438fa9`.
 
 - Complete text read: lines 1-18, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:62 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/i2c_scanner/i2c_scanner.ino`]`.
@@ -927,7 +927,7 @@ Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5
 
 ### Orbit: `firmware/modem_bridge/AtomicEventRecord.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `7dc8f88f42bbaee85227bfdafa382de0a5ad16da4baa04679014b9d0227bebf2`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `7dc8f88f42bbaee85227bfdafa382de0a5ad16da4baa04679014b9d0227bebf2`.
 
 - Complete text read: lines 1-21, exact source hash above.
 - Target: `firmware/esp/src/UserFileStore.h:10 [UTF8-LF sha256=8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599; anchor=template<class Digest> class UserFileStore]`.
@@ -938,7 +938,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/DiagnosticProfiles.h`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `62356bfee14884ae2442bfaab9029d564059651c5756e4ecf1feb9855501394f`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `62356bfee14884ae2442bfaab9029d564059651c5756e4ecf1feb9855501394f`.
 
 - Complete text read: lines 1-25, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:64 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/modem_bridge/DiagnosticProfiles.h`]`.
@@ -947,7 +947,7 @@ Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5
 
 ### Orbit: `firmware/modem_bridge/EventStoragePolicy.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `f40db91119f9c76de404093c2976726263a57b441855d374abf63185811bd444`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `f40db91119f9c76de404093c2976726263a57b441855d374abf63185811bd444`.
 
 - Complete text read: lines 1-25, exact source hash above.
 - Target: `firmware/esp/src/UploadSpacePolicy.h:7 [UTF8-LF sha256=b4096ba6b7855808c20924de0310e6fd6828f4df034efc2746a23e7b35289911; anchor=namespace PakarUploadSpace]`.
@@ -958,7 +958,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/FirmwareWifiRange.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `efc788e9f45a5a124de97a533a519be93cb6f7207b24ef95ab615741ffde6e56`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `efc788e9f45a5a124de97a533a519be93cb6f7207b24ef95ab615741ffde6e56`.
 
 - Complete text read: lines 1-24, exact source hash above.
 - Target: `firmware/esp/src/FirmwareRange.h:26 [UTF8-LF sha256=03bf18b46233e539a84563f1eb63330d2eaf8e57b9bb73b6cfd92026bda6bef8; anchor=inline bool parseRange(]`.
@@ -970,7 +970,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/HttpActionResult.h`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `707ba3687db9c2b68c4d2cbf36fbe6c5191f3c833d901dff795bc460f6bc966a`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `707ba3687db9c2b68c4d2cbf36fbe6c5191f3c833d901dff795bc460f6bc966a`.
 
 - Complete text read: lines 1-19, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:65 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/modem_bridge/HttpActionResult.h`]`.
@@ -979,7 +979,7 @@ Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5
 
 ### Orbit: `firmware/modem_bridge/HttpBinaryFrames.h`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `e15cec7f21447ba146c0b89d62a356f0aba05822ac38fc3fa77bb610c8bf466a`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `e15cec7f21447ba146c0b89d62a356f0aba05822ac38fc3fa77bb610c8bf466a`.
 
 - Complete text read: lines 1-36, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:66 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/modem_bridge/HttpBinaryFrames.h`]`.
@@ -988,7 +988,7 @@ Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5
 
 ### Orbit: `firmware/modem_bridge/HttpDate.h`
 
-Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `00d4a20a65e868f9c6d91481bb8a3b29ae2e3688a71c292a6a989b66b65d3286`.
+Verdict: **equivalent-behavior**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `00d4a20a65e868f9c6d91481bb8a3b29ae2e3688a71c292a6a989b66b65d3286`.
 
 - Complete text read: lines 1-19, exact source hash above.
 - Target: `firmware/esp/src/NetworkObservationPolicy.h:32 [UTF8-LF sha256=3a00b4998b54fae7d34edaed58b693ae3b47fe552e7b6bb4d8c842ad5877b197; anchor=inline bool httpDate(]`.
@@ -998,7 +998,7 @@ Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a
 
 ### Orbit: `firmware/modem_bridge/HttpFileValidators.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `a70f80643a30bd0913f6a55836b747d484bde0fbe7e4429f604ea3bd0dd9376b`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `a70f80643a30bd0913f6a55836b747d484bde0fbe7e4429f604ea3bd0dd9376b`.
 
 - Complete text read: lines 1-15, exact source hash above.
 - Target: `firmware/esp/src/StaticAssetPolicy.h:40 [UTF8-LF sha256=971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b; anchor=inline bool notModified(]`.
@@ -1009,7 +1009,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/HttpRepresentationPolicy.h`
 
-Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `9ca60c3433d1e0388e0733736e1a1f2891c1d047d7d7b04808ad4dc41b3bcdd6`.
+Verdict: **equivalent-behavior**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `9ca60c3433d1e0388e0733736e1a1f2891c1d047d7d7b04808ad4dc41b3bcdd6`.
 
 - Complete text read: lines 1-56, exact source hash above.
 - Target: `firmware/esp/src/StaticAssetPolicy.h:40 [UTF8-LF sha256=971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b; anchor=inline bool notModified(]`.
@@ -1019,7 +1019,7 @@ Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a
 
 ### Orbit: `firmware/modem_bridge/StorageFiles.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `d3bac19a00ace59c20af2fb892e9b70cc5d1c0d3c5ed5acd38710c1f7f958e79`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `d3bac19a00ace59c20af2fb892e9b70cc5d1c0d3c5ed5acd38710c1f7f958e79`.
 
 - Complete text read: lines 1-49, exact source hash above.
 - Target: `firmware/esp/src/UserFileStore.h:10 [UTF8-LF sha256=8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599; anchor=template<class Digest> class UserFileStore]`.
@@ -1031,9 +1031,9 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/VerifiedFileWrite.h`
 
-Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `8dea63dd222d87015edd7b63f5d40b9e5e4644bbde943f4f58d1a6bf177838bc`.
+Verdict: **equivalent-behavior**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `0839866b5acd953bceeee80102a9024fdbf724c93b8d50385b99ca3f3423e28a`.
 
-- Complete text read: lines 1-24, exact source hash above.
+- Complete text read: lines 1-26, exact source hash above.
 - Target: `firmware/esp/src/UserFileStore.h:10 [UTF8-LF sha256=8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599; anchor=template<class Digest> class UserFileStore]`.
 - Retained: Orbit now reuses flushed seek/readback verification before offset/hash progress, as Pakar managed chunks already do.
 - No production-code omission claimed for this reviewed file.
@@ -1041,7 +1041,7 @@ Verdict: **equivalent-behavior**. Revision: `da50c877a59cdc61f7a4381a05797886c9a
 
 ### Orbit: `firmware/modem_bridge/WebAsset.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `a76b22f9cd9b3ce3a131ed3c7b27d007659e040a2597c760dcdeb36ee3df163d`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `a76b22f9cd9b3ce3a131ed3c7b27d007659e040a2597c760dcdeb36ee3df163d`.
 
 - Complete text read: lines 1-87, exact source hash above.
 - Target: `firmware/esp/src/UserFileStore.h:10 [UTF8-LF sha256=8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599; anchor=template<class Digest> class UserFileStore]`.
@@ -1053,7 +1053,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_bridge/WebAssetPolicy.h`
 
-Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `686d98824ddfb5730a4d68009f93535b32d2af0d060a6e36785c1401ea5ad3ff`.
+Verdict: **parity-gap**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `686d98824ddfb5730a4d68009f93535b32d2af0d060a6e36785c1401ea5ad3ff`.
 
 - Complete text read: lines 1-22, exact source hash above.
 - Target: `firmware/esp/src/UploadSpacePolicy.h:7 [UTF8-LF sha256=b4096ba6b7855808c20924de0310e6fd6828f4df034efc2746a23e7b35289911; anchor=namespace PakarUploadSpace]`.
@@ -1065,7 +1065,7 @@ Verdict: **parity-gap**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. O
 
 ### Orbit: `firmware/modem_console/modem_console.ino`
 
-Verdict: **not-applicable**. Revision: `da50c877a59cdc61f7a4381a05797886c9a7abf5`. Original-byte SHA-256: `81aa40b7e93edf747930fa35b81ed187f32ccc496fd7236e37f67bd8109f5b3a`.
+Verdict: **not-applicable**. Revision: `98a699e61970d28ebec409fcbfdd410ecea4477b`. Original-byte SHA-256: `81aa40b7e93edf747930fa35b81ed187f32ccc496fd7236e37f67bd8109f5b3a`.
 
 - Complete text read: lines 1-17, exact source hash above.
 - Target: `docs/ORBIT-FIRMWARE-PARITY.md:63 [UTF8-LF sha256=c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7; anchor=`firmware/modem_console/modem_console.ino`]`.

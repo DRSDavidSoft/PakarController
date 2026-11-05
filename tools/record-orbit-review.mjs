@@ -7,7 +7,7 @@ import {resolve,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const donor=resolve(root,'../repos/orbit');
-const revision='da50c877a59cdc61f7a4381a05797886c9a7abf5';
+const revision='98a699e61970d28ebec409fcbfdd410ecea4477b';
 const check=process.argv.includes('--check');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const lf=b=>b.toString('utf8').replaceAll('\r\n','\n');
@@ -56,7 +56,7 @@ const notes={
  'HttpDate.h':'IMF date grammar/calendar/weekday and non-mutating failure; paired stricter implementation.',
  'HttpFileValidators.h':'Modified-Since vs exact strong If-Range; date/tag admission.',
  'HttpRepresentationPolicy.h':'Paired encoding negotiation and full weak ETag-list parsing.',
- 'VerifiedFileWrite.h':'Paired flushed-byte readback before progress/digest advancement.',
+ 'VerifiedFileWrite.h':'Paired flushed-byte readback before progress/digest advancement, including a positioning fence before the next stdio write.',
  'StorageFiles.h':'Sandbox/atomic upload, public HTTP serving, ranges and validators; no private path exposure.',
  'WebAsset.h':'Serialized asset upload, verified staging and atomic rename; old asset retained.',
  'FirmwareWifiRange.h':'Strict resumed response start/end/total and bounded download-only recovery.',
