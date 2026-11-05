@@ -8,7 +8,54 @@ publishing source is not a new hardware deployment or complete feature acceptanc
 
 ## Verified GitHub integration
 
-### Current consolidation: PR37, PR38 and PR39 (2026-10-29)
+### Current source consolidation: PR43–49 (2026-11-05)
+
+All seven PRs are merged normally, including the exact dependency heads of PR45
+and PR47 through PR49. Main checkpoint
+`083de838f80e7e19d0b4e49fd9ec3e39270cf412` has the identical tree
+`07994a2359f228b9bebbec714c8641ed3c5284bf` of reviewed candidate
+`89a63b11078e79afaded7d21ec06dfb6404b0a03`.
+
+[Build41945829235](https://github.com/atomicdeploy/PakarController/actions/runs/41945829235)
+and [CodeQL41945828068](https://github.com/atomicdeploy/PakarController/actions/runs/41945828068)
+passed on that combined candidate: 515 Rust tests, Windows package, Android
+analysis/tests/APK, primary ESP32-S3/AVR firmware, repository/Web/contracts and
+three-host script checks. Draft release publication was deliberately skipped.
+The source tree, not just an earlier parent, matches the accepted merge. Later
+receipt-only metadata and post-merge workflow runs have their own identities.
+
+The merge preserves canonical opcode admission, the Winsock fixture correction,
+AVR application/full-flash HEX outputs, high-DPI application artwork, shared
+PortableShell components, native workspace/Preferences/caption alignment and
+compatible independent dependency updates. The partial egui0.37 proposal is
+preserved in history but not shipped as a mixed dependency graph; its complete
+atomic migration remains [issue50](https://github.com/atomicdeploy/PakarController/issues/50).
+
+At this source checkpoint GitHub has zero open PRs. Every inventoried local,
+origin and fork branch head is contained in the consolidated candidate/main;
+no stash hides work. Both registered worktrees are clean and the other owner's
+merged worktree remains unchanged. Old dangling snapshots were inspected for
+unique source; their changes are already published or superseded audit metadata.
+No objects were pruned, drafts discarded, history forced or private recovery
+data published. The formerly reported generated Python bytecode is absent now;
+it is not an outstanding dirty-file blocker.
+
+The paginated conversation snapshot was refreshed after the seven merges. Only
+the manually read PR40/42 closure records, PR43–49 conversations and authored
+issue50 receive fresh hash-bound decisions; other unread/historical records
+remain pending. This snapshot precedes its own receipt publication. No completed
+Copilot review is claimed.
+
+Pealayer evidence stays pinned to owner-approved immutable9dfc54d3; concurrent
+newer donor work is not overwritten. The current local donor consultation still
+detects live inventory drift, rather than silently certifying those drafts.
+Existing donor/product gaps, narrow Keys clipping and CraftUI floating-group
+limitations remain open. ESP32-S3+AVR are release targets; unfinished ESP8266
+source is preserved. No installed app or board was contacted or updated for this
+source handoff. Refresh hardware identity and saved maintenance/scene state
+before any later deployment; the historical recovery notes below are not live.
+
+### Historical consolidation: PR37, PR38 and PR39 (2026-10-29)
 
 All three PRs are normally merged. PR39 merged as
 `1dce537eaa962cfa7dc5dcb4f8e2dd4f7c71bb52`, PR38 as
@@ -33,10 +80,11 @@ complete reviewed conversations; no completed Copilot review is claimed.
 
 GitHub has zero open PRs. Every local/remote branch tip and the other owner's
 unchanged worktree head are ancestors of consolidated main; no stash hides work.
-Tracked source is clean and pushed. One generated file remains untracked:
+Tracked source was clean and pushed. At that historical checkpoint one generated file remained untracked:
 `tools/__pycache__/provision-mqtt-device.cpython-312.pyc`. Its cleanup was host-
 blocked and the user deferred manual removal. It is not source and has not been
-hidden, deleted by another route or published. Private backups remain local.
+hidden, deleted by another route or published during that checkpoint. It is
+absent at the 2026-11-05 inventory above. Private backups remain local.
 
 This final conversation/handoff receipt changes documentation/audit metadata
 only; its post-merge CI is separate from the fully verified code checkpoint
