@@ -21,6 +21,8 @@ const expectedTargets={
  'firmware/esp/src/UserFileStore.h':'8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599',
  'tests/async_http_test.cpp':'00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe',
  'tests/file_transfer_test.cpp':'f864f61e61cc3bdcc247651739439919a098dabd56d1fe7e271e706ee9af6af4',
+ 'tests/ssh_scp_binding_test.cpp':'044d8f237d6b9906a72009adaeafa383cf8e1ffd64df9930dbf82be93e84e6ca',
+ 'tests/ftp_binding_test.cpp':'7c1671b002b2673328af80f2041c6f9ec6b1ff3d2cf807605414f55b2f3f7e34',
  'tests/user_file_store_test.cpp':'a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528',
  'tests/reuse_preflight_test.ps1':'ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33',
  'tests/file_comparison_test.ps1':'8684745b447736922bfecacdc6116f8f665803b87f908867bd4dfce84d3dd45a',

@@ -5617,12 +5617,12 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Test-code evidence: `tests/ssh_exec_binding_test.cpp:123 [UTF8-LF sha256=8d5b45f3825a81c91f8af77a263d87c37a4a53ec4f1399fca73f2490df9bbba0; anchor=Actual SSH shell exec binding/dispatcher:]`.
 - Test-code evidence: `tests/ssh_exec_binding_test.mjs:9 [UTF8-LF sha256=8ad3023d3de3232cb50377d3aa81cf1f58b0f7e80c05ad97145d73346483bbb2; anchor=SSH exec production markers changed]`.
 - Test-code evidence: `tests/ssh_policy_test.cpp:6 [UTF8-LF sha256=4e8b5abdd817ca1ecc2f3aaba1dfa8186acc125529e997a340a940f8cb73a73c; anchor=int main()]`.
-- Test-code evidence: `tests/ssh_scp_binding_test.cpp:21 [UTF8-LF sha256=b47ef508eb652a9099ab0f29e33da744e83d23f1b452cc1c195b4118a3081412; anchor=int main()]`.
+- Test-code evidence: `tests/ssh_scp_binding_test.cpp:21 [UTF8-LF sha256=044d8f237d6b9906a72009adaeafa383cf8e1ffd64df9930dbf82be93e84e6ca; anchor=int main()]`.
 - Test-code evidence: `tests/scp_download_test.cpp:10 [UTF8-LF sha256=49b22f7ce4a962b1d5fd677ac3bc37bbc6aac8f41a5f7ac4ebcf9790caa79dd8; anchor=int main(]`.
 - Test-code evidence: `tests/scp_client_test.mjs:15 [UTF8-LF sha256=bec216abf19d74af291ecba65e496d689e8ccdeb4e4c12f0707fcea2389b6a1d; anchor=Real OpenSSH SCP client accepted]`.
 - Test-code evidence: `tests/file_transfer_test.cpp:22 [UTF8-LF sha256=f864f61e61cc3bdcc247651739439919a098dabd56d1fe7e271e706ee9af6af4; anchor=int main(]`.
 - Test-code evidence: `tests/file_transfer_client_test.mjs:18 [UTF8-LF sha256=254834d63c0db3ac14d83db5cdb16c1a6773a6a9df78f7d270c38bcdc0d67ede; anchor=Real OpenSSH clients:]`.
-- Test-code evidence: `tests/ftp_binding_test.cpp:61 [UTF8-LF sha256=442d67f43bf96b8031b6966c89ac9f9edf98d66afda048179242c734de502b3b; anchor=Actual FTP socket binding:]`.
+- Test-code evidence: `tests/ftp_binding_test.cpp:61 [UTF8-LF sha256=7c1671b002b2673328af80f2041c6f9ec6b1ff3d2cf807605414f55b2f3f7e34; anchor=Actual FTP socket binding:]`.
 - Test-code evidence: `tests/ftp_stubs/sys/socket.h:3 [UTF8-LF sha256=a03b479d9c3b25a90b08c8580d4a54ced5415914bd3ce805ef43706efa7b7a45; anchor=MSG_DONTWAIT]`.
 - Test-code evidence: `tools/test-ssh.ps1:59 [UTF8-LF sha256=fc5bdf619662059e9373a54c608e3661aa9906f3f0a4e8cf5b5e36eeed5599e4; anchor=Actual FTP socket binding fixture]`.
 - Scoped advantage: Source comparison and hash-bound fixture references only; deployment, terminal interoperability and hardware acceptance remain pending.

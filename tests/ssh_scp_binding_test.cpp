@@ -19,7 +19,7 @@ struct {
 } deviceSsh;
 #include "../firmware/esp/src/SshScpBinding.h"
 int main(){
-  fs::FS fs;userFiles.begin(fs,true);
+  fs::FS fs;userFiles.begin(fs,true,[]()->uint32_t{return 1024*1024;});
   FirmwarePlatform::Sha256 digest;const uint8_t bytes[]={0,1,255,13,10};digest.add(bytes,sizeof(bytes));
   JsonDocument body;body["action"]="begin";body["name"]="example.bin";body["size"]=5;body["sha256"]=digest.hex();body["modified_ms"]=123ULL;body["revision"]=0;
   JsonDocument response;assert(!deserializeJson(response,userFileRequest(body.as<JsonObjectConst>()))&&response["accepted"]==true);

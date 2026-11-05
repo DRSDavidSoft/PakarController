@@ -21771,7 +21771,7 @@
         },
         {
           "path": "tests/ssh_scp_binding_test.cpp",
-          "sha256": "b47ef508eb652a9099ab0f29e33da744e83d23f1b452cc1c195b4118a3081412",
+          "sha256": "044d8f237d6b9906a72009adaeafa383cf8e1ffd64df9930dbf82be93e84e6ca",
           "anchor": "int main()"
         },
         {
@@ -21796,7 +21796,7 @@
         },
         {
           "path": "tests/ftp_binding_test.cpp",
-          "sha256": "442d67f43bf96b8031b6966c89ac9f9edf98d66afda048179242c734de502b3b",
+          "sha256": "7c1671b002b2673328af80f2041c6f9ec6b1ff3d2cf807605414f55b2f3f7e34",
           "anchor": "Actual FTP socket binding:"
         },
         {
