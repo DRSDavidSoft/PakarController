@@ -18331,7 +18331,7 @@
       "targets": [
         {
           "path": ".github/workflows/codeql.yml",
-          "sha256": "0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba",
+          "sha256": "fe91f6cfb9e6bfb6357d1e25dd41e80011991417c6914da478e39ab6c5d324c0",
           "anchor": "name: \"🛡️ Security · CodeQL\""
         }
       ],

@@ -3157,7 +3157,7 @@ Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. O
 
 Verdict: **equivalent-behavior**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. Original-byte SHA-256: `656ae2cb1159a333394015f9557413245ce648e47e93f00c9a714628a93bfbb2`.
 
-- Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba; anchor=name: "🛡️ Security · CodeQL"]`.
+- Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=fe91f6cfb9e6bfb6357d1e25dd41e80011991417c6914da478e39ab6c5d324c0; anchor=name: "🛡️ Security · CodeQL"]`.
 - Retained: Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary.
 - Retained: 2026-11-05 integration rereview: Read the complete current CodeQL workflow and all changed action pins. PR47 applies the paired init/analyze4.39.1 patch; current source still retains fail-closed aggregate result, no persisted credentials, explicit analyzer scope and no PR-target execution. Exact CI remains separate.
 - Omitted/replaced code: `Pealayer React/Vite names, packages:read permission and branded prose`. Disposition: **replaced**. Reason: Pakar analyzes embedded Web/scripts and Actions, not Pealayer React. Package read permission is unnecessary for these none-build scans; Rust/C++ coverage is explicitly not invented.
