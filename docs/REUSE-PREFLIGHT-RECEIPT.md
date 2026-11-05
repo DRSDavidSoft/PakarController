@@ -12261,3 +12261,40 @@ Pealayer src/ui/i18n.rs changed after the test build's preflight. No guard
 override, donor rollback or blind hash refresh was used. Consequently there is
 no newly built application, updated screenshot or installed-app replacement
 from this pass; the committed source and successful panel tests remain distinct.
+
+## Coordinated GitHub consolidation (2026-11-05)
+
+PR43,44 and46 merged normally after current-head applicable checks passed.
+The primary CLI token was expired; verified existing fork credentials preserve
+local checkpoints, and the authenticated repository-owner connector performs
+leased upstream fast-forwards and normal merges. No token is printed, global
+account changed, history rewritten, protection bypassed or source discarded.
+
+PR48's new README navigation line invalidated two consumer hashes. Read the
+whole consumer README, verify the unchanged donor hashes, refresh only those
+bindings and regenerate the existing projections. PR47 likewise needs the
+CodeQL workflow target rebound for its paired init/analyze4.39.1 patch. These
+are evidence repairs, not removal of checks. PR45's incompatible UI-family
+upgrade is explicitly deferred in issue50; independent library updates remain.
+
+The Pealayer owner confirmed immutable checkpoint9dfc54d3b45f911cd94a08688c742efab760b0dd
+and requested that live project/typography drafts remain untouched. Inventory
+all693 committed paths from exact Git blobs rather than attributing working-tree
+draft bytes to that commit. For seventeen changed reviewed files, bind the prior
+complete-source read to its exact original Git object, then manually inspect
+every changed hunk and affected Pakar consumer. Record the method, previous hash
+and revision in the existing comparison entries. Unchanged source sections are
+bound by that verified Git identity; no claim of newly rereading every unchanged
+line is made. Separately inspected uncommitted donor changes are excluded.
+
+New ExtraCompact density, host-font previews, typed Preferences navigation,
+Craft theme tokens and actionable/replay-fenced notifications remain useful
+omissions in issues3/5/11/50. Five formerly broader verdicts are downgraded to
+parity gaps rather than accepted by refreshing hashes. Existing Web/mobile,
+installed-runtime, physical and full donor-parity gaps are retained. The complete
+RayanLamp path inventory is refreshed without promoting unread files.
+
+Local live-donor gates remain unchanged and may refuse while the owner's draft
+differs from this snapshot. CI checks the committed source projection and must
+compile/test/package the exact integrated head; a historical native capture,
+source comparison or CI package is not a deployment or hardware acceptance.
