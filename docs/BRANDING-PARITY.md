@@ -1,5 +1,26 @@
 # One PakarController application icon
 
+## Current high-DPI control-grid design
+
+The prototype Circuitry raster is replaced by the editable
+`assets/branding/app-icon.svg`: staggered illuminated white/emerald/mint cells
+and a circular button on a deep teal tile. It is original vector artwork,
+not an enlarged font glyph. Native resources and README use the rendered
+1024px master; Android's adaptive launcher uses the same high-DPI PNG.
+Windows ICO retains all seven donor-derived sizes (16–256), rendered directly
+from that master. Existing role-specific board artwork and custom peer icons
+retain their identity and priority.
+
+`generate-application-artwork.mjs --render` deliberately invokes the external
+Sharp rasterizer through PAKAR_SHARP_MODULE. Ordinary generation and `--check`
+require no image package: source/output hashes in application-artwork.json
+guard every committed derivative. The compact 64px base64 derivative remains
+under the 4096-character identity budget for ESP/peer/Web headers. README,
+native executable and Android launcher no longer upscale that transport icon.
+
+The following deployment observations describe the historical prototype
+checkpoint only; they are not evidence that these new assets are installed.
+
 ## Android launcher correction
 
 The previous mobile import covered only the in-app header, leaving all five
@@ -17,8 +38,8 @@ has SHA-256 05bc6ce48c57eb8bf6c8f1acd98f10389ae2e6fcc40b4bf41b09f9ce39c85783,
 byte-identical to the canonical PNG, not a Flutter density fallback. Physical
 ADB readback confirms MainActivity in foreground; the actual running UI was
 captured and inspected. Launcher-grid pixels are not inferred from header pixels.
-The existing 64x64 master limitation remains; a high-DPI editable master is not
-claimed. Runtime board artwork cannot rewrite the installed Android launcher.
+That historical 64x64 limitation is addressed by the current SVG/high-DPI
+pipeline above. Runtime board artwork cannot rewrite the installed Android launcher.
 
 The mismatch was an incomplete integration: the native PE/window/tray generated
 Phosphor Circuitry, the native menu/About used a separate theme-tinted font
@@ -32,7 +53,7 @@ runtime preferences do not silently rewrite executable or pinned icons.
 
 ## Canonical master and exact code imports
 
-`assets/branding/app-icon.png.base64` is a 740-byte lossless PNG encoding of the
+The former `assets/branding/app-icon.png.base64` was a 740-byte lossless PNG encoding of the
 existing 64x64 native Phosphor Circuitry raster. Verified current warm-cache
 native pixels SHA-256:
 `d24d849f01bfeaa0cffef1cc9b861062b52e1a320f4c943608fb5fd952ded387`.
@@ -80,12 +101,12 @@ their actual Phosphor vocabulary; they are not application-logo variants.
 - Build metadata, external branding manifest/environment override validation,
   generic publisher/version/provenance resource fields remain pending. macOS
   mpv linker probing is excluded by the requested mpv-free controller.
-- The preserved master is currently 64x64, not a claimed 512x512 editable icon
-  pack/PWA artwork. ICO derivatives retain the donor's seven sizes; high-DPI
-  editable master and full installable PWA manifest/cache remain open.
+- High-DPI artwork is now implemented above. Platform-specific Apple layered/
+  tinted catalogs and installed/pinned-icon cache refresh still need their
+  own packaging/runtime acceptance; no OS-wide cache deletion is performed.
 
-`tests/branding_test.mjs` verifies exact preserved native pixels, four identical
-embedded Web images, production native consumers and no-write generation.
+`tests/branding_test.mjs` verifies high-DPI and bounded derivative identities,
+four identical embedded Web images, native consumers and no-write generation.
 Three Rust tests verify native pixels/window/tray derivatives, all ICO frames
 and shared texture reuse in both themes. Source tests do not certify compiled
 resource extraction or deployed runtime/board appearance. CI runs asynchronously;

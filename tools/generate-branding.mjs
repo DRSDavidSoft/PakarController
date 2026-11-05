@@ -3,6 +3,7 @@
 // to that same resolved icon. Pakar embeds it for the standalone ESP surface.
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+await import('./generate-application-artwork.mjs');
 await import('./generate-board-icon-asset.mjs');
 const asset = (await readFile(new URL('../assets/branding/app-icon.png.base64', import.meta.url), 'utf8')).trim();
 assert.match(asset, /^[A-Za-z0-9+/]+={0,2}$/);
@@ -52,10 +53,11 @@ if (mobilePrior !== dart) {
 // Android's launcher is an OS resource, not the Flutter in-app header.
 // Preserve the master bytes; Android scales/masks it through native drawables.
 const launcher = new URL('../mobile/android/app/src/main/res/drawable-nodpi/pakar_application.png', import.meta.url);
+const launcherPng = await readFile(new URL('../assets/branding/app-icon-1024.png', import.meta.url));
 let launcherPrior;
 try { launcherPrior=await readFile(launcher); } catch(error) { if(error.code!=='ENOENT')throw error; }
-if(!launcherPrior?.equals(png)){
+if(!launcherPrior?.equals(launcherPng)){
   assert(!process.argv.includes('--check'),'Android launcher master is stale; regenerate shared branding');
   await mkdir(new URL('.',launcher),{recursive:true});
-  await writeFile(launcher,png);
+  await writeFile(launcher,launcherPng);
 }

@@ -2,9 +2,9 @@
 
 Whole-repository superiority is **not established**. This report exposes retained code, scoped improvements, omissions and gaps; it does not turn missing reviews into exclusions.
 
-Routing: 1472 paths have no specialist capability match. They remain visible through `consult-reuse.ps1 -Concern donor-audit` and issue #3; lack of a keyword match is NOT an exclusion. Every CSV row includes capability routing and owning issue links.
+Routing: 1504 paths have no specialist capability match. They remain visible through `consult-reuse.ps1 -Concern donor-audit` and issue #3; lack of a keyword match is NOT an exclusion. Every CSV row includes capability routing and owning issue links.
 
-Inventory: 4744 files; 437 complete source-file comparisons; 4307 pending comparisons; 311 compared files with known parity gaps. Header/implementation pairs can describe the same gap. Missing sparse files remain pending.
+Inventory: 4781 files; 437 complete source-file comparisons; 4344 pending comparisons; 311 compared files with known parity gaps. Header/implementation pairs can describe the same gap. Missing sparse files remain pending.
 
 Every inventoried path, source revision/hash, target/proof file and line, omitted code, disposition and concrete reason is in `file-comparison.csv`. Hash-bound manual decisions are in `file-comparison-evidence.json`. Donor SHA-256 values bind original bytes; target/proof SHA-256 values bind UTF-8 without BOM with LF newlines. Anchors are recomputed into exact line numbers. Test-code presence is not test execution; execution receipts are in `FILE-COMPARISON-RECEIPTS.md`.
 
@@ -17,7 +17,7 @@ Every inventoried path, source revision/hash, target/proof file and line, omitte
 | DRS-jSnake | 18 | 16 | 2 | 16 |
 | esp32WS2811 | 24 | 16 | 8 | 9 |
 | PCController | 1517 | 119 | 1398 | 107 |
-| Pealayer | 645 | 66 | 579 | 47 |
+| Pealayer | 682 | 66 | 616 | 47 |
 | portable-shell | 23 | 23 | 0 | 0 |
 | PU850-ESP | 109 | 109 | 0 | 96 |
 | PuzzleBoard | 22 | 22 | 0 | 1 |
@@ -957,7 +957,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/AvrIsp.h:66 [UTF8-LF sha256=03561fd6b5a97e9a178e3dd70888c8e068c7db58a357b26028353d959b5009ad; anchor=void report(]`.
 - Target: `mobile/lib/upgrade_observation.dart:3 [UTF8-LF sha256=8feabc680770f062a09ec3a5e7e72d1e9aad814335f630ddc00be3770790e8d7; anchor=class UpgradeObservation]`.
 - Target: `desktop/src/firmware_progress.rs:11 [UTF8-LF sha256=11188ec3c9bc7b89e76b94e5412f0e689fa656e5a636d4964136c2236aabbe31; anchor=pub struct Upgrade]`.
-- Target: `firmware/esp/src/WebUi.h:2712 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function upgradeObservation(]`.
+- Target: `firmware/esp/src/WebUi.h:2712 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function upgradeObservation(]`.
 - Retained: Complete canonical donor documentation read through EOF and original-byte SHA matched the inventory. Adapted the actual measured-stage/unknown-denominator/verified-completion/no-write-replay contract, not the donor's AVRDUDE parser: local HTTP raw file bytes, remote download stage bytes, coherent async-to-loop snapshots, finite AVR scheduled text leases and separate client reboot/readback verification.
 - Retained: Reread the complete canonical update-progress document for actual0.2.8 migration. Explicit exact-board maintenance admits only the older producer's update/backup observations, never ordinary controls; the new boot still passes the default release policy. Missing BOTH newer producer headers is confined to that selected recovery and retains same-address, whole MD5 and before/after board/boot checks. Failed manifest admission can preserve zero image metadata only with the exact pinned manifest/job/boot/target/zero bytes. Added backpressure-aware multipart chunks and explicit upload pacing; no automatic mutation retry. Real fixtures cover these boundaries. Actual HTTPS stage22/new boot/full running SHA and separate Internet control/WSS passed; final direct LAN WS interruption and the false completion_verified bit remain open, not fabricated success.
 - Retained: Local /update/info now uses boot-captured immutable image metadata rather than whole-image hashing on every progress poll. Status and WebSocket status/ping remain readable during local OTA; mutating commands remain inhibited. No authentication is enabled by the updater; it requires explicit auth-off readback before and after.
@@ -1002,7 +1002,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/LcdManagement.h:3 [UTF8-LF sha256=eb800ee4c334b22504f37bd841bda58a7562052df2c7226ff19bc23a454e652d; anchor=String lcdStatusJson()]`.
 - Target: `desktop/src/display.rs:7 [UTF8-LF sha256=9d73ae63aaa8a2bc4b824219c9cfab9f7924ae7566be7a9206c11b6344a2f18b; anchor=pub struct LcdObservation]`.
 - Target: `mobile/lib/peer_context.dart:302 [UTF8-LF sha256=c8602a12ccd3009028068aba091d46900c8aa0e345a4426ffe80acfb716362fc; anchor=bool lcdObservationReady(]`.
-- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function lcdObservation(]`.
+- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function lcdObservation(]`.
 - Retained: Complete actual donor source read through EOF. Adapted common PCF8574 0x27/0x3F discovery, 4-bit HD44780 wake/control bytes,16x2 ASCII row normalization/padding, desired frame cache and backlight bit mapping into a transport-independent production class. S3 owns dedicated GPIO15/16 hardware I2C so the confirmed AVR A4/A5 TM1637 and ISP pins remain untouched.
 - Omitted/replaced code: `Blocking50ms/4.5ms initialization, ignored expander return values and cache validity after failed writes`. Disposition: **replaced**. Reason: Initialization is a paced loop-owned state machine. Every expander write must ACK; no full frame/available status until all initialization and both rows complete. NACK revokes readiness, bounded retry reinitializes/replays current desired text. Missing modules cannot become initialized merely because initialize() returned.
 - Omitted/replaced code: `Flash-string overload and LCD clear/backlight/generic bus controls on all client surfaces; host-owned LCD prompt/priority/offline policy`. Disposition: **pending**. Reason: This slice implements standalone physical discovery/init/default cell/update text, finite REST presentation and exact completed-frame previews. It does not claim the full donor host presenter, raw I2C bridge, every app editor or USB LCD mutation parity. CompactI2c remains available for a future explicit nonconflicting AVR wiring/build profile after flash/RAM review.
@@ -1024,7 +1024,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/LcdManagement.h:3 [UTF8-LF sha256=eb800ee4c334b22504f37bd841bda58a7562052df2c7226ff19bc23a454e652d; anchor=String lcdStatusJson()]`.
 - Target: `desktop/src/display.rs:7 [UTF8-LF sha256=9d73ae63aaa8a2bc4b824219c9cfab9f7924ae7566be7a9206c11b6344a2f18b; anchor=pub struct LcdObservation]`.
 - Target: `mobile/lib/peer_context.dart:302 [UTF8-LF sha256=c8602a12ccd3009028068aba091d46900c8aa0e345a4426ffe80acfb716362fc; anchor=bool lcdObservationReady(]`.
-- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function lcdObservation(]`.
+- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function lcdObservation(]`.
 - Retained: Complete actual donor source read through EOF. Adapted common PCF8574 0x27/0x3F discovery, 4-bit HD44780 wake/control bytes,16x2 ASCII row normalization/padding, desired frame cache and backlight bit mapping into a transport-independent production class. S3 owns dedicated GPIO15/16 hardware I2C so the confirmed AVR A4/A5 TM1637 and ISP pins remain untouched.
 - Omitted/replaced code: `Blocking50ms/4.5ms initialization, ignored expander return values and cache validity after failed writes`. Disposition: **replaced**. Reason: Initialization is a paced loop-owned state machine. Every expander write must ACK; no full frame/available status until all initialization and both rows complete. NACK revokes readiness, bounded retry reinitializes/replays current desired text. Missing modules cannot become initialized merely because initialize() returned.
 - Omitted/replaced code: `Flash-string overload and LCD clear/backlight/generic bus controls on all client surfaces; host-owned LCD prompt/priority/offline policy`. Disposition: **pending**. Reason: This slice implements standalone physical discovery/init/default cell/update text, finite REST presentation and exact completed-frame previews. It does not claim the full donor host presenter, raw I2C bridge, every app editor or USB LCD mutation parity. CompactI2c remains available for a future explicit nonconflicting AVR wiring/build profile after flash/RAM review.
@@ -1130,7 +1130,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Target: `firmware/avr/BootMelody.cpp:37 [UTF8-LF sha256=fad1505f9cedc196236fc782ae2ec71a3c9fb8784659a1955affdf9e44137247; anchor=case kCueAttention:]`.
 - Target: `libraries/BoardCore/src/AttentionCues.h:13 [UTF8-LF sha256=02693199ab57f58a0531f46d8afa05ccd46dbd4c28b8db50b55bf5e4d1cff7b6; anchor=class Upload]`.
 - Target: `tools/test-audio.ps1:18 [UTF8-LF sha256=41500a0595fe030dd36f70175b56ee6f16ff62fe3bd1b2d9bf9bb29e94f90b30; anchor=Audio ·]`.
@@ -1164,7 +1164,7 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Target: `firmware/avr/BootMelody.cpp:37 [UTF8-LF sha256=fad1505f9cedc196236fc782ae2ec71a3c9fb8784659a1955affdf9e44137247; anchor=case kCueAttention:]`.
 - Retained: Timer1 OC1A PB1/D9 hardware output without audio ISR; ten-step nonblocking ring queue; silent pauses; begin/stop/mute and active telemetry.
 - Retained: PCController already uses Timer1 hardware toggling; that is reuse, not a Pakar invention.
@@ -1851,7 +1851,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/LcdManagement.h:3 [UTF8-LF sha256=eb800ee4c334b22504f37bd841bda58a7562052df2c7226ff19bc23a454e652d; anchor=String lcdStatusJson()]`.
 - Target: `desktop/src/display.rs:7 [UTF8-LF sha256=9d73ae63aaa8a2bc4b824219c9cfab9f7924ae7566be7a9206c11b6344a2f18b; anchor=pub struct LcdObservation]`.
 - Target: `mobile/lib/peer_context.dart:302 [UTF8-LF sha256=c8602a12ccd3009028068aba091d46900c8aa0e345a4426ffe80acfb716362fc; anchor=bool lcdObservationReady(]`.
-- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function lcdObservation(]`.
+- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function lcdObservation(]`.
 - Retained: Complete actual donor source read through EOF. Preserved bounded transaction results, explicit master setup and timeout policy through the real S3 Wire1 adapter at100kHz/5ms transaction timeout. Transport interface isolates controller-specific registers instead of pretending AVR TWI can control an ESP32-S3 bus.
 - Omitted/replaced code: `AVR TWI register implementation, native AVR bridge receive buffer and host-proxied arbitrary I2C operations`. Disposition: **replaced**. Reason: The S3 uses actual native hardware I2C on separate pins, not the AVR connector already carrying non-I2C TM1637. A private adapter has no public arbitrary-bus mutation path. Copying AVR registers or enabling Wire on AVR A4/A5 would steal the display pins.
 - Omitted/replaced code: `Flash-string overload and LCD clear/backlight/generic bus controls on all client surfaces; host-owned LCD prompt/priority/offline policy`. Disposition: **pending**. Reason: This slice implements standalone physical discovery/init/default cell/update text, finite REST presentation and exact completed-frame previews. It does not claim the full donor host presenter, raw I2C bridge, every app editor or USB LCD mutation parity. CompactI2c remains available for a future explicit nonconflicting AVR wiring/build profile after flash/RAM review.
@@ -1873,7 +1873,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp/src/LcdManagement.h:3 [UTF8-LF sha256=eb800ee4c334b22504f37bd841bda58a7562052df2c7226ff19bc23a454e652d; anchor=String lcdStatusJson()]`.
 - Target: `desktop/src/display.rs:7 [UTF8-LF sha256=9d73ae63aaa8a2bc4b824219c9cfab9f7924ae7566be7a9206c11b6344a2f18b; anchor=pub struct LcdObservation]`.
 - Target: `mobile/lib/peer_context.dart:302 [UTF8-LF sha256=c8602a12ccd3009028068aba091d46900c8aa0e345a4426ffe80acfb716362fc; anchor=bool lcdObservationReady(]`.
-- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function lcdObservation(]`.
+- Target: `firmware/esp/src/WebUi.h:2538 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function lcdObservation(]`.
 - Retained: Complete actual donor source read through EOF. Preserved bounded transaction results, explicit master setup and timeout policy through the real S3 Wire1 adapter at100kHz/5ms transaction timeout. Transport interface isolates controller-specific registers instead of pretending AVR TWI can control an ESP32-S3 bus.
 - Omitted/replaced code: `AVR TWI register implementation, native AVR bridge receive buffer and host-proxied arbitrary I2C operations`. Disposition: **replaced**. Reason: The S3 uses actual native hardware I2C on separate pins, not the AVR connector already carrying non-I2C TM1637. A private adapter has no public arbitrary-bus mutation path. Copying AVR registers or enabling Wire on AVR A4/A5 would steal the display pins.
 - Omitted/replaced code: `Flash-string overload and LCD clear/backlight/generic bus controls on all client surfaces; host-owned LCD prompt/priority/offline policy`. Disposition: **pending**. Reason: This slice implements standalone physical discovery/init/default cell/update text, finite REST presentation and exact completed-frame previews. It does not claim the full donor host presenter, raw I2C bridge, every app editor or USB LCD mutation parity. CompactI2c remains available for a future explicit nonconflicting AVR wiring/build profile after flash/RAM review.
@@ -1997,7 +1997,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Target: `desktop/src/ui/device_settings.rs:54 [UTF8-LF sha256=c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6; anchor=fn avr_page(]`.
 - Target: `desktop/src/device_settings.rs:648 [UTF8-LF sha256=5bce7f14b9d6225d9aaa660838b8d07f7e14bda364c520a51f1c92e83d302ed6; anchor=pub fn finish_avr(]`.
 - Target: `firmware/esp/src/SceneStore.h:17 [UTF8-LF sha256=4877f4a54061ba25e69104055303781c84eb66f7f5eb49e3ec258370665a7bd2; anchor=template <class Filesystem> class SceneStore]`.
@@ -2058,7 +2058,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Target: `desktop/src/ui/device_settings.rs:54 [UTF8-LF sha256=c087cbbde3bfc194b6002b10a3b63bb16ac4e253ef33d1a6f951ab2e566a42f6; anchor=fn avr_page(]`.
 - Target: `desktop/src/device_settings.rs:648 [UTF8-LF sha256=5bce7f14b9d6225d9aaa660838b8d07f7e14bda364c520a51f1c92e83d302ed6; anchor=pub fn finish_avr(]`.
 - Target: `libraries/BoardCore/src/PixelCorrections.h:12 [UTF8-LF sha256=2cffe251bb4f569b99cee3f3a6798f854c502cc983c57355e7947e40ce9f3c4d; anchor=bool enabled = true]`.
@@ -2092,7 +2092,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp32s3/src/StatusRgb.h:162 [UTF8-LF sha256=a60111d37be51c4985e01d77821113fd0f97cd5df243e2e521b5ec3075b31b97; anchor=bool service(uint32_t now, Writer writer)]`.
 - Target: `desktop/src/status_rgb.rs:29 [UTF8-LF sha256=3dbe61cf121e44b14fe047427fbe9d0b8e60735baa445ad3116310560631965e; anchor=pub fn observe(]`.
 - Target: `mobile/lib/status_rgb.dart:52 [UTF8-LF sha256=458f867c97d38107b37fc399dfc55f1ad2f786ce5e236a9a9b2c048d0b4fbfd0; anchor=class StatusRgbPreview]`.
-- Target: `firmware/esp/src/WebUi.h:2567 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function acceptStatusRgb(]`.
+- Target: `firmware/esp/src/WebUi.h:2567 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function acceptStatusRgb(]`.
 - Retained: Full header/implementation read through EOF. Actual absolute elapsed/period evaluation, idempotent state ownership and already-scaled rendered RGB reporting adapted into the S3's board-owned semantic engine. Added bounded 300ms eased state transitions, explicit pin safety and driver-accepted output revision; no independent client-side animation reconstruction.
 - Retained: Native/Web/mobile now merge compact observed RGB revisions only for the selected exact board/boot. Duplicate/older/foreign revisions cannot overwrite newer RGB, renew command/hardware freshness or replace cells/layout. Complete status snapshots retain only newer same-peer RGB; peer changes discard it. Selected transport capabilities gate settings with no silent Wi-Fi fallback, and writes require saved ACK plus exact persisted readback rather than a local preview.
 - Omitted/replaced code: `PwmController/EEPROM/StatusProfileAddress dependencies and sixteen-bit phase clock`. Disposition: **replaced**. Reason: Those target AVR RGB PWM wiring and EEPROM allocation, not the identified S3 addressable pixel. Existing S3 persisted configuration owns enable/brightness, writer acceptance owns reported output, and the 32-bit elapsed timer advances without per-loop phase drift.
@@ -2128,7 +2128,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `firmware/esp32s3/src/StatusRgb.h:242 [UTF8-LF sha256=a60111d37be51c4985e01d77821113fd0f97cd5df243e2e521b5ec3075b31b97; anchor=static uint8_t scale(]`.
 - Target: `desktop/src/status_rgb.rs:2 [UTF8-LF sha256=3dbe61cf121e44b14fe047427fbe9d0b8e60735baa445ad3116310560631965e; anchor=clients never synthesize]`.
 - Target: `mobile/lib/status_rgb.dart:9 [UTF8-LF sha256=458f867c97d38107b37fc399dfc55f1ad2f786ce5e236a9a9b2c048d0b4fbfd0; anchor=Color? statusRgbColor(]`.
-- Target: `firmware/esp/src/WebUi.h:2566 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function statusRgbOutput]`.
+- Target: `firmware/esp/src/WebUi.h:2566 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function statusRgbOutput]`.
 - Retained: Full original source read through EOF. Actual unsigned byte-exact scale(value, level) and interpolate(from, to, phase) arithmetic copied into the S3 semantic onboard-pixel engine, independent of the GPIO4 matrix.
 - Omitted/replaced code: `phaseDeadline distributing 64 phases in a modulo-16-bit AVR clock`. Disposition: **replaced**. Reason: S3 evaluates the present phase directly from uint32 elapsed milliseconds rather than scheduling 64 deadline steps. Late service does not slow the animation; native tests cover real production arithmetic and millis wrap, not optical output.
 - Test-code evidence: `tests/s3_status_rgb_test.cpp:69 [UTF8-LF sha256=f48af12963f643feca43b77ed5edd181e22981afb761305cf947d5ad053fa6f7; anchor=Already-scaled output bytes]`.
@@ -2190,7 +2190,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `862dd06b91efdfbc09f4d895e305ecec71d84637a7bf7d4d95d907bcd3b83566`.
 
-- Target: `README.md:43 [UTF8-LF sha256=6ef2bde812ca8aaf889f5ad1c8313ae6e4e5ac079b93424ef4be6e2cdd007da5; anchor=## Get started]`.
+- Target: `README.md:43 [UTF8-LF sha256=a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4; anchor=## Get started]`.
 - Target: `docs/README.md:7 [UTF8-LF sha256=006973cc50167b64df88e80d539604df763b3edffac561a9ada86fcc7b69683b; anchor=## Operate and recover]`.
 - Retained: Task-oriented quick start, distinct surfaces, engineering-download provenance, maintained guide hub and truthful source/physical verification boundary adapted to actual Pakar contracts.
 - Omitted/replaced code: `PCController hardware map, media/seat operations, Go/C ABI examples`. Disposition: **not-applicable**. Reason: Different product hardware/runtime; copying would misdirect wiring or invent Pakar commands.
@@ -2267,7 +2267,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Retained: Reread complete donor source through EOF. Adapt MCU-owned persistent Silent bit independent of host/Windows notification audio, capability-acknowledged controls, explicit unknown/pending/verified states and full-record preservation. Native Preferences Board page uses existing PCController GET/SET/GET with real AVR ACK and persistent readback over the selected fenced HTTP or USB owner only; Web and Flutter Preferences use the same living contract. No unsupported buzzer is invented, no automatic uncertain mutation replay, and unchanged persisted flags skip EEPROM writes.
 - Omitted/replaced code: `Full board/host/both/none mirroring routes, runtime overrides, OS backend/executable resolution and watched app configuration`. Disposition: **pending**. Reason: Reuse the known/unknown/pending/verified board-setting ownership, not an unimplemented host audio backend. Actual host routing parity needs independent implementation and acoustic acceptance; this change must not mute Windows notifications by accident.
 - Test-code evidence: `tests/tone_player_test.cpp:46 [UTF8-LF sha256=d1d890f6ead81d22702eb685ae710935bc7c007af5f97236454b851a3f5adc42; anchor=const auto beforeMute]`.
@@ -2536,7 +2536,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 - Target: `desktop/src/firmware_progress.rs:211 [UTF8-LF sha256=11188ec3c9bc7b89e76b94e5412f0e689fa656e5a636d4964136c2236aabbe31; anchor=pub fn observed(]`.
 - Target: `mobile/lib/firmware_progress.dart:9 [UTF8-LF sha256=c384ea707aee45a2c6e8faa7bfdaadadfc3d8b3a0b92f46ddce4d085edded464; anchor=class FirmwareProgress]`.
-- Target: `firmware/esp/src/WebUi.h:2718 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function firmwareUpdateObservation(s)]`.
+- Target: `firmware/esp/src/WebUi.h:2718 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function firmwareUpdateObservation(s)]`.
 - Retained: Adapt actual explicit measured stage counters, indeterminate non-transfer stages, separate verification/completion and terminal state handling. Rust retains external board update/local OTA state in HTTP/WS/USB DTOs; Flutter consumes the existing status stream, and Web renders that same source. No transfer 100 percent is treated as completed flashing.
 - Retained: 2026-10-29: reread the complete current donor and tests. Redesign the actual Flutter progress consumer using the imported Workspace semantic icon/card/badge surfaces. Show exact stage-local bytes/percentage, distinguish Sending from Programming and explicit verified completion from pending recovery. Unmeasured verification/reboot remains indeterminate; no fabricated ETA or stage history. Add compact/wide, light/dark, RTL and large-text bounds fixtures; installed/device progress evidence remains a separate gate.
 - Omitted/replaced code: `Remaining donor mechanisms outside this delivery slice`. Disposition: **pending**. Reason: This slice does not port the donor's per-operation milestone toast tracker, Windows taskbar COM ordering or terminal OSC progress presenter. Existing native notifications remain, but complete progress-notification/OS presentation parity is pending.
@@ -3003,7 +3003,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `mobile/lib/main.dart:1052 [UTF8-LF sha256=814e5944b0f27d21f2005ff4bfa8e391dc5721435e25f9c40ccf2c934090a7db; anchor=Future<bool> _command]`.
 - Target: `libraries/BoardCore/src/DeviceContext.h:25 [UTF8-LF sha256=d1fe9e5a3663b13017ea61d251b6bc314ce91b2cb43b8c8b9c5308fe5fa73f1c; anchor=inline uint16_t features(]`.
 - Target: `firmware/esp/application.ino:2471 [UTF8-LF sha256=a607abb53d7834663853f2adb45286361d9d5b1cf82edb0d18ee11c9d9a74c41; anchor=if(BoardCore::Context::pixelEvents(available))]`.
-- Target: `firmware/esp/src/WebUi.h:2529 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function peerAvailability(]`.
+- Target: `firmware/esp/src/WebUi.h:2529 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function peerAvailability(]`.
 - Retained: Actual connected AND have_status AND advertised-capability conjunction adapted to selected-peer fresh manifests. No feature inference from hostname, pixel count, catalog, defaults or online alone.
 - Retained: Reread the complete unchanged availability donor and tests for the table live-preview regression. Shared Context::pixelEvents now requires actual Network plus Leds service availability for both compiled roles, without requiring AVR acknowledgement. The same predicate owns feature advertisement, subscription admission and publication; no-driver and network-disabled builds cannot advertise or start pixel events. Existing authorized-listener-only latest-frame coalescing and backpressure remain unchanged. Both role host fixtures and source integration guards passed; live device subscription and optical acceptance remain separate.
 - Retained: Reread the complete unchanged donor and actual Flutter peer parser/menu/tab consumers for missing Pixel corrections: the known-feature allowlist now retains the explicit pixel-corrections advertisement. Unsupported or mismatched-owner manifests still cannot expose it; existing linked Diagnostics/Corrections tabs are reused rather than duplicated. Actual overflow navigation fixtures assert supported/unsupported visibility and zero board writes.
@@ -3038,7 +3038,7 @@ Verdict: **equivalent-behavior**. Revision: `b0111ae0c80dc34149ea1044de7dd548892
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `7a3e955ddc771cf27f9e545c11ea992a1342a7ed5eaeba9d9a5b95d00dacd2bc`.
 
-- Target: `firmware/esp/src/WebUi.h:2490 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function workspaceSettingsRecord]`.
+- Target: `firmware/esp/src/WebUi.h:2490 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function workspaceSettingsRecord]`.
 - Retained: Completely read actual allowlisted normalized local-preferences and unavailable-storage behavior; adapt bounds/type validation and storage-disabled retention to passive board/application Web workspaces.
 - Omitted/replaced code: `Full donor quick-header action/catalog UI`. Disposition: **pending**. Reason: This reuses normalization/persistence, not every quick-header control; individual capability-gated donor controls need separate mapping.
 - Test-code evidence: `tests/web_workspace_test.mjs:115 [UTF8-LF sha256=e35df2215cf2802e9e58896204d4c44dbb12225411a7c511808f47af9679d7cf; anchor=Disabled browser storage still retains this session workspace]`.
@@ -3062,7 +3062,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `f600267bf09d925eaf9e5cc3d752574a0a3fbc46350782c614440300c08799e4`.
 
 - Target: `assets/web/frame-stream.js:9 [UTF8-LF sha256=3d0ab90616b173570e5618be76aded339754caa92961868a1d9b43a02e3c6d90; anchor=function createFrameStream]`.
-- Target: `firmware/esp/src/WebUi.h:3811 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function readStreamPolicy]`.
+- Target: `firmware/esp/src/WebUi.h:3811 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function readStreamPolicy]`.
 - Retained: Full source read through EOF. Actual injected clock, generation admission, one scheduled callback, cancellation and disposal structure adapted to the mechanically embedded latest-frame Web stream.
 - Retained: Stale callbacks check generation before clearing the timer handle, strengthening the donor against disarming a replacement owner. Observed board/boot and exact socket ownership replace build/name-only identity for this bounded slice.
 - Omitted/replaced code: `pendingStatus history queue and applyStatusFrameBatch ordered metrics/error reducer`. Disposition: **pending**. Reason: All status arrivals are useful for telemetry/history, but stale LED actuations must not be replayed. This latest-only send scheduler does not implement the donor telemetry reducer; retain it as separate useful work.
@@ -3124,17 +3124,17 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 - Target: `.github/dependabot.yml:1 [UTF8-LF sha256=136887ba77b56544d0bcd367a31d2daaa7637ecdb8b997d63df6cb552d6f08e8; anchor=version: 2]`.
 - Retained: Actual donor weekly grouped github-actions and Cargo updates, with Cargo path adapted to the existing desktop workspace.
 - Omitted/replaced code: `npm updates at /web_ui`. Disposition: **not-applicable**. Reason: Pakar has no /web_ui/package.json or Vite runtime. Embedded Web/tests use Node built-ins; Flutter's actual /mobile Pub dependency contract is covered instead.
-- Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
+- Test-code evidence: `tests/repository_governance_test.mjs:107 [UTF8-LF sha256=95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c; anchor=console.log('Repository governance]`.
 - Scoped advantage: Adds grouped Pub updates for the actual Android client and label routing while retaining weekly grouped Actions/Cargo updates.
 
 ### Pealayer: `.github/workflows/ci-cd.yml`
 
 Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `2e5c933b7c1646d5cb26ddd8a10f88529de15bd205b525295858755d5044988b`.
 
-- Target: `.github/workflows/build.yml:2 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🚀 Build · Test · Release"]`.
+- Target: `.github/workflows/build.yml:2 [UTF8-LF sha256=83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a; anchor=name: "🚀 Build · Test · Release"]`.
 - Target: `tools/build-desktop.ps1:49 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=--test-threads=1]`.
 - Target: `tools/ci-checks.mjs:280 [UTF8-LF sha256=c33954b785a09f8bf3b469fdf9a8b12133c75bf1198fa76ac050678c5ceaa64c; anchor=export function runChecks]`.
-- Target: `tools/prepare-release.mjs:18 [UTF8-LF sha256=820cefc9698d46f95cf39b4cd667494a05cd03d119a1c54f9892b2a35d8b824b; anchor=export function firmwareManifest]`.
+- Target: `tools/prepare-release.mjs:19 [UTF8-LF sha256=b31fc1117c192807cb01642ec932ee8ffcb1dd9fe3acabf837002ee6bf29a2e1; anchor=export function firmwareManifest]`.
 - Retained: Actual donor branch/PR/tag/dispatch/merge-group triggers, concurrency policy, pinned actions without checkout credentials, health-before-build jobs, timeouts, Rust cache reuse, locked tests/builds, packaging, curated notes, manifest/checksums/provenance and aggregate results adapted to current Windows/ESP/AVR/Android targets.
 - Retained: Release content is gated on all supported-target builds, created as an immutable draft prerelease, with the matched S3/AVR buffered pair and raw HTTPS update manifests. Explicit legacy packaging is preserved but the overflowing ESP8266 image is not promised as a release output. Untrusted PRs do not execute publishing code with a write token.
 - Retained: Actual donor serial native test execution, isolated test configuration and RUST_BACKTRACE=1 restored. Runtime harness flags are separated from compile jobs; immediate panic output remains available even if a later test aborts before its summary.
@@ -3144,7 +3144,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 - Omitted/replaced code: `UPX checksum-locked packing and packed native package smoke/resource checks`. Disposition: **pending**. Reason: Existing Windows wrappers preserve donor resource/donor/cache gates and CLI runtime tests, but Pakar has no accepted compressed native package probe. Do not call a source or CLI test full packed GUI runtime acceptance.
 - Omitted/replaced code: `branch-tag and archive suffix creation, softprops update-existing release`. Disposition: **replaced**. Reason: User requests stable names without random/time suffixes. Version releases keep stable package names; release enumeration must succeed and an existing release is not overwritten.
 - Test-code evidence: `tests/build_storage_test.ps1:17 [UTF8-LF sha256=6bfae8dbd4e71ee19a6d760fe69898d3f057354877c3182dff73ee9240f1dbbd; anchor=Actual donor serial test contract]`.
-- Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
+- Test-code evidence: `tests/repository_governance_test.mjs:107 [UTF8-LF sha256=95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c; anchor=console.log('Repository governance]`.
 - Remaining: The historical 8849ab8 menu failure was subsequently fixed; 5d02b07 Build 38141677102 and CodeQL 38141677110 pass. This is not production/deployment proof. Validate the unexecuted draft publisher, useful additional native targets, donor macOS diagnostics and optional compressed package/runtime verification.
 
 ### Pealayer: `.github/workflows/codeql.yml`
@@ -3154,11 +3154,11 @@ Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238
 - Target: `.github/workflows/codeql.yml:2 [UTF8-LF sha256=0ced3b7ee236102d9322f20ee0e4a37347aae41d791d48c38731f96daf4bdfba; anchor=name: "🛡️ Security · CodeQL"]`.
 - Retained: Actual donor Actions and JavaScript matrix, no-build security-extended queries, pinned checkout/CodeQL actions, no persisted checkout credentials, PR/main/schedule/dispatch/merge-group triggers, cancellation, timeouts and fail-closed aggregate summary.
 - Omitted/replaced code: `Pealayer React/Vite names, packages:read permission and branded prose`. Disposition: **replaced**. Reason: Pakar analyzes embedded Web/scripts and Actions, not Pealayer React. Package read permission is unnecessary for these none-build scans; Rust/C++ coverage is explicitly not invented.
-- Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
+- Test-code evidence: `tests/repository_governance_test.mjs:107 [UTF8-LF sha256=95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c; anchor=console.log('Repository governance]`.
 
 ### Pealayer: `assets/themes/palettes.json`
 
-Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501`.
+Verdict: **equivalent-file**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501`.
 
 - Target: `assets/themes/palettes.json:2 [UTF8-LF sha256=11990ef4b31ba6eb1275c6e76b9156e0f05bacb2f59a8fa0372b778c6caf1501; anchor="studio"]`.
 - Retained: Byte-identical Studio/Native light/dark JSON catalog, all fourteen semantic roles.
@@ -3169,28 +3169,28 @@ Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c
 
 ### Pealayer: `build.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `68fb1bdd9e7c7523ab303e37001d3a5252dcb03abe85e489432fe913be7b2e0f`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `68fb1bdd9e7c7523ab303e37001d3a5252dcb03abe85e489432fe913be7b2e0f`.
 
-- Target: `desktop/build.rs:16 [UTF8-LF sha256=a7c694cdd2cfd17e3359db8970ce9ffd7db699110145543dde7c73703ca017ef; anchor=brand_image::native_icon_bytes(brand_image::icon_bytes())]`.
-- Target: `docs/BRANDING-PARITY.md:60 [UTF8-LF sha256=0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3; anchor=## Explicit unfinished useful code and reasons]`.
+- Target: `desktop/build.rs:16 [UTF8-LF sha256=4a33b09a2c6bacd11f3dbe48832a6d3a6edf26449aec23f651cba28fd54a62f4; anchor=brand_image::native_icon_bytes(brand_image::icon_bytes())]`.
+- Target: `docs/BRANDING-PARITY.md:81 [UTF8-LF sha256=a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed; anchor=## Explicit unfinished useful code and reasons]`.
 - Retained: Application PE/window/tray master derivatives are separated from actual semantic quick-action resource generation; master/helper changes trigger rebuild.
 - Omitted/replaced code: `emit_build_metadata; APPLICATION_BRAND JSON/APP_* precedence/filename validation; version/InternalName/OriginalFilename/copyright/provenance fields`. Disposition: **pending**. Reason: Fixed current identity exists; validated external branding and full generic metadata/provenance remain useful imports.
 - Omitted/replaced code: `macOS brew/mpv probing and rpath flags`. Disposition: **not-applicable**. Reason: Pakar is explicitly mpv-free; media linker dependencies violate that scope.
-- Test-code evidence: `tests/branding_test.mjs:12 [UTF8-LF sha256=c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb; anchor=actual Pealayer icon_data_from_bytes import]`.
+- Test-code evidence: `tests/branding_test.mjs:11 [UTF8-LF sha256=b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199; anchor=actual Pealayer icon_data_from_bytes import]`.
 - Remaining: Complete named generic omissions with preference/endpoint/runtime tests; source checks are not deployed acceptance. See BRANDING-PARITY.md.
 
 ### Pealayer: `docs/releases/next.md`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `71f81fa503d0494a85dd700e16cabdb23e1a6dcd6abbb0abc1af47000584b3f7`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `71f81fa503d0494a85dd700e16cabdb23e1a6dcd6abbb0abc1af47000584b3f7`.
 
 - Target: `docs/releases/next.md:1 [UTF8-LF sha256=9e83c4d1a348af3bc275a5ec924abea7317ba22d1f0e66eac63d6f5499efbeec; anchor=# PakarController development packages]`.
 - Retained: Actual donor curated preview notes explicitly distinguish a development milestone from stable-release, physical and platform acceptance.
 - Omitted/replaced code: `Pealayer media/audio/timeline milestone inventory and archived media screenshot evolution links`. Disposition: **replaced**. Reason: These are donor-specific release facts, not transferable Pakar features. Record actual controller/interface packages and link Pakar issue #2 instead.
-- Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
+- Test-code evidence: `tests/repository_governance_test.mjs:107 [UTF8-LF sha256=95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c; anchor=console.log('Repository governance]`.
 
 ### Pealayer: `docs/REVIEW-COMMENT-AUDIT.md`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `7a91d9fa8778383ee37e33d861ceebc5ab210e46bedab6af8be82d56c27523cc`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `7a91d9fa8778383ee37e33d861ceebc5ab210e46bedab6af8be82d56c27523cc`.
 
 - Target: `tools/audit-github-conversations.mjs:59 [UTF8-LF sha256=0bd597414af4e28668d2da96e250a27a99550fff9b86e5d58136b7de583a1dcf; anchor=export function collect]`.
 - Target: `docs/GITHUB-COORDINATION.md:1 [UTF8-LF sha256=64a078407d296db907e8645e07dc25a6392168cb1cb2e39cc8bb18a9bce01f0d; anchor=# Conversation-aware integration]`.
@@ -3202,7 +3202,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `docs/superpowers/plans/2026-09-28-windows-taskbar-and-tray-suite.md`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `033a82778e4ed8258bbbf99600d16039f523043386e302032d6df8849624ea9f`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `033a82778e4ed8258bbbf99600d16039f523043386e302032d6df8849624ea9f`.
 
 - Target: `desktop/src/platform/windows_tray.rs:17 [UTF8-LF sha256=94bd79acba0dd4d572222cb064e451a274ee38579a392c95c56d997779cc35bf; anchor=struct TooltipSync]`.
 - Target: `desktop/src/platform/windows_notifications.rs:158 [UTF8-LF sha256=71f2254825ba2b16d83696ce0e0cf74ec7c95eedda5f60e1c3d167826693ec1a; anchor=fn tooltip_data(]`.
@@ -3218,7 +3218,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `docs/verification/LOCAL-WORKSPACE-HYGIENE.md`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `c024125307f6e466c924e1b8874f869a575b085b2a05bb4493bfd1d1e9f38975`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `c024125307f6e466c924e1b8874f869a575b085b2a05bb4493bfd1d1e9f38975`.
 
 - Target: `docs/REUSE-PREFLIGHT.md:42 [UTF8-LF sha256=13521024e5b18f314abcc71af4e9c722262a7cb04c17f03155b1e88d0cf0972e; anchor=Mandatory sequence on every task]`.
 - Retained: Actual canonical-cache/stable-staging/preservation/blocked-operation and separate runtime-acceptance guidance read and adopted in mandatory continuation policy and tooling.
@@ -3231,7 +3231,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `docs/WINDOWS-SHELL-RECOVERY.md`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `57fbd904e18d8f0036dd67e2c866d357ab282075689a1cbf6b38a64270875492`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `57fbd904e18d8f0036dd67e2c866d357ab282075689a1cbf6b38a64270875492`.
 
 - Target: `desktop/src/platform/windows_tray.rs:14 [UTF8-LF sha256=94bd79acba0dd4d572222cb064e451a274ee38579a392c95c56d997779cc35bf; anchor=Shell acceptance, not object presence]`.
 - Target: `desktop/src/ui/shell.rs:1332 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=value["tray_shell"]]`.
@@ -3247,19 +3247,19 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `README.md`
 
-Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `4e78a6c486bfc7d78adc6d34552bddfd67c89997edb8d2bae0b46e70c705dcb6`.
+Verdict: **scoped-improvement**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `4e78a6c486bfc7d78adc6d34552bddfd67c89997edb8d2bae0b46e70c705dcb6`.
 
-- Target: `README.md:7 [UTF8-LF sha256=6ef2bde812ca8aaf889f5ad1c8313ae6e4e5ac079b93424ef4be6e2cdd007da5; anchor=Connected boards. One contextual control workspace.]`.
-- Target: `tools/generate-readme-artwork.mjs:1 [UTF8-LF sha256=2162d1ad3760618260eb9d659dfebb6651ad1e5f5b4eb2c37c12cde1ef7ff8d2; anchor=README uses the same bytes]`.
+- Target: `README.md:7 [UTF8-LF sha256=a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4; anchor=Connected boards. One contextual control workspace.]`.
+- Target: `tools/generate-readme-artwork.mjs:1 [UTF8-LF sha256=83ac3f09a45dace80865eda69d7f69cb22a3af8042edf69a3ae12cf8022c6580; anchor=README uses the same bytes]`.
 - Retained: Pealayer's actual centered logo/title/tagline, badge row, visual preview, section navigation, architecture, build, docs, contribution and license structure adapted to Pakar.
 - Omitted/replaced code: `Media engine, NLE cue/timeline walkthroughs, playback APIs/shortcuts and libmpv installation sections`. Disposition: **not-applicable**. Reason: These describe Pealayer media business/runtime rather than Pakar board control. README links actual controller APIs, wiring and release/acceptance instead; no mpv is linked.
 - Omitted/replaced code: `Donor platform and latest-release badges, cinema-grade completion language and media screenshots`. Disposition: **replaced**. Reason: Unsupported OS/release claims and unrelated images would misrepresent this repo. Use the shared application logo and real embedded Web screenshot labeled simulated, explicit PR/source and physical acceptance boundaries.
-- Test-code evidence: `tests/repository_governance_test.mjs:105 [UTF8-LF sha256=2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1; anchor=console.log('Repository governance]`.
+- Test-code evidence: `tests/repository_governance_test.mjs:107 [UTF8-LF sha256=95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c; anchor=console.log('Repository governance]`.
 - Scoped advantage: Canonical cross-interface icon bytes and explicit proof/acceptance boundaries prevent a polished landing page from claiming an unaccepted release.
 
 ### Pealayer: `scripts/capture-visible-window-windows.ps1`
 
-Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f`.
+Verdict: **scoped-improvement**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `94bc5aed91407818905412d50dde72ea669f3c799ef56a043dd0a81befdce47f`.
 
 - Target: `tools/capture-window-windows.ps1:75 [UTF8-LF sha256=c9f48604a224599ea0252638558e80f4025beb4b53834112af9e48af03ae73d0; anchor=public static extern bool PrintWindow]`.
 - Retained: Actual donor PrintWindow P/Invoke, minimized/window-bounds validation, DPI awareness, System.Drawing PNG lifecycle and read-only behavior.
@@ -3270,7 +3270,7 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `scripts/check-crate-boundary.mjs`
 
-Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `da9b469ac596e6eb1999e4d499742a51ebf289335285549569116c1124963e38`.
+Verdict: **scoped-improvement**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `da9b469ac596e6eb1999e4d499742a51ebf289335285549569116c1124963e38`.
 
 - Target: `tools/check-crate-boundary.mjs:10 [UTF8-LF sha256=4a8fbcecaf424460c051de61d5e44658532ec64527460ce21d4d86ec95c0550e; anchor=export function checkCrateBoundary]`.
 - Retained: Actual donor module extraction/intersection, thin executable and MSVC duplicate resource linkage guards imported/adapted. Native build wrapper and CI execute this read-only guard before compiling.
@@ -3281,7 +3281,7 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `scripts/libmpv-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ab6e48f3e0a55a2d86ad1dbb19c01a23c751891cb5a7ed61875a21b1e52645e5`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `ab6e48f3e0a55a2d86ad1dbb19c01a23c751891cb5a7ed61875a21b1e52645e5`.
 
 - Target: `tools/windows-build-host.ps1:16 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Get-PakarCargoTargetDirectory]`.
 - Target: `tools/windows-build-host.ps1:46 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Test-PakarFileContentEqual]`.
@@ -3298,7 +3298,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `scripts/package-probe-windows.ps1`
 
-Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `f4516884990ad76c020fbc6534d902c4949abae0b48da8ea40c008afa44dfd4f`.
+Verdict: **equivalent-file**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `f4516884990ad76c020fbc6534d902c4949abae0b48da8ea40c008afa44dfd4f`.
 
 - Target: `tools/package-probe-windows.ps1:27 [UTF8-LF sha256=71604ab464776891dbc95db7123218c22b3ede09ce2835fe4659d75c6d0b9d5e; anchor=function Invoke-PackageProbe]`.
 - Target: `tools/replace-desktop.ps1:71 [UTF8-LF sha256=95a7f84383869622426e97d7c21d579ce93fd5c55d2bd4607697b6b352bbe525; anchor=$reply=Invoke-PackageProbe]`.
@@ -3310,7 +3310,7 @@ Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c
 
 ### Pealayer: `scripts/package-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `5651709cfb58c2f1e0d7052b3ca604df154563ce552498a066c6e67b8f9baedf`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `5651709cfb58c2f1e0d7052b3ca604df154563ce552498a066c6e67b8f9baedf`.
 
 - Target: `tools/windows-build-host.ps1:62 [UTF8-LF sha256=7da123594866f591b490db084496b4bef75b2db3f6e0ac5b425b8d86e9401e9b; anchor=function Assert-PakarPackageSourceStable]`.
 - Target: `tools/stage-desktop.ps1:38 [UTF8-LF sha256=1bbfe87fe8c9e6936e140c7911c5493f5937eceac1402ca386661dcabb40c4bd; anchor=Invoke-PackageProbe]`.
@@ -3326,7 +3326,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `scripts/run-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `013e5c67e227ed851f8a3d26b27654e38c8816edca2965381bbb1b48d10a750d`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `013e5c67e227ed851f8a3d26b27654e38c8816edca2965381bbb1b48d10a750d`.
 
 - Target: `tools/build-desktop.ps1:35 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Get-PakarCargoTargetDirectory]`.
 - Retained: Shared resolver call and locked native build flow mapped to Pakar wrapper. Existing canonical cache is reused; explicit Check/Test/Release and storage/reuse gates avoid unnecessary links.
@@ -3339,7 +3339,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `scripts/storage-hygiene.ps1`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `0d8fdeb3e15fb52b917784d4cb3875c68bc12c6c6ed78cd16f2ff8ee3561d89c`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `0d8fdeb3e15fb52b917784d4cb3875c68bc12c6c6ed78cd16f2ff8ee3561d89c`.
 
 - Target: `tools/storage-hygiene.ps1:11 [UTF8-LF sha256=3d1091c2761add106a5104f671bf12793c9621803f38bd898b193f597eabb329; anchor=function Get-DirectorySummary]`.
 - Target: `tools/build-mobile.ps1:87 [UTF8-LF sha256=0c5eee09b25ad17fc062555da65024fc84a9d8cc7c4a057d6d2e8a53d2ed8fb4; anchor=$taskCache=Get-DirectorySummary]`.
@@ -3355,7 +3355,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `scripts/update-screenshots-windows.ps1`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `48507f6e9395c8c312c5557db729d05ed8d6a83e980d57a9b01e77ea525db287`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `48507f6e9395c8c312c5557db729d05ed8d6a83e980d57a9b01e77ea525db287`.
 
 - Target: `tools/capture-window-windows.ps1:75 [UTF8-LF sha256=c9f48604a224599ea0252638558e80f4025beb4b53834112af9e48af03ae73d0; anchor=public static extern bool PrintWindow]`.
 - Retained: Actual PrintWindow(PW_RENDERFULLCONTENT), near-uniform-black sampler, GetWindowDC/BitBlt/screen fallback and PID/dimension validation imported. Pakar fixture supplies isolated profile/selected surfaces; app-owned framebuffer capture does not depend on WGC.
@@ -3385,14 +3385,14 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/branding.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ee6ef94e685a86e72258e4609692a9fefa516d5935d75d15a5abe0ee42ada3c1`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `ee6ef94e685a86e72258e4609692a9fefa516d5935d75d15a5abe0ee42ada3c1`.
 
-- Target: `desktop/src/branding.rs:75 [UTF8-LF sha256=13a85d887a09acb79aed6acb7b8c0e38f9ea1ba2e35e9306c8bf7558211bc211; anchor=pub fn icon_data_from_bytes]`.
-- Target: `desktop/src/brand_image.rs:25 [UTF8-LF sha256=ab71607dcde16d7af14b0a292982f902186dacf6b5b78b3f4c983e37464428e9; anchor=pub fn native_icon_bytes]`.
-- Target: `docs/BRANDING-PARITY.md:60 [UTF8-LF sha256=0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3; anchor=## Explicit unfinished useful code and reasons]`.
-- Target: `desktop/src/branding.rs:9 [UTF8-LF sha256=13a85d887a09acb79aed6acb7b8c0e38f9ea1ba2e35e9306c8bf7558211bc211; anchor=pub fn sync_peer]`.
+- Target: `desktop/src/branding.rs:75 [UTF8-LF sha256=501550b1f21d7f165fb9de4c0c693a504f90e38b50a82c9add2637e9783377a9; anchor=pub fn icon_data_from_bytes]`.
+- Target: `desktop/src/brand_image.rs:30 [UTF8-LF sha256=a286fb4a54cbc3c916343df1630bf0d0a1e9835b2bd644072b5d4ae18b8836b9; anchor=pub fn native_icon_bytes]`.
+- Target: `docs/BRANDING-PARITY.md:81 [UTF8-LF sha256=a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed; anchor=## Explicit unfinished useful code and reasons]`.
+- Target: `desktop/src/branding.rs:9 [UTF8-LF sha256=501550b1f21d7f165fb9de4c0c693a504f90e38b50a82c9add2637e9783377a9; anchor=pub fn sync_peer]`.
 - Target: `mobile/lib/main.dart:1670 [UTF8-LF sha256=814e5944b0f27d21f2005ff4bfa8e391dc5721435e25f9c40ccf2c934090a7db; anchor=peer.application?.icon ?? bundledApplicationArtwork]`.
-- Target: `mobile/lib/application_artwork.dart:2 [UTF8-LF sha256=a1ee8fc15b0aa9111a5c416fcf74b3d05093b22e47b76d7744837f175f7b5ef4; anchor=const applicationArtworkBase64]`.
+- Target: `mobile/lib/application_artwork.dart:2 [UTF8-LF sha256=2a55523277ac368f98b85018fd5713dfa5554094eb1dc3576b552954cb7a01b2; anchor=const applicationArtworkBase64]`.
 - Retained: Actual icon_data_from_bytes imported unchanged; one embedded PNG supplies native/Web artwork without disk caches.
 - Retained: Actual native_icon_bytes seven-frame ICO encoding/master preservation/Lanczos3 resampling and shell derivative test adapted to shared supplied bytes and PNG-only decoder.
 - Retained: Actual sync_native_window_icon source-signature cache, multi-viewport icon publication and tray refresh lifecycle adapted to fresh selected-peer Application metadata; no per-frame decode or disk cache.
@@ -3402,13 +3402,13 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 - Omitted/replaced code: `sync_native_window_icon, icon_source_signature/revision metadata/multi-viewport/tray sync and tests`. Disposition: **replaced**. Reason: sync_peer now adapts the cache/multi-viewport lifecycle to peer Application metadata, shared header/About and tray artwork/Show label. Native runtime acceptance is still blocked by the cache guard; full icon preferences/tests remain open.
 - Omitted/replaced code: `PlaybackIconState/from_player/playback_state_is_unambiguous`. Disposition: **not-applicable**. Reason: Video state business expressly removed; hardware state icons require a separate validated state contract.
 - Omitted/replaced code: `Current apply_native_window_icon shared Preferences/main HWND path, native window_icons::apply fallback, (state,revision,HWND) sync stamp and file-metadata change detection`. Disposition: **pending**. Reason: Pakar currently caches selected peer Application metadata and emits viewport icon commands; it does not implement donor native HWND registration/replacement lifecycle, file override metadata or preset precedence. Preserve bounded inline peer artwork and import applicable native lifecycle only after Windows tests; playback business remains excluded separately.
-- Test-code evidence: `tests/branding_test.mjs:12 [UTF8-LF sha256=c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb; anchor=actual Pealayer icon_data_from_bytes import]`.
+- Test-code evidence: `tests/branding_test.mjs:11 [UTF8-LF sha256=b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199; anchor=actual Pealayer icon_data_from_bytes import]`.
 - Test-code evidence: `tests/web_identity_test.mjs:40 [UTF8-LF sha256=c4824a7923009f8698e0cde21c1d693609d1af98f55c47dbc20a140293a576be; anchor=Actual Web application identity]`.
 - Remaining: Complete named generic omissions with preference/endpoint/runtime tests; source checks are not deployed acceptance. See BRANDING-PARITY.md.
 
 ### Pealayer: `src/cli.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `412b553fcdcd4436075af6bc93c956a4b7d9ac93a552a3458f2afabb8aa1448f`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `412b553fcdcd4436075af6bc93c956a4b7d9ac93a552a3458f2afabb8aa1448f`.
 
 - Target: `desktop/src/cli_output.rs:28 [UTF8-LF sha256=135bdb2862fb8e1946164e685059aadbb12e19db096056224a16632e8333bc89; anchor=pub fn parse_cli_output(]`.
 - Retained: Actual format_help_message and PrintHelp/PrintVersion flag branches adapted with native short/long help/version assertions; terminate before config, network, GUI ownership and windows. Share device command help with existing TUI instead of duplicate stale strings.
@@ -3420,7 +3420,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/diagnostics.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `92b065a4d8ff01ae3b4a81fa11fb6e5b671f85bb1f667be6af389e692fef9f71`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `92b065a4d8ff01ae3b4a81fa11fb6e5b671f85bb1f667be6af389e692fef9f71`.
 
 - Target: `desktop/src/cli_console.rs:26 [UTF8-LF sha256=bdf70294c5d4a40007baaf637a8ee26a8576f6dfd03604274fdd9a7d3de2a4ac; anchor=fn write_output(]`.
 - Target: `desktop/src/main.rs:5817 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=cli_println!("{reply}")]`.
@@ -3437,13 +3437,13 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/main.rs`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `452eb004c52bdcff6936de5602cfdddf5c925d58db9e1e48220fc9a21075b696`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `452eb004c52bdcff6936de5602cfdddf5c925d58db9e1e48220fc9a21075b696`.
 
 - Target: `desktop/src/main.rs:2 [UTF8-LF sha256=919d2a1ebeaae2e2694270a8251b93cf4fc56ba882be87a3cdce5297227cff32; anchor=#![cfg_attr(windows, windows_subsystem = "windows")]]`.
 - Target: `desktop/src/cli_console.rs:69 [UTF8-LF sha256=bdf70294c5d4a40007baaf637a8ee26a8576f6dfd03604274fdd9a7d3de2a4ac; anchor=pub fn prepare(]`.
 - Target: `desktop/src/application_identity.rs:3 [UTF8-LF sha256=c37a32df5c00a1cc559c58d226b87d6e9756e7d837b56488646bd0ecc54f26bb; anchor=pub const WINDOWS_APP_ID]`.
 - Target: `desktop/src/platform/windows_jump_list.rs:13 [UTF8-LF sha256=847796332bd1ba7dd3c51a38a1699b0881ae7efe29249d8129de00d2a481d841; anchor=wide_null(crate::application_identity::WINDOWS_APP_ID)]`.
-- Target: `desktop/build.rs:40 [UTF8-LF sha256=a7c694cdd2cfd17e3359db8970ce9ffd7db699110145543dde7c73703ca017ef; anchor=.set("CompanyName", application_identity::APP_NAME)]`.
+- Target: `desktop/build.rs:40 [UTF8-LF sha256=4a33b09a2c6bacd11f3dbe48832a6d3a6edf26449aec23f651cba28fd54a62f4; anchor=.set("CompanyName", application_identity::APP_NAME)]`.
 - Retained: Lamp-background checkpoint: reread complete donor main.rs and current CLI preparation/early control-only dispatch. New --cell-backgrounds on|off uses existing owner IPC and fallible CLI output; it never starts another GUI, allocates a console, focuses the existing window or sends board traffic. Scoped consumer hashes are rebound; not new full startup/platform acceptance.
 - Retained: Actual complete six-line entrypoint read through EOF at5a6961ce. Import windows_subsystem=windows into the Pakar executable, preventing the OS from creating an empty console on ordinary GUI launches. GUI, shortcuts and updater helpers never allocate or attach a console. Explicit CLI/TUI commands may attach only to an existing parent console; inherited file/pipe handles are preserved.
 - Retained: Use one prefix-free PakarController native identity for window startup, process AppUserModelID, Jump List and executable FileDescription/ProductName/CompanyName/InternalName. Existing updater child CREATE_NO_WINDOW flags remain. This row certifies the tiny entrypoint adaptation, not whole-file Windows Shell parity.
@@ -3469,7 +3469,7 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `src/network.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `22abaf1ca05c64d7e694b7b1d8216904df23cb84f47a0d23c6e91e78d40b86f2`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `22abaf1ca05c64d7e694b7b1d8216904df23cb84f47a0d23c6e91e78d40b86f2`.
 
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=870da3158a7edbf09572ff28eb7878ca4fc4d91d72b3c321a342abff6ee8bfe1; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/ui/preferences.rs:500 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=Enable API bridge / repeater]`.
@@ -3480,7 +3480,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/platform/window_icons.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `63bbaa244728a2fb4bd53ad5c35f7ff4b95790e70358d47c34ae704ea79d4a4e`.
 
 - Target: `desktop/src/platform/windows_window_icons.rs:138 [UTF8-LF sha256=bc430351f14d15d6559e6f1dd8a593329c1e05cf7661278856d959b9ab539f6b; anchor=pub fn apply(]`.
 - Target: `desktop/src/ui/shell.rs:1167 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=desktop.set_icon(&icon)]`.
@@ -3493,7 +3493,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/platform/windows_quick_actions.rs`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `35f6de708a0e402f6958a4d8feeead5037b42174286050ddc98c494d4173e4cb`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `35f6de708a0e402f6958a4d8feeead5037b42174286050ddc98c494d4173e4cb`.
 
 - Target: `desktop/src/platform/windows_quick_actions.rs:15 [UTF8-LF sha256=432e49b73bdd263fd21de74cdded3de2115605f203f4f3a455e1e2d8553cc0a3; anchor=pub const WINDOWS_QUICK_ACTIONS]`.
 - Retained: Actual typed action/resource catalog, equality traits, explicit negative resource-index selection, Preferences, Exit and generic Toggle fullscreen. Controller actions share the launch/IPC dispatcher and resource compiler.
@@ -3503,7 +3503,7 @@ Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238
 
 ### Pealayer: `src/platform/windows_shell_icons.rs`
 
-Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a`.
+Verdict: **equivalent-file**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a`.
 
 - Target: `desktop/src/platform/windows_shell_icons.rs:45 [UTF8-LF sha256=e1d8793f8f1697f2030bc407f51e48cab4063964c051f2e21d1f60ae3349732a; anchor=pub fn shell_icon_ico]`.
 - Retained: Byte-identical actual Phosphor rasterizer, centered glyph coverage, all seven ICO resolutions, bottom-up BGRA, DWORD-aligned AND masks and explicit directory offsets. Pakar build.rs keeps it for semantic quick-action assets; application PE/window/tray artwork now uses the shared master and actual Pealayer branding conversion.
@@ -3512,7 +3512,7 @@ Verdict: **equivalent-file**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c
 
 ### Pealayer: `src/server/discovery.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `a707a76b8424353a304ec28e344e467e89823b81c1f4dca321ec3b7060069c6c`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `a707a76b8424353a304ec28e344e467e89823b81c1f4dca321ec3b7060069c6c`.
 
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=870da3158a7edbf09572ff28eb7878ca4fc4d91d72b3c321a342abff6ee8bfe1; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/platform/discovery.rs:174 [UTF8-LF sha256=126098720cf4b0d91a74e7147b41954f2361960f4ae7d210896f8c762ae24fd3; anchor=pub fn ssdp_locations]`.
@@ -3524,7 +3524,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/ui/board_info.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ab1c99e674e902e37626963e2dd5cf7d993965334411d5e33dafd1ea2bf79e51`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `ab1c99e674e902e37626963e2dd5cf7d993965334411d5e33dafd1ea2bf79e51`.
 
 - Target: `desktop/src/capabilities.rs:7 [UTF8-LF sha256=fe68fb6d4d5262079bae60446dd4dfbfc8f69ecce59cd7b12084f7d2cf6eb2a7; anchor=pub struct Manifest]`.
 - Target: `desktop/src/ui/shell.rs:1062 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=fn synchronize_context(]`.
@@ -3534,7 +3534,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 - Target: `desktop/src/ui/preferences.rs:262 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=fn board_controls(]`.
 - Target: `mobile/lib/api.dart:2109 [UTF8-LF sha256=bbb407cc65ccd54e10d7a21328d07831ce5fa3eff70eebe99a6a10b3815257e8; anchor=Future<BoardSound> boardSound(]`.
 - Target: `mobile/lib/board_sound_preferences.dart:10 [UTF8-LF sha256=888e518c1a85ff594b6c4c778f2eb770a4cbcad3a1d53d3defea19b5e226dc5d; anchor=class BoardSoundPreferences]`.
-- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function boardSoundTransaction(]`.
+- Target: `firmware/esp/src/WebUi.h:3568 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function boardSoundTransaction(]`.
 - Retained: Reread all 1280 lines through EOF. Prior authoritative overview/capability/front-panel adaptation remains; shared dropdown dependency is now imported, but full typed board settings and ACK consumers remain pending.
 - Retained: Numeric display controls are independent of Text; peer title follows acknowledged name and lost capabilities cancel Table work.
 - Retained: Reread complete donor source through EOF. Adapt MCU-owned persistent Silent bit independent of host/Windows notification audio, capability-acknowledged controls, explicit unknown/pending/verified states and full-record preservation. Native Preferences Board page uses existing PCController GET/SET/GET with real AVR ACK and persistent readback over the selected fenced HTTP or USB owner only; Web and Flutter Preferences use the same living contract. No unsupported buzzer is invented, no automatic uncertain mutation replay, and unchanged persisted flags skip EEPROM writes.
@@ -3558,7 +3558,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/ui/color_picker.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `fe2bf96c968d83874903f5d06085775f5787cf24467fb0c7be3fcf53077c1aa4`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `fe2bf96c968d83874903f5d06085775f5787cf24467fb0c7be3fcf53077c1aa4`.
 
 - Target: `desktop/src/ui/color_picker.rs:25 [UTF8-LF sha256=3a42e1d960fab77e1496899d7c708882f5db1ece1e92c01bd3192bc3e9eef0d5; anchor=pub fn remember_color(]`.
 - Target: `desktop/src/ui/color_picker.rs:243 [UTF8-LF sha256=3a42e1d960fab77e1496899d7c708882f5db1ece1e92c01bd3192bc3e9eef0d5; anchor=pub fn accent_picker(]`.
@@ -3577,7 +3577,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/ui/control_density.rs`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `690a964825638da4272550f389a948ad62b5947bad03df8aaee60de49c1325ed`.
 
 - Target: `desktop/src/ui/control_density.rs:7 [UTF8-LF sha256=d5e8b6ae76c101f6473297f4305061ca8b5d83a7e1f4137850383a66b9b1ff6c; anchor=pub fn configure(style: &mut egui::Style, density: UiControlDensity)]`.
 - Target: `desktop/src/config.rs:38 [UTF8-LF sha256=b84801a85e31a44b2691bd5f6ccefea0106d799952b0fb61e2d6162ee11b9414; anchor=pub enum UiControlDensity]`.
@@ -3595,7 +3595,7 @@ Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238
 
 ### Pealayer: `src/ui/controls.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `f5211d73c38438f9cff2543ac234965a8dabd26f4a532fb8b8ecf51248fc0a56`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `f5211d73c38438f9cff2543ac234965a8dabd26f4a532fb8b8ecf51248fc0a56`.
 
 - Target: `desktop/src/ui/cell_table.rs:368 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn find_field(]`.
 - Target: `desktop/src/ui/cell_table.rs:394 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn table_helper(]`.
@@ -3621,7 +3621,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 - Target: `desktop/src/ui/preferences.rs:364 [UTF8-LF sha256=38bda5597ef69c27761de2bfc820e2d507c8fe29353d3e1f95c118a477d22448; anchor=let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);]`.
 - Target: `desktop/src/ui/cell_table.rs:725 [UTF8-LF sha256=a895f275243c9079783aa7f0165bac1d21f692e84b30f8aaeed4fbcc52cf8a19; anchor=fn manager_selector(]`.
-- Target: `firmware/esp/src/WebUi.h:183 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=/* Fixed manager slots:]`.
+- Target: `firmware/esp/src/WebUi.h:183 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=/* Fixed manager slots:]`.
 - Target: `desktop/src/ui/effect_controls.rs:66 [UTF8-LF sha256=da148d2876de05674cc876ed167df5518bb294698090ec5d3fd5a6ad39587dfc; anchor=pub fn mode_picker(]`.
 - Target: `desktop/src/ui/panel_details.rs:161 [UTF8-LF sha256=d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d; anchor=pub fn correction_rules(]`.
 - Target: `desktop/src/ui/panel_details.rs:348 [UTF8-LF sha256=d52b713fbf32ae3f9cf0c550f0ff172d2bc5450eeb985ab8a0ce1e0a7edd2d0d; anchor=pub fn network(]`.
@@ -3701,7 +3701,7 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `src/ui/elegance_theme.rs`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `8d11f915ccf56e5ab67232ceac7432051437484d1faecacabab62ec5403d63bd`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `8d11f915ccf56e5ab67232ceac7432051437484d1faecacabab62ec5403d63bd`.
 
 - Target: `desktop/src/ui/elegance_theme.rs:23 [UTF8-LF sha256=a494def22553b0c21b4bb9b2f786f9d117b26ed163b2a254f0ec43f3f979556f; anchor=pub fn sync_elegance_theme(ctx: &Context)]`.
 - Retained: Read all 321 donor lines through EOF. Pakar retains the actual host-style-preserving Elegance adapter: palette caching, opacity, WCAG 4.5:1 filled-action correction, typography, radius and spacing derivation are unchanged. All three donor tests are now imported and execute against Pakar's real configuration owner.
@@ -3735,7 +3735,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/ui/icons.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `cd56a5849a0be621d8472b440c9cbac8b91bcaf603d228cb6148bba1eb554fc9`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `cd56a5849a0be621d8472b440c9cbac8b91bcaf603d228cb6148bba1eb554fc9`.
 
 - Target: `desktop/src/ui/icons.rs:581 [UTF8-LF sha256=cd5fe34a628b22220e9be47bf4de262e5e8eeec8e7c045f6dde76414c511a40b; anchor=pub fn searchable_workspace_icon_picker(]`.
 - Target: `desktop/src/ui/shell.rs:4404 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=icons::searchable_workspace_icon_picker]`.
@@ -3784,7 +3784,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/ui/palette.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `c169db6a61b79ebb2ce00f0ca442305eefeea7b34740720a2cdf6424d6fef85d`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `c169db6a61b79ebb2ce00f0ca442305eefeea7b34740720a2cdf6424d6fef85d`.
 
 - Target: `desktop/src/ui/palette.rs:36 [UTF8-LF sha256=3d04f723252650661f9fdacd2e1929f3ad28fac4cd3dc40720bca32eac4f3a7c; anchor=pub fn apply(]`.
 - Retained: Native semantic visual-role mapping and actual palette JSON; appearance geometry is not overwritten.
@@ -3839,7 +3839,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 - Target: `desktop/src/ui/shell.rs:1653 [UTF8-LF sha256=015877d9b262b596d4e27fdddcbd03a42c8c1e1cbe2b15f46632a88bce7ccce8; anchor=let firmware_progress = self.firmware_observation().filter(|p| p.active);]`.
 - Target: `desktop/src/ui/connection_controls.rs:90 [UTF8-LF sha256=02bbb46d280c606868f0f18220cb092c0dca2e07f9b06aa31bee1e4f4625ec65; anchor=pub fn draw(]`.
 - Target: `docs/CONNECTION-CONTROLS.md:1 [UTF8-LF sha256=002ee046e9c206a4cc241ad2b9033971b4933959d8e14f43958848403879f21d; anchor=# Front-panel transport dropdowns]`.
-- Target: `firmware/esp/src/WebUi.h:2566 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function statusRgbOutput]`.
+- Target: `firmware/esp/src/WebUi.h:2566 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function statusRgbOutput]`.
 - Target: `desktop/src/status_rgb.rs:46 [UTF8-LF sha256=3dbe61cf121e44b14fe047427fbe9d0b8e60735baa445ad3116310560631965e; anchor=pub fn retain(]`.
 - Target: `mobile/lib/status_rgb.dart:52 [UTF8-LF sha256=458f867c97d38107b37fc399dfc55f1ad2f786ce5e236a9a9b2c048d0b4fbfd0; anchor=class StatusRgbPreview]`.
 - Retained: Current complete source read through EOF independently by the status/front-panel and network/UI agents; selected target changes reviewed again during evidence integration. Actual per-item hide context menus, persistent visibility choices, bar-level restore menu and small truncating message labels remain adapted. Transport controls remain usable offline without claiming hardware readiness.
@@ -3888,11 +3888,11 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `src/ui/workspace_profiles.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `410d274f51e5e7db7ce81582d36166a97240b097e993cec5fee8707a95183e2f`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `410d274f51e5e7db7ce81582d36166a97240b097e993cec5fee8707a95183e2f`.
 
 - Target: `mobile/lib/output_panel.dart:27 [UTF8-LF sha256=3cf8895bbbdfc82cb7f4c12ed8e1895623099975722753d5dc722d3eb7ebe9c3; anchor=class OutputPanel]`.
 - Target: `assets/web/feature-workspaces.js:108 [UTF8-LF sha256=13a51897342b90e6d328d84da0c7272fd6f909fb84996de23a164bb48feb88fa; anchor=function diagnosticWorkspace(value)]`.
-- Target: `web/index.html:2489 [UTF8-LF sha256=aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d; anchor=function workspaceDiagnosticDraft()]`.
+- Target: `web/index.html:2489 [UTF8-LF sha256=bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0; anchor=function workspaceDiagnosticDraft()]`.
 - Target: `mobile/test/output_panel_test.dart:411 [UTF8-LF sha256=b75b25f46b391a84c0400f08361c4c520e2fda547e95f8b9030078f7f281e317; anchor=Output order is bounded, durable and independent of table selection]`.
 - Target: `mobile/lib/table_workspace.dart:13 [UTF8-LF sha256=02445683146ff2b3bdca50bfa8d1aa1dedb94261c361613fdb545e7ca4f7c83e; anchor=class TableWorkspace]`.
 - Target: `mobile/lib/main.dart:897 [UTF8-LF sha256=814e5944b0f27d21f2005ff4bfa8e391dc5721435e25f9c40ccf2c934090a7db; anchor=Future<void> _saveWorkspaces()]`.
@@ -3933,7 +3933,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `src/update.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `909e8aa4f903d1a8a63589fd2e371d77ff7b8c6c6bcb3fc9949609ab55440652`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `909e8aa4f903d1a8a63589fd2e371d77ff7b8c6c6bcb3fc9949609ab55440652`.
 
 - Target: `desktop/src/client_management.rs:278 [UTF8-LF sha256=29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1; anchor=pub fn newer(]`.
 - Target: `desktop/src/client_install.rs:273 [UTF8-LF sha256=d6088c3223ee29219a4b1048d7aa5d35d03f1906e371039dd7032145e9f87186; anchor=pub fn helper(]`.
@@ -3947,7 +3947,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `tests/config_persistence_test.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `e06205e3e023e47e8a8c646e881044ce967e793628f7d52159fbbdf589a6f0d7`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `e06205e3e023e47e8a8c646e881044ce967e793628f7d52159fbbdf589a6f0d7`.
 
 - Target: `desktop/src/native_workspace.rs:48 [UTF8-LF sha256=15688543f8999613f064f17e60d453f50d59a05c564e927379fb86d50bc4f0d8; anchor=pub struct Snapshot]`.
 - Retained: Completely reread actual test. Adapt fresh-session serde roundtrip and persisted layout/state assertions to the actual native board/application workspace store, using actual egui ScrollArea state and DockState. No media dependencies or per-test temporary-directory cleanup copied.
@@ -3957,7 +3957,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `tests/i18n_surface_audit_test.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `504768bc9cf2fda32a8dab8b0f50d573c74e45001734f45c7ff3120f36333f63`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `504768bc9cf2fda32a8dab8b0f50d573c74e45001734f45c7ff3120f36333f63`.
 
 - Target: `tests/localization_test.mjs:86 [UTF8-LF sha256=da500a29e5ebdb93f52cf275ec1e77f34881d5a66e729f99b67d3e29e1472249; anchor=Adapt Pealayer tests/i18n_surface_audit_test.rs]`.
 - Retained: Actual donor known-raw-caption prohibition and required localized-boundary audit pattern adapted to real shell menu captions, not renamed timeline/media files. Added peer text exclusion and reversible placeholder/language tests.
@@ -3968,7 +3968,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `tests/windows_shell_suite_test.rs`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `3f1f8f7709dd7b0e9dad2c58d1b345e9a7b054bb1bcfbcff9c6aede6598791c6`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `3f1f8f7709dd7b0e9dad2c58d1b345e9a7b054bb1bcfbcff9c6aede6598791c6`.
 
 - Target: `desktop/src/platform/windows_notifications.rs:201 [UTF8-LF sha256=71f2254825ba2b16d83696ce0e0cf74ec7c95eedda5f60e1c3d167826693ec1a; anchor=assert!(Hook::new(42).is_err())]`.
 - Retained: Actual Preferences action/resource catalog is validated; invalid HWND registration rejects rather than claiming success; owner exclusion is tested. Live notification acceptance and shown-callback evidence are recorded independently.
@@ -3980,7 +3980,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/scripts/appearance.test.mjs`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `35f269e9463e49dbc41572683ca374be8674a93e0e97c84240838d34dc950ddc`.
 
 - Target: `tests/web_appearance_test.mjs:1 [UTF8-LF sha256=f755365a55727e1f0ad3e3e57fdf9f93e990f16d4445840694e264b88710aa7f; anchor=First four tests port the actual Pealayer]`.
 - Retained: All four actual donor contract tests ported: Neutral helper default, preference merge without unrelated-field loss/resolution leakage, host/offline theme/accent and repeated native event/explicit-theme handling. Additional shipped-code tests cover all palette roles, cancel/apply, contrast, identical-write skip, media events, malformed storage, cross-tab updates and session-only storage failure.
@@ -3993,7 +3993,7 @@ Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238
 
 Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ba2d7a35e2f887ec556b681cca24aaa6f263295208cbc80678bc248b61949845`.
 
-- Target: `firmware/esp/src/WebUi.h:2475 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function createWorkspaceStorage]`.
+- Target: `firmware/esp/src/WebUi.h:2475 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function createWorkspaceStorage]`.
 - Target: `assets/web/device-settings.js:93 [UTF8-LF sha256=28b490c94a63c0b55df4cac22405b02d9ef43725ee08d5e9e3cc418ae8df5492; anchor=function settingsObserve]`.
 - Target: `assets/web/workspace-studio.js:9 [UTF8-LF sha256=c5c4b999f9fb7ca6011b9193a1ded10ed293bba8b53d9c861ad1ea4c108a15f4; anchor=function studioRoute(]`.
 - Retained: Completely reread matching actual donor. Import/adapt readStoredJson/persistJson pending-map/timer/pagehide and per-surface scroll patterns into immutable board_id+application.id workspace storage. Selection/find/focus, presentation/panels, public drafts, settings navigation and scroll restore passively; equal writes skip, blocked storage retains in-memory state, and changed fresh settings keep their conflict baseline.
@@ -4006,11 +4006,11 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/appearance.ts`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `b521c20a1f10e6f818978bcb09948c689b74caaf72df18bdec56f2f566f8db58`.
 
 - Target: `assets/themes/appearance.js:4 [UTF8-LF sha256=62a7ebba994ad44f4e2d647bb97684aac9b563104f3f707b43573289e514ecdd; anchor=export function mergeAppearance]`.
 - Target: `tools/generate-web-appearance.mjs:33 [UTF8-LF sha256=e57a615bf5134b718d6df7b644e56faced0c0ef73e8662cf8cb06c05e23e59b4; anchor=replaceBlock('// BEGIN SHARED APPEARANCE']`.
-- Target: `firmware/esp/src/WebUi.h:10 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=// BEGIN SHARED APPEARANCE]`.
+- Target: `firmware/esp/src/WebUi.h:10 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=// BEGIN SHARED APPEARANCE]`.
 - Retained: Fully reread current source through EOF. The five previously adapted helpers remain in the target: mergeAppearance, resolvedAccent, resolvedAppearanceTheme, accentForeground and paletteName. Existing theme/palette/accent host resolution and luminance semantics remain; newer animation/density/font preference fields and font CSS helpers are explicitly pending, not claimed imported.
 - Retained: Generated into the shipped WebUi.h with the shared palette asset; --check rejects stale embedding. Browser preferences dialog validates theme/palette/accent, protects drafts, handles storage failure and cross-tab/System events without device writes or repetitive identical storage writes.
 - Omitted/replaced code: `ui_animation_mode, ui_control_density, ui_font_family, monospace_font_family merge fields; ControlDensity/controlDensityHeight 24/28/32/36 geometry; uiFontCss and monoFontCss`. Disposition: **pending**. Reason: New current donor behavior was fully read during mobile-network build preflight. Existing embedded target does not consume these client preferences and does not bundle PealayerUbuntu/PealayerHack; copying their font names would imply unavailable assets. Add actual shared settings/asset support and cross-client tests before claiming parity.
@@ -4022,7 +4022,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/ColorDropdown.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `49d37654faab5033df04954456d0fe980571ccbc66478caaab7007dae1b8c151`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `49d37654faab5033df04954456d0fe980571ccbc66478caaab7007dae1b8c151`.
 
 - Target: `mobile/lib/color_picker.dart:50 [UTF8-LF sha256=8d1b4206d9b99bf4067df432e0147fdfc7fe67f60c6dab83ceb04478de2560c2; anchor=class _ColorPicker]`.
 - Retained: Read the full donor. Retained a single focused picker, bounded scrollable content, named presets and keyboard-focusable controls, with session recents shared across callers. Flutter dialog owns Cancel/Apply and returns a color rather than inventing another state or transport owner.
@@ -4033,7 +4033,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/ColorPicker.tsx`
 
-Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `024fdabb482a714c38a91d0dde5d0be11486b20859a019f4fbc2d3dd34295022`.
+Verdict: **scoped-improvement**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `024fdabb482a714c38a91d0dde5d0be11486b20859a019f4fbc2d3dd34295022`.
 
 - Target: `mobile/lib/color_picker.dart:33 [UTF8-LF sha256=8d1b4206d9b99bf4067df432e0147fdfc7fe67f60c6dab83ceb04478de2560c2; anchor=Future<int?> showLedColorPicker]`.
 - Retained: Read the complete actual donor before implementation. Adapted preset selection, uppercase RGB representation and twelve deduplicated session recent colors into the shared Flutter picker used by semantic state appearance, temporary test color and game group overrides. An explicit Apply commits the local picker choice; Cancel makes no command or recent-color write.
@@ -4046,7 +4046,7 @@ Verdict: **scoped-improvement**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f
 
 ### Pealayer: `web_ui/src/components/ControlBar.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `cbd6ebc09cbf23e4958c4d1979974d3e856f2096bcc2dcfd1556c5ef4c45cafd`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `cbd6ebc09cbf23e4958c4d1979974d3e856f2096bcc2dcfd1556c5ef4c45cafd`.
 
 - Target: `web/modules/components.js:98 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=const actionIcons=]`.
 - Target: `assets/web/application-utilities.js:47 [UTF8-LF sha256=20744bfcfc0968df0205a46aeb3bdd513b205f0f91796b168dd99dcb16fdbbf1; anchor=function refreshLabels(]`.
@@ -4060,7 +4060,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/DesignerFieldLabel.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ed527ea04c4dc8e9f51e755c0dc92b8cd9a71a414b2fbcfbaba96e97cd7916a7`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `ed527ea04c4dc8e9f51e755c0dc92b8cd9a71a414b2fbcfbaba96e97cd7916a7`.
 
 - Target: `web/modules/components.js:99 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=const controlIcons=]`.
 - Target: `assets/web/localization.js:43 [UTF8-LF sha256=fc7a39cae41e490fba858a8c7129abf0a7064811c486ddf9ba1b115b79e7c0fb; anchor=function renderUiText(]`.
@@ -4073,7 +4073,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/EffectGroupDialog.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `8c90f7a85286efada6d5a1e24212a03dd1ae14e51bea1767f8d195a538ec8f80`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `8c90f7a85286efada6d5a1e24212a03dd1ae14e51bea1767f8d195a538ec8f80`.
 
 - Target: `assets/web/feature-workspaces.js:383 [UTF8-LF sha256=13a51897342b90e6d328d84da0c7272fd6f909fb84996de23a164bb48feb88fa; anchor=async function reloadCorrections(]`.
 - Target: `web/modules/components.js:135 [UTF8-LF sha256=200e38d3a70594f6f2463b03bc74df53cc10e17e8d2264c7851c200d9beff7d4; anchor=function dialog(]`.
@@ -4093,14 +4093,14 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/HeaderBar.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `ad53ee284d969054f69b65e8447a313498b5928eae0aed2564e95f8c71e70d04`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `ad53ee284d969054f69b65e8447a313498b5928eae0aed2564e95f8c71e70d04`.
 
-- Target: `tools/generate-branding.mjs:3 [UTF8-LF sha256=816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367; anchor=Pakar embeds it for the standalone ESP surface]`.
+- Target: `tools/generate-branding.mjs:3 [UTF8-LF sha256=945b5f80e23bb020634b794ea4f866ab8a293506c064cdf79319876db156ad73; anchor=Pakar embeds it for the standalone ESP surface]`.
 - Target: `mobile/lib/header_controls.dart:17 [UTF8-LF sha256=fdbae404068b75de261d1add7d5768e1b6844272ddfe4edb1b92b338f6cf4f87; anchor=class HeaderLayout]`.
 - Target: `mobile/lib/main.dart:767 [UTF8-LF sha256=814e5944b0f27d21f2005ff4bfa8e391dc5721435e25f9c40ccf2c934090a7db; anchor=Future<void> _openConnection()]`.
-- Target: `firmware/esp/src/WebUi.h:399 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=<!-- BEGIN SHARED BRAND HEADER -->]`.
-- Target: `docs/BRANDING-PARITY.md:60 [UTF8-LF sha256=0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3; anchor=## Explicit unfinished useful code and reasons]`.
-- Target: `firmware/esp/src/WebUi.h:3078 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function renderApplicationIdentity]`.
+- Target: `firmware/esp/src/WebUi.h:399 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=<!-- BEGIN SHARED BRAND HEADER -->]`.
+- Target: `docs/BRANDING-PARITY.md:81 [UTF8-LF sha256=a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed; anchor=## Explicit unfinished useful code and reasons]`.
+- Target: `firmware/esp/src/WebUi.h:3078 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function renderApplicationIdentity]`.
 - Target: `assets/web/device-settings.js:120 [UTF8-LF sha256=28b490c94a63c0b55df4cac22405b02d9ef43725ee08d5e9e3cc418ae8df5492; anchor=function settingsCanClose()]`.
 - Target: `docs/INTERFACE-CONTRACT.md:8 [UTF8-LF sha256=37a0aec859267e0fd62b546ffc044eaa02ae04d2f9a298c5d94a5c24c803cb1b; anchor=## One catalog, distinct transport and platform adapters]`.
 - Retained: Actual resolved-artwork img/alt binding adapted to standalone header/login, replacing diamond and font fallback.
@@ -4113,14 +4113,14 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 - Omitted/replaced code: `Current keyboard-activatable connection-pill, collapsible action overflow parity and capability-aware web-feature preference switches`. Disposition: **pending**. Reason: Pakar must adapt actual endpoint lifecycle, capability/permission detection and keyboard semantics rather than presenting nonfunctional shortcuts. Shared static artwork and device-settings drafts do not provide these generic browser/header behaviors.
 - Test-code evidence: `mobile/test/header_controls_test.dart:100 [UTF8-LF sha256=db7a6c884949c426561569544a4a17e1be668e6f599a920ffe56f0f3a65539d9; anchor=Header customization saves and restores without changing board state]`.
 - Test-code evidence: `mobile/test/status_bar_layout_test.dart:93 [UTF8-LF sha256=52cb9e5aef5b21cb81477077b515c21c5108b075168eb410ce5617ba9614e447; anchor=Entire connection status icon and text open connection, errors stay inspectable]`.
-- Test-code evidence: `tests/branding_test.mjs:12 [UTF8-LF sha256=c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb; anchor=actual Pealayer icon_data_from_bytes import]`.
+- Test-code evidence: `tests/branding_test.mjs:11 [UTF8-LF sha256=b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199; anchor=actual Pealayer icon_data_from_bytes import]`.
 - Test-code evidence: `tests/web_identity_test.mjs:40 [UTF8-LF sha256=c4824a7923009f8698e0cde21c1d693609d1af98f55c47dbc20a140293a576be; anchor=Actual Web application identity]`.
 - Test-code evidence: `tests/interface_settings_test.mjs:33 [UTF8-LF sha256=102d6c411b732bad8106dd09358da3df3989d1140aa77c87a884c8072c66c6f3; anchor=Failed saves preserve the draft]`.
 - Remaining: Complete generic omissions and missing editors named in INTERFACE-CONTRACT.md; native/mobile/deployed acceptance remains open.
 
 ### Pealayer: `web_ui/src/components/NumericValueControl.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `6f1e99cd5ae8ef0bae30d43a86f22a22371c6543498c5d8938e486cff151d218`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `6f1e99cd5ae8ef0bae30d43a86f22a22371c6543498c5d8938e486cff151d218`.
 
 - Target: `mobile/lib/pixel_corrections_editor.dart:115 [UTF8-LF sha256=7b307453c53c084f22bb5e3845b43ba56e34a83633447b36041c4b1facad64c5; anchor=class PixelCorrectionNumberControl]`.
 - Target: `assets/web/pixel-groups.js:44 [UTF8-LF sha256=24abe18fbf1f11fe248f2f1ac5fe6b7149014be1290fae0f8b3bef59c256e617; anchor=function create(options)]`.
@@ -4151,10 +4151,10 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/PlaybackButton.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `10b2c97e2b85d1f5390790992b53a8250dc49847ce0c4b1679f5928e30b9fe5a`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `10b2c97e2b85d1f5390790992b53a8250dc49847ce0c4b1679f5928e30b9fe5a`.
 
 - Target: `assets/web/application-utilities.js:37 [UTF8-LF sha256=20744bfcfc0968df0205a46aeb3bdd513b205f0f91796b168dd99dcb16fdbbf1; anchor=function setControlCaption(]`.
-- Target: `web/index.html:3274 [UTF8-LF sha256=aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d; anchor=function renderAssignmentTools(]`.
+- Target: `web/index.html:3274 [UTF8-LF sha256=bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0; anchor=function renderAssignmentTools(]`.
 - Retained: The Web owner fully read the actual canonical Pealayer component. Preserve its authoritative-snapshot action meaning, disabled unknown/unavailable state and matching icon/label/accessibility rather than optimistic click-state toggling. Existing cell ACK/capability gates remain authoritative; state-caption refresh uses the existing semantic state model and stable label slot. Selection by lost/won identity remains correct even when a user changes the configured RGB color.
 - Retained: Only canonical Pealayer web_ui/src/styles.css lines 77-102 and 521-552 were inspected as styling dependencies, SHA256 2d08f0129a28e29b55a137c708b9296d5282bd0aaffb6c2fdba6b9d5cf16462d. Fixed borders, optical glyph alignment and restrained tonal states were adapted; the whole stylesheet is not certified read.
 - Omitted/replaced code: `Play/Pause media command and React/Ant component runtime`. Disposition: **not-applicable**. Reason: The board application has no media player; only authoritative state and visual/action identity are adapted into its existing DOM model.
@@ -4165,14 +4165,14 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/PreferencesTab.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `30a63cc1db61a46346c2d4c30ce011dc74081a8a6da2e29853e56d39811a0de1`.
 
 - Target: `mobile/lib/device_settings_page.dart:18 [UTF8-LF sha256=b187bcc1ed640dc8b7052ce03c4f36a840289396f8908dbc77b967190eb9e9ee; anchor=class DeviceSettingsPage]`.
 - Target: `mobile/lib/device_settings.dart:413 [UTF8-LF sha256=0c10e5c712bae2b4fe2f706326115ee703f07e426a64a50728c09575efb71e9a; anchor=class DeviceSettingsSession]`.
 - Target: `mobile/lib/led_backend_control.dart:9 [UTF8-LF sha256=4769c24f714e241c5acb41987f5cbefef35681a86fbcda40c92ffb7db934c33a; anchor=class LedBackendControl]`.
 - Target: `mobile/lib/led_backend.dart:5 [UTF8-LF sha256=ccea33fd885d514027e622061bf55daf4d0c3564f977529b9956c6df42d57491; anchor=class LedBackendState]`.
-- Target: `web/index.html:2641 [UTF8-LF sha256=aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d; anchor=function renderLedBackendControl(anchor){]`.
-- Target: `web/index.html:2612 [UTF8-LF sha256=aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d; anchor=function waitForLedBackend(]`.
+- Target: `web/index.html:2641 [UTF8-LF sha256=bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0; anchor=function renderLedBackendControl(anchor){]`.
+- Target: `web/index.html:2612 [UTF8-LF sha256=bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0; anchor=function waitForLedBackend(]`.
 - Retained: Actual contract-driven sections/selected-section navigation, grouped labeled typed controls, contextual options, retained draft on section changes, descriptions, load/save status and reload adapted to Flutter DeviceSettingsPage using the existing shared Pakar catalog. Tablet uses a searchable navigation rail; phone uses wrapping section chips. Actual Phosphor repertoire supplies verified icon codepoints.
 - Retained: Actual valueAtPath/updatePaths structured settings ownership adapted to separate public drafts and secret actions. DeviceSettingsSession uses the fully read canonical Pakar native/Web validation, observe/conflict and positive acknowledgment/exact public readback workflow rather than generic optimistic UI success. In-memory secrets never enter saved client preferences; one POST body per explicit operation, no mutation replay.
 - Retained: Runtime LED transmitter checkpoint reread all563 donor lines and verified SHA30a63cc1. Adapt actual contract-derived select options, field-scoped saving state and external-observation refresh to Flutter LedBackendControl/LedBackendState and the single canonical Web selector. Only the intersection of advertised compiled choices is offered; selection reflects actual driver telemetry and renderer mode stays independent. Replace updatePaths optimistic save with one correlated mutation and same-peer requested/active/readiness/error/persistence observation. WebSocket events settle the result; configured bounded HTTP fallback reads never replay the mutation. This is a scoped mechanism adaptation, not a direct TSX component import or full PreferencesTab parity.
@@ -4194,7 +4194,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/components/ServerFilePicker.tsx`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `df5b59007e0b726c815bed0eafcce87e4f5a6e4a59e8c79a1414f2cc7be89316`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `df5b59007e0b726c815bed0eafcce87e4f5a6e4a59e8c79a1414f2cc7be89316`.
 
 - Target: `assets/web/user-files.js:35 [UTF8-LF sha256=8b25d6925e5a604b95769d844c1c1d7d06ae9e49a33a9e2307bae5c75d77ec5f; anchor=function create(o)]`.
 - Target: `mobile/lib/documents.dart:19 [UTF8-LF sha256=9b447b248f21e855c2481e28c6c31e66969af5ab837fd32e4d57eb76164b9ff5; anchor=class AndroidDocuments]`.
@@ -4218,11 +4218,11 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/i18n.ts`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `331d2545379e36ea717fcf2876508315437bc5abe49923170f50a4f1bb1b47fc`.
 
 - Target: `assets/web/localization.js:19 [UTF8-LF sha256=fc7a39cae41e490fba858a8c7129abf0a7064811c486ddf9ba1b115b79e7c0fb; anchor=function uiTr(text,values)]`.
 - Target: `tools/generate-font-assets.mjs:62 [UTF8-LF sha256=fdf6b75dac5afebad8598abbe408cd44bbf09cb306d4db91ee515add5ebb1412; anchor=const dictionary={}]`.
-- Target: `firmware/esp/src/WebUi.h:795 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=// BEGIN SHARED LOCALIZATION]`.
+- Target: `firmware/esp/src/WebUi.h:795 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=// BEGIN SHARED LOCALIZATION]`.
 - Retained: Fully reread all 630 current donor lines through EOF. Actual fa-dictionary fallback semantics remain reused for application copy, rather than translating arbitrary runtime data. Applicable native dictionary subset generates into the canonical Web module and actual firmware HTML; the new generic hardware/status/font/control vocabulary is useful pending consumer work, not an automatic dictionary import.
 - Retained: Added system/explicit language and Auto/LTR/RTL preferences, owned-template text/placeholder/accessibility snapshots, per-browser low-write persistence, shared font route and immutable peer-name boundary.
 - Retained: Persian Web regression slice: controller captions now include preferences, network/cloud/access/firmware and cell dialogs; capability mode labels participate in dictionary generation. Live telemetry and dynamic accessibility labels refresh in the selected language, real addresses release stale caption ownership, option values remain protocol-stable, and Persian text omits Latin letter spacing. Read-only actual HTML browser inspection verified mobile-width preferences/settings and reversible persistent locale switching; this is not live board acceptance.
@@ -4235,7 +4235,7 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/preferenceFiles.ts`
 
-Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `4580d1396b36f5a907cad6cf2f33a38486c3a7e6948a3bb222974e1b8a2a4af4`.
+Verdict: **equivalent-behavior**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `4580d1396b36f5a907cad6cf2f33a38486c3a7e6948a3bb222974e1b8a2a4af4`.
 
 - Target: `mobile/lib/documents.dart:6 [UTF8-LF sha256=9b447b248f21e855c2481e28c6c31e66969af5ab837fd32e4d57eb76164b9ff5; anchor=bool preferenceFileAllowed]`.
 - Target: `assets/web/cell-assignments.js:3 [UTF8-LF sha256=510c03217f05a1938a27466a4dd571446d8db96cdffeb204109c5865632391d2; anchor=function cellAssignmentFileAllowed]`.
@@ -4248,7 +4248,7 @@ Verdict: **equivalent-behavior**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238
 
 ### Pealayer: `web_ui/src/timelineWheel.ts`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `1910311a3acba2f1d22d9d4fb57d43e08bcf6ee91f3ea567e381ae90e8a487cd`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `1910311a3acba2f1d22d9d4fb57d43e08bcf6ee91f3ea567e381ae90e8a487cd`.
 
 - Target: `web/modules/table-layout.js:7 [UTF8-LF sha256=30162a2894f72d2467b34fc2cb3e682e09b4da0a1b252ccf6579a25273b53542; anchor=function zoomAt]`.
 - Target: `mobile/lib/table_viewport.dart:158 [UTF8-LF sha256=d7fe024ea911c1610e36e88a8a1fc412e0b95c615584ebb30322d5870ee032a7; anchor=void zoomAt]`.
@@ -4264,18 +4264,18 @@ Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. O
 
 ### Pealayer: `web_ui/src/webPlatform.ts`
 
-Verdict: **parity-gap**. Revision: `10fc6604a9d6068eb57da2f00d7d9404238f00c8`. Original-byte SHA-256: `d6ee8217c05e96be2e20f9a40ab4c46249d57f58871c661a31c33e2310a92f0e`.
+Verdict: **parity-gap**. Revision: `a878768875b0c5da7fd899fda475074fa90f3e35`. Original-byte SHA-256: `d6ee8217c05e96be2e20f9a40ab4c46249d57f58871c661a31c33e2310a92f0e`.
 
-- Target: `tools/generate-branding.mjs:18 [UTF8-LF sha256=816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367; anchor='FAVICON':]`.
-- Target: `firmware/esp/src/WebUi.h:142 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=<!-- BEGIN SHARED BRAND FAVICON -->]`.
-- Target: `docs/BRANDING-PARITY.md:60 [UTF8-LF sha256=0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3; anchor=## Explicit unfinished useful code and reasons]`.
+- Target: `tools/generate-branding.mjs:19 [UTF8-LF sha256=945b5f80e23bb020634b794ea4f866ab8a293506c064cdf79319876db156ad73; anchor='FAVICON':]`.
+- Target: `firmware/esp/src/WebUi.h:142 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=<!-- BEGIN SHARED BRAND FAVICON -->]`.
+- Target: `docs/BRANDING-PARITY.md:81 [UTF8-LF sha256=a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed; anchor=## Explicit unfinished useful code and reasons]`.
 - Retained: Same resolved artwork binds favicon/touch/header before login; ESP embeds data instead of requesting a protected host filesystem icon.
 - Retained: Current 383-line donor was completely reread. Existing favicon/header/touch artwork mapping remains valid; this is not browser-platform parity.
 - Omitted/replaced code: `storedBoolean/supportsStandaloneMode/useWebPlatform capabilities/events; install/share/toggleFullscreen/enableNotifications/applyUpdate; settings setters/signalInteraction`. Disposition: **pending**. Reason: Generic browser capabilities/lifecycle/preferences need controller-specific integration and tests; static branding does not certify them.
 - Omitted/replaced code: `registerPealayerServiceWorker/update/controllerchange, wake-lock cancellation/visibility and offline badge`. Disposition: **pending**. Reason: PWA manifest/high-resolution artwork/cache ownership and streaming-specific wake-lock state remain open.
 - Omitted/replaced code: `mediaTitle/current_video state icon resolution, MediaSession video metadata/play/pause/seek/chapter handlers`. Disposition: **not-applicable**. Reason: Video title/track/session business is excluded; generic browser capabilities are still pending.
 - Omitted/replaced code: `Current app_icon_revision-qualified touch/manifest URL refresh, dynamic application-title metadata and explicit media-action callback retirement/position clearing`. Disposition: **pending**. Reason: Generic artwork revision/title refresh must be adapted to board-owned application identity and actual PWA resources. Retained stale media callbacks and position cleanup illustrate useful lifecycle patterns, not permission to expose playback actions on a controller. Generic event ownership must be tested in Pakar's real contexts.
-- Test-code evidence: `tests/branding_test.mjs:12 [UTF8-LF sha256=c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb; anchor=actual Pealayer icon_data_from_bytes import]`.
+- Test-code evidence: `tests/branding_test.mjs:11 [UTF8-LF sha256=b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199; anchor=actual Pealayer icon_data_from_bytes import]`.
 - Remaining: Complete named generic omissions with preference/endpoint/runtime tests; source checks are not deployed acceptance. See BRANDING-PARITY.md.
 
 ### portable-shell: `_codeql_detected_source_root`
@@ -4570,7 +4570,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `.github/dependabot.yml:3 [UTF8-LF sha256=136887ba77b56544d0bcd367a31d2daaa7637ecdb8b997d63df6cb552d6f08e8; anchor=package-ecosystem: github-actions]`.
 - Retained: Read exact ecosystem/schedule/group settings and retain Pakar's existing pinned Action/Cargo/pub maintenance. Firmware registry pins use the new dedicated checker instead of pretending Dependabot understands Arduino board/library indices.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Execute actual new GitHub jobs; verify bot policy and authorized runner/environment before activation.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4579,11 +4579,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `49d608184ca52242cc845026d05384081669eec57007733f43ede09539c79cb6`.
 
-- Target: `.github/workflows/build.yml:108 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🔧 ESP32-S3 + AVR"]`.
-- Target: `tools/firmware-report.mjs:57 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function artifactMarkdown]`.
+- Target: `.github/workflows/build.yml:108 [UTF8-LF sha256=83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a; anchor=name: "🔧 ESP32-S3 + AVR"]`.
+- Target: `tools/firmware-report.mjs:70 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function artifactMarkdown]`.
 - Retained: Adapt actual artifact size/checksum/download summary and staged build workflow mechanisms into existing Pealayer-derived build.yml plus firmware-report.mjs. Retain separate matched firmware outputs and draft-release provenance; no external progress image or rewritten timestamp header.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Execute actual new GitHub jobs; verify bot policy and authorized runner/environment before activation.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4592,11 +4592,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `06b31df1731e5ab45fb0f1c714f95c46470cf1006f6c50150dc9a461d95a52d0`.
 
-- Target: `.github/workflows/build.yml:76 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=name: "🧰 Scripts · ${{ matrix.os }}"]`.
+- Target: `.github/workflows/build.yml:76 [UTF8-LF sha256=83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a; anchor=name: "🧰 Scripts · ${{ matrix.os }}"]`.
 - Target: `.github/actionlint.yaml:3 [UTF8-LF sha256=5b3c6b07ca38aaadb14a1d6eb2d35ac83b705f065901fdafba8210afc9be4960; anchor=pakar-deploy]`.
 - Retained: Adapt actual tooling verification intent into Windows/Linux/macOS fixture/plan matrix before product jobs. Use one Node/PowerShell owner with explicit Windows-only utility boundaries; no donor-client build/test execution is falsely certified.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Execute actual new GitHub jobs; verify bot policy and authorized runner/environment before activation.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4609,7 +4609,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/firmware-dependencies.mjs:77 [UTF8-LF sha256=903bd1fdd6e50218cab22db4fc21fb64aee44da2b025faf329fcee4703506ab1; anchor=export function applyUpdates]`.
 - Retained: Adapt scheduled registry check and guarded pin-change PR proposal into update-dependencies.yml. Report-only default, exact locked pin file, draft/no-auto-merge, pinned Actions and no device or SDK writes.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Execute actual new GitHub jobs; verify bot policy and authorized runner/environment before activation.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4622,7 +4622,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/deploy-artifact.mjs:8 [UTF8-LF sha256=0710b78d5359b0d6ece4dd48f9129acebe1809c370ed4bb6b6767fd4917bf55d; anchor=export function trustedBuild]`.
 - Retained: Adapt completed-build artifact-to-device flow into opt-in upload.yml/deploy-artifact.mjs. Verify exact repository/head/event/main workflow/run/SHA plus clean artifact report/hash before invoking the same current updater; no guessed latest/first binary.
 - Omitted/replaced code: `Unconditional latest-success/first-binary auto-flash and donor-specific test/product packaging`. Disposition: **replaced**. Reason: Use exact successful main source/run/artifact identity and existing Pakar jobs. Automatic writes require an explicitly authorized runner/environment and repository opt-in.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Execute actual new GitHub jobs; verify bot policy and authorized runner/environment before activation.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4645,7 +4645,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/firmware-dependencies.mjs:34 [UTF8-LF sha256=903bd1fdd6e50218cab22db4fc21fb64aee44da2b025faf329fcee4703506ab1; anchor=export function installationPlan]`.
 - Retained: Retain official ESP8266 registry URL and extend it in one central pin file for ESP32-S3/MiniCore. Explicit install adds only missing configured registry URLs, never initializes/replaces operator SDK configuration.
 - Omitted/replaced code: `PU-specific board/profile and separate dependency/config write paths`. Disposition: **replaced**. Reason: Reuse applicable exact versions/official registries in one reviewed pin owner. Preserve operator config and Pakar hardware flags; no silent downgrade, duplicate Arduino_JSON API, unsupported library additions or automatic SDK initialization.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run live registry check and review any candidate version changes with full build/hardware acceptance; pins were not upgraded by this slice.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4675,10 +4675,10 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `c4473c19a749ee6e70d5f321959524162806e7a2456175966ccf3ae918a14afc`.
 
-- Target: `tools/firmware-report.mjs:67 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=const source_sha=execFileSync]`.
+- Target: `tools/firmware-report.mjs:80 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=const source_sha=execFileSync]`.
 - Retained: Adapt actual editor preflight entrypoint to the shared Windows launcher and build wrapper. The same target/link flags and generated-file checks now apply to editor, local CLI and CI calls.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4687,10 +4687,10 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `d2c1857bd842c3219b50a858b4a6331afdc9018eadc7c610c7bf1e87f9ae076a`.
 
-- Target: `tools/firmware-report.mjs:67 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=const source_sha=execFileSync]`.
+- Target: `tools/firmware-report.mjs:80 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=const source_sha=execFileSync]`.
 - Retained: Adapt actual shell preflight/delegation into pakar.sh/build.sh and the same generated-asset/donor build guards used on Windows. No second editor-only compiler path.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4760,7 +4760,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `pakar.cmd:8 [UTF8-LF sha256=d09fcf080f3134ef52b4d286427b1dfe42897ca28ea18595cb89405829c7fa1d; anchor=tools\pakar.mjs]`.
 - Retained: Retain actual PU argument/help/preflight/build-stage semantics behind a small Windows launcher. Firmware mode/target validation and diagnostics now share tools/pakar.mjs with Bash instead of maintaining a second compiler implementation.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -4776,7 +4776,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: Retain PU mode/target preflight and explicit build stages through the same portable dispatcher and guarded compiler wrapper. Artifact size/hash and optional gzip reporting live in firmware-report.mjs instead of shell parsing.
 - Retained: Resource reporting extends the existing PU size/hash adaptation with real OTA-slot and AVR ELF/static budgets, retained CI baselines and separate timestamped read-only live observations.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Test-code evidence: `tests/resource_report_test.mjs:43 [UTF8-LF sha256=90947f5b882e8204f3609d0d29d12068bfc0de8d1b5ce09e57a0bef6e26de376; anchor=Resource reports:]`.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -4926,7 +4926,7 @@ Verdict: **scoped-improvement**. Revision: `431104072952f694a35b3a83c19f13fbb098
 - Target: `firmware/esp/src/WebAccess.h:31 [UTF8-LF sha256=774b524f4cd81c003e4139d0bb6cf3353d987674bbfb49d7a1b989ee2a232294; anchor=class WebAccess]`.
 - Target: `firmware/esp/src/AccessConfig.cpp:67 [UTF8-LF sha256=aba76ed621e1e107ecea9a44ab32cb077fa7d08c0422b3631b3afeadc4e8d198; anchor=bool AccessConfig::configure(]`.
 - Target: `desktop/src/ui/connection_controls.rs:213 [UTF8-LF sha256=02bbb46d280c606868f0f18220cb092c0dca2e07f9b06aa31bee1e4f4625ec65; anchor=if authentication == Some(true)]`.
-- Target: `firmware/esp/src/WebUi.h:3652 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function presentDeviceAccess(info)]`.
+- Target: `firmware/esp/src/WebUi.h:3652 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function presentDeviceAccess(info)]`.
 - Retained: Complete exact donor source read and live SHA-256 matched the inventoried revision. Retained middleware authorization, public login, credential validation and cookie/session admission concepts in the actual shared WebAccess implementation. Added saved explicit authentication opt-in, default-off Web/native behavior, verified atomic storage migration, bounded session/WS ownership, rate limiting, origin and peer/boot fencing.
 - Omitted/replaced code: `complexAuth hardcoded user/password; doLogin password/token response and diagnostic dump; /pass PU access-level commands`. Disposition: **replaced**. Reason: Factory authentication is not an opt-in. Password/token dumps disclose secrets, and the PU access-level business commands do not describe this LED board. Use explicit saved access settings and non-disclosing session routes instead.
 - Omitted/replaced code: `Duplicated run implementation, placeholder AuthenticationHandler/getAuthToken/session access-level skeleton and role=staff sample`. Disposition: **replaced**. Reason: The donor skeleton has unresolved identifiers and no complete role-based authorization contract. Imported the applicable route/session behavior into compiling middleware rather than enabling an incomplete authorization example. No implemented Pakar role support is claimed.
@@ -4943,7 +4943,7 @@ Verdict: **scoped-improvement**. Revision: `431104072952f694a35b3a83c19f13fbb098
 - Target: `firmware/esp/src/WebAccess.h:31 [UTF8-LF sha256=774b524f4cd81c003e4139d0bb6cf3353d987674bbfb49d7a1b989ee2a232294; anchor=class WebAccess]`.
 - Target: `firmware/esp/src/AccessConfig.cpp:67 [UTF8-LF sha256=aba76ed621e1e107ecea9a44ab32cb077fa7d08c0422b3631b3afeadc4e8d198; anchor=bool AccessConfig::configure(]`.
 - Target: `desktop/src/ui/connection_controls.rs:213 [UTF8-LF sha256=02bbb46d280c606868f0f18220cb092c0dca2e07f9b06aa31bee1e4f4625ec65; anchor=if authentication == Some(true)]`.
-- Target: `firmware/esp/src/WebUi.h:3652 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function presentDeviceAccess(info)]`.
+- Target: `firmware/esp/src/WebUi.h:3652 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function presentDeviceAccess(info)]`.
 - Retained: Complete exact donor source read and live SHA-256 matched the inventoried revision. Retained middleware authorization, public login, credential validation and cookie/session admission concepts in the actual shared WebAccess implementation. Added saved explicit authentication opt-in, default-off Web/native behavior, verified atomic storage migration, bounded session/WS ownership, rate limiting, origin and peer/boot fencing.
 - Omitted/replaced code: `complexAuth hardcoded user/password; doLogin password/token response and diagnostic dump; /pass PU access-level commands`. Disposition: **replaced**. Reason: Factory authentication is not an opt-in. Password/token dumps disclose secrets, and the PU access-level business commands do not describe this LED board. Use explicit saved access settings and non-disclosing session routes instead.
 - Omitted/replaced code: `Duplicated run implementation, placeholder AuthenticationHandler/getAuthToken/session access-level skeleton and role=staff sample`. Disposition: **replaced**. Reason: The donor skeleton has unresolved identifiers and no complete role-based authorization contract. Imported the applicable route/session behavior into compiling middleware rather than enabling an incomplete authorization example. No implemented Pakar role support is claimed.
@@ -5333,7 +5333,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `firmware/esp32s3/src/SsdpDevice.cpp:255 [UTF8-LF sha256=25ffe3de9548501ec275174edbff3d9295ec1733fbea6f0fd288e4b284dc357c; anchor=void SsdpDevice::post(]`.
 - Target: `firmware/esp32s3/src/SsdpDevice.cpp:546 [UTF8-LF sha256=25ffe3de9548501ec275174edbff3d9295ec1733fbea6f0fd288e4b284dc357c; anchor=void SsdpDevice::schema(Print &client) const]`.
 - Target: `firmware/esp/src/UpnpDescription.h:19 [UTF8-LF sha256=c037418dca2cc7631c04f06d9dc51b4267d86aabe25d61bde4422a5430234639; anchor=template<class Output> void description(]`.
-- Target: `firmware/esp/src/BoardIconAsset.h:6 [UTF8-LF sha256=38856c8b4f954c2cbd9043ea2c66e311ad4736984d95ee4dde9d6bf7a8d13000; anchor=static const uint8_t kBoardIconPng[] PROGMEM]`.
+- Target: `firmware/esp/src/BoardIconAsset.h:6 [UTF8-LF sha256=2f0fd62282276aef2bc8223e3a54698e99e77f1bc6559a94fb2527c8f2240973; anchor=static const uint8_t kBoardIconPng[] PROGMEM]`.
 - Target: `tools/generate-board-icon-asset.mjs:7 [UTF8-LF sha256=fa6093635fbbc333fe87fb1b6733453147950bc2bc2e23c10d9c7b39d9b9f078; anchor=const variants=[];]`.
 - Target: `firmware/esp32s3/src/SsdpUdp.h:70 [UTF8-LF sha256=e25782c43552d9a2fb570b2dd18446c99907a9b58d0d1ec6f5f190b9fee84f98; anchor=bool beginPacketMulticast(]`.
 - Target: `firmware/esp32s3/src/DiscoveryInterfaces.h:17 [UTF8-LF sha256=f6c87195a581b098486e533d44192b3fa728145977888caf46676f780c9a50b6; anchor=inline DiscoveryInterfaces activeDiscoveryInterfaces()]`.
@@ -5505,7 +5505,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/build-firmware.ps1:210 [UTF8-LF sha256=10cc9bd60e9ea7cbedf418e1d4c002a8eb484556bbd77df156b2d4e40283e067; anchor=esp32:esp32:esp32s3:CDCOnBoot]`.
 - Retained: Read complete donor board profile/platform/library locks. Retain exact ESP8266 core/ArduinoJson/ESP Async TCP pins where applicable, preserve existing reviewed Pakar dependency pins, and keep actual S3/AVR FQBN/flags in the canonical wrapper.
 - Omitted/replaced code: `PU-specific board/profile and separate dependency/config write paths`. Disposition: **replaced**. Reason: Reuse applicable exact versions/official registries in one reviewed pin owner. Preserve operator config and Pakar hardware flags; no silent downgrade, duplicate Arduino_JSON API, unsupported library additions or automatic SDK initialization.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run live registry check and review any candidate version changes with full build/hardware acceptance; pins were not upgraded by this slice.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -5559,7 +5559,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/build-all.ps1:6 [UTF8-LF sha256=8175e248b0a79227467dc334dac932454df4b59d48588673f8b9446b086f31a3; anchor=$taskSelected=[Collections.Generic.HashSet[string]]]`.
 - Retained: Import actual case-insensitive HashSet selection, Write-Step, Assert-Executable, Invoke-Native, scoped working directory and elapsed result. Typed hashtable splatting selects Firmware/Desktop/Mobile, defaults to plans and stops on failure.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -5569,11 +5569,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `f3e6a8ed2eae52c8ab7f1f178b85c3a1fe4ad2a85bce2a27a67a0b1c07a24d6c`.
 
 - Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
-- Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
+- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function collectArtifacts]`.
 - Retained: Adapt actual native-command failure preservation and build/test/publish stage dispatch into script-runtime.ps1 and build-all.ps1. Existing Rust/Flutter owners remain responsible for Pakar client outputs, with an explicit Release/preview choice.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -5589,7 +5589,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
@@ -5604,7 +5604,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: Entire file/sections read through EOF: All fields/constructors and heading/info/success/warning/error/detail/upload/download/transfer/poll/clear/verbose/write/sanitize/byte/color methods
 - Retained: Exact function dispositions are in the C# manifest/deflate slice of docs/PU850-PARITY.md.
 - Omitted/replaced code: `TransferProgress independent streams/redirected10percent/bar; PollProgress spinner`. Disposition: **pending**. Reason: Redirected progress buckets/bar/spinner remain useful pending. Actual C# independent stdout/stderr color policy is now imported into current Node logger with both redirection directions and NO_COLOR/TERM=dumb/JSON fixtures; stronger control/OSC sanitation retained.
-- Test-code evidence: `tests/script_tooling_test.mjs:22 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=const independent=createLogger(]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:23 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=const independent=createLogger(]`.
 - Remaining: Redirected progress buckets/bar/spinner remain useful pending. Actual C# independent stdout/stderr color policy is now imported into current Node logger with both redirection directions and NO_COLOR/TERM=dumb/JSON fixtures; stronger control/OSC sanitation retained.
 
 ### PU850-ESP: `Tool/C#/Uploader/DownloadApp.cs`
@@ -5651,7 +5651,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `ea82a43da0bb2f5f98687b4cbd1a9b343faa636ccd8b536cd31e687dbcdd5b91`.
 
-- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=const gz=portableGzip(bytes),manifest=createFirmwareManifest(]`.
+- Target: `tools/firmware-report.mjs:64 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=const gz=portableGzip(bytes),manifest=createFirmwareManifest(]`.
 - Target: `tools/firmware-manifest.mjs:14 [UTF8-LF sha256=fd8a77a38ee5f1b6ca8fc3df3f77cb2790bf4fc747fc22dd85315b5da113ac7c; anchor=export function parseFirmwareManifest(]`.
 - Target: `docs/PU850-PARITY.md:196 [UTF8-LF sha256=90fd0fcaa4c6bfab14639db6e6fa479a2f70729100ed5800edd73020f494d1a3; anchor=## Exhaustive continuation: C# manifest and deflate slice, 2026-10-19]`.
 - Retained: Entire file/sections read through EOF: All LoadAsync/SelectFor/ComputeMd5Async/ComputeFirmwareHashesAsync/PortableFileName/generated regex methods, entries/hash/limit records and exceptions
@@ -5686,7 +5686,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `2429a0837fab902db2d834fc513ee41dd21418722067c67fc46cb478c459677b`.
 
-- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=const gz=portableGzip(bytes),manifest=createFirmwareManifest(]`.
+- Target: `tools/firmware-report.mjs:64 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=const gz=portableGzip(bytes),manifest=createFirmwareManifest(]`.
 - Target: `tests/firmware_manifest_test.mjs:10 [UTF8-LF sha256=0e23edb29deede8a2c9aade93fc8d997d59813ea4fc5781a643d9cc42dc68776; anchor=const content=hash(raw).toUpperCase()]`.
 - Target: `docs/PU850-PARITY.md:196 [UTF8-LF sha256=90fd0fcaa4c6bfab14639db6e6fa479a2f70729100ed5800edd73020f494d1a3; anchor=## Exhaustive continuation: C# manifest and deflate slice, 2026-10-19]`.
 - Retained: Entire file/sections read through EOF: All20top-level tests; every helper/assertion; both FakeFirmwareServer/FakeDownloadServer constructors/routes/request/response/read/write/dispose/properties and TestHttpRequest
@@ -5768,11 +5768,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `7379ae908f01676ed3db145f11579bb2bf07b79a7b5da2bdfe3cc8baa172e297`.
 
 - Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
-- Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
+- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function collectArtifacts]`.
 - Retained: Retain executable preflight, bounded native failure handling and explicit selected component dispatch in shared PowerShell helpers. Windows package/capture utilities remain explicitly platform-specific, not advertised as Unix binaries.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -5783,11 +5783,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `0af1f4b0ba2a7014d7f0938f69885b7d7a46763513408058cffeab4772d5827d`.
 
 - Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
-- Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
+- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function collectArtifacts]`.
 - Retained: Retain Bash preflight/delegation to an explicit component owner. pakar.sh shares dispatch with Windows and CI; a MinGW cross-build of WinHTTP is not represented as a Linux-native Pakar application.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -5857,7 +5857,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
@@ -5867,13 +5867,13 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `176dabcb53d4b1db79c4493b08958e1d1b0546151f6046603e589bd534308bb9`.
 
-- Target: `tests/script_tooling_test.mjs:74 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=const cliPlan=]`.
+- Target: `tests/script_tooling_test.mjs:75 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=const cliPlan=]`.
 - Target: `tests/update_tool_test.mjs:237 [UTF8-LF sha256=f77db2458acdf69bc16d9e187911d2856e8b4990027371bd7ed85d4efc192889; anchor=await uploadImage(origin,peer,image,identity)]`.
 - Retained: Adapt loopback/subprocess fixture structure and fail-before-contact/integrity assertions without requiring a WinHTTP executable or Python test server. Existing updater fixtures exercise actual multipart bytes and fragmented WS; new CLI subprocess fixtures exercise offline/invalid argument behavior.
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Test-code evidence: `tests/update_tool_test.mjs:291 [UTF8-LF sha256=f77db2458acdf69bc16d9e187911d2856e8b4990027371bd7ed85d4efc192889; anchor=Automatic updater plan/preflight]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
@@ -5905,11 +5905,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `7a7d58167051cdfa2bab660a4128d0b29400c17a653bdf751226f86607da246a`.
 
 - Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
-- Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
+- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function collectArtifacts]`.
 - Retained: Adapt actual selected-target orchestration, tool preflight and raw native exit preservation without installing a duplicate Go application stack. Existing Rust checks/tests/Release and Flutter preview remain explicit.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -5920,11 +5920,11 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `746e6667fba804bce07d90acf6bf370e0f7b62100c83d806cf057ef77f600ff7`.
 
 - Target: `tools/build-desktop.ps1:83 [UTF8-LF sha256=720dad8eeffa5fb7da1e5460b582478d2a7c7f4b8645ca5695cc336884d8b410; anchor=Invoke-PakarNative -WorkingDirectory]`.
-- Target: `tools/firmware-report.mjs:40 [UTF8-LF sha256=a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423; anchor=export function collectArtifacts]`.
+- Target: `tools/firmware-report.mjs:51 [UTF8-LF sha256=8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283; anchor=export function collectArtifacts]`.
 - Retained: Retain shell launcher preflight and one delegated owner with explicit testing/build selection. Pakar Bash and Windows now reach identical guarded component wrappers rather than separate drifting build recipes.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
 - Omitted/replaced code: `Forced cleans/no-cache recompiles, PU profile/name, timestamp/personal build headers and audible failure side effects`. Disposition: **replaced**. Reason: Use existing Pakar board/link flags and generated-file checks, stable warm output/cache paths and quiet explicit actions. Do not wear SSDs, alter identity or start devices as an implicit build action.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
 - Remaining: Run configured OS-matrix command plans and affected real SDK builds on their matching hosts.
@@ -6029,7 +6029,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
 - Omitted/replaced code: `Build and distribute parallel .NET/WinHTTP/Go ASA clients`. Disposition: **replaced**. Reason: Pakar already owns Rust and Flutter applications and the standard-library Node updater. Avoid three duplicate client stacks/SDK caches; reusable command/preflight/transfer contracts are mapped separately.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
 - Remaining: Verify full native distributable/platform parity; Windows cross-build output is not Linux-native execution.
@@ -6090,7 +6090,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: Retain stable help/exit, quiet output, explicit validation and safe transfer intent. Document the Pakar updater's current contract and guarded entrypoints; do not claim documented donor watch/resume/backup behavior is already implemented.
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -6103,7 +6103,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `tools/pakar.mjs:65 [UTF8-LF sha256=0875bb298a832a275d62e3595c2e2691c38eef442ac5246a85fb4445c3715bd3; anchor=Node.js20.19]`.
 - Retained: Read exact chalk/chokidar/readdirp locked graph. Shared console implements required logger/color/terminal sanitation with Node standard libraries; no new node_modules or lockfile is needed for currently implemented one-shot commands.
 - Omitted/replaced code: `New chalk/chokidar/readdirp npm installation for one-shot tools`. Disposition: **replaced**. Reason: Currently required console/argv behavior uses Node standard libraries and no file watcher is advertised. Preserve zero additional npm tree; advanced watcher parity remains explicit.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Complete guarded content-stable watch behavior before claiming uploader dependency/feature parity.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -6113,10 +6113,10 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `60754d1116254eeac6b10e626c2e2b4506e60ad3ecd0296ce59645d63858e540`.
 
 - Target: `tools/script-console.mjs:5 [UTF8-LF sha256=2243be58e4dce21a7592865121e94ebdb64f21286f3333358c8259bb2bdedafb; anchor=export const EXIT]`.
-- Target: `.github/workflows/build.yml:92 [UTF8-LF sha256=88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861; anchor=node tests/script_tooling_test.mjs]`.
+- Target: `.github/workflows/build.yml:92 [UTF8-LF sha256=83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a; anchor=node tests/script_tooling_test.mjs]`.
 - Retained: Retain explicit Node20.19 minimum and direct Node entrypoints, tests and help without an additional npm install. Shared logger/CLI use Node standard libraries; unavailable watch mode is recorded as a gap.
 - Omitted/replaced code: `New chalk/chokidar/readdirp npm installation for one-shot tools`. Disposition: **replaced**. Reason: Currently required console/argv behavior uses Node standard libraries and no file watcher is advertised. Preserve zero additional npm tree; advanced watcher parity remains explicit.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Complete guarded content-stable watch behavior before claiming uploader dependency/feature parity.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -6130,7 +6130,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: Map actual uploader/build/CLI usage to the shared Pakar command reference and tools. Clearly separate raw S3/JSON verification from ASA gzip/ok!, plans from execution and current one-shot support from pending advanced transfer modes.
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Content-stable auto-upload watch, resumable atomic CLI download and verified pre-update CLI backup`. Disposition: **pending**. Reason: One-shot updater and readback are not complete watch/resume/backup parity. Import these only with peer identity, stable snapshot and no ambiguous-write replay guards; keep useful donor cases open.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Implement and exercise watch/resume/export/pre-update-backup contracts and remaining donor negative cases.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -6152,7 +6152,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: After the same live post-upload readback timeout recurred beyond about 1 MiB, reread the donor verifyAfterReboot/verifiedDownload functions and existing updater/verifier owners. Both post-reboot verification paths now import one 16 KiB range constant from download-firmware, without circular imports or changing that module's successful 64 KiB backup transfers. Updater progress records only verified bytes. The actual updater fixture crosses 1 MiB, tests the final short range, one same-range pinned read retry, second timeout and invalid late range without replaying any upload. This is source/fixture evidence; no new board mutation was used to test this tool change.
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Stable watcher/coalescing/graceful-stop/progress and remaining negative cases`. Disposition: **pending**. Reason: Actual verified pre-update backup and ranged/resumable export now implemented through existing owners with same-peer/release/auth/job/boot/latch and no-overwrite checks. Watch/coalescing/graceful stop/skip-identical/progress, remaining gzip consumer/platform/filesystem/transport and exact unported negative scenarios remain pending as applicable. No donor tests, SDK builds, live update/restore or physical proof claimed.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Test-code evidence: `tests/update_backup_test.mjs:53 [UTF8-LF sha256=9fad7b056864a821193c642fbc8739ca60f6b490fc358853906564fd242b75cc; anchor=Backup must precede even remote staging]`.
 - Test-code evidence: `tests/verify_running_firmware_test.mjs:115 [UTF8-LF sha256=77f9d8389d7668b39cdfb57b71a9ec9acba3da9b439bf7feefdb284d98a04058; anchor=Read-only running firmware verifier:]`.
@@ -6164,7 +6164,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. Original-byte SHA-256: `02842871c7f5c1285b57c1cc2392d655df848ef993c138f6a6c11b9779bf0778`.
 
-- Target: `tests/script_tooling_test.mjs:74 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=const cliPlan=]`.
+- Target: `tests/script_tooling_test.mjs:75 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=const cliPlan=]`.
 - Target: `tests/update_tool_test.mjs:173 [UTF8-LF sha256=f77db2458acdf69bc16d9e187911d2856e8b4990027371bd7ed85d4efc192889; anchor=const server=createServer]`.
 - Target: `tools/update-firmware.mjs:216 [UTF8-LF sha256=f1661663563a2dcd4eaed9d1a054cc986cf03d8e3b0806bc93d6bf07560ad068; anchor=export async function updateFirmware(]`.
 - Target: `tools/peer-identity.mjs:54 [UTF8-LF sha256=869e9ea5db1887dde58b170c66d4c2b379aa6fb7d3c123adc5c023e1b8db1ce7; anchor=export function boardPeer(]`.
@@ -6173,7 +6173,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Retained: Actual Node performUpload and C# BackupInstalledFirmwareAsync backup-before-write sequencing now serves existing updater with explicit --backup/--resume-backup, first-read expected-peer fencing, metadata match and fresh auth/job/boot/latch admission before local upload or remote stage/apply.
 - Omitted/replaced code: `ASA gzip/two-record manifest, legacy plain-info fallback and exact ok! reply; verification bypass`. Disposition: **replaced**. Reason: Current Pakar S3 uses raw application validation and structured JSON/update endpoints with board/boot fences. Mandatory auth-off/new-boot/full-SHA checks must not be weakened to preserve an incompatible donor wire protocol.
 - Omitted/replaced code: `Stable watcher/coalescing/graceful-stop/progress and remaining negative cases`. Disposition: **pending**. Reason: Actual verified pre-update backup and ranged/resumable export now implemented through existing owners with same-peer/release/auth/job/boot/latch and no-overwrite checks. Watch/coalescing/graceful stop/skip-identical/progress, remaining gzip consumer/platform/filesystem/transport and exact unported negative scenarios remain pending as applicable. No donor tests, SDK builds, live update/restore or physical proof claimed.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Test-code evidence: `tests/update_tool_test.mjs:291 [UTF8-LF sha256=f77db2458acdf69bc16d9e187911d2856e8b4990027371bd7ed85d4efc192889; anchor=Automatic updater plan/preflight]`.
 - Test-code evidence: `tests/update_backup_test.mjs:53 [UTF8-LF sha256=9fad7b056864a821193c642fbc8739ca60f6b490fc358853906564fd242b75cc; anchor=Backup must precede even remote staging]`.
@@ -6200,7 +6200,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Target: `upgrade.cmd:3 [UTF8-LF sha256=8e8614d6dc26192f66ef8e842a3dd53a3a5b66272a53d7d3bff7c275ea454dcb; anchor=dependencies]`.
 - Retained: Adapt exact-name registry indexing, check/apply operation and one cached index into firmware-dependencies.mjs. Improve lexical version selection to numeric stable comparison, retain pinned-ahead versions, detect concurrent edits and install only explicitly locked versions.
 - Omitted/replaced code: `PU-specific board/profile and separate dependency/config write paths`. Disposition: **replaced**. Reason: Reuse applicable exact versions/official registries in one reviewed pin owner. Preserve operator config and Pakar hardware flags; no silent downgrade, duplicate Arduino_JSON API, unsupported library additions or automatic SDK initialization.
-- Test-code evidence: `tests/script_tooling_test.mjs:133 [UTF8-LF sha256=8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380; anchor=Script tooling:]`.
+- Test-code evidence: `tests/script_tooling_test.mjs:141 [UTF8-LF sha256=4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305; anchor=Script tooling:]`.
 - Test-code evidence: `tests/script_tooling_test.ps1:26 [UTF8-LF sha256=d3c679d8caa22177e7a5590564cd1141b84e1b194b3c3ee0bb825c26a4d46305; anchor=PowerShell utilities parse]`.
 - Remaining: Run live registry check and review any candidate version changes with full build/hardware acceptance; pins were not upgraded by this slice.
 - Remaining: No physical deployment, full client distribution or donor-wide completion is inferred from source or fixtures.
@@ -6676,7 +6676,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot-no-git`. Origin
 
 - Target: `assets/themes/browser-appearance.js:70 [UTF8-LF sha256=056ef41691b92dacbcd7c75b11ff38a2e492093e769aab26dc2577785994de54; anchor=function applyPrepaintLocale()]`.
 - Target: `tools/generate-web-appearance.mjs:35 [UTF8-LF sha256=e57a615bf5134b718d6df7b644e56faced0c0ef73e8662cf8cb06c05e23e59b4; anchor=replaceBlock('// BEGIN BROWSER CONTROLLER']`.
-- Target: `firmware/esp/src/WebUi.h:9 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=<script data-pakar-presentation>]`.
+- Target: `firmware/esp/src/WebUi.h:9 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=<script data-pakar-presentation>]`.
 - Retained: Actual safe validated storage read, requested/OS theme resolution, root color-scheme and chrome metadata, locale/direction and resolved-locale pre-paint behavior are adapted into the single head bootstrap. It runs without dialog/body nodes, requests, preference writes or application/peer title mutation; generator checks canonical equality.
 - Omitted/replaced code: `Separate same-origin /theme-init.js, duplicated theme resolver, lamp colors and rayanlamp.web.locale auto/language-list some(fa) selection`. Disposition: **replaced**. Reason: Inline canonical bootstrap shares the existing Pealayer helpers and palette once, before CSS, saving an ESP endpoint and extra request. Existing Pakar locale keys use system/en/fa, primary browser language and explicit Auto/LTR/RTL override, consistent with current runtime resolver. Supporting a secondary Persian language must not unexpectedly override an English primary choice. Existing dark/Studio defaults are retained rather than silently changing user appearance.
 - Test-code evidence: `tests/rayanlamp_theme_test.mjs:55 [UTF8-LF sha256=57f5554666dd3230c3e329070c41f65d7a8ffedccf910c85b35feb5236a0ad9d; anchor=Pre-paint survives blocked storage]`.
@@ -6702,7 +6702,7 @@ Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte S
 Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `1b201ac38c3ca4f45dea639d198204f294c83f7e07fb511be99b3d54154fc741`.
 
 - Target: `assets/web/realtime-retry.js:6 [UTF8-LF sha256=255036e79060b6d348944e5f1d1edc90ac1c79f20dc1a095a4384b38d85d15f0; anchor=function createRealtimeRetry]`.
-- Target: `firmware/esp/src/WebUi.h:3655 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=async function refreshAuthenticated(options={})]`.
+- Target: `firmware/esp/src/WebUi.h:3655 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=async function refreshAuthenticated(options={})]`.
 - Target: `assets/web/peer-http.js:51 [UTF8-LF sha256=9613bb23bfa007afcde525d49a193b25b93788b0f24e6a0374ce4f49560f8f9e; anchor=function createPeerHttp(]`.
 - Target: `assets/web/basic-cells.js:3 [UTF8-LF sha256=70cae124779d79b1cc395a8ef726e78720937e05305ab1e2974070769563b6e4; anchor=function createBasicCells(]`.
 - Target: `assets/web/basic.html:15 [UTF8-LF sha256=36e120c885e7a576e938cfe970b89128bbb5d29fca76164d561fcdc12e634ff8; anchor={{PEER_HTTP}}]`.
@@ -6736,7 +6736,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot-no-git`. Origin
 Verdict: **scoped-improvement**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `5584e97f745eadd5fa52dd1cbec91813dd4f0638da0ca4cf7ca986658f730165`.
 
 - Target: `assets/web/browser-console.js:77 [UTF8-LF sha256=7789b2a4baae93afdd45a0a803f8567722ef0b9ea776c1051fc8482be93e0b60; anchor=class StyledBrowserConsole]`.
-- Target: `firmware/esp/src/WebUi.h:3685 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function connectWs()]`.
+- Target: `firmware/esp/src/WebUi.h:3685 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function connectWs()]`.
 - Retained: Actual five-level styled sink/startup, operational event vocabulary, allowlisted metadata, recursive sanitizer, safe Error-code projection and keyed quiet-window deduplication imported into canonical browser module. Real HTTP and WebSocket lifecycle consumers execute it; routine successful polling, telemetry and binary frames stay quiet.
 - Retained: Actual URL/Bearer/JWT/query, single-line/control-character protection, depth/array/object bounds and cycle handling retained; no interception, secret/raw-response trace or persistent writes.
 - Omitted/replaced code: `Lamp-only lamp.state/lamp.command vocabulary and RAYAN LAMP startup brand`. Disposition: **replaced**. Reason: Pakar uses device.event/device.command and its controller identity, not another device's lamp protocol. Generic operational semantics are retained.
@@ -6766,7 +6766,7 @@ Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte S
 Verdict: **scoped-improvement**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `81a5d6f6d1d77bc6466a6ee98770d4f248a7b195078ed029f1c39bd8f1724b36`.
 
 - Target: `assets/web/toasts.js:5 [UTF8-LF sha256=79a3a409fc047b51890532bb01ad55566225ffaa1d81b1b3d159d91cb0182bcc; anchor=function createToastController]`.
-- Target: `firmware/esp/src/WebUi.h:3662 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function report(e,tone)]`.
+- Target: `firmware/esp/src/WebUi.h:3662 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function report(e,tone)]`.
 - Retained: Actual ToastRegion polite/nonatomic live region, per-ID status rows, tone icon selection, title/message and localized dismiss button adapted to shipped DOM queue. All real Web reports and saved-identity notices use this queue outside authenticated workspace.
 - Retained: Status SVG geometry and keyed store lifetimes imported from actual dependencies; bounded timers, hover/focus holds, safe text nodes, keyboard dismissal and teardown added without storage or network writes.
 - Omitted/replaced code: `Preact signal-driven JSX/ToastRegion and Icon framework dependency`. Disposition: **replaced**. Reason: ESP embeds classic scripts and existing DOM controls. Actual row, live-region, keyed queue and SVG semantics are adapted without a second UI framework; store/Icon get separate full-read comparisons with remaining generic contracts.
@@ -6812,7 +6812,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot-no-git`. Origin
 Verdict: **scoped-improvement**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `26b14208309628ea7eca9a05eb0f7e0d8206f2b59cd0c6a226e2389d7fde89a1`.
 
 - Target: `assets/web/rayanlamp.js:15 [UTF8-LF sha256=56c1f07d95c20925773552af89e6a768b2abf15796fb4911568854b10c6180ac; anchor=class WebHaptics]`.
-- Target: `firmware/esp/src/WebUi.h:419 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=id="uiHaptics"]`.
+- Target: `firmware/esp/src/WebUi.h:419 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=id="uiHaptics"]`.
 - Retained: Actual pulse constants, bounded audio cues, optional vibration API, fail-closed visibility/reduced-motion conditions, copied pattern arrays and host-error containment adapted into embedded JavaScript. Opt-in Touch feedback defaults off, disabled when unsupported; only explicit command HTTP results trigger it, never polling/telemetry/frames.
 - Omitted/replaced code: `TypeScript interfaces/private/type annotations`. Disposition: **replaced**. Reason: ESP serves dependency-free JavaScript. Actual runtime bodies are retained; explicit own-property cue validation replaces a compile-time-only guarantee.
 - Test-code evidence: `tests/rayanlamp_reuse_test.mjs:24 [UTF8-LF sha256=a0cf1105ee49c04fe068a63b03fa0725bf0b137c6807e0b166d15b5ca7d384af; anchor=h.trigger('arbitrary raw frame')]`.
@@ -6835,7 +6835,7 @@ Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte S
 Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `9a4843ade326c1ee323c3f60d6b0d6ac41cab9d2dcd50affed276fdd8096ff0a`.
 
 - Target: `assets/web/localization.js:66 [UTF8-LF sha256=fc7a39cae41e490fba858a8c7129abf0a7064811c486ddf9ba1b115b79e7c0fb; anchor=function startUiLocaleController()]`.
-- Target: `firmware/esp/src/WebUi.h:3102 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function renderSelectionSummary()]`.
+- Target: `firmware/esp/src/WebUi.h:3102 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function renderSelectionSummary()]`.
 - Retained: Actual normalization/detection, t placeholder fallback, visual digits, Intl.NumberFormat and languagechange lifecycle adapted into the real embedded localization module. Selection counts and batch readback messages are real consumers. Restart ownership, idempotent cleanup, missing/inherited placeholder handling, blocked storage and no OS-triggered preference writes are added.
 - Retained: Dynamic network/cloud labels and panel menus retranslate reversibly without replacing board identity, hostnames, mapping IDs, protocol strings or unsaved secrets.
 - Retained: Actual BidiLtr bdi/dir=ltr isolation and formatDateTime Persian/Gregorian calendar rules now serve the real hostname/URL summary and observed NTP time. TextContent-only rendering never parses peer HTML or rewrites protocol values.
@@ -6880,7 +6880,7 @@ Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte S
 Verdict: **parity-gap**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `bd849cbef1ee67ac97cca9e0c6e00ed69acf725d805ad986ae58f11513546d73`.
 
 - Target: `assets/web/realtime-retry.js:6 [UTF8-LF sha256=255036e79060b6d348944e5f1d1edc90ac1c79f20dc1a095a4384b38d85d15f0; anchor=function createRealtimeRetry]`.
-- Target: `firmware/esp/src/WebUi.h:3685 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=function connectWs()]`.
+- Target: `firmware/esp/src/WebUi.h:3685 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=function connectWs()]`.
 - Retained: Actual scheduleReconnect 500 ms exponential base, 10-second cap and 0.8..1.2 jitter, prepareReconnect-before-open, reset-on-open and stop cleanup adapted to actual Pakar WebSocket/status GET consumers.
 - Retained: Added one pending owner, bounded exponent, late timer/promise generation checks, login/pause/pagehide cancellation and constructor-failure recovery; no device command is replayed.
 - Omitted/replaced code: `start/electLeader/acquireLeadership/releaseLeadership and BroadcastChannel/Web Locks fallback lease election/heartbeats/watchdogs/connectionSyncNames`. Disposition: **pending**. Reason: Generic per-origin leadership is useful but not imported. Pakar supports independent authenticated streaming clients; a shared socket requires validated command/stream ownership and follower readback. Compare full client/contracts/store dependencies and port actual multi-tab/takeover tests before enabling.
@@ -6906,7 +6906,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot-no-git`. Origin
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot-no-git`. Original-byte SHA-256: `b4a927e80577f163257b62a28b6df2148d10ee506f2cdeeb51e6b1666b9ce54e`.
 
 - Target: `assets/themes/browser-appearance.js:41 [UTF8-LF sha256=056ef41691b92dacbcd7c75b11ff38a2e492093e769aab26dc2577785994de54; anchor=function startBrowserAppearanceController()]`.
-- Target: `firmware/esp/src/WebUi.h:9 [UTF8-LF sha256=dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73; anchor=<script data-pakar-presentation>]`.
+- Target: `firmware/esp/src/WebUi.h:9 [UTF8-LF sha256=93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196; anchor=<script data-pakar-presentation>]`.
 - Retained: Actual startWebThemeController detach/restart ownership, idempotent stop, captured listener cleanup, System-only OS reconciliation, safe stored selection and browser color-scheme/theme-color metadata adapted into startBrowserAppearanceController/applyBrowserAppearance. Used by actual pre-paint embedded Web UI, with storage-event reset handling and no hardware writes.
 - Retained: Pealayer appearance helpers and four shared palettes remain the only color engine; requested theme and resolved theme are distinct root metadata. Existing form persistence skips identical writes and retains session selection on storage failure.
 - Omitted/replaced code: `Preact signal state, RayanLamp storage key/default System, root.dataset.theme as requested mode, fixed lamp theme colors and applyWebTheme persistence entrypoint`. Disposition: **replaced**. Reason: Dependency-free ESP HTML uses existing browserAppearance state and pakar-appearance object with explicit Pakar dark/Studio defaults. Existing resolved root.dataset.theme is preserved for CSS; themePreference and resolvedTheme retain both states. Shared palette canvas drives browser chrome, not lamp colors. Existing form is the persistence owner; rendering and OS events never rewrite preferences.

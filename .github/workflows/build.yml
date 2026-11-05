@@ -187,12 +187,15 @@ jobs:
           path: |
             build/avr/avr.ino.with_bootloader.bin
             build/avr/avr.ino.hex
+            build/avr/avr.ino.with_bootloader.hex
             build/SHA256SUMS
             build/avr-busy-wire/avr.ino.with_bootloader.bin
             build/avr-busy-wire/avr.ino.hex
+            build/avr-busy-wire/avr.ino.with_bootloader.hex
             build/firmware-report.json
             build/avr-buffered/avr.ino.with_bootloader.bin
             build/avr-buffered/avr.ino.hex
+            build/avr-buffered/avr.ino.with_bootloader.hex
             build/esp32s3-buffered/esp32s3.ino.bin
             build/esp32s3-buffered/esp32s3.ino.merged.bin
             build/esp32s3-buffered/esp32s3.ino.partitions.bin

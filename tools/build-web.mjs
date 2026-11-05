@@ -19,7 +19,7 @@ await writeUnchanged(webHeaderUrl,webHeader(html),{check});
 await generateWebCompressed({check});
 const out=new URL('build/web/'+profile+'/',root);if(!check)await mkdir(out,{recursive:true});
 const files=new Map([['index.html',Buffer.from(html)]]);
-files.set('app-icon.png',await readFile(new URL('assets/branding/table-256.png',root)));
+files.set('app-icon.png',await readFile(new URL('assets/branding/app-icon-256.png',root)));
 if(!check)await mkdir(new URL('assets/fonts/',out),{recursive:true});
 files.set('assets/fonts/Vazirmatn-Regular.ttf',await readFile(new URL('assets/fonts/Vazirmatn-Regular.ttf',root)));
 const revision=createHash('sha256').update(html).digest('hex');

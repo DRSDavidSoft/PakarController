@@ -1404,7 +1404,7 @@
         {
           "path": "web/index.html",
           "anchor": "function renderAssignmentTools(",
-          "sha256": "aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d"
+          "sha256": "bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0"
         }
       ],
       "proof": [
@@ -3844,7 +3844,7 @@
       "proof": [
         {
           "path": "tests/script_tooling_test.mjs",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380",
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305",
           "anchor": "const independent=createLogger("
         }
       ],
@@ -3949,7 +3949,7 @@
       "targets": [
         {
           "path": "tools/firmware-report.mjs",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423",
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283",
           "anchor": "const gz=portableGzip(bytes),manifest=createFirmwareManifest("
         },
         {
@@ -4560,7 +4560,7 @@
       "targets": [
         {
           "path": "tools/firmware-report.mjs",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423",
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283",
           "anchor": "const gz=portableGzip(bytes),manifest=createFirmwareManifest("
         },
         {
@@ -7486,7 +7486,7 @@
         },
         {
           "path": "desktop/build.rs",
-          "sha256": "a7c694cdd2cfd17e3359db8970ce9ffd7db699110145543dde7c73703ca017ef",
+          "sha256": "4a33b09a2c6bacd11f3dbe48832a6d3a6edf26449aec23f651cba28fd54a62f4",
           "anchor": ".set(\"CompanyName\", application_identity::APP_NAME)"
         }
       ],
@@ -8854,7 +8854,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function firmwareUpdateObservation(s)"
         }
       ],
@@ -10964,7 +10964,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "const cliPlan=",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/update_tool_test.mjs",
@@ -11003,7 +11003,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11070,7 +11070,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "const cliPlan=",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/update_tool_test.mjs",
@@ -11099,7 +11099,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11175,7 +11175,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11236,7 +11236,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11306,7 +11306,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11377,7 +11377,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11438,7 +11438,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11498,7 +11498,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11563,7 +11563,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11628,7 +11628,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11675,7 +11675,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function collectArtifacts",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -11694,7 +11694,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11741,7 +11741,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function collectArtifacts",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -11760,7 +11760,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11807,7 +11807,7 @@
         {
           "path": ".github/workflows/build.yml",
           "anchor": "node tests/script_tooling_test.mjs",
-          "sha256": "88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861"
+          "sha256": "83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a"
         }
       ],
       "omissions": [
@@ -11821,7 +11821,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11867,7 +11867,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function collectArtifacts",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -11886,7 +11886,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -11933,7 +11933,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function collectArtifacts",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -11952,7 +11952,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12001,7 +12001,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function collectArtifacts",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -12020,7 +12020,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12076,7 +12076,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12117,7 +12117,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "const source_sha=execFileSync",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -12131,7 +12131,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12172,7 +12172,7 @@
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "const source_sha=execFileSync",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -12186,7 +12186,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12227,7 +12227,7 @@
         {
           "path": ".github/workflows/build.yml",
           "anchor": "name: \"🧰 Scripts · ${{ matrix.os }}\"",
-          "sha256": "88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861"
+          "sha256": "83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a"
         },
         {
           "path": ".github/actionlint.yaml",
@@ -12246,7 +12246,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12306,7 +12306,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12366,7 +12366,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12435,7 +12435,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12564,7 +12564,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12620,12 +12620,12 @@
         {
           "path": ".github/workflows/build.yml",
           "anchor": "name: \"🔧 ESP32-S3 + AVR\"",
-          "sha256": "88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861"
+          "sha256": "83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a"
         },
         {
           "path": "tools/firmware-report.mjs",
           "anchor": "export function artifactMarkdown",
-          "sha256": "a374a5172a8e9d366e1bbe124311004e2f093ab648e94a54cd8c4a1ca18b4423"
+          "sha256": "8eef0c52a110d86abf1278193dc6405807814d824944779d06f1d03d577e8283"
         }
       ],
       "omissions": [
@@ -12639,7 +12639,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12723,7 +12723,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12805,7 +12805,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12890,7 +12890,7 @@
         {
           "path": "tests/script_tooling_test.mjs",
           "anchor": "Script tooling:",
-          "sha256": "8cecc892a9f416c7fd4d7df6aae64cef7792b557e73213bc77d9e6a4a53c1380"
+          "sha256": "4b8743c890eb724f2d6ae27d6b0593b2ac482578da0330d382d91f040d91c305"
         },
         {
           "path": "tests/script_tooling_test.ps1",
@@ -12992,7 +12992,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function upgradeObservation(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "omissions": [
@@ -13117,7 +13117,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function lcdObservation(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -13207,7 +13207,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function lcdObservation(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -13297,7 +13297,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function lcdObservation(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -13387,7 +13387,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function lcdObservation(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -13699,7 +13699,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
@@ -13840,7 +13840,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -14019,7 +14019,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function presentDeviceAccess(info)"
         }
       ],
@@ -14096,7 +14096,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function presentDeviceAccess(info)"
         }
       ],
@@ -14570,7 +14570,7 @@
         },
         {
           "path": "firmware/esp/src/BoardIconAsset.h",
-          "sha256": "38856c8b4f954c2cbd9043ea2c66e311ad4736984d95ee4dde9d6bf7a8d13000",
+          "sha256": "2f0fd62282276aef2bc8223e3a54698e99e77f1bc6559a94fb2527c8f2240973",
           "anchor": "static const uint8_t kBoardIconPng[] PROGMEM"
         },
         {
@@ -14918,7 +14918,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function statusRgbOutput"
         }
       ],
@@ -15052,7 +15052,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function acceptStatusRgb("
         }
       ],
@@ -15526,7 +15526,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function readStreamPolicy"
         }
       ],
@@ -16978,7 +16978,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function connectWs()"
         }
       ],
@@ -17087,7 +17087,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "async function refreshAuthenticated(options={})"
         },
         {
@@ -17179,7 +17179,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function report(e,tone)"
         }
       ],
@@ -17351,7 +17351,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function connectWs()"
         }
       ],
@@ -17454,7 +17454,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function renderSelectionSummary()"
         }
       ],
@@ -17550,7 +17550,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "<script data-pakar-presentation>"
         }
       ],
@@ -17635,7 +17635,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "<script data-pakar-presentation>"
         }
       ],
@@ -17835,12 +17835,12 @@
         },
         {
           "path": "web/index.html",
-          "sha256": "aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d",
+          "sha256": "bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0",
           "anchor": "function renderLedBackendControl(anchor){"
         },
         {
           "path": "web/index.html",
-          "sha256": "aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d",
+          "sha256": "bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0",
           "anchor": "function waitForLedBackend("
         }
       ],
@@ -18023,7 +18023,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "// BEGIN SHARED LOCALIZATION"
         }
       ],
@@ -18102,12 +18102,12 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "6ef2bde812ca8aaf889f5ad1c8313ae6e4e5ac079b93424ef4be6e2cdd007da5",
+          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
           "anchor": "Connected boards. One contextual control workspace."
         },
         {
           "path": "tools/generate-readme-artwork.mjs",
-          "sha256": "2162d1ad3760618260eb9d659dfebb6651ad1e5f5b4eb2c37c12cde1ef7ff8d2",
+          "sha256": "83ac3f09a45dace80865eda69d7f69cb22a3af8042edf69a3ae12cf8022c6580",
           "anchor": "README uses the same bytes"
         }
       ],
@@ -18134,7 +18134,7 @@
       "proof": [
         {
           "path": "tests/repository_governance_test.mjs",
-          "sha256": "2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1",
+          "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
       ]
@@ -18145,7 +18145,7 @@
       "targets": [
         {
           "path": ".github/workflows/build.yml",
-          "sha256": "88ae50be55cc684e1e23658d13f0f443e945cac7a38ad87948709681260b4861",
+          "sha256": "83924ae2ac89730473e32007eda800ad03ccbfb8267d61ff7ee52f984d586a8a",
           "anchor": "name: \"🚀 Build · Test · Release\""
         },
         {
@@ -18160,7 +18160,7 @@
         },
         {
           "path": "tools/prepare-release.mjs",
-          "sha256": "820cefc9698d46f95cf39b4cd667494a05cd03d119a1c54f9892b2a35d8b824b",
+          "sha256": "b31fc1117c192807cb01642ec932ee8ffcb1dd9fe3acabf837002ee6bf29a2e1",
           "anchor": "export function firmwareManifest"
         }
       ],
@@ -18207,7 +18207,7 @@
         },
         {
           "path": "tests/repository_governance_test.mjs",
-          "sha256": "2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1",
+          "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
       ]
@@ -18240,7 +18240,7 @@
       "proof": [
         {
           "path": "tests/repository_governance_test.mjs",
-          "sha256": "2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1",
+          "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
       ]
@@ -18273,7 +18273,7 @@
       "proof": [
         {
           "path": "tests/repository_governance_test.mjs",
-          "sha256": "2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1",
+          "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
       ]
@@ -18306,7 +18306,7 @@
       "proof": [
         {
           "path": "tests/repository_governance_test.mjs",
-          "sha256": "2c8393bbd1463ce367cff24d72110a96e53e664824d780f2e66a2c8f8930bda1",
+          "sha256": "95ddf3c77735d2693bc7d7cd8f37db7637d6ebe6923c7ae84281c6f9819ac56c",
           "anchor": "console.log('Repository governance"
         }
       ]
@@ -18456,7 +18456,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function statusRgbOutput"
         },
         {
@@ -18642,7 +18642,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function peerAvailability("
         }
       ],
@@ -18832,7 +18832,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "omissions": [
@@ -18932,22 +18932,22 @@
       "targets": [
         {
           "path": "desktop/src/branding.rs",
-          "sha256": "13a85d887a09acb79aed6acb7b8c0e38f9ea1ba2e35e9306c8bf7558211bc211",
+          "sha256": "501550b1f21d7f165fb9de4c0c693a504f90e38b50a82c9add2637e9783377a9",
           "anchor": "pub fn icon_data_from_bytes"
         },
         {
           "path": "desktop/src/brand_image.rs",
-          "sha256": "ab71607dcde16d7af14b0a292982f902186dacf6b5b78b3f4c983e37464428e9",
+          "sha256": "a286fb4a54cbc3c916343df1630bf0d0a1e9835b2bd644072b5d4ae18b8836b9",
           "anchor": "pub fn native_icon_bytes"
         },
         {
           "path": "docs/BRANDING-PARITY.md",
-          "sha256": "0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3",
+          "sha256": "a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed",
           "anchor": "## Explicit unfinished useful code and reasons"
         },
         {
           "path": "desktop/src/branding.rs",
-          "sha256": "13a85d887a09acb79aed6acb7b8c0e38f9ea1ba2e35e9306c8bf7558211bc211",
+          "sha256": "501550b1f21d7f165fb9de4c0c693a504f90e38b50a82c9add2637e9783377a9",
           "anchor": "pub fn sync_peer"
         },
         {
@@ -18957,7 +18957,7 @@
         },
         {
           "path": "mobile/lib/application_artwork.dart",
-          "sha256": "a1ee8fc15b0aa9111a5c416fcf74b3d05093b22e47b76d7744837f175f7b5ef4",
+          "sha256": "2a55523277ac368f98b85018fd5713dfa5554094eb1dc3576b552954cb7a01b2",
           "anchor": "const applicationArtworkBase64"
         }
       ],
@@ -18989,7 +18989,7 @@
       "proof": [
         {
           "path": "tests/branding_test.mjs",
-          "sha256": "c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb",
+          "sha256": "b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199",
           "anchor": "actual Pealayer icon_data_from_bytes import"
         },
         {
@@ -19016,7 +19016,7 @@
       "targets": [
         {
           "path": "tools/generate-branding.mjs",
-          "sha256": "816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367",
+          "sha256": "945b5f80e23bb020634b794ea4f866ab8a293506c064cdf79319876db156ad73",
           "anchor": "Pakar embeds it for the standalone ESP surface"
         },
         {
@@ -19031,17 +19031,17 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "<!-- BEGIN SHARED BRAND HEADER -->"
         },
         {
           "path": "docs/BRANDING-PARITY.md",
-          "sha256": "0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3",
+          "sha256": "a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed",
           "anchor": "## Explicit unfinished useful code and reasons"
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "function renderApplicationIdentity"
         },
         {
@@ -19088,7 +19088,7 @@
         },
         {
           "path": "tests/branding_test.mjs",
-          "sha256": "c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb",
+          "sha256": "b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199",
           "anchor": "actual Pealayer icon_data_from_bytes import"
         },
         {
@@ -19117,17 +19117,17 @@
       "targets": [
         {
           "path": "tools/generate-branding.mjs",
-          "sha256": "816544b2525d3c9210a586b8c2c5d59ed6c51fab8ca4bda27fbf2edbdd451367",
+          "sha256": "945b5f80e23bb020634b794ea4f866ab8a293506c064cdf79319876db156ad73",
           "anchor": "'FAVICON':"
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "<!-- BEGIN SHARED BRAND FAVICON -->"
         },
         {
           "path": "docs/BRANDING-PARITY.md",
-          "sha256": "0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3",
+          "sha256": "a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed",
           "anchor": "## Explicit unfinished useful code and reasons"
         }
       ],
@@ -19159,7 +19159,7 @@
       "proof": [
         {
           "path": "tests/branding_test.mjs",
-          "sha256": "c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb",
+          "sha256": "b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199",
           "anchor": "actual Pealayer icon_data_from_bytes import"
         }
       ],
@@ -19177,12 +19177,12 @@
       "targets": [
         {
           "path": "desktop/build.rs",
-          "sha256": "a7c694cdd2cfd17e3359db8970ce9ffd7db699110145543dde7c73703ca017ef",
+          "sha256": "4a33b09a2c6bacd11f3dbe48832a6d3a6edf26449aec23f651cba28fd54a62f4",
           "anchor": "brand_image::native_icon_bytes(brand_image::icon_bytes())"
         },
         {
           "path": "docs/BRANDING-PARITY.md",
-          "sha256": "0bfa8122dc9d6034551304f2fed472ddebcff170e14a23f63011177aab75d2d3",
+          "sha256": "a24fad79482885e11f72fca8ec34b41d7b8bac8d268a4fb19c42b0b493e6d7ed",
           "anchor": "## Explicit unfinished useful code and reasons"
         }
       ],
@@ -19204,7 +19204,7 @@
       "proof": [
         {
           "path": "tests/branding_test.mjs",
-          "sha256": "c39528379a8b6e97561e0e0deb5e435a182f75bce2b385780c7b9ee853455fbb",
+          "sha256": "b333d65233f94c4e0e88a6ef2d6e2f360f5a5ff8a81b71728d8a2af53f3a1199",
           "anchor": "actual Pealayer icon_data_from_bytes import"
         }
       ],
@@ -19863,7 +19863,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         },
         {
           "path": "firmware/avr/BootMelody.cpp",
@@ -20033,7 +20033,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         },
         {
           "path": "firmware/avr/BootMelody.cpp",
@@ -22173,7 +22173,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "// BEGIN SHARED APPEARANCE"
         }
       ],
@@ -22280,7 +22280,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "/* Fixed manager slots:"
         },
         {
@@ -22541,7 +22541,7 @@
         },
         {
           "path": "firmware/esp/src/WebUi.h",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73",
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196",
           "anchor": "id=\"uiHaptics\""
         }
       ],
@@ -23499,7 +23499,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "async function boardSoundTransaction(",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         },
         {
           "path": "desktop/src/ui/device_settings.rs",
@@ -24948,7 +24948,7 @@
         },
         {
           "path": "web/index.html",
-          "sha256": "aa518a96eea2dd7d787cb0a31d5191c78886e2e31605eda64458a0cea728835d",
+          "sha256": "bc05318e412594e7508b401d2758c719084bf4e1169902bd64795dbfd0a3b4d0",
           "anchor": "function workspaceDiagnosticDraft()"
         },
         {
@@ -25279,7 +25279,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function createWorkspaceStorage",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         },
         {
           "path": "assets/web/device-settings.js",
@@ -25333,7 +25333,7 @@
         {
           "path": "firmware/esp/src/WebUi.h",
           "anchor": "function workspaceSettingsRecord",
-          "sha256": "dcd9e175d488ecbcb4c824fa7c7fd2004c5da9411c67851831940a4ba8881a73"
+          "sha256": "93ccbdb337359b9bc4c3b7dd5bdef9df484ebe7f1da2c910f004c2495d11f196"
         }
       ],
       "proof": [
@@ -26256,7 +26256,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "6ef2bde812ca8aaf889f5ad1c8313ae6e4e5ac079b93424ef4be6e2cdd007da5",
+          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
           "anchor": "## Get started"
         },
         {

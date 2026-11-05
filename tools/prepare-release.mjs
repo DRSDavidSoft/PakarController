@@ -8,6 +8,7 @@ import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {manifest} from './create-remote-manifest.mjs';
+import {validateAvrHex} from './firmware-report.mjs';
 export const sha256=data=>createHash('sha256').update(data).digest('hex');
 export function releaseIdentity(repository,tag,commit,version){
   if(!/^[\w.-]+\/[\w.-]+$/.test(repository))throw Error('Invalid repository');
@@ -58,10 +59,14 @@ function prepare(){
     const platform=mode==='buffered'?'esp32s3':'esp8266';
     const esp=readFileSync(join(input,'firmware',`${platform}${suffix}`,`${platform}.ino.bin`));
     const avr=readFileSync(join(input,'firmware',`avr${suffix}`,'avr.ino.with_bootloader.bin'));
+    const appHex=readFileSync(join(input,'firmware',`avr${suffix}`,'avr.ino.hex'));
+    const fullHex=readFileSync(join(input,'firmware',`avr${suffix}`,'avr.ino.with_bootloader.hex'));
+    validateAvrHex(appHex);validateAvrHex(fullHex,avr);
     const value=firmwareManifest(esp,avr,identity,mode);
     const json=Buffer.from(JSON.stringify(value,null,2)+'\n');
     emit(`esp-${mode}.bin`,esp);emit(`avr-${mode}.bin`,avr);emit(`manifest-${mode}.json`,json);
-    zip(`PakarController-firmware-${mode}.zip`,[...docs,[`esp-${mode}.bin`,esp],[`avr-${mode}.bin`,avr],[`manifest-${mode}.json`,json]]);
+    emit(`avr-${mode}.hex`,appHex);emit(`avr-${mode}-with-bootloader.hex`,fullHex);
+    zip(`PakarController-firmware-${mode}.zip`,[...docs,[`esp-${mode}.bin`,esp],[`avr-${mode}.bin`,avr],[`avr-${mode}.hex`,appHex],[`avr-${mode}-with-bootloader.hex`,fullHex],[`manifest-${mode}.json`,json]]);
   }
   const native=readFileSync(join(input,'windows','pakarcontroller.exe'));
   if(native.length<64||native.subarray(0,2).toString()!=='MZ')throw Error('Missing Windows PE executable');

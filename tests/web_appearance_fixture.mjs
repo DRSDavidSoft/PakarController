@@ -128,7 +128,7 @@ const server=http.createServer(async(req,res)=>{
     const assets={'/manifest.webmanifest':'manifest.webmanifest','/sw.js':'sw.js'};
     const file=assets[url.pathname];if(file){try{const bytes=await readFile(new URL('../build/web/full/'+file,import.meta.url));res.writeHead(200,{'Content-Type':file.endsWith('.js')?'text/javascript':'application/manifest+json'});res.end(bytes);}catch{json(404,{error:'fixture_asset_not_built',file});}return;}
   }
-  if(req.method==='GET'&&req.url==='/app-icon.png'){res.writeHead(200,{'Content-Type':'image/png'});res.end(await readFile(new URL('../assets/branding/table-256.png',import.meta.url)));return;}
+  if(req.method==='GET'&&req.url==='/app-icon.png'){res.writeHead(200,{'Content-Type':'image/png'});res.end(await readFile(new URL('../assets/branding/app-icon-256.png',import.meta.url)));return;}
   if(req.method==='GET'&&req.url==='/assets/fonts/Vazirmatn-Regular.ttf'){res.writeHead(200,{'Content-Type':'font/ttf'});res.end(await readFile(new URL('../assets/fonts/Vazirmatn-Regular.ttf',import.meta.url)));return;}
   if(req.method!=='GET'){
     if(!interactiveFixture||req.method!=='POST'||url.pathname!=='/api/command'){json(405,{error:'Read-only SIMULATED fixture; no device mutation'});return;}

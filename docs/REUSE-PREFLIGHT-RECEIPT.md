@@ -1,5 +1,49 @@
 # Donor-first preflight receipt
 
+## Firmware HEX delivery and high-DPI artwork, 2026-10-30 (#11 / #5)
+
+The existing CI already emitted application HEX; the actual AVR packaging owner
+also generated bootloader-inclusive HEX but artifact upload/report/release
+omitted it. Reuse prepare-avr-image's actual Intel HEX parser/encoder and
+full-flash image rather than a second objcopy or fake extension. Validate HEX
+checksums/reset presence and compare every byte of merged HEX against its BIN.
+Both HEX forms now participate in CI integrity reports and release archives;
+ESP application binaries remain unchanged/raw and no board is programmed.
+
+Read the actual donor branding/native ICO conversion, header artwork binding
+and Web favicon owner. Retain multi-resolution ICO/Lanczos and cached textures,
+but replace the prototype Circuitry art with an editable SVG control-grid mark.
+The external existing Sharp rasterizer renders 24–1024px assets once; committed
+source/output hashes make ordinary checks dependency-free and low-write.
+Native/README/Android launcher use the high-resolution master while firmware
+identity and inline Web art retain the strict 4096-character compact derivative.
+Generic compact peer artwork still resolves by role rather than masking it.
+
+An initial lookup used a nonexistent branding concern; consult the existing
+application-identity route instead. The concurrent Pealayer owner's new tracked
+paths required a selective inventory refresh before consultation; new rows
+remain unreviewed, not accepted omissions. The existing Pakar PR43 Windows
+WebSocket-bootstrap test failure is separate from this icon/HEX work; its
+507-passing/one-failing run is not called all-green. No production runtime,
+pin/cache configuration or hardware state is changed in this pass.
+
+Branding/no-write generation, role/UPnP image metadata, Web identity, script
+tooling, manifest/governance and actual release-ZIP fixtures pass. The retained
+local outputs validate all six application/full-flash HEX artifacts; they are
+not attributed to a newly rebuilt firmware image. Ordinary/check artwork paths
+need no Sharp installation; 1024px native master is 94,542 bytes and the 64px
+identity PNG is 2,570 bytes (within the existing base64 identity limit).
+
+Selective donor refresh detected 13 unrelated previously reviewed files changed
+by the active Pealayer owner. Keep those actual historical per-file pins rather
+than falsely rebind their completed comparisons to unread new code; new tracked
+paths are inventoried. Live-source checks still expose drift. The guarded native
+branding test attempt stopped at the changed i18n donor before Cargo compiled;
+it is not a passed Rust/runtime test. A scratch inventory helper initially hit
+Node's 1 MiB subprocess buffer and was corrected to a bounded 4 MiB read; no
+repository files were modified by that failed read. Generated comparison checks
+pass after the explicit reviewed-pin preservation and changed-target rebinding.
+
 ## Canonical opcode ownership and namespace admission, 2026-10-30 (#41 / PC#702)
 
 Read the actual complete PCController contract generator and canonical registry,
@@ -12078,3 +12122,12 @@ Cargo: live Pealayer tracked-file inventory drift. Do not bypass that gate,
 change its checkout, relabel unread donor changes as reviewed or claim a local
 native pass. Exact-head Windows CI must execute the retained regression and
 the broader native suite. No boards, installed apps or device settings changed.
+
+The stacked artwork PR44 also exposed two stale PU route target bindings in
+run41091875727. Reviewed the three generated WebUi.h changes: shared header
+artwork, application icon bytes and favicon bytes only. Both existing remote
+update anchors and route implementations remain unchanged at line417. Refresh
+only those two target hashes in PU850-ROUTE-PARITY.json, keeping donor hashes,
+route classifications and remaining acceptance unchanged. The actual50-route
+checker, Web identity test and no-write application-artwork check pass. This is
+not execution of native tests, firmware compilation or OTA/physical acceptance.

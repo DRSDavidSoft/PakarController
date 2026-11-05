@@ -24,6 +24,8 @@ assert.match(build,/node tools\/ci-checks.mjs (quality|desktop)/);
 const firmwareJob=build.split('  firmware:')[1].split('  windows-desktop:')[0];
 assert.match(firmwareJob,/name: "🔧 ESP32-S3 \+ AVR"/);
 for(const mode of ['polling','busy-wire','buffered'])assert(firmwareJob.includes(`bash build.sh ${mode} avr`));
+for(const mode of ['','-busy-wire','-buffered'])for(const file of ['avr.ino.hex','avr.ino.with_bootloader.hex'])
+  assert(firmwareJob.includes(`build/avr${mode}/${file}`),'CI must publish both application and bootloader-inclusive HEX');
 assert.doesNotMatch(firmwareJob,/build\/esp8266|bash build.sh (?:polling|busy-wire)\s*\n/,
   'Primary releases must not require the unfinished, resource-overflowing ESP8266 image');
 assert(firmwareJob.indexOf('bash tools/test-protocol.sh')<firmwareJob.indexOf('bash build.sh polling avr'),
