@@ -12438,3 +12438,29 @@ Readback shows no new branch/PR; no force operation was used. An independent API
 blob attempt returned `unexpected end of JSON input`, not upload proof. Root
 cause is unestablished; do not label a global GitHub outage. This source/CI gate
 is separate from the remaining substantive audit and from production readiness.
+
+### Publication recovery and review follow-up — 2026-11-06
+
+The preceding receive-pack failure is historical, not the current publication
+state. A verified bundle preserving the exact d7a4f9f source history was copied
+to the trusted office host. Its stored GitHub credential was invalid; an
+authorized process-scoped credential from this PC published the unchanged branch
+without modifying stored credentials or SSH trust. Pakar PR53 now runs CI.
+
+CI correctly rejected the five PU850 route bindings to the changed application
+file. Reread the actual AsyncOTA, WebSocket and SSDP donors, update/info and info
+registration slices, affected target route bodies and the new storage setup.
+Only those five target hashes changed; ownership/authentication and all open
+route gaps remain. The fifty-route guard and comparison rejection fixtures pass.
+
+Orbit98a699e additionally fences verification reads with a seek before the next
+stdio update-stream write. Consecutive binary chunks, final-seek failure and
+overflow tests pass alongside existing fault tests. Both Orbit remotes contain
+the exact commit; mirror PR25 is ready for review, not merged. The pinned read
+checkpoint and reports bind these revised bytes. Counts remain55 complete reads,
+10 functional comparisons,6 justified exclusions; the substantive audit is open.
+
+Canonical Gitea API login exposed a separate DRSDavidSoft account-wide mandatory
+password-change requirement. No password or forced-change flag was modified.
+Its account repair and canonical PR/checks remain separate from successful SSH
+branch publication. No board, installed app or production setting was changed.
