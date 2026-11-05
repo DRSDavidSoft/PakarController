@@ -223,16 +223,16 @@ void executeDeviceShell(DeviceShellSession &s,String line){
     else if(args=="truecolor on"||args=="truecolor off")s.tui.setTrueColor(args.endsWith("on"));
     else if(args.startsWith("theme ")){
       const String theme=args.substring(6);using T=PakarShell::ShellTui;
-      if(theme!="violet"&&theme!="red"&&theme!="lumen"&&theme!="onedark"){
-        shellResult(s,false,F("Use terminal theme violet|red|lumen|onedark"));shellPrompt(s);return;}
-      s.tui.setTheme(theme=="red"?T::Red:theme=="lumen"?T::Lumen:theme=="onedark"?T::OneDark:T::Violet);
+      if(theme!="default"&&theme!="violet"&&theme!="red"&&theme!="cyan"&&theme!="onedark"){
+        shellResult(s,false,F("Use terminal theme default|violet|red|cyan|onedark"));shellPrompt(s);return;}
+      s.tui.setTheme(theme=="default"?T::Default:theme=="red"?T::Red:theme=="cyan"?T::Cyan:theme=="onedark"?T::OneDark:T::Violet);
     }
     else if(args.startsWith("size ")){
       const int split=args.indexOf(' ',5);uint32_t w=0,h=0;
       if(split<0||!PakarShell::unsignedNumber(args.substring(5,split).c_str(),240,w)||
          !PakarShell::unsignedNumber(args.substring(split+1).c_str(),100,h)||!s.parser.size(w,h)){
         shellResult(s,false,F("Use terminal size 40..240 16..100"));shellPrompt(s);return;}
-    }else if(args.length()){shellResult(s,false,F("Use terminal unicode|color|truecolor on|off, terminal theme violet|red|lumen|onedark, terminal size COLS ROWS"));shellPrompt(s);return;}
+    }else if(args.length()){shellResult(s,false,F("Use terminal unicode|color|truecolor on|off, terminal theme default|violet|red|cyan|onedark, terminal size COLS ROWS"));shellPrompt(s);return;}
     s.print(F("Terminal "));s.print(s.parser.terminal());s.print(F(" | "));s.print(s.parser.columns());s.print(s.unicode?F(" \xc3\x97 "):F(" x "));s.print(s.parser.rows());
     s.print(F(" | Unicode "));s.print(s.unicode?F("on"):F("off"));s.print(F(" | ANSI "));s.println(s.color&&s.parser.ansi()?F("on"):F("off"));
   }else if(verb=="game"){

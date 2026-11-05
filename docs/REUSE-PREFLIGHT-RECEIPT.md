@@ -12131,3 +12131,47 @@ only those two target hashes in PU850-ROUTE-PARITY.json, keeping donor hashes,
 route classifications and remaining acceptance unchanged. The actual50-route
 checker, Web identity test and no-write application-artwork check pass. This is
 not execution of native tests, firmware compilation or OTA/physical acceptance.
+
+## 2026-10-31: PortableShell consumer refresh
+
+Consulted donor-audit/portable-shell, terminal-ui, device-shell and build-storage;
+read the canonical component changes and shared policy/utility/undo/meter owners.
+The initial `shell` consultation name was invalid; corrected it to the documented
+concerns before editing. Exact exports use PortableShell 3a7eeba. Existing
+historical reference snapshots and consumer hardware/authentication owners stay.
+
+Updated target/proof bindings only for inspected changes. The table spacing,
+uppercase category and styled footer expectations changed with the upstream
+renderer; navigation/draft/owner-dispatch assertions remain. The old theme array
+had four entries but the refreshed renderer defaults to index four: add default,
+rename cyan, and derive choice count. Release mouse reporting before alternate
+screen exit, with a binding regression test.
+
+A failed workspace assertion left Windows holding the test executable. A named
+build output option in the existing gated test wrapper avoids output collisions;
+it does not bypass reuse gates or alter tested sources. An initial script-edit
+syntax error was corrected before rerunning. No production process was stopped,
+no board flashed and no unrelated donor verdict was upgraded.
+
+Validation: the complete gated shell suite passed, including nine-page binding,
+Telnet/TCP loopback, source hashes, wire admission, settings persistence, pixel
+topology, tone dispatch and SSH policy. The final mouse-release regression and
+page captures passed in the gated workspace-only run. Tests use hardware doubles;
+SSH policy tests are not a live SSH connection or physical acceptance.
+
+The full-session F7/history-expansion/hex APIs are not exported by the standalone
+header integration. This refresh does not claim those features are wired into
+firmware. PU850 remains at fetched origin/main 4311040: ShellSession write/close
+callbacks, CommandEntry handlers and DeviceParameter get/set callbacks provide
+an adapter boundary. A future migration must preserve device handlers, network
+lifecycle, persistence and serial/Telnet behavior, then compile and test hardware.
+No PU850 replacement or board rollout was performed in this pass.
+
+PU850 command mapping must retain `save`/`restore` persistence, `busy`/`ready`
+controller signals, `status` network observations and device-specific `beep`.
+Its `hex` converts a number: do not replace it silently with the desktop hex
+editor demo. Its upper/noupper behavior can migrate to a typed dotted setting
+under an explicit consumer decision. Keep its current command argument and
+read-only parameter semantics, write/close callbacks, per-session echo/line
+ending behavior, hostname prompt, and Wi-Fi/mDNS reconnect lifecycle. The library
+provides reusable byte/parser/rendering mechanisms, not these device operations.

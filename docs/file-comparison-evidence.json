@@ -63,7 +63,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -98,7 +98,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -138,7 +138,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -166,7 +166,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "third_party/portable-shell/README.md",
@@ -178,7 +178,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -218,7 +218,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [],
@@ -240,7 +240,7 @@
         {
           "path": "tools/test-shell.ps1",
           "anchor": "foreach($taskName",
-          "sha256": "51673e6f5ae86036a7a439214e3e456a0b8dab6f4dc17485e1244ca862174967"
+          "sha256": "fcd706a22bf195f86ca43954692430a199ddb4f9375dc68801160e240f65c87d"
         },
         {
           "path": "third_party/portable-shell/README.md",
@@ -252,7 +252,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -287,7 +287,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -322,7 +322,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -357,7 +357,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "firmware/esp/src/TelnetShell.h",
@@ -369,7 +369,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -415,7 +415,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         },
         {
           "path": "tests/telnet_client_test.mjs",
@@ -449,7 +449,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "tools/telnet-shell.mjs",
@@ -461,7 +461,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         },
         {
           "path": "tests/telnet_client_test.mjs",
@@ -504,7 +504,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         }
       ],
       "proof": [
@@ -516,7 +516,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -546,7 +546,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "firmware/esp/src/ShellWire.h",
@@ -563,7 +563,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         },
         {
           "path": "tests/telnet_client_test.mjs",
@@ -606,12 +606,12 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
           "anchor": "class DeviceView",
-          "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1"
+          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652"
         },
         {
           "path": "firmware/esp/src/ShellLabels.h",
@@ -633,7 +633,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         },
         {
           "path": "tests/shell_tone_dispatch_test.mjs",
@@ -668,7 +668,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         },
         {
           "path": "firmware/esp/src/ShellWire.h",
@@ -685,7 +685,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         },
         {
           "path": "tests/telnet_client_test.mjs",
@@ -728,7 +728,7 @@
         {
           "path": "firmware/esp/src/ShellService.h",
           "anchor": "void executeDeviceShell",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df"
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb"
         }
       ],
       "proof": [
@@ -740,7 +740,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -774,7 +774,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "proof": [
@@ -786,7 +786,7 @@
         {
           "path": "tests/portable_shell_source_test.mjs",
           "anchor": "const source=",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773"
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea"
         }
       ],
       "omissions": [
@@ -2977,14 +2977,14 @@
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1",
+          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
           "anchor": "class DeviceView"
         }
       ],
       "proof": [
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "assert(output.size()<=PS_DEVICE_VIEW_FRAME_BYTES)"
         }
       ],
@@ -6450,7 +6450,7 @@
         },
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "void serviceShellRemoteQuery()"
         },
         {
@@ -16369,8 +16369,8 @@
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_device_table.hpp",
-          "sha256": "784b6315a407af641060db4f01e4caf92148bf149389b79d5b5e397946c525a2",
-          "anchor": "// PCController's logical-row/section-line separation, without heap storage."
+          "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
+          "anchor": "// Separate logical rows from section headings without heap storage."
         }
       ],
       "preserved": [
@@ -16400,8 +16400,8 @@
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
-          "anchor": "s.output.find(\"Lighting\")==s.output.rfind(\"Lighting\")"
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
+          "anchor": "s.output.find(\"LIGHTING\")==s.output.rfind(\"LIGHTING\")"
         }
       ],
       "improvement": "Bounded checkpoint only; no whole-repository superiority or physical acceptance claim."
@@ -18102,7 +18102,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "Connected boards. One contextual control workspace."
         },
         {
@@ -21120,7 +21120,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "fb551fb47f1c32d0b57c1245b2cc701af6265bf927b159bb556983dacd48d1e9",
+          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
           "anchor": "struct ShellTuiSnapshot"
         },
         {
@@ -21217,12 +21217,12 @@
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "Unchanged Enter is not a write."
         },
         {
           "path": "tools/test-shell.ps1",
-          "sha256": "51673e6f5ae86036a7a439214e3e456a0b8dab6f4dc17485e1244ca862174967",
+          "sha256": "fcd706a22bf195f86ca43954692430a199ddb4f9375dc68801160e240f65c87d",
           "anchor": "-Concern device-shell -Gate"
         },
         {
@@ -21363,7 +21363,7 @@
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "fb551fb47f1c32d0b57c1245b2cc701af6265bf927b159bb556983dacd48d1e9",
+          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
           "anchor": "struct ShellTuiSnapshot"
         },
         {
@@ -21400,12 +21400,12 @@
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "Unchanged Enter is not a write."
         },
         {
           "path": "tools/test-shell.ps1",
-          "sha256": "51673e6f5ae86036a7a439214e3e456a0b8dab6f4dc17485e1244ca862174967",
+          "sha256": "fcd706a22bf195f86ca43954692430a199ddb4f9375dc68801160e240f65c87d",
           "anchor": "-Concern device-shell -Gate"
         }
       ],
@@ -21472,7 +21472,7 @@
         },
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "void serviceDeviceShells()"
         },
         {
@@ -21514,7 +21514,7 @@
         },
         {
           "path": "tools/test-shell.ps1",
-          "sha256": "51673e6f5ae86036a7a439214e3e456a0b8dab6f4dc17485e1244ca862174967",
+          "sha256": "fcd706a22bf195f86ca43954692430a199ddb4f9375dc68801160e240f65c87d",
           "anchor": "-Concern device-shell -Gate"
         }
       ],
@@ -21569,7 +21569,7 @@
         },
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "void serviceDeviceShells()"
         },
         {
@@ -21611,7 +21611,7 @@
         },
         {
           "path": "tools/test-shell.ps1",
-          "sha256": "51673e6f5ae86036a7a439214e3e456a0b8dab6f4dc17485e1244ca862174967",
+          "sha256": "fcd706a22bf195f86ca43954692430a199ddb4f9375dc68801160e240f65c87d",
           "anchor": "-Concern device-shell -Gate"
         }
       ],
@@ -21662,12 +21662,12 @@
       "targets": [
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "bool shellSet("
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "fb551fb47f1c32d0b57c1245b2cc701af6265bf927b159bb556983dacd48d1e9",
+          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
           "anchor": "shellGet(property)"
         },
         {
@@ -21704,7 +21704,7 @@
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "Readonly never emits Set."
         },
         {
@@ -21780,12 +21780,12 @@
       "targets": [
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "bool shellSet("
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "fb551fb47f1c32d0b57c1245b2cc701af6265bf927b159bb556983dacd48d1e9",
+          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
           "anchor": "shellGet(property)"
         },
         {
@@ -21812,7 +21812,7 @@
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "Readonly never emits Set."
         },
         {
@@ -21869,29 +21869,29 @@
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1",
+          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
           "anchor": "class DeviceView"
         },
         {
           "path": "firmware/esp/src/ShellTuiBinding.h",
-          "sha256": "fb551fb47f1c32d0b57c1245b2cc701af6265bf927b159bb556983dacd48d1e9",
+          "sha256": "71a0879a531b26b6058bb25eb13b5f09c8ae3e739a485c4620e37e2495e30d26",
           "anchor": "struct ShellTuiSnapshot"
         }
       ],
       "proof": [
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "private\\trefresh"
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "Async observation cannot repaint draft."
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "rows[0].editable=false"
         }
       ],
@@ -21932,17 +21932,17 @@
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_terminal.h",
-          "sha256": "356dea61f6096e06a6328691d8f919c2dc582086f2234714cf5efbb4ffef79e1",
+          "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
           "anchor": "static inline size_t ps_terminal_text"
         },
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1",
+          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
           "anchor": "class DeviceView"
         },
         {
           "path": "firmware/esp/src/ShellService.h",
-          "sha256": "988751a727abecc9737d9f7b9b3e8d14c8031deb761a83133632d404da2215df",
+          "sha256": "206e4ffa92af68705e11a0b905c136c75918892d7c0b24071e8704b89187dddb",
           "anchor": "void closeDeviceShells()"
         },
         {
@@ -21964,7 +21964,7 @@
         },
         {
           "path": "tests/shell_tui_test.cpp",
-          "sha256": "650a377abfcef9bccf989b501d452b4d9a175f8970fa3fcc52f0e6d227bb1d2d",
+          "sha256": "1ab6c44565526636089091f51719d2a0abbc9512a493ae0e97194d4a9214f1a7",
           "anchor": "never-render-this"
         },
         {
@@ -26256,7 +26256,7 @@
       "targets": [
         {
           "path": "README.md",
-          "sha256": "a83ac5347ba1090b21c3cd3d65e4dcf1fc201a2d78e733220994a70bdf2dadb4",
+          "sha256": "36dadd464b77cf0c1fdac63326aeda07e61858a2cd035639682603ffb922d676",
           "anchor": "## Get started"
         },
         {
@@ -26291,205 +26291,205 @@
     {
       "origin": "portable-shell",
       "path": "include/portable_terminal.h",
-      "sha256": "356dea61f6096e06a6328691d8f919c2dc582086f2234714cf5efbb4ffef79e1",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_terminal.h",
-          "sha256": "356dea61f6096e06a6328691d8f919c2dc582086f2234714cf5efbb4ffef79e1",
-          "anchor": "static inline int ps_telnet_feed"
+          "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
+          "anchor": "#ifndef"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
       "origin": "portable-shell",
       "path": "include/portable_editor.h",
-      "sha256": "1187b7714998afaa5a045f333c50ce3081de846c6c9b0d9b41b8186723bb48ea",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "00bd8c83ae9d7ad8fdc3ae963e37acabf0b3f93096758f0294cdebed2f11cbd3",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_editor.h",
-          "sha256": "1187b7714998afaa5a045f333c50ce3081de846c6c9b0d9b41b8186723bb48ea",
-          "anchor": "static inline int ps_editor_feed"
+          "sha256": "00bd8c83ae9d7ad8fdc3ae963e37acabf0b3f93096758f0294cdebed2f11cbd3",
+          "anchor": "#ifndef"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
       "origin": "portable-shell",
       "path": "include/portable_shell_editor.hpp",
-      "sha256": "9bf1a3b590217b8b1cc6562fbd681f9a71af9d761f057ac10585f597d3e11ff5",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "1289e6667828d637042de29b31941427d8a9f222c3a7c967fd751f3b0c7ba7c3",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_shell_editor.hpp",
-          "sha256": "9bf1a3b590217b8b1cc6562fbd681f9a71af9d761f057ac10585f597d3e11ff5",
-          "anchor": "class LineEditor"
+          "sha256": "1289e6667828d637042de29b31941427d8a9f222c3a7c967fd751f3b0c7ba7c3",
+          "anchor": "#ifndef"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
       "origin": "portable-shell",
       "path": "include/portable_device_view.hpp",
-      "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_view.hpp",
-          "sha256": "38ccd92c729abb086088e2a76e0a3e35130b8ed5e73c22968af56dd1e044fdf1",
-          "anchor": "class DeviceView"
+          "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
+          "anchor": "#ifndef"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
       "origin": "portable-shell",
       "path": "include/portable_style.h",
-      "sha256": "d86b758b8d8509667ee5e8a49b9ab8319b8961b32923f89b89ea3d23e3db0e11",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "a29a3338b6ee4523fc394adeb496146f82840c931b4ac7035e52502bf9ce3f6e",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_style.h",
-          "sha256": "d86b758b8d8509667ee5e8a49b9ab8319b8961b32923f89b89ea3d23e3db0e11",
-          "anchor": "ps_style_ink"
+          "sha256": "a29a3338b6ee4523fc394adeb496146f82840c931b4ac7035e52502bf9ce3f6e",
+          "anchor": "#ifndef"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
       "origin": "portable-shell",
       "path": "include/portable_device_table.hpp",
-      "sha256": "784b6315a407af641060db4f01e4caf92148bf149389b79d5b5e397946c525a2",
-      "source_revision": "e90ffc004b39912e21a1799a75061ac61f22c74f",
+      "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
       "source_read": "complete",
       "verdict": "equivalent-file",
       "preserved": [
-        "Complete canonical component at e90ffc004b39912e21a1799a75061ac61f22c74f. Shared full palettes, rich tables, inline values and optional typed controls/dialogs. Explicit feature flags retain smaller layouts. Render inspection corrected Unicode hints, diagnostic surfaces and modal compositing."
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
       ],
       "targets": [
         {
           "path": "firmware/esp/src/portable-shell/portable_device_table.hpp",
-          "sha256": "784b6315a407af641060db4f01e4caf92148bf149389b79d5b5e397946c525a2",
-          "anchor": "renderTable"
+          "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
+          "anchor": "tableCapacity"
         }
       ],
       "proof": [
         {
           "path": "tests/portable_shell_source_test.mjs",
-          "sha256": "f9b52abd7672d2053463adad77078e55c4fdd0bb3102463ce8c20c3895193773",
+          "sha256": "52b6834c58de5b07c7fd52e7be34f109aaa1c961ddd2f6362532a71fd4559aea",
           "anchor": "Consumer must use canonical components"
         },
         {
           "path": "tests/shell_workspace_test.cpp",
-          "sha256": "4dc5ca08b38543de404e96a6a94cfcbac3483c9be89a6f1a0e877dac4cafeb84",
+          "sha256": "2be702d0a1bed5ec74488866d3d7d47416ec5740c200e6d3d1972845c0311fcd",
           "anchor": "Actual workspace binding"
         }
       ],
       "omissions": [],
       "remaining": [
-        "Complete board firmware CI and separately authorized live device acceptance; no production deployment in this source integration."
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     },
     {
@@ -26560,6 +26560,98 @@
       ],
       "remaining": [
         "Complete carrier/service parity and real deployed interoperability, timing, stack/RAM and physical acceptance separately."
+      ]
+    },
+    {
+      "origin": "portable-shell",
+      "path": "include/portable_meter.h",
+      "targets": [
+        {
+          "path": "firmware/esp/src/portable-shell/portable_meter.h",
+          "sha256": "48350a03fd496aaf50bf47149f8a099d7d07de9175024ef43a917e0a7cf53f1d",
+          "anchor": "#ifndef"
+        }
+      ],
+      "proof": [],
+      "omissions": [],
+      "sha256": "48350a03fd496aaf50bf47149f8a099d7d07de9175024ef43a917e0a7cf53f1d",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_read": "complete",
+      "verdict": "equivalent-file",
+      "preserved": [
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+      ],
+      "remaining": [
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
+      ]
+    },
+    {
+      "origin": "portable-shell",
+      "path": "include/portable_undo.h",
+      "targets": [
+        {
+          "path": "firmware/esp/src/portable-shell/portable_undo.h",
+          "sha256": "adf67d72d371b0e15fb1be3c64dfdea5155840b55a23a987be5807437fed9be0",
+          "anchor": "#ifndef"
+        }
+      ],
+      "proof": [],
+      "omissions": [],
+      "sha256": "adf67d72d371b0e15fb1be3c64dfdea5155840b55a23a987be5807437fed9be0",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_read": "complete",
+      "verdict": "equivalent-file",
+      "preserved": [
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+      ],
+      "remaining": [
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
+      ]
+    },
+    {
+      "origin": "portable-shell",
+      "path": "include/portable_util.h",
+      "targets": [
+        {
+          "path": "firmware/esp/src/portable-shell/portable_util.h",
+          "sha256": "568c68488cc8821e694b2ba576f138dc4d0d6f8f9970e83b99188b7727014256",
+          "anchor": "#ifndef"
+        }
+      ],
+      "proof": [],
+      "omissions": [],
+      "sha256": "568c68488cc8821e694b2ba576f138dc4d0d6f8f9970e83b99188b7727014256",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_read": "complete",
+      "verdict": "equivalent-file",
+      "preserved": [
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+      ],
+      "remaining": [
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
+      ]
+    },
+    {
+      "origin": "portable-shell",
+      "path": "include/portable_table_policy.h",
+      "targets": [
+        {
+          "path": "firmware/esp/src/portable-shell/portable_table_policy.h",
+          "sha256": "eed0e170b4b80284b0cbbda87c7998480ec6d4040192d0402ca5af112ddfec04",
+          "anchor": "#ifndef"
+        }
+      ],
+      "proof": [],
+      "omissions": [],
+      "sha256": "eed0e170b4b80284b0cbbda87c7998480ec6d4040192d0402ca5af112ddfec04",
+      "source_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "source_read": "complete",
+      "verdict": "equivalent-file",
+      "preserved": [
+        "Exact canonical component refresh at 3a7eeba179c238226deef1b64e3bd3b86c4e12e7. Reviewed upstream changes and required utility/undo/meter/selection-policy dependencies. Preserve consumer authentication, command dispatch and hardware callbacks; one canonical renderer replaces the old reduced fork."
+      ],
+      "remaining": [
+        "Issue #29: firmware compilation and live USB/Telnet/board acceptance remain pending. Full-session F7/history expansion/hex editor are not part of this standalone header component integration."
       ]
     }
   ]

@@ -1,5 +1,7 @@
 <div align="center">
 
+[🧭 Clickable architecture and data-flow diagrams](docs/SYSTEM-MAPS.md)
+
 <img src="docs/assets/app-icon.png" alt="PakarController" width="112" height="112" />
 
 # PakarController

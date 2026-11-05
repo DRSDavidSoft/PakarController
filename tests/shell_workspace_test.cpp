@@ -93,8 +93,8 @@ int main(int argc,char **argv){
     for(unsigned i=0;i<80;++i)assert(matrix.cellColors[i]==grid.appearance().states[grid.state(i+1)].rgb);}
   input("f ");assert(writes==1&&lastKey=="led.enabled"&&lastValue=="false"); // Actual typed row and routed Action.
   input("\x1b[B\x1b[B\r\x15" "200");assert(writes==1&&s.tui.editing());
-  s.output.clear();shellTuiDraw(s,true);assert(s.output.find("\x1b[9;34H")!=std::string::npos);
-  assert(s.output.find("Lighting")!=std::string::npos&&s.output.find("Lighting")==s.output.rfind("Lighting"));
+  s.output.clear();shellTuiDraw(s,true);assert(s.output.find("\x1b[10;34H")!=std::string::npos);
+  assert(s.output.find("LIGHTING")!=std::string::npos&&s.output.find("LIGHTING")==s.output.rfind("LIGHTING"));
   assert(s.output.find("Tab pages")==std::string::npos); // Inline editor alone owns keys.
 #ifdef PS_RENDER_FIXTURE
   if(argc==2)capture(s,argv[1],"inline");
@@ -107,14 +107,17 @@ int main(int argc,char **argv){
   input("\x1b");shellTuiInput(s,0,true);assert(writes==2);
   while(s.tui.page()!=V::TerminalPage)input("\t");
   input("\x1b[B\x1b[B\x1b[B\x1b[B\x1b[B");
-  input(" ");assert(s.tui.theme()==V::Red&&writes==2);
-  input(" ");assert(s.tui.theme()==V::Lumen);
+  input(" ");assert(s.tui.theme()==V::Violet&&writes==2);
+  input(" ");assert(s.tui.theme()==V::Red);
 #ifdef PS_RENDER_FIXTURE
-  if(argc==2){capture(s,argv[1],"lumen");s.tui.setTheme(V::OneDark);capture(s,argv[1],"onedark");}
+  if(argc==2){s.tui.setTheme(V::Cyan);capture(s,argv[1],"cyan");s.tui.setTheme(V::OneDark);capture(s,argv[1],"onedark");}
 #endif
   s.output.clear();shellTuiDraw(s,true);const auto frame=s.output;
   shellTuiDraw(s,true);assert(s.output==frame); // Backpressure defers a whole frame.
-  s.output.clear();s.color=false;s.unicode=false;shellTuiDraw(s,true);
+  s.alternateScreen=true;s.output.clear();input("\x1b");shellTuiInput(s,0,true);
+  assert(!s.tui.active()&&!s.alternateScreen);
+  assert(s.output.find("\x1b[?1002l\x1b[?1006l")<s.output.find("\x1b[?1049l"));
+  s.tui.begin();s.output.clear();s.color=false;s.unicode=false;shellTuiDraw(s,true);
   assert(s.output.find('\x1b')==std::string::npos);
   std::printf("Actual workspace binding: %u pages, inline/typed/theme routes; view=%u, row=%u bytes; fixture only\n",unsigned(visited.size()),unsigned(sizeof(V)),unsigned(sizeof(V::Row)));
 }

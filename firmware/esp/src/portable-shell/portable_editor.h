@@ -1,6 +1,10 @@
 #ifndef PORTABLE_EDITOR_H
 #define PORTABLE_EDITOR_H
 #include "portable_terminal.h"
+#include "portable_undo.h"
+#ifndef PS_EDITOR_UNDO_DEPTH
+#define PS_EDITOR_UNDO_DEPTH 2
+#endif
 #include "portable_style.h"
 /* Bounded event editor profile; source lineage is in the donor inventory.
  * No command execution, allocation or application state. Hidden by default.
@@ -13,13 +17,13 @@
 #define PS_EDITOR_HISTORY 8
 #endif
 #ifndef PS_EDITOR_PROMPT_BYTES
-#define PS_EDITOR_PROMPT_BYTES 49
+#define PS_EDITOR_PROMPT_BYTES 64
 #endif
 #ifndef PS_EDITOR_SUGGEST_BYTES
 #define PS_EDITOR_SUGGEST_BYTES 80
 #endif
 #ifndef PS_EDITOR_PROMPT_STYLE
-#define PS_EDITOR_PROMPT_STYLE "\x1b[1;35m"
+#define PS_EDITOR_PROMPT_STYLE "\x1b[36m"
 #endif
 #if PS_EDITOR_PROMPT_BYTES < 6 || PS_EDITOR_SUGGEST_BYTES < 2
 #error "Prompt needs >=6 bytes and suggestion storage >=2"
@@ -37,11 +41,17 @@ enum {
 };
 typedef const char *(*ps_editor_candidate)(void *, size_t);
 typedef struct {
+#if PS_EDITOR_UNDO_DEPTH
+    ps_undo undo;
+    char undo_frames[PS_EDITOR_UNDO_DEPTH+1][PS_EDITOR_CAPACITY+1];
+    unsigned undo_positions[PS_EDITOR_UNDO_DEPTH+1];
+#endif
+    unsigned paste,paste_match,csi_number;
     char command[PS_EDITOR_CAPACITY + 1], history[PS_EDITOR_HISTORY][PS_EDITOR_CAPACITY + 1];
     char draft[PS_EDITOR_CAPACITY + 1], prompt[PS_EDITOR_PROMPT_BYTES], suggestion[PS_EDITOR_SUGGEST_BYTES];
     size_t next, count, offset, draft_cursor, cursor;
     unsigned char escape, attribute, escape_bytes, echo, cr_pending, overflow, ansi, upper;
-    unsigned char theme, true_color;
+    unsigned char theme, true_color, suggestion_space;
 } ps_editor;
 static inline void ps_term_emit(ps_terminal_write write, void *ctx, const char *text) {
     write(ctx, (const unsigned char *)text, ps_text_length(text));
@@ -65,12 +75,22 @@ static inline void ps_term_left(ps_terminal_write write, void *ctx, size_t n, in
 }
 static inline void ps_editor_init(ps_editor *s) {
     ps_secure_clear(s, sizeof(*s));
+#if PS_EDITOR_UNDO_DEPTH
+    ps_undo_bind(&s->undo,&s->undo_frames[0][0],s->undo_positions,PS_EDITOR_CAPACITY+1,PS_EDITOR_UNDO_DEPTH+1);
+#endif
     s->ansi = 1;
     s->theme = 255;
     s->true_color = 1;
     ps_bytes_copy(s->prompt, "shell", 6);
 }
 static inline void ps_editor_clear(ps_editor *s) {
+#if PS_EDITOR_UNDO_DEPTH
+    s->undo.frames=&s->undo_frames[0][0];s->undo.positions=s->undo_positions;
+#endif
+#if PS_EDITOR_UNDO_DEPTH
+    ps_undo_clear(&s->undo);
+#endif
+    s->paste=s->paste_match=s->csi_number=0;
     ps_secure_clear(s->command, sizeof(s->command));
     ps_secure_clear(s->draft, sizeof(s->draft));
     ps_secure_clear(s->suggestion, sizeof(s->suggestion));
@@ -80,6 +100,7 @@ static inline void ps_editor_clear(ps_editor *s) {
 static inline void ps_editor_clear_history(ps_editor *s) {
     ps_secure_clear(s->history, sizeof(s->history));
     ps_secure_clear(s->draft, sizeof(s->draft));
+    ps_secure_clear(s->suggestion, sizeof(s->suggestion));
     s->next = s->count = s->offset = s->draft_cursor = 0;
 }
 static inline void ps_editor_reset(ps_editor *s) {
@@ -91,7 +112,7 @@ static inline void ps_editor_prompt(ps_editor *s, ps_terminal_write write, void 
     if (!s->echo)
         return;
     if (s->ansi)
-        ps_term_emit(write, ctx, s->theme <= 3 ? ps_style_ink(s->theme, s->true_color, 0, 1) : PS_EDITOR_PROMPT_STYLE);
+        ps_term_emit(write, ctx, s->theme <= PS_THEME_DEFAULT ? ps_style_prompt(s->theme, s->true_color) : PS_EDITOR_PROMPT_STYLE);
     ps_term_emit(write, ctx, s->prompt);
     ps_term_emit(write, ctx, "> ");
     if (s->ansi)
@@ -138,6 +159,16 @@ static inline void ps_editor_erase_suggestion(ps_editor *s, ps_terminal_write wr
     if (s->echo && s->ansi)
         ps_term_emit(write, ctx, "\x1b[K");
     ps_secure_clear(s->suggestion, sizeof(s->suggestion));
+}
+/* Application-owned identity changed: redraw without losing an edited draft,
+ * cursor or history. Call only for a visible prompt, not over an active TUI.
+ * Network identity validation/persistence remains the application's job. */
+static inline void ps_editor_refresh_prompt(ps_editor *s, const char *label, int ansi,
+                                            ps_terminal_write write, void *ctx) {
+    ps_terminal_text(s->prompt, sizeof(s->prompt), label, 128);
+    s->ansi = ansi != 0;
+    if (s->echo && !s->ansi) ps_term_emit(write, ctx, "\r\n");
+    ps_editor_redraw(s, write, ctx);
 }
 static inline int ps_editor_remember(ps_editor *s, int allowed) {
     size_t latest = (s->next + PS_EDITOR_HISTORY - 1) % PS_EDITOR_HISTORY;
@@ -217,10 +248,10 @@ static inline void ps_editor_move(ps_editor *s, unsigned direction, ps_terminal_
         size = ps_text_length(s->suggestion);
         ps_bytes_copy(s->command + s->cursor, s->suggestion, size);
         s->cursor += size;
-        s->command[s->cursor++] = ' ';
+        if (s->suggestion_space) s->command[s->cursor++] = ' ';
         s->command[s->cursor] = 0;
         ps_editor_emit_input(s, write, ctx, s->suggestion);
-        ps_term_emit(write, ctx, " ");
+        if (s->suggestion_space) ps_term_emit(write, ctx, " ");
         ps_secure_clear(s->suggestion, sizeof(s->suggestion));
         s->offset = 0;
         return;
@@ -272,6 +303,7 @@ static inline void ps_editor_escape(ps_editor *s, unsigned ch, ps_terminal_write
         return;
     }
     if ((s->escape == 2 || s->escape == 3) && ((ch >= '0' && ch <= '9') || ch == ';')) {
+        if(ch>='0'&&ch<='9'&&s->csi_number<1000)s->csi_number=s->csi_number*10+ch-'0';
         if (!s->attribute)
             s->attribute = (unsigned char)ch;
         s->escape = 3;
@@ -279,7 +311,8 @@ static inline void ps_editor_escape(ps_editor *s, unsigned ch, ps_terminal_write
     }
     if (s->escape == 3) {
         if (ch == '~') {
-            if (s->attribute == '3') {
+            if(s->csi_number==200){s->paste=1;s->paste_match=0;}
+            else if (s->attribute == '3') {
                 ps_editor_erase_suggestion(s, write, ctx);
                 if (s->cursor < ps_text_length(s->command)) {
                     ps_editor_shift_left(s);
@@ -299,7 +332,7 @@ static inline void ps_editor_escape(ps_editor *s, unsigned ch, ps_terminal_write
         ps_editor_move(s, ch, write, ctx);
     s->escape = s->attribute = s->escape_bytes = 0;
 }
-static inline int ps_editor_feed(ps_editor *s, unsigned char ch, ps_terminal_write write,
+static inline int ps_editor_feed_inner(ps_editor *s, unsigned char ch, ps_terminal_write write,
                                  void *ctx) {
     size_t target, i;
     if (!s->escape && ch != 27)
@@ -326,6 +359,7 @@ static inline int ps_editor_feed(ps_editor *s, unsigned char ch, ps_terminal_wri
         return PS_EDIT_NONE;
     }
     if (ch == 27) {
+        s->csi_number=0;
         s->escape = 1;
         return PS_EDIT_NONE;
     }
@@ -403,6 +437,48 @@ static inline int ps_editor_feed(ps_editor *s, unsigned char ch, ps_terminal_wri
     }
     return PS_EDIT_NONE;
 }
+/* Bracketed paste never executes controls or submits embedded newlines. */
+static inline int ps_editor_feed(ps_editor *s,unsigned char ch,ps_terminal_write write,void *ctx){
+    int result;
+#if PS_EDITOR_UNDO_DEPTH
+    unsigned pasted=s->paste;
+#endif
+#if PS_EDITOR_UNDO_DEPTH
+    s->undo.frames=&s->undo_frames[0][0];s->undo.positions=s->undo_positions;
+#endif
+    if(s->paste){
+        static const char end[]="\033[201~";
+        if(ch==(unsigned char)end[s->paste_match]){
+            if(++s->paste_match==sizeof(end)-1){
+                s->paste=s->paste_match=0;
+#if PS_EDITOR_UNDO_DEPTH
+                ps_undo_record(&s->undo,s->command,(unsigned)s->cursor);
+#endif
+            }return PS_EDIT_NONE;
+        }
+        s->paste_match=0;
+        if(ch==27){s->paste_match=1;return PS_EDIT_NONE;}
+        if(ch=='\r'||ch=='\n'||ch=='\t')ch=' ';
+        else if(ch<32||ch==127)return PS_EDIT_NONE;
+    }
+#if PS_EDITOR_UNDO_DEPTH
+    if((!s->escape&&ch==31)||(s->escape==1&&ch=='_')){
+        unsigned cursor;
+        ps_undo_record(&s->undo,s->command,(unsigned)s->cursor);
+        int redo=s->escape!=0;s->escape=0;
+        if(ps_undo_step(&s->undo,redo,s->command,&cursor)){s->cursor=cursor;s->overflow=0;ps_editor_redraw(s,write,ctx);}
+        else ps_editor_bell(s,write,ctx);
+        return PS_EDIT_NONE;
+    }
+    if(!pasted)ps_undo_record(&s->undo,s->command,(unsigned)s->cursor);
+#endif
+    result=ps_editor_feed_inner(s,ch,write,ctx);
+#if PS_EDITOR_UNDO_DEPTH
+    if(result==PS_EDIT_SUBMIT||result==PS_EDIT_TOO_LONG||result==PS_EDIT_CANCEL)ps_undo_clear(&s->undo);
+    else if(!pasted)ps_undo_record(&s->undo,s->command,(unsigned)s->cursor);
+#endif
+    return result;
+}
 static inline void ps_editor_complete(ps_editor *s, size_t start, size_t count,
                                       ps_editor_candidate candidate, void *cctx,
                                       ps_terminal_write write, void *ctx) {
@@ -459,30 +535,44 @@ static inline void ps_editor_complete(ps_editor *s, size_t start, size_t count,
     ps_term_emit(write, ctx, "\r\n");
     ps_editor_redraw(s, write, ctx);
 }
+static inline int ps_editor_offer(ps_editor *s, const char *suffix, int space,
+                                  ps_terminal_write write, void *ctx) {
+    size_t size = ps_text_length(suffix);
+    if (!size || size >= sizeof(s->suggestion) ||
+        s->cursor + size + (space != 0) > PS_EDITOR_CAPACITY)
+        return 0;
+    ps_bytes_copy(s->suggestion, suffix, size + 1);
+    s->suggestion_space = space != 0;
+    ps_term_emit(write, ctx, "\x1b[90m");
+    ps_editor_emit_input(s, write, ctx, s->suggestion);
+    ps_term_emit(write, ctx, "\x1b[0m");
+    ps_editor_left(s, write, ctx, size);
+    return 1;
+}
 static inline void ps_editor_suggest(ps_editor *s, size_t start, size_t count,
                                      ps_editor_candidate candidate, void *cctx,
                                      ps_terminal_write write, void *ctx) {
-    size_t i, typed, size;
+    size_t i, j, typed;
     const char *name;
     if (!s->echo || !s->ansi || s->overflow || s->escape ||
         s->cursor != ps_text_length(s->command) || start >= s->cursor)
         return;
     ps_editor_erase_suggestion(s, write, ctx);
+    /* Retained history has already passed application admission and secret
+     * filtering. Prefer the newest exact prefix; preserve its raw tail. */
+    for (i = 0; i < s->count; ++i) {
+        name = s->history[(s->next + PS_EDITOR_HISTORY - 1 - i) % PS_EDITOR_HISTORY];
+        for (j = 0; j < s->cursor && name[j] == s->command[j]; ++j) {}
+        if (j == s->cursor && name[j] && ps_editor_offer(s, name + j, 0, write, ctx))
+            return;
+    }
     typed = s->cursor - start;
     for (i = 0; i < count; ++i) {
         name = candidate(cctx, i);
         if (!name || !ps_text_prefix(name, s->command + start, typed) ||
             ps_text_length(name) <= typed)
             continue;
-        size = ps_text_length(name) - typed;
-        if (size >= sizeof(s->suggestion) || s->cursor + size + 1 > PS_EDITOR_CAPACITY)
-            return;
-        ps_bytes_copy(s->suggestion, name + typed, size + 1);
-        ps_term_emit(write, ctx, "\x1b[90m");
-        ps_editor_emit_input(s, write, ctx, s->suggestion);
-        ps_term_emit(write, ctx, "\x1b[0m");
-        ps_editor_left(s, write, ctx, size);
-        return;
+        if (ps_editor_offer(s, name + typed, 1, write, ctx)) return;
     }
 }
 #endif

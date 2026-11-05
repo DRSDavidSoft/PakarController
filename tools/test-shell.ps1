@@ -1,4 +1,4 @@
-param([switch]$Plan,[switch]$WorkspaceOnly,[string]$CapturePrefix)
+param([switch]$Plan,[switch]$WorkspaceOnly,[string]$CapturePrefix,[ValidatePattern('^[a-zA-Z0-9_-]+$')][string]$BuildName='native')
 $ErrorActionPreference='Stop'
 & (Join-Path $PSScriptRoot 'consult-reuse.ps1') -Concern network-cloud | Out-Null
 & (Join-Path $PSScriptRoot 'consult-reuse.ps1') -Concern terminal-ui | Out-Null
@@ -7,7 +7,7 @@ $ErrorActionPreference='Stop'
 $taskRoot=Split-Path -Parent $PSScriptRoot
 foreach($taskName in @('portable_shell','telnet_shell','shell_tui','shell_workspace','shell_wire','shell_pixel','shell_remote_query','ssh_policy')){
   if($WorkspaceOnly -and $taskName -ne 'shell_workspace'){continue}
-  $taskOutput=Join-Path $taskRoot "build/native/${taskName}_test.exe"
+  $taskOutput=Join-Path $taskRoot "build/$BuildName/${taskName}_test.exe"
   $taskStandard=if($taskName -eq 'shell_tui'){'-std=c++23'}else{'-std=c++17'}
   $taskArgs=@($taskStandard,'-Wall','-Wextra','-Werror','-I',(Join-Path $taskRoot 'firmware/esp/src'),'-I',(Join-Path $taskRoot 'tests/access_stubs'),(Join-Path $taskRoot "tests/${taskName}_test.cpp"),'-o',$taskOutput)
   if($taskName -eq 'shell_workspace'){$taskArgs=@('-DARDUINO_ARCH_ESP32','-DPAKAR_FIRST_WINS_ENABLED=1')+$taskArgs}
@@ -20,9 +20,9 @@ foreach($taskName in @('portable_shell','telnet_shell','shell_tui','shell_worksp
   if($LASTEXITCODE){throw "$taskName fixture failed"}
 }
 if($WorkspaceOnly){return}
-$taskAccess=Join-Path $taskRoot 'build/native/access_config_test.exe'
+$taskAccess=Join-Path $taskRoot "build/$BuildName/access_config_test.exe"
 $taskAccessArgs=@('-std=c++17','-Wall','-Wextra','-Werror','-I',(Join-Path $taskRoot 'tests/access_stubs'),'-I',(Join-Path $taskRoot 'libraries/BoardCore/src'),'-I',(Join-Path $taskRoot 'firmware/esp/src'),(Join-Path $taskRoot 'tests/access_config_test.cpp'),(Join-Path $taskRoot 'firmware/esp/src/AccessConfig.cpp'),'-o',$taskAccess)
-$taskDiscovery=Join-Path $taskRoot 'build/native/discovery_mdns_test.exe'
+$taskDiscovery=Join-Path $taskRoot "build/$BuildName/discovery_mdns_test.exe"
 $taskDiscoveryArgs=@('-std=c++17','-Wall','-Wextra','-Werror','-I',(Join-Path $taskRoot 'libraries/BoardCore/src'),(Join-Path $taskRoot 'tests/discovery_mdns_test.cpp'),'-o',$taskDiscovery)
 if($Plan){[pscustomobject]@{Executable='g++';Arguments=$taskAccessArgs};[pscustomobject]@{Executable='g++';Arguments=$taskDiscoveryArgs};return}
 & g++ @taskAccessArgs

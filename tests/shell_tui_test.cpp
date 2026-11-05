@@ -4,6 +4,15 @@
 #include <new>
 #include <string>
 
+static std::string plain(const std::string &text){
+  std::string result;
+  for(size_t i=0;i<text.size();++i){
+    if(text[i]=='\x1b'&&i+1<text.size()&&text[i+1]=='['){
+      i+=2;while(i<text.size()&&(text[i]<'@'||text[i]>'~'))++i;
+    }else result+=text[i];
+  }
+  return result;
+}
 int main(){
   using T=PakarShell::ShellTui;
   {T pages;T::Snapshot s;T::Action a;s.cloudSettings=s.notificationSettings=true;pages.begin();
@@ -33,7 +42,7 @@ int main(){
   assert(!feed("\r"));assert(model.editing());model.render(snapshot,write);output.clear();
   assert(!feed("\x15" "lamp"));assert(model.render(snapshot,write));
   assert(output.find("\x1b[2J")==std::string::npos); // Edit only, never full repaint.
-  assert(output.find("\x1b[6;30H")!=std::string::npos && output.find("lamp")!=std::string::npos);
+  assert(output.find("\x1b[7;30H")!=std::string::npos && output.find("lamp")!=std::string::npos);
   rows[1].value="0.2.8";output.clear();assert(!model.render(snapshot,write)); // Async observation cannot repaint draft.
   assert(feed("\r"));assert(action.type==T::Action::Set&&std::string(action.key)=="hostname"&&std::string(action.value)=="lamp");
   assert(!model.editing());assert(!feed("\n")); // CR LF submits once.
@@ -76,8 +85,8 @@ int main(){
   T game;T::Snapshot keys;keys.canGame=true;keys.gameReady=true;keys.enabledKeys=3;keys.unicode=true;keys.terminalSettings=true;
   game.begin();game.feed('\t',keys,action);game.feed('\t',keys,action);
   assert(game.page()==T::Game&&action.type==T::Action::None);
-  output.clear();assert(game.render(keys,write));assert(output.find("\xe2\x95\xad\xe2\x94\x80 ")!=std::string::npos);
-  assert(output.find("1-9 press")!=std::string::npos&&output.size()<PS_DEVICE_VIEW_FRAME_BYTES);
+  output.clear();assert(game.render(keys,write));assert(output.find("\xe2\x95\xad")!=std::string::npos);
+  assert(plain(output).find("1-9")!=std::string::npos&&plain(output).find("press")!=std::string::npos&&output.size()<PS_DEVICE_VIEW_FRAME_BYTES);
   assert(game.feed('1',keys,action)&&action.type==T::Action::Press&&action.index==1);
   assert(!game.feed('3',keys,action)&&action.type==T::Action::None);
   assert(game.feed('r',keys,action)&&action.type==T::Action::Reset);
@@ -144,7 +153,7 @@ int main(){
   const std::string savedDraft=resized.draft();
   output.clear();resized.render(narrow,write);narrow.columns=40;
   output.clear();assert(resized.render(narrow,write));assert(savedDraft==resized.draft());
-  assert(output.find("\x1b[6;18H")!=std::string::npos && output.find("savedx")!=std::string::npos);
+  assert(output.find("\x1b[7;18H")!=std::string::npos && output.find("savedx")!=std::string::npos);
   narrow.lines=15;output.clear();assert(resized.render(narrow,write));
   assert(output.find("Resize terminal")!=std::string::npos&&resized.editing());
   narrow.lines=24;resized.render(narrow,write);assert(savedDraft==resized.draft());
@@ -168,7 +177,7 @@ int main(){
   assert(!key("\x1b[Z")&&compact.page()==T::TerminalPage);
   assert(!key("\t")&&compact.page()==T::Device);
   assert(!key("\x1b[15~\r")&&std::string(compact.draft())=="abc"); // F5 isn't Home/Delete.
-  output.clear();compact.render(small,write);assert(output.find("\x1b[6;30H")!=std::string::npos);
+  output.clear();compact.render(small,write);assert(output.find("\x1b[7;30H")!=std::string::npos);
   key("\x1b");compact.flushEscape(action);compact.render(small,write);
   output.clear();key("\x1bOB");compact.render(small,write);assert(output.find("\x1b[2J")==std::string::npos);
 
