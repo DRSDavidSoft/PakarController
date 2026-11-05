@@ -12316,3 +12316,41 @@ Local live-donor gates remain unchanged and may refuse while the owner's draft
 differs from this snapshot. CI checks the committed source projection and must
 compile/test/package the exact integrated head; a historical native capture,
 source comparison or CI package is not a deployment or hardware acceptance.
+
+## Shared terminal presentations (2026-11-05)
+
+Reviewed PortableShell's DeviceView, table, editor, terminal, style and policy
+changes through 6d07087f1ad5bffe76dd68903bbb7f6705a78448. The canonical headers
+are copied byte-for-byte; Pakar retains property admission, authentication,
+observations and hardware dispatch. A centered choice picker and observed/draft
+modal reuse the existing action validator. Terminal-only layout controls do not
+write board settings. No settings/commands or physical ownership were removed.
+
+The guarded actual-binding native replay passes all nine pages, inline/modal
+apply/cancel, choice selection and session layout changes. Source/hash tests
+account for all 27 pinned component/reference files. PortableShell's eleven device
+layout variants, menu-disabled build and all 79 preview pairs passed locally.
+DeviceView host ABI size is 1048 bytes (previous 1040); this is not ESP RAM usage.
+See docs/assets/terminal/README.md for reproducible before/after images.
+
+RayanLamp now has Git metadata: its inventory helper uses the same complete
+tracked path set as the consultation gate, including absent tracked files.
+An explicit Origin filter now limits live inventory checks to selected origins;
+required source/hash/target gates are retained. New Pealayer paths are inventoried
+without changing previous approved snapshots or marking unread paths accepted.
+
+Full comparison generation in the shared working tree encounters concurrent
+Pealayer evidence and desktop draft changes. Publication therefore regenerates
+the SAME reports against a source projection of committed HEAD plus this task's
+reviewed terminal files. Unrelated evidence, targets and capability routing use
+HEAD bytes; concurrent RGB-input changes remain unstaged and untouched. This
+projection checks the proposed commit, not those other drafts or live donors.
+It accounts for 4910 files, 442 comparisons and 317 known parity gaps; those
+existing open gaps are not claimed resolved by a terminal rendering update.
+
+The ESP32-S3 build wrapper stopped before compilation because required live
+Pealayer web_ui/src/appearance.ts was not fully reviewed/current. The reuse
+preflight test later stopped on live PreferencesTab.tsx drift. These gates were
+not bypassed. No ESP binary, firmware flash/RAM measurement, installed-board
+session, reboot or GPIO action is claimed. CI follow-up is deferred at the user's
+request. Simulated replay images are deliberately labeled as such.

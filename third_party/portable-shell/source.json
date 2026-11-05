@@ -107,74 +107,74 @@
     },
     {
       "path": "include/portable_terminal.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "93bed5802f25a474daed05338817b37b141a400f553a3ba5c7ca3857e1faeaf0",
-      "bytes": 15294,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "0fa0bf12b6dcab508360b70e004fec813d4ecbc087371581b83564bb14c2859d",
+      "bytes": 16676,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_terminal.h"
     },
     {
       "path": "include/portable_editor.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "00bd8c83ae9d7ad8fdc3ae963e37acabf0b3f93096758f0294cdebed2f11cbd3",
-      "bytes": 21507,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "67aeede39e80a81909063b304f11fbf60e526e25a8718d257bf6e867b5f90f8b",
+      "bytes": 21901,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_editor.h"
     },
     {
       "path": "include/portable_shell_editor.hpp",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "sha256": "1289e6667828d637042de29b31941427d8a9f222c3a7c967fd751f3b0c7ba7c3",
       "bytes": 5904,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_shell_editor.hpp"
     },
     {
       "path": "include/portable_device_view.hpp",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "fb02160a3c97be72039964175768bf9ad8c4efb5e3812c60c3cbcf18a179a652",
-      "bytes": 42694,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "76ca9afdc76037974bc1939c0e898c8b7e7266d70142e804509d86eb5bb1c90f",
+      "bytes": 44508,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_device_view.hpp"
     },
     {
       "path": "include/portable_style.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "a29a3338b6ee4523fc394adeb496146f82840c931b4ac7035e52502bf9ce3f6e",
-      "bytes": 9019,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "34fa1fdc0768d09809429037d77f68e81d84d6d00f1c84a57feeccaa130f2538",
+      "bytes": 10335,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_style.h"
     },
     {
       "path": "include/portable_device_table.hpp",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "37b99ff1e9322f84ec0ccf80893034f545bbc78255ef067a6c0900f1cbed3b73",
-      "bytes": 35986,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "bc5297b095a2fb4ab48375ac3374dfa478232e3716c1837aeaf65ad9cfb9132a",
+      "bytes": 43208,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_device_table.hpp"
     },
     {
       "path": "include/portable_meter.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "sha256": "48350a03fd496aaf50bf47149f8a099d7d07de9175024ef43a917e0a7cf53f1d",
       "bytes": 9221,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_meter.h"
     },
     {
       "path": "include/portable_undo.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "sha256": "adf67d72d371b0e15fb1be3c64dfdea5155840b55a23a987be5807437fed9be0",
       "bytes": 2232,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_undo.h"
     },
     {
       "path": "include/portable_util.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
       "sha256": "568c68488cc8821e694b2ba576f138dc4d0d6f8f9970e83b99188b7727014256",
       "bytes": 653,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_util.h"
     },
     {
       "path": "include/portable_table_policy.h",
-      "revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7",
-      "sha256": "eed0e170b4b80284b0cbbda87c7998480ec6d4040192d0402ca5af112ddfec04",
-      "bytes": 405,
+      "revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448",
+      "sha256": "c99adab79c8edccef66ed940e981da6bf1362f40ece6149242a92d6cda220340",
+      "bytes": 985,
       "snapshot": "../../firmware/esp/src/portable-shell/portable_table_policy.h"
     }
   ],
-  "component_revision": "3a7eeba179c238226deef1b64e3bd3b86c4e12e7"
+  "component_revision": "6d07087f1ad5bffe76dd68903bbb7f6705a78448"
 }

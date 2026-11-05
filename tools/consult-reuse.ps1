@@ -43,11 +43,12 @@ $taskTargetRoot=[IO.Path]::GetFullPath($TargetRoot).TrimEnd('\','/')
 # throws on C: even though Test-Path correctly reports an unavailable root.
 # Do not suppress hash/read/inventory errors for roots that actually exist.
 $taskAvailableRoots=@{}
-foreach($taskOrigin in $taskRoute.origins){
+$taskSelectedOrigins=@($taskSelected.origin | Sort-Object -Unique)
+foreach($taskOrigin in $taskSelectedOrigins){
     $taskAvailableRoots[$taskOrigin]=$DonorRoots.ContainsKey($taskOrigin) -and
         (Test-Path -LiteralPath $DonorRoots[$taskOrigin] -PathType Container)
 }
-foreach($taskOrigin in $taskRoute.origins){
+foreach($taskOrigin in $taskSelectedOrigins){
     if($taskOrigin -eq 'RayanLamp' -and $taskAvailableRoots[$taskOrigin]){
         $taskLivePaths=@(Get-RayanLampFiles $DonorRoots[$taskOrigin])
         $taskSnapshot=@($taskLedger | Where-Object origin -eq $taskOrigin).path

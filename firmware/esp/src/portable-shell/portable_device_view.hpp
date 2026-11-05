@@ -30,6 +30,9 @@
 #ifndef PS_DEVICE_VIEW_DIALOGS
 #define PS_DEVICE_VIEW_DIALOGS 1
 #endif
+#ifndef PS_DEVICE_VIEW_CHOICE_MENU
+#define PS_DEVICE_VIEW_CHOICE_MENU PS_DEVICE_VIEW_DIALOGS
+#endif
 #ifndef PS_DEVICE_VIEW_MATRIX
 #define PS_DEVICE_VIEW_MATRIX 1
 #endif
@@ -211,6 +214,10 @@ class DeviceView {
         if(!editing_ && sectionBorders_!=enabled){sectionBorders_=enabled;dirty_=full_=true;}
     }
     bool sectionBorders() const { return sectionBorders_; }
+    void setSectionBorderTitles(bool enabled) {
+        if(!editing_&&sectionBorderTitles_!=enabled){sectionBorderTitles_=enabled;dirty_=full_=true;}
+    }
+    bool sectionBorderTitles() const { return sectionBorderTitles_; }
     void setSectionBottomBorder(bool enabled) {
         if(!editing_ && sectionBottomBorder_!=enabled){sectionBottomBorder_=enabled;dirty_=full_=true;}
     }
@@ -219,9 +226,11 @@ class DeviceView {
         if(!editing_ && tabsInsideTable_!=enabled){tabsInsideTable_=enabled;dirty_=full_=true;}
     }
     bool tabsInsideTable() const { return tabsInsideTable_; }
+    void setChoiceMenus(bool enabled) { if(!editing_)choiceMenus_=enabled; }
     void setFooterKeycaps(bool enabled){keycaps_=enabled;dirty_=full_=true;}
     // Indicators: 0 chevrons (ASCII +/-), 1 +/-, 2 none.
     void setSectionIndicators(unsigned style){if(!editing_&&style<3){sectionIndicators_=style;dirty_=full_=true;}}
+    void setSectionIndicatorsAlways(bool enabled){if(!editing_){sectionIndicatorsAlways_=enabled;dirty_=full_=true;}}
     void setSectionsCollapsible(bool enabled){if(!editing_){sectionsCollapsible_=enabled;dirty_=full_=true;}}
     void setReserveScrollbar(bool enabled){reserveScrollbar_=enabled;dirty_=full_=true;}
     void setCompactScrollbar(bool enabled){compactScrollbar_=enabled;dirty_=full_=true;}
@@ -440,6 +449,12 @@ class DeviceView {
                 cursor_ = ps_text_length(draft_);
                 editing_ = true;
                 draftChanged_ = false;
+                choiceMenu_=PS_DEVICE_VIEW_CHOICE_MENU&&choiceMenus_&&ansi_&&!secret_&&row->kind==Choice&&row->choices&&row->choiceCount;
+                if(choiceMenu_){
+                    choiceIndex_=0;
+                    for(unsigned i=0;i<row->choiceCount;++i)if(ps_text_equal(row->value,row->choices[i]))choiceIndex_=uint8_t(i);
+                    dialog_=true;
+                }
                 dirty_ = full_ = true;
                 notice_[0] = 0;
             } else
@@ -612,7 +627,7 @@ class DeviceView {
                 closed=false;
                 if(sectionStart(s,i)){
                     // Adjacent headings share a rule; the column header frames the first.
-                    if(frame&&sectionBorders_&&total&&!(items[total-1]&0x2000))items[total++]=uint16_t(i|0x4000);
+                    if(frame&&!sectionBorderTitles_&&sectionBorders_&&total&&!(items[total-1]&0x2000))items[total++]=uint16_t(i|0x4000);
                     if(selected_==i&&sectionFocus_)focus=total;
                     items[total++]=uint16_t(i|0x8000);closed=sectionClosed(i);
                     if(frame&&sectionBorders_&&sectionBottomBorder_)items[total++]=uint16_t(i|0x2000);
@@ -669,6 +684,7 @@ class DeviceView {
         cursor_ = 0;
         editing_ = secret_ = draftChanged_ = false;
         dialog_ = false;
+        choiceMenu_=false;dialogFocus_=DraftFocus;choiceIndex_=0;
     }
     void setNotice(const char *text) {
         terminalText(notice_, sizeof(notice_), text);
@@ -728,6 +744,7 @@ class DeviceView {
     }
     bool arrow(uint8_t key, const Snapshot &s, Action &a) {
         if (editing_) {
+            if(choiceMenu_)return choiceKey(key,s,a);
             if (key == 'D' && cursor_)
                 --cursor_;
             else if (key == 'C' && cursor_ < ps_text_length(draft_))
@@ -830,6 +847,13 @@ class DeviceView {
         return false;
     }
     bool edit(uint8_t ch, const Snapshot &s, Action &action) {
+        if(choiceMenu_&&ch!='\r'&&ch!='\n')return choiceKey(ch,s,action);
+        if(dialog_&&!choiceMenu_&&ch=='\t'){
+            dialogFocus_=uint8_t((dialogFocus_+1)%DialogFocusCount);dirty_=full_=true;return false;
+        }
+        if(dialog_&&!choiceMenu_&&dialogFocus_==CancelFocus&&(ch=='\r'||ch=='\n')){
+            clearDraft();dirty_=full_=true;return false;
+        }
         if (ch == '\r' || ch == '\n') {
             crPending_ = ch == '\r';
             const Row *row = currentRow(s);
@@ -919,6 +943,7 @@ class DeviceView {
     }
     template <typename Write> void editLine(Write write) const {
         Writer<Write> out(write,ansi_);
+        if(choiceMenu_||(dialog_&&dialogFocus_!=DraftFocus)){out.raw("\x1b[?25l");return;}
         char position[24];
         ps_terminal_format(position,sizeof(position),"\x1b[%u;%uH",editRow_,editColumn_);
         out.raw(position);editValue(out,editWidth_);
@@ -993,14 +1018,19 @@ class DeviceView {
     bool sectionFocus_ = false;
     bool sectionBorders_ = true;
     bool sectionBottomBorder_ = false;
+    bool sectionBorderTitles_ = PS_SECTION_BORDER_TITLES!=0;
     bool tabsInsideTable_ = false;
     uint8_t closed_[PS_DEVICE_VIEW_SECTIONS?PageCount:1][PS_DEVICE_VIEW_SECTIONS?(PS_DEVICE_VIEW_MAX_ROWS+7)/8:1]{};
     uint32_t sectionSchema_[PS_DEVICE_VIEW_SECTIONS?PageCount:1]{};
+    enum DialogFocus : uint8_t { DraftFocus, ApplyFocus, CancelFocus, DialogFocusCount };
     bool trueColor_ = true, dialog_ = false;
+    bool choiceMenus_=true,choiceMenu_=false;
+    uint8_t choiceIndex_=0,dialogFocus_=DraftFocus;
     bool keycaps_=PS_FOOTER_KEYCAPS!=0,tabBrackets_=PS_TAB_BRACKETS!=0;
     bool compactScrollbar_=false;
     const char *selectionMarker_=nullptr;
     bool sectionsCollapsible_=true,reserveScrollbar_=false;
+    bool sectionIndicatorsAlways_=false;
     unsigned sectionIndicators_=0,paintedGutter_=0;
     bool footerGrid_=PS_FOOTER_GRID!=0,footerEmphasis_=false;
     bool syncOutput_=PS_SYNC_OUTPUT!=0;

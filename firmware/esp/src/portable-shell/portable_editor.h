@@ -22,14 +22,17 @@
 #ifndef PS_EDITOR_SUGGEST_BYTES
 #define PS_EDITOR_SUGGEST_BYTES 80
 #endif
+#ifndef PS_EDITOR_PROMPT_SUFFIX
+#define PS_EDITOR_PROMPT_SUFFIX "> "
+#endif
 #ifndef PS_EDITOR_PROMPT_STYLE
 #define PS_EDITOR_PROMPT_STYLE "\x1b[36m"
 #endif
 #if PS_EDITOR_PROMPT_BYTES < 6 || PS_EDITOR_SUGGEST_BYTES < 2
 #error "Prompt needs >=6 bytes and suggestion storage >=2"
 #endif
-#if PS_EDITOR_CAPACITY < 32 || PS_EDITOR_HISTORY < 1
-#error "Event editor requires capacity >=32 and history >=1"
+#if PS_EDITOR_CAPACITY < 32 || PS_EDITOR_HISTORY < 0
+#error "Event editor requires capacity >=32 and history >=0"
 #endif
 enum {
     PS_EDIT_NONE,
@@ -47,8 +50,11 @@ typedef struct {
     unsigned undo_positions[PS_EDITOR_UNDO_DEPTH+1];
 #endif
     unsigned paste,paste_match,csi_number;
-    char command[PS_EDITOR_CAPACITY + 1], history[PS_EDITOR_HISTORY][PS_EDITOR_CAPACITY + 1];
-    char draft[PS_EDITOR_CAPACITY + 1], prompt[PS_EDITOR_PROMPT_BYTES], suggestion[PS_EDITOR_SUGGEST_BYTES];
+    char command[PS_EDITOR_CAPACITY + 1];
+#if PS_EDITOR_HISTORY
+    char history[PS_EDITOR_HISTORY][PS_EDITOR_CAPACITY + 1], draft[PS_EDITOR_CAPACITY + 1];
+#endif
+    char prompt[PS_EDITOR_PROMPT_BYTES], suggestion[PS_EDITOR_SUGGEST_BYTES];
     size_t next, count, offset, draft_cursor, cursor;
     unsigned char escape, attribute, escape_bytes, echo, cr_pending, overflow, ansi, upper;
     unsigned char theme, true_color, suggestion_space;
@@ -92,14 +98,20 @@ static inline void ps_editor_clear(ps_editor *s) {
 #endif
     s->paste=s->paste_match=s->csi_number=0;
     ps_secure_clear(s->command, sizeof(s->command));
+
+#if PS_EDITOR_HISTORY
     ps_secure_clear(s->draft, sizeof(s->draft));
+#endif
     ps_secure_clear(s->suggestion, sizeof(s->suggestion));
     s->cursor = s->draft_cursor = s->offset = 0;
     s->escape = s->attribute = s->escape_bytes = s->overflow = 0;
 }
 static inline void ps_editor_clear_history(ps_editor *s) {
+
+#if PS_EDITOR_HISTORY
     ps_secure_clear(s->history, sizeof(s->history));
     ps_secure_clear(s->draft, sizeof(s->draft));
+#endif
     ps_secure_clear(s->suggestion, sizeof(s->suggestion));
     s->next = s->count = s->offset = s->draft_cursor = 0;
 }
@@ -114,7 +126,7 @@ static inline void ps_editor_prompt(ps_editor *s, ps_terminal_write write, void 
     if (s->ansi)
         ps_term_emit(write, ctx, s->theme <= PS_THEME_DEFAULT ? ps_style_prompt(s->theme, s->true_color) : PS_EDITOR_PROMPT_STYLE);
     ps_term_emit(write, ctx, s->prompt);
-    ps_term_emit(write, ctx, "> ");
+    ps_term_emit(write, ctx, PS_EDITOR_PROMPT_SUFFIX);
     if (s->ansi)
         ps_term_emit(write, ctx, "\x1b[0m");
 }
@@ -171,6 +183,7 @@ static inline void ps_editor_refresh_prompt(ps_editor *s, const char *label, int
     ps_editor_redraw(s, write, ctx);
 }
 static inline int ps_editor_remember(ps_editor *s, int allowed) {
+#if PS_EDITOR_HISTORY
     size_t latest = (s->next + PS_EDITOR_HISTORY - 1) % PS_EDITOR_HISTORY;
     if (!allowed || !s->echo || s->overflow || !ps_history_safe(s->command, sizeof(s->command)))
         return 0;
@@ -183,8 +196,12 @@ static inline int ps_editor_remember(ps_editor *s, int allowed) {
         ++s->count;
     s->offset = 0;
     return 1;
+#else
+    (void)s; (void)allowed; return 0;
+#endif
 }
 static inline void ps_editor_history(ps_editor *s, int older, ps_terminal_write write, void *ctx) {
+#if PS_EDITOR_HISTORY
     if (!s->echo || !s->count) {
         ps_editor_bell(s, write, ctx);
         return;
@@ -217,6 +234,9 @@ static inline void ps_editor_history(ps_editor *s, int older, ps_terminal_write 
         s->cursor = s->draft_cursor;
     }
     ps_editor_redraw(s, write, ctx);
+#else
+    (void)older; ps_editor_bell(s, write, ctx);
+#endif
 }
 static inline void ps_editor_shift_left(ps_editor *s) {
     size_t i;
@@ -552,7 +572,7 @@ static inline int ps_editor_offer(ps_editor *s, const char *suffix, int space,
 static inline void ps_editor_suggest(ps_editor *s, size_t start, size_t count,
                                      ps_editor_candidate candidate, void *cctx,
                                      ps_terminal_write write, void *ctx) {
-    size_t i, j, typed;
+    size_t i, typed;
     const char *name;
     if (!s->echo || !s->ansi || s->overflow || s->escape ||
         s->cursor != ps_text_length(s->command) || start >= s->cursor)
@@ -560,12 +580,16 @@ static inline void ps_editor_suggest(ps_editor *s, size_t start, size_t count,
     ps_editor_erase_suggestion(s, write, ctx);
     /* Retained history has already passed application admission and secret
      * filtering. Prefer the newest exact prefix; preserve its raw tail. */
+
+#if PS_EDITOR_HISTORY
     for (i = 0; i < s->count; ++i) {
+        size_t j;
         name = s->history[(s->next + PS_EDITOR_HISTORY - 1 - i) % PS_EDITOR_HISTORY];
         for (j = 0; j < s->cursor && name[j] == s->command[j]; ++j) {}
         if (j == s->cursor && name[j] && ps_editor_offer(s, name + j, 0, write, ctx))
             return;
     }
+#endif
     typed = s->cursor - start;
     for (i = 0; i < count; ++i) {
         name = candidate(cctx, i);
