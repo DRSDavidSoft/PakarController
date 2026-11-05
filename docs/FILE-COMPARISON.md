@@ -6400,7 +6400,7 @@ Verdict: **scoped-improvement**. Revision: `filesystem-snapshot`. Original-byte 
 
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `5e6becf3291f81ae0307f6b78c57659cfab5abc13d9afc7bf0a3ff3f6248d608`.
 
-- Target: `desktop/Cargo.lock:5327 [UTF8-LF sha256=5e136df432e2eedde7f382644a8b37eb3b92e49b8b42a4ea71f168779763027d; anchor=name = "tungstenite"]`.
+- Target: `desktop/Cargo.lock:5327 [UTF8-LF sha256=96f3a0dc4837235fbdc9af58b256a787633263b9f64d170fd496968a88f6944d; anchor=name = "tungstenite"]`.
 - Retained: Read all 836 lockfile lines through EOF, including both npm v2 package and duplicated dependency trees. Reproducible transport dependency pinning is retained by the current native lockfile.
 - Omitted/replaced code: `obsolete npm v2 Socket.IO/chokidar dependency graph`. Disposition: **replaced**. Reason: No production Node update daemon remains. Retaining its 2023 graph would add an unused install/cache and duplicated attack surface without preserving functionality.
 - Omitted/replaced code: `Darwin-only fsevents and duplicated ws 8.11/8.14 records`. Disposition: **not-applicable**. Reason: The Windows/embedded deployment does not use this file watcher stack; Rust/firmware lock their own actually linked transports.
@@ -6410,7 +6410,7 @@ Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte
 
 Verdict: **equivalent-behavior**. Revision: `filesystem-snapshot`. Original-byte SHA-256: `03d35d925349974134ff5a047503ac6772459893c6ef89219b825ef60cd0d5ed`.
 
-- Target: `desktop/Cargo.toml:25 [UTF8-LF sha256=3430745c3127fe5e909b99f558d2617ecf011464e4b9e6b8acbb1b6e45020729; anchor=tungstenite =]`.
+- Target: `desktop/Cargo.toml:25 [UTF8-LF sha256=0bfacff317bb7f6605fbe0e2d84636d4e6efa29ea22907e9657fc2297b8c2ee2; anchor=tungstenite =]`.
 - Retained: Read the complete dependency manifest. WebSocket client/server, HTTP/TLS, hashing and structured serialization needs are owned by the native Rust client and firmware platform rather than a second Node update daemon.
 - Omitted/replaced code: `chalk, chokidar, Socket.IO and ws runtime stack`. Disposition: **replaced**. Reason: The production native app already uses pinned rustls HTTP/WebSocket crates and the board uses its bounded embedded services. A parallel Node daemon would duplicate connection/update authority.
 - Omitted/replaced code: `http 0.0.1-security placeholder and missing tmp dependency used by Client.js`. Disposition: **replaced**. Reason: The placeholder adds no HTTP implementation and the manifest cannot reproduce its own client. Current builds use declared, locked dependencies or Node standard modules only.

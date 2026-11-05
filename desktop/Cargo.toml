@@ -34,7 +34,7 @@ socket2 = "0.6.5"
 httparse = "1.10.1"
 network-interface = "2.0.5"
 calamine = "0.37.0"
-rust_xlsxwriter = "0.100.0"
+rust_xlsxwriter = "0.101.0"
 zip = { version = "9.0.5", default-features = false, features = ["deflate"] }
 
 [target.'cfg(windows)'.dependencies]
