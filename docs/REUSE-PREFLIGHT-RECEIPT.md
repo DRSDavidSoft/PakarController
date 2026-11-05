@@ -12411,3 +12411,30 @@ preflight test later stopped on live PreferencesTab.tsx drift. These gates were
 not bypassed. No ESP binary, firmware flash/RAM measurement, installed-board
 session, reboot or GPIO action is claimed. CI follow-up is deferred at the user's
 request. Simulated replay images are deliberately labeled as such.
+
+## Orbit bidirectional source checkpoint — 2026-11-06
+
+All155 Orbit firmware paths at da50c877 are in the same donor inventory. Exact
+manual text reads cover55 files;10 target comparisons and6 concrete peripheral
+exclusions are hash/range bound.100 files remain unread and39 read files await
+target comparisons. No pending path was silently omitted. Existing non-Orbit
+manual read records were checked structurally unchanged after CSV generation.
+
+Orbit da50c877 is published identically on canonical Gitea and private GitHub;
+mirror draft PR25 tracks issue24. The canonical SSH trust failure was resolved
+by David's directly verified host-key repair, then strict repository reads and
+branch publication succeeded. No trust bypass or hardware operation occurred.
+
+Actual local Orbit host tests:29 HTTP validator checks,39 Web-space checks,
+21 event-space checks, verified-write fault assertions and source-wiring tests
+pass. Pakar metadata rejection/exclusion fixtures and pinned-record idempotence
+pass. Its managed-file wrapper stopped before compilation on pre-existing live
+Pealayer inventory drift. The guard was preserved, not rerouted to direct g++.
+
+Pakar source checkpoint5ff4bae is local and committed, but publication is blocked:
+GitHub receive-pack returns `fatal error in commit_refs` for upstream and fork,
+including explicit CLI credentials and a verified write-permitted fork owner.
+Readback shows no new branch/PR; no force operation was used. An independent API
+blob attempt returned `unexpected end of JSON input`, not upload proof. Root
+cause is unestablished; do not label a global GitHub outage. This source/CI gate
+is separate from the remaining substantive audit and from production readiness.

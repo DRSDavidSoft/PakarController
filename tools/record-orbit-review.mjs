@@ -12,6 +12,23 @@ const check=process.argv.includes('--check');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const lf=b=>b.toString('utf8').replaceAll('\r\n','\n');
 const git=(cwd,...args)=>execFileSync('git',args,{cwd,maxBuffer:16*1024*1024});
+const targetRevision='ef22c268fc896a56f71a8daf42a196b93f7761c0';
+const expectedTargets={
+ 'tools/consult-reuse.ps1':'67c51b628d0c80ecb09db6e3fae507f4fd8f9c3dcc1544e4250a659b37cf6abf',
+ 'tools/generate-reuse-ledger.ps1':'40f1e32dd75e72529b5062caf662e3cf0b9311722151b8ddcf6e88d06ec1785f',
+ 'firmware/esp/application.ino':'2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809',
+ 'firmware/esp/src/StaticAssetPolicy.h':'971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b',
+ 'firmware/esp/src/UserFileStore.h':'8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599',
+ 'tests/async_http_test.cpp':'00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe',
+ 'tests/file_transfer_test.cpp':'f864f61e61cc3bdcc247651739439919a098dabd56d1fe7e271e706ee9af6af4',
+ 'tests/user_file_store_test.cpp':'a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528',
+ 'tests/reuse_preflight_test.ps1':'ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33',
+ 'tests/file_comparison_test.ps1':'8684745b447736922bfecacdc6116f8f665803b87f908867bd4dfce84d3dd45a',
+ 'tools/test-user-files.ps1':'22947b3a5d02c14955fb7781f010f23a8640c02f6ace1a46589fff9288c137c2',
+ 'tools/generate-file-comparison.ps1':'ce9339babbf311d1cf3c0d11d699701e22b96339d7f5820cc19af831f82d70db',
+ 'firmware/esp/src/UploadSpacePolicy.h':'b4096ba6b7855808c20924de0310e6fd6828f4df034efc2746a23e7b35289911',
+ 'docs/ORBIT-FIRMWARE-PARITY.md':'c8f52e5267290887db0c05134dc20519902f826ed2807f0bc7f680571a858eb7'
+};
 function csv(text){
  const rows=[];let row=[],field='',quoted=false;
  for(let i=0;i<text.length;i++){
@@ -100,6 +117,8 @@ for(const [path,note] of readPlan){
 function ref(path,anchor){
  const full=resolve(root,path);if(relative(root,full).startsWith('..'))throw Error('Escaping target');
  const text=lf(readFileSync(full));if(!text.includes(anchor))throw Error('Missing target anchor '+path+' '+anchor);
+ const expected=expectedTargets[path]??hash(lf(git(root,'show',`${targetRevision}:${path}`)));
+ if(hash(text)!==expected)throw Error('Target changed outside pinned review: '+path);
  return {path,sha256:hash(text),anchor};
 }
 const store=()=>ref('firmware/esp/src/UserFileStore.h','template<class Digest> class UserFileStore');
@@ -136,20 +155,6 @@ for(const [path,reason]of Object.entries(exclusions)){
 const manifest=JSON.parse(readFileSync(resolve(root,'docs/file-comparison-evidence.json'),'utf8'));
 // Only refs affected by this task's reviewed diffs may change. Do not rebind
 // concurrent donor/target edits, invent completion, or erase prior omissions.
-const expectedTargets={
- 'tools/consult-reuse.ps1':'67c51b628d0c80ecb09db6e3fae507f4fd8f9c3dcc1544e4250a659b37cf6abf',
- 'tools/generate-reuse-ledger.ps1':'40f1e32dd75e72529b5062caf662e3cf0b9311722151b8ddcf6e88d06ec1785f',
- 'firmware/esp/application.ino':'2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809',
- 'firmware/esp/src/StaticAssetPolicy.h':'971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b',
- 'firmware/esp/src/UserFileStore.h':'8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599',
- 'tests/async_http_test.cpp':'00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe',
- 'tests/file_transfer_test.cpp':'f864f61e61cc3bdcc247651739439919a098dabd56d1fe7e271e706ee9af6af4',
- 'tests/user_file_store_test.cpp':'a070c43cbc3906c65b83b2e895f3a5c3fe8824e5052e79bb5965e4c3daf1c528',
- 'tests/reuse_preflight_test.ps1':'ac0d5bf6bc40f874344cc001f83e789fdd663246c8426241d8c0f3164af4be33',
- 'tests/file_comparison_test.ps1':'8684745b447736922bfecacdc6116f8f665803b87f908867bd4dfce84d3dd45a',
- 'tools/test-user-files.ps1':'22947b3a5d02c14955fb7781f010f23a8640c02f6ace1a46589fff9288c137c2',
- 'tools/generate-file-comparison.ps1':'ce9339babbf311d1cf3c0d11d699701e22b96339d7f5820cc19af831f82d70db'
-};
 for(const [path,expected]of Object.entries(expectedTargets))if(hash(lf(readFileSync(resolve(root,path))))!==expected)throw Error('Target changed outside pinned review: '+path);
 const changed=new Set(Object.keys(expectedTargets));
 for(const item of manifest.files)if(item.origin!=='Orbit')for(const r of [...item.targets,...item.proof])if(changed.has(r.path)){
