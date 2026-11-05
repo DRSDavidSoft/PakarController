@@ -12256,3 +12256,8 @@ Final guarded native panel filter passes all7 tests, including actual painted
 key/value origins in all16 width/theme/display-scale combinations. Existing
 feature-chip, action-row, passive-editor and network-panel regressions pass.
 No whole-suite, installed-client, board or physical acceptance is claimed.
+The subsequent guarded Release attempt stopped before Cargo because the live
+Pealayer src/ui/i18n.rs changed after the test build's preflight. No guard
+override, donor rollback or blind hash refresh was used. Consequently there is
+no newly built application, updated screenshot or installed-app replacement
+from this pass; the committed source and successful panel tests remain distinct.
