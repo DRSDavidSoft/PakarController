@@ -13,17 +13,21 @@ function Test-PakarDonorSnapshot {
 function Get-RayanLampFiles {
     param([string]$Root)
     $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\','/')
-    $paths = [Collections.Generic.List[string]]::new()
     # Retain absent tracked files AND unpacked source (notably vendor code).
-    # Gaining a Git repository must not silently drop untracked source files.
+    # Git ignore rules exclude local build products from untracked inventory;
+    # tracked files always remain visible, even when ignored or missing.
     if (Test-Path -LiteralPath (Join-Path $Root '.git')) {
         $tracked = & git -C $Root ls-files
         if ($LASTEXITCODE) { throw 'Cannot enumerate tracked RayanLamp source' }
-        foreach ($path in $tracked) { $paths.Add($path) }
+        $untracked = & git -C $Root ls-files --others --exclude-standard
+        if ($LASTEXITCODE) { throw 'Cannot enumerate unpacked RayanLamp source' }
+        $untracked = @($untracked | Where-Object { $_ -notmatch '(^|/)(node_modules|\.cache|dist|dist-sdk|work|coverage)/' })
+        return @($tracked) + $untracked | Sort-Object -Unique
     }
     # Prune generated trees before traversal; retain vendor source and licenses.
     $pending = [Collections.Generic.Stack[string]]::new()
     $pending.Push($Root)
+    $paths = [Collections.Generic.List[string]]::new()
     while ($pending.Count) {
         foreach ($item in (Get-ChildItem -LiteralPath $pending.Pop() -Force)) {
             $relative = $item.FullName.Substring($Root.Length).TrimStart('\','/').Replace('\','/')

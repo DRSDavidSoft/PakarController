@@ -56,7 +56,7 @@ foreach($taskOrigin in $taskSelectedOrigins){
             throw 'Filesystem donor inventory drift: RayanLamp; refresh source paths before consultation.'
         }
     }
-    if($taskAvailableRoots[$taskOrigin] -and (Test-Path -LiteralPath (Join-Path $DonorRoots[$taskOrigin] '.git'))){
+    elseif($taskAvailableRoots[$taskOrigin] -and (Test-Path -LiteralPath (Join-Path $DonorRoots[$taskOrigin] '.git'))){
         $taskTracked=@(& git -C $DonorRoots[$taskOrigin] ls-files)
         if($LASTEXITCODE -ne 0){throw 'Cannot verify live donor inventory'}
         $taskSnapshot=@($taskLedger | Where-Object origin -eq $taskOrigin).path
