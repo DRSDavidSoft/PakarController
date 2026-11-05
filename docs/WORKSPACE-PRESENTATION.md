@@ -34,6 +34,14 @@ rejection, and grouped navigation/mode preview and persistence.
 Execution results and native captures belong to the PR checkpoint; source
 assertions alone are not visual or production acceptance.
 
+The release build completed successfully. Native framebuffer captures at a
+1280×800 logical viewport show egui Dock, CraftUI and grouped Appearance with
+the actual mode selector. They use the same simulated, read-only loopback peer
+and recorded binary identity, not a physical device. Files live under the
+canonical PakarController verification directory. Both presentations also
+expose existing fixed-content clipping in a very narrow Keys panel; this is a
+separate responsive-content gap, not accepted as resolved by a docking switch.
+
 Pealayer companion: ToghrolTP/pealayer#225. Pakar companion: #49, stacked on #48.
 No physical board, firmware or output changes are part of this work.
 
