@@ -10298,7 +10298,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.toml",
-          "sha256": "e330c25d8ba662bc8ffb5b848f669cc7af8882b13deff29e91606b43c90ff233",
+          "sha256": "a2e630c36ed867fff731d7dea275109570f05bd22c0c26c775a17b6a81df9df8",
           "anchor": "tungstenite ="
         }
       ],
@@ -10333,7 +10333,7 @@
       "targets": [
         {
           "path": "desktop/Cargo.lock",
-          "sha256": "5db30a66eec5474a07fe5c9cfabb39cbbc35e6d4c6ac12450c26202849b61e0e",
+          "sha256": "41cd879cba4d3f9922b7879a32ea0b52422317ed8d144c598061416d7c554410",
           "anchor": "name = \"tungstenite\""
         }
       ],

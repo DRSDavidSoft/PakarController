@@ -12000,3 +12000,21 @@ and CRLF cases. No guard is removed and no check is suppressed. The existing
 bluetooth/source wiring was inspected; this is fixture repair, not BLE radio
 acceptance. Combined shell and audit fixtures pass; final SSH/quality/SDK/client
 CI remains a separate exact-head gate. No boards or production apps changed.
+
+## GitHub handoff dependency repair (2026-11-05)
+
+PR45's mixed egui0.36/0.37 graph is a real incompatibility, not a flaky test.
+Read the proposed manifest/lock changes, the graph guard and Pealayer's actual
+Cargo manifest at9dfc54d3 (including its separately pinned Dock0.37 port).
+Keep the verified0.36 framework/theme/Dock family for this integration; retain
+the independent uuid1.29, rust_xlsxwriter0.101 and zip9.1.2 lock updates.
+The original bot proposal remains in Git history. The complete paired framework
+migration, including CraftUI and pointer geometry/captures, is tracked in issue50;
+it is not declared implemented merely to empty the PR list.
+
+Reread the consumer manifest, full resulting lock diff and unchanged PuzzleBoard
+package metadata; rebind only their inspected consumer hashes. The coherent-family
+test passes with both mixed-family negative cases intact. Live donor consultation
+reported Pealayer inventory drift, which is being reviewed separately on the UI
+integration branch; no guard, source verdict or physical acceptance is waived.
+Exact-head Windows compilation/package and full CI remain required before merge.

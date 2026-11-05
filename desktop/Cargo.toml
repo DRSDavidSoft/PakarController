@@ -9,10 +9,10 @@ repository = "https://github.com/atomicdeploy/PakarController"
 [dependencies]
 # Keep the egui type family coherent with dock, Phosphor and elegance. Upgrade
 # these together; mixing 0.36 and 0.37 produces incompatible Context/Ui types.
-eframe = { version = "0.37.0", features = ["glow", "persistence"] }
+eframe = { version = "0.36.2", features = ["glow", "persistence"] }
 egui-phosphor = { version = "0.14.0", default-features = false, features = ["regular"] }
 egui_dock = { version = "0.21.1", features = ["serde"] }
-egui-elegance = "=0.17.2"
+egui-elegance = "=0.16.2"
 uuid = { version = "1.26.1", features = ["v4", "serde"] }
 rfd = "0.17.2"
 reqwest = { version = "0.12.28", default-features = false, features = ["blocking", "json", "multipart", "rustls-tls"] }
