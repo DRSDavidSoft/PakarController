@@ -7,7 +7,7 @@ import {resolve,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const donor=resolve(root,'../repos/orbit');
-const revision='98a699e61970d28ebec409fcbfdd410ecea4477b';
+const revision='ebaba8e616fe0973ad6cf8439a25cff8db303c1c';
 const check=process.argv.includes('--check');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const lf=b=>b.toString('utf8').replaceAll('\r\n','\n');
@@ -89,7 +89,7 @@ const notes={
  'RuntimePerf.h':'Windowed nested component wall-time counters, not additive CPU load.',
  'RuntimeTrace.h':'RTC-only watchdog breadcrumbs, no allocating or flash-writing ISR.',
  'DeviceIdentity.h':'Factory eFuse identity read, no eFuse writes; attestation not claimed.',
- 'FirmwareVersion.h':'Descriptive firmware identity only; no API version adaptation.',
+ 'FirmwareVersion.h':'Completely reread canonical peer-merge revision 2.6.100; descriptive identity only, no API version adaptation.',
  'CatalogAsset.h':'Operation catalog embedded in gzip FEXTRA; bounded input and canonical asset linkage.',
  'HardwareProfile.h':'Saved fitted-capability profile with prerequisite validation; pin details remain board-specific.',
  'ConfigExtrasStore.h':'NVS migration, bounded atomic file staging/readback; retains previous settings on failure.',
