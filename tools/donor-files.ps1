@@ -13,17 +13,17 @@ function Test-PakarDonorSnapshot {
 function Get-RayanLampFiles {
     param([string]$Root)
     $Root = [IO.Path]::GetFullPath($Root).TrimEnd('\','/')
-    # The donor now has a Git repository. Use its complete tracked inventory,
-    # including absent tracked files, consistently with the consultation gate.
+    $paths = [Collections.Generic.List[string]]::new()
+    # Retain absent tracked files AND unpacked source (notably vendor code).
+    # Gaining a Git repository must not silently drop untracked source files.
     if (Test-Path -LiteralPath (Join-Path $Root '.git')) {
         $tracked = & git -C $Root ls-files
         if ($LASTEXITCODE) { throw 'Cannot enumerate tracked RayanLamp source' }
-        return $tracked | Sort-Object
+        foreach ($path in $tracked) { $paths.Add($path) }
     }
     # Prune generated trees before traversal; retain vendor source and licenses.
     $pending = [Collections.Generic.Stack[string]]::new()
     $pending.Push($Root)
-    $paths = [Collections.Generic.List[string]]::new()
     while ($pending.Count) {
         foreach ($item in (Get-ChildItem -LiteralPath $pending.Pop() -Force)) {
             $relative = $item.FullName.Substring($Root.Length).TrimStart('\','/').Replace('\','/')
@@ -34,5 +34,5 @@ function Get-RayanLampFiles {
             } else { $paths.Add($relative) }
         }
     }
-    return $paths | Sort-Object
+    return $paths | Sort-Object -Unique
 }

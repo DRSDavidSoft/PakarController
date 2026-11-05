@@ -56,6 +56,7 @@ try {
     Move-Item -LiteralPath (Join-Path $donor 'source.h') -Destination (Join-Path $scratch 'saved-source.h')
     & (Join-Path $root 'tools/generate-reuse-ledger.ps1') @options | Out-Null
     Assert-State PCController missing
+    Assert-State RayanLamp missing
     # Exact reviewed sparse blobs survive regeneration only while their current
     # tree object/revision/raw identity agree. No checkout expansion or network.
     $taskRevision=(& git -C $donor rev-parse HEAD).Trim()
