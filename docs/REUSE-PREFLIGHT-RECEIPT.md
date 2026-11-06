@@ -12498,3 +12498,14 @@ removed or duplicate app introduced. Windows CI now runs this composition check.
 Only CPU telemetry/include/poll lines and generated Web bindings are refreshed
 in the earlier route comparisons; route ownership and behavior remain intact.
 No production board, installed application or saved instance setting changed.
+
+Final browser checks found and corrected two Orbit presentation problems: grid
+min-content width pushed row actions outside a phone card; a dialog fallback used
+a dark background against Orbit's dark light-theme text. The corrected 390px page
+has scrollWidth390 and both row actions visible. Keyboard Escape now returns to
+the exact invoking Remove action: capture focus before disabling it and restore
+only after controls are enabled. The DOM fixture now tests that timing too.
+The final complete Orbit package is119396 bytes, gzip/preview equal, both scripts
+compile. Fresh browser snapshots verify readable dialog colors and actual focus.
+The isolated preview helper rereads edited modules on navigation; it has no board
+endpoint, mutations or forwarding. These are UI fixture results, not installation.
