@@ -7,16 +7,28 @@ import {resolve,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const donor=resolve(root,'../repos/orbit');
-const revision='ebaba8e616fe0973ad6cf8439a25cff8db303c1c';
+const revision='37c58e3faa7782d1636813a5a4ded6999acde69d';
 const check=process.argv.includes('--check');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const lf=b=>b.toString('utf8').replaceAll('\r\n','\n');
 const git=(cwd,...args)=>execFileSync('git',args,{cwd,maxBuffer:16*1024*1024});
-const targetRevision='ef22c268fc896a56f71a8daf42a196b93f7761c0';
+const targetRevision='a0628bd759db7b12dfb8db0c85cb459220e6dd17';
 const expectedTargets={
  'tools/consult-reuse.ps1':'67c51b628d0c80ecb09db6e3fae507f4fd8f9c3dcc1544e4250a659b37cf6abf',
  'tools/generate-reuse-ledger.ps1':'40f1e32dd75e72529b5062caf662e3cf0b9311722151b8ddcf6e88d06ec1785f',
- 'firmware/esp/application.ino':'2d000c3788d9427a362c2c4a4163bb1367c363ead57169281269433a9b6a3809',
+ 'firmware/esp/application.ino':'db76768a0cd6e28b93c0c56fb0bcb006e2123708754e716f3f3afdb6430bbc77',
+ 'firmware/esp/src/MaintenanceRoutes.h':'0158d4e11ebc9e4911d6b6df7026884df58c093181416317e2e0d033e93f8e2e',
+ 'firmware/esp/src/CpuLoadWindow.h':'e34f5d4c51663842f8677c7ace0624c2cdb92837ead449b4b90f2655ce7e4df7',
+ 'firmware/esp/src/RuntimeCpu.h':'23f6ba45b5448b09decc72a94d54d343c2505e871ce1657e62b14ca8f1a4082b',
+ 'assets/web/runtime-monitor.js':'a6ed3df2bf9fa811cb18956c58344ab0748b052f5620e4a7cecc330382f20645',
+ 'assets/web/feature-workspaces.js':'9f3c15aada84a55d0ba96623552a6adac3a9292c838fd7dfee271e4e74824a34',
+ 'tests/runtime_cpu_test.cpp':'3d718f8f3b61a090c8743b4a5f636d9eee4a62c1b8a4ffebd93ad888011fdf7e',
+ 'tests/web_runtime_monitor_test.mjs':'1fb9d7443cf32b645ec97005198be3fc531eef53106ef4b50544ec269335220e',
+ 'docs/PROJECT-FEATURE-COMPARISON.md':'92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19',
+ 'firmware/esp/src/WebUi.h':'3a89dbfb5b2f17a6dd449517262af1c913a7d1b5fc568d04edeed78a13ebef25',
+ 'web/index.html':'d5160e10596ee3a54eb2471f9c18029f22899e7fad714e3e9edd9a70321560f0',
+ 'tools/ci-checks.mjs':'003f58a313cff410955db217c461941967436390a5994151714385ae1bd68f1f',
+ 'tools/generate-font-assets.mjs':'605d4540af5d88aba8bd4b4f8a6d3208a927f975d7e557e61a3e693c1c631fd3',
  'firmware/esp/src/StaticAssetPolicy.h':'971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b',
  'firmware/esp/src/UserFileStore.h':'8291b62bf324fe6a75dfa1fce020a55dd29bf90a09a5316178763792bc0b9599',
  'tests/async_http_test.cpp':'00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe',
@@ -108,7 +120,9 @@ const other={
  'firmware/uart_custom_probe/uart_custom_probe.ino':'Read complete custom probe flag/include; shared probe mapping remains pending.',
  'firmware/uart_standard_probe/uart_standard_probe.ino':'Read complete standard probe include; shared probe mapping remains pending.',
  'firmware/modem_bridge/modem_bridge.ino':'Read setup/loop watchdog, stack and ownership wiring; not excluded with modem product logic.',
- 'firmware/web/sw.js':'Read shell-only caching/activation/push routes; compare worker source-client validation and cache policies next.'
+ 'firmware/web/sw.js':'Read shell-only caching/activation/push routes; compare worker source-client validation and cache policies next.',
+ 'firmware/web/remote-tools.js':'Complete HTTP, exchange, file transfers and Pakar-adapted file-browser controls; existing network operation owners retained.',
+ 'firmware/web/storage-telemetry.js':'Complete storage freshness/formatting and explicit refresh UI; CPU/memory monitor projection compared separately.'
 };
 const readPlan=new Map([...Object.entries(notes).map(([p,n])=>['firmware/modem_bridge/'+p,n]),...Object.entries(other)]);
 const source=new Map();
@@ -143,6 +157,12 @@ comparison('StorageFiles.h','parity-gap','Sandboxed bytes/date metadata, guarded
 comparison('WebAsset.h','parity-gap','Serialized checked temporary publication compared with managed file publication; both retain previous bytes until publication.',[store(),ref('tools/build-web.mjs','const receipt={application:')],[storeProof()],[pending('Asset-only live Web replacement','Pakar compiled application delivery currently requires firmware; managed user files alone do not replace that application.')],['Implement canonical-source asset generation/publication after ownership/size/resource review; no duplicate Web UI.']);
 comparison('FirmwareWifiRange.h','parity-gap','Compared strict response ranges against Pakar bounded request-range parser and fail-closed non-resuming remote downloader.',[ref('firmware/esp/src/FirmwareRange.h','inline bool parseRange('),ref('firmware/esp/src/RemoteFirmware.cpp','const int code=http_.GET(),length=http_.getSize();')],[ref('tests/firmware_range_test.cpp','FirmwareRange range{};')],[pending('Validated immutable-download-only resume','Pakar rejects interrupted downloads. Introducing safe GET resume is distinct from retrying apply/install, which remains forbidden.')],['Design pinned URL/hash/size/offset recovery with strict 206 validation, never repeat mutation or install.']);
 comparison('AtomicEventRecord.h','parity-gap','Checked staging/readback/rename is retained by Pakar managed files; event identities are not relabelled file-transfer tokens.',[store()],[storeProof()],[pending('Durable queued event identity/no-overwrite spool','Pakar managed files are not an equivalent durable telemetry event queue.')],['Review actual event persistence and optional bounded spool requirements separately.']);
+comparison('EspLoad.h','parity-gap','Adapted five-second per-core idle-runtime measurement, not clock MHz, into Pakar loop-owned cached telemetry and a Web CPU/memory monitor with session export.',[ref('firmware/esp/src/RuntimeCpu.h','class RuntimeCpu'),ref('firmware/esp/src/CpuLoadWindow.h','class Window'),ref('assets/web/runtime-monitor.js','function create('),ref('firmware/esp/src/MaintenanceRoutes.h','runtimeCpu.append(')],[ref('tests/runtime_cpu_test.cpp','PakarCpu::Window w;'),ref('tests/web_runtime_monitor_test.mjs','MHz is not load')],[pending('Per-task attribution and all-client panels','Pakar exports measured core load; Orbit named loop/MQTT task percentages and native/Flutter monitor panels are not imported.')],['Execute ESP SDK/runtime sampling acceptance; compare named task attribution without guessing worker identity.']);
+comparison('RuntimePerf.h','parity-gap','Compared nested component wall-time windows separately from measured CPU. Preserve this useful feature as an explicit next transfer, not a completed import.',[ref('docs/PROJECT-FEATURE-COMPARISON.md','component performance')],[],[pending('Component elapsed/max timing','Pakar CPU measurement does not implement Orbit main-loop section timers or its performance page.')],['Add bounded shared component counters and consumers after section ownership review.']);
+{
+ const path='firmware/web/remote-tools.js',s=source.get(path);
+ comparisons.push({origin:'Orbit',path,sha256:s.sha256,source_read:'complete',source_revision:revision,source_lines:s.lines,read_ranges:[{first:1,last:s.lines}],verdict:'parity-gap',preserved:['Reciprocal Pakar user-files create/draw/list workflow adapted into Orbit. File filtering, metadata rows, per-file actions, confirmation and stable live rendering now use Orbit existing storage operations.'],targets:[ref('assets/web/user-files.js','function create(o)'),ref('docs/PROJECT-FEATURE-COMPARISON.md','HTTP composer/exchange journal')],proof:[],omissions:[pending('HTTP composer/exchange journal into Pakar','Orbit retains richer HTTP GET/POST composer, scheduled telemetry and exchange inspection/export; not imported by the CPU/file-browser checkpoint.')],remaining:['Port the generic request journal/composer without modem-specific routes; retain full operation and peer ownership.']});
+}
 const exclusions={
  'firmware/common/board_pins.h':'Orbit carrier UART/DTR/NET/CAN/K-Line physical map conflicts with reviewed Pakar wiring.',
  'firmware/i2c_scanner/i2c_scanner.ino':'Physical I2C scanner peripheral sketch tied to that board map, outside requested ESP utility adaptation.',
@@ -160,6 +180,16 @@ const manifest=JSON.parse(readFileSync(resolve(root,'docs/file-comparison-eviden
 // concurrent donor/target edits, invent completion, or erase prior omissions.
 for(const [path,expected]of Object.entries(expectedTargets))if(hash(lf(readFileSync(resolve(root,path))))!==expected)throw Error('Target changed outside pinned review: '+path);
 const changed=new Set(Object.keys(expectedTargets));
+// Route behavior is unchanged: refresh only the manually reviewed CPU/include
+// and generated same-source Web target bindings, retaining all route decisions.
+const routePath='docs/PU850-ROUTE-PARITY.json',routes=JSON.parse(readFileSync(resolve(root,routePath),'utf8'));
+for(const r of routes.routes)if(changed.has(r.target)){
+ const text=lf(readFileSync(resolve(root,r.target))),fresh=ref(r.target,r.anchor);
+ const old=hash(lf(git(root,'show','HEAD:'+r.target)));
+ if(r.target_sha256_utf8_lf!==old&&r.target_sha256_utf8_lf!==fresh.sha256)throw Error('Unowned route binding drift: '+r.target);
+ r.target_sha256_utf8_lf=fresh.sha256;r.target_line=text.slice(0,text.indexOf(r.anchor)).split('\n').length;
+}
+write(routePath,JSON.stringify(routes,null,2)+'\n');
 for(const item of manifest.files)if(item.origin!=='Orbit')for(const r of [...item.targets,...item.proof])if(changed.has(r.path)){
  const fresh=ref(r.path,r.anchor),old=hash(lf(git(root,'show','HEAD:'+r.path)));
  if(r.sha256!==old&&r.sha256!==fresh.sha256)throw Error('Unowned target drift: '+r.path);

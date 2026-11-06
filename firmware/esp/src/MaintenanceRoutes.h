@@ -151,6 +151,7 @@ String buildTelemetryJson() {
   d[F("version")]=BoardCore::BuildInfo::kVersion;
   PakarPeer::compatibility(d["compatibility"].to<JsonObject>());
   auto e=d[F("esp")].to<JsonObject>();
+  runtimeCpu.append(e["cpu_usage"].to<JsonObject>(),now);
   e[F("model")]=FirmwarePlatform::model();e[F("chip_id")]=SystemPlatform::chipId();
 #if defined(ARDUINO_ARCH_ESP32)
   e[F("chip_model")]=ESP.getChipModel();e[F("chip_revision")]=ESP.getChipRevision();e[F("chip_cores")]=ESP.getChipCores();

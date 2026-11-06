@@ -177,6 +177,8 @@
     const inspector=card('apiInspectorCard','API inspector','identity','api');
     const fileCard=root.UserFiles?card('userFilesCard','Files','managed-files','folder'):null;
     const userFiles=fileCard?root.UserFiles.create({...options,...fileCard,node,button,select,api,pin,snapshot,peer}):null;
+    const runtimeCard=root.RuntimeMonitor?card('runtimeMonitorCard','CPU & memory','telemetry','activity'):null;
+    const runtimeMonitor=runtimeCard?root.RuntimeMonitor.create({...options,...runtimeCard,node,button,api,pin,snapshot,peer}):null;
     function reveal(target){if(!target)return;if(options.reveal)options.reveal(target);else root.studioReveal?.(target);target.scrollIntoView({behavior:'smooth',block:'start'});}
     const groupCard=root.PixelGroups?card('pixelGroupsCard','Pixel groups','pixel-group-layout','mapping'):null;
     const groups=groupCard?root.PixelGroups.create({...options,...groupCard,node,field,numeric,button,select,snapshot,peer,api,command,pin,report,reveal,diagnostics:diagnostics.card,corrections:corrections.card}):null;
@@ -569,14 +571,14 @@
         if(!model.attempted&&!model.busy)void load();
       }
       for(const link of document.querySelectorAll('[data-open-corrections]'))link.hidden=!c.has('pixel-corrections');
-      for(const link of groupLinks)link.hidden=!c.has('pixel-group-layout');groups?.update(value);userFiles?.update();
+      for(const link of groupLinks)link.hidden=!c.has('pixel-group-layout');groups?.update(value);userFiles?.update();runtimeMonitor?.update();
       observeProbe(value);inspectRoutes();sync();syncProbe();syncInspector();
       if(mapDisclosure.open&&mappingKey()!==mapStateKey)drawMapping();
       if(c.known&&endpoints.value==='/api/status'&&!inspectorBusy){inspectorPayload=redact(value);response.textContent=JSON.stringify(inspectorPayload,null,2);inspectorStatus.textContent=translate('Live snapshot');}
     }
     const beforeUnload=event=>{if(groups?.dirty()||[...models.values()].some(record=>record.dirty||record.busy)){event.preventDefault();event.returnValue='';}};
     root.addEventListener('beforeunload',beforeUnload);
-    installed={update,workspaceSnapshot(scope){return model&&model.scope===scope?diagnosticWorkspace(model.diagnosticDraft):undefined;},presentationSnapshot(scope){return model&&model.scope===scope?pixelToolsWorkspace(model.presentation):undefined;},dispose(){void preview?.dispose();disposed=true;dismissReload();document.removeEventListener?.('visibilitychange',previewVisibility);root.removeEventListener('pagehide',previewPageHide);root.removeEventListener('pageshow',previewPageShow);root.removeEventListener('beforeunload',beforeUnload);groups?.dispose();userFiles?.dispose();corrections.card.remove();diagnostics.card.remove();inspector.card.remove();installed=null;}};
+    installed={update,workspaceSnapshot(scope){return model&&model.scope===scope?diagnosticWorkspace(model.diagnosticDraft):undefined;},presentationSnapshot(scope){return model&&model.scope===scope?pixelToolsWorkspace(model.presentation):undefined;},dispose(){void preview?.dispose();disposed=true;dismissReload();document.removeEventListener?.('visibilitychange',previewVisibility);root.removeEventListener('pagehide',previewPageHide);root.removeEventListener('pageshow',previewPageShow);root.removeEventListener('beforeunload',beforeUnload);groups?.dispose();userFiles?.dispose();runtimeMonitor?.dispose();runtimeCard?.card.remove();corrections.card.remove();diagnostics.card.remove();inspector.card.remove();installed=null;}};
     update();return installed;
   }
   root.createFeatureWorkspaces=create;
