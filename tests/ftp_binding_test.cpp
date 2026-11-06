@@ -40,7 +40,7 @@ void turn(unsigned n=1){for(unsigned i=0;i<n;++i){serviceFileTransferCleanup();D
 void input(int fd,const std::string& bytes){sockets[fd].in.insert(sockets[fd].in.end(),bytes.begin(),bytes.end());}
 void command(const char* line){input(1,std::string(line)+"\r\n");turn(350);}
 int main(){
-  store.begin(volume,true);DeviceFtp::begin();assert(DeviceFtp::ready&&!DeviceFtp::settings.enabled);
+  store.begin(volume,true,[]()->uint32_t{return 1024*1024;});DeviceFtp::begin();assert(DeviceFtp::ready&&!DeviceFtp::settings.enabled);
   assert(!DeviceFtp::configure(true,80,50009));assert(!DeviceFtp::configure(true,21,23));assert(DeviceFtp::configure(true,21,50009));
   sockets[1]={};accepts[21].push_back(1);turn(100);assert(sockets[1].out.find("220 ")==0);
   command("USER user");command("PASS password123");assert(sockets[1].out.find("230 Logged in")!=std::string::npos);

@@ -4,8 +4,10 @@ $scratch = Join-Path ([IO.Path]::GetTempPath()) ('PakarController-ledger-test-' 
 $donor = Join-Path $scratch 'donor'
 New-Item -ItemType Directory -Path $donor -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'reuse_fixture/source.h') -Destination $donor
+New-Item -ItemType Directory -Path (Join-Path $donor 'firmware') -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'reuse_fixture/source.h') -Destination (Join-Path $donor 'firmware/probe.h')
 & git -C $donor init --quiet
-& git -C $donor add source.h
+& git -C $donor add source.h firmware/probe.h
 & git -C $donor -c user.name=LedgerFixture -c user.email=fixture@example.invalid commit --quiet -m fixture
 if ($LASTEXITCODE -ne 0) { throw 'Fixture Git creation failed' }
 $hash = (Get-FileHash -LiteralPath (Join-Path $donor 'source.h')).Hash.ToLowerInvariant()
@@ -18,7 +20,7 @@ $ledger = Join-Path $scratch 'ledger.csv'
     Export-Csv -NoTypeInformation -LiteralPath $evidence
 $options = @{
     PealayerRoot=$donor; PCControllerRoot=$donor; PuzzlesRoot=$donor;
-    PuzzleBoardRoot=$donor; ControllerBoardMiniRoot=$donor; Pu850Root=$donor; RayanLampRoot=$donor; Esp32Ws2811Root=$donor; DrsSnakeRoot=$donor;
+    PuzzleBoardRoot=$donor; ControllerBoardMiniRoot=$donor; Pu850Root=$donor; RayanLampRoot=$donor; Esp32Ws2811Root=$donor; DrsSnakeRoot=$donor; OrbitRoot=$donor;
     DecisionsPath=$decisions; EvidencePath=$evidence; OutputPath=$ledger
 }
 function Assert-State([string]$origin, [string]$status) {
@@ -31,6 +33,8 @@ try {
     Assert-State PCController adapted
     Assert-State RayanLamp screened
     Assert-State esp32WS2811 screened
+    $orbitRow = @(Import-Csv -LiteralPath $ledger | Where-Object origin -eq Orbit)
+    if ($orbitRow.Count -ne 1 -or $orbitRow[0].path -ne 'firmware/probe.h' -or $orbitRow[0].review_status -ne 'screened') { throw 'Orbit fixture must be isolated, exhaustive in firmware, and never auto-reviewed' }
     $marker = Import-Csv -LiteralPath $ledger | Where-Object { $_.origin -eq 'portable-shell' -and $_.path -eq '_codeql_detected_source_root' }
     if ($marker.review_status -ne 'screened') { throw 'Generated marker must not invent a manual review without evidence' }
     . (Join-Path $root 'tools/donor-files.ps1')

@@ -9,11 +9,12 @@ param(
     [string]$RayanLampRoot = 'C:\Users\David\Documents\Codex\2026-07-23\ba\outputs\RayanLamp',
     [string]$Esp32Ws2811Root = (Join-Path $PSScriptRoot '../../repos/esp32WS2811'),
     [string]$DrsSnakeRoot = 'I:\HTML Projects\My Scripts\Test-Cat\JSNake',
+    [string]$OrbitRoot = (Join-Path $PSScriptRoot '../../repos/orbit'),
     [string]$DecisionsPath,
     [string]$EvidencePath,
     [string]$ComparisonPath=(Join-Path $PSScriptRoot '../docs/file-comparison-evidence.json'),
     [string]$OutputPath,
-    [ValidateSet('Pealayer','PCController','ControllerBoardMini/Puzzles','PuzzleBoard','ControllerBoardMini','PU850-ESP','RayanLamp','esp32WS2811','portable-shell','DRS-jSnake')]
+    [ValidateSet('Pealayer','PCController','ControllerBoardMini/Puzzles','PuzzleBoard','ControllerBoardMini','PU850-ESP','RayanLamp','esp32WS2811','portable-shell','DRS-jSnake','Orbit')]
     [string]$OnlyOrigin
 )
 
@@ -137,6 +138,14 @@ if ($OnlyOrigin) {
 if (-not $OnlyOrigin -or $OnlyOrigin -eq 'DRS-jSnake') {
     $snakeFiles=Get-ChildItem -LiteralPath $DrsSnakeRoot -Recurse -File | ForEach-Object { $_.FullName.Substring($DrsSnakeRoot.Length).TrimStart('\','/').Replace('\','/') }
     Add-LedgerRows -Rows $rows -Origin 'DRS-jSnake' -Root $DrsSnakeRoot -Revision 'filesystem-snapshot' -RelativePaths $snakeFiles
+}
+
+if (-not $OnlyOrigin -or $OnlyOrigin -eq 'Orbit') {
+    $orbit = Get-GitFiles -Root $OrbitRoot
+    # Every firmware path stays visible, including peripheral/business files,
+    # generated assets, licenses and diagnostic sketches. Classification is NOT
+    # a completed comparison or an accepted exclusion.
+    Add-LedgerRows -Rows $rows -Origin 'Orbit' -Root $OrbitRoot -Revision $orbit.Commit -RelativePaths @($orbit.Files | Where-Object { $_.StartsWith('firmware/') })
 }
 
 if (-not $OnlyOrigin -or $OnlyOrigin -eq 'RayanLamp') {

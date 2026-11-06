@@ -40,12 +40,22 @@ $capabilities = Get-Content -LiteralPath $IndexPath -Raw | ConvertFrom-Json
 if ($capabilities.schema -ne 1) { throw 'Unsupported reuse capability index' }
 if ($manifest.schema -ne 1 -or $manifest.target_hash_encoding -ne 'UTF8-without-BOM-LF') { throw 'Unsupported comparison schema or target hash encoding' }
 $evidence = @{}
-$knownVerdicts = @('equivalent-file', 'equivalent-behavior', 'scoped-improvement', 'parity-gap')
+$knownVerdicts = @('equivalent-file', 'equivalent-behavior', 'scoped-improvement', 'parity-gap', 'not-applicable')
 foreach ($entry in $manifest.files) {
     $key = "$($entry.origin)|$($entry.path)"
     if ($evidence.ContainsKey($key)) { throw "Duplicate comparison: $key" }
     if ($entry.sha256 -notmatch '^[0-9a-f]{64}$' -or $entry.source_read -ne 'complete') { throw "Comparison requires full manual read and source hash: $key" }
     if ($entry.verdict -notin $knownVerdicts -or -not $entry.preserved -or -not $entry.targets.Count) { throw "Incomplete comparison: $key" }
+    if ($entry.origin -eq 'Orbit' -and
+        (-not $entry.PSObject.Properties['source_lines'] -or $entry.source_lines -lt 1 -or
+         -not $entry.PSObject.Properties['read_ranges'] -or @($entry.read_ranges).Count -ne 1 -or
+         $entry.read_ranges[0].first -ne 1 -or $entry.read_ranges[0].last -ne $entry.source_lines)) {
+        throw "Orbit comparison needs exact complete-text read coverage: $key"
+    }
+    if ($entry.verdict -eq 'not-applicable' -and
+        (-not @($entry.omissions).Count -or @($entry.omissions | Where-Object disposition -ne 'not-applicable').Count -or @($entry.remaining).Count)) {
+        throw "Excluded file needs specific non-applicable code/reason and no hidden pending functionality: $key"
+    }
     foreach ($target in @($entry.targets) + @($entry.proof)) {
         $full = Resolve-Target $target.path
         if ($target.sha256 -notmatch '^[0-9a-f]{64}$' -or (Get-TextHash $full) -ne $target.sha256) {
@@ -90,14 +100,14 @@ $rows = foreach ($source in (Import-Csv -LiteralPath $LedgerPath)) {
         concerns=$(if ($routes.Count) { $routes.id -join ' | ' } else { 'donor-audit: specialist routing pending' })
         tracking_issues=(@(3) + @($routes | ForEach-Object {$_.issue}) | Sort-Object -Unique | ForEach-Object { "https://github.com/atomicdeploy/PakarController/issues/$_" }) -join ' | '
         comparison= $(if ($entry) { $entry.verdict } else { 'pending-comparison' })
-        source_read=$(if ($entry) { 'complete' } else { 'not-certified-by-this-comparison' })
+        source_read=$(if ($entry) { 'complete' } elseif ($source.review_status -eq 'complete-read-awaiting-comparison') { 'complete-awaiting-comparison' } else { 'not-certified-by-this-comparison' })
         target_mapping=$(if ($entry) { ($entry.targets | ForEach-Object { Format-Reference $_ }) -join ' | ' } else { '' })
         preserved=$(if ($entry) { $entry.preserved -join ' | ' } else { '' })
         omitted_code=$(if ($entry) { ($entry.omissions | ForEach-Object { "$($_.code) [$($_.disposition)]" }) -join ' | ' } else { 'Not yet determined; not an accepted exclusion' })
         omission_reason=$(if ($entry) { ($entry.omissions | ForEach-Object { "$($_.code): $($_.reason)" }) -join ' | ' } else { "No approved reason to leave this file out. $($source.review_status) is not behavior-comparison proof." })
         proof_mapping=$(if ($entry) { ($entry.proof | ForEach-Object { Format-Reference $_ }) -join ' | ' } else { '' })
         improvement=$(if ($entry -and $entry.PSObject.Properties['improvement']) { $entry.improvement } else { '' })
-        remaining=$(if ($entry) { $entry.remaining -join ' | ' } else { 'Read and compare this exact donor; map every applicable behavior and justify each omission.' })
+        remaining=$(if ($entry) { $entry.remaining -join ' | ' } elseif ($source.review_status -eq 'complete-read-awaiting-comparison') { 'Compare the already-read exact bytes against target code; reread on hash drift. Reading alone is not an approved omission.' } else { 'Read and compare this exact donor; map every applicable behavior and justify each omission.' })
         runtime_acceptance='Not established by source/hash/test-code comparison; see issue #2'
     }
 }
@@ -123,12 +133,13 @@ if ($ReportPath) {
     $report.Add('')
     $report.Add('## Coverage')
     $report.Add('')
-    $report.Add('| Donor | Inventoried | Compared | Pending | Files with gaps |')
-    $report.Add('|---|---:|---:|---:|---:|')
+    $report.Add('| Donor | Inventoried | Compared | Explicit exclusions | Pending | Files with gaps |')
+    $report.Add('|---|---:|---:|---:|---:|---:|')
     foreach ($group in ($rows | Group-Object origin | Sort-Object Name)) {
         $unread = @($group.Group | Where-Object comparison -eq 'pending-comparison').Count
         $open = @($group.Group | Where-Object comparison -eq 'parity-gap').Count
-        $report.Add("| $($group.Name) | $($group.Count) | $($group.Count - $unread) | $unread | $open |")
+        $excluded = @($group.Group | Where-Object comparison -eq 'not-applicable').Count
+        $report.Add("| $($group.Name) | $($group.Count) | $($group.Count - $unread - $excluded) | $excluded | $unread | $open |")
     }
     $report.Add('')
     $report.Add('## Exact reviewed-file mappings and omission decisions')
@@ -139,6 +150,7 @@ if ($ReportPath) {
         $report.Add("Verdict: **$($row.comparison)**. Revision: ``$($row.revision)``. Original-byte SHA-256: ``$($row.source_sha256)``.")
         $report.Add('')
         $entry = $evidence["$($row.origin)|$($row.path)"]
+        if($entry.PSObject.Properties['read_ranges']){$report.Add("- Complete text read: lines 1-$($entry.source_lines), exact source hash above.")}
         foreach ($target in $entry.targets) { $report.Add('- Target: `' + (Format-Reference $target) + '`.') }
         foreach ($retained in $entry.preserved) { $report.Add('- Retained: ' + $retained) }
         foreach ($omission in $entry.omissions) { $report.Add("- Omitted/replaced code: ``$($omission.code)``. Disposition: **$($omission.disposition)**. Reason: $($omission.reason)") }

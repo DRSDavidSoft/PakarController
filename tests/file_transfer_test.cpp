@@ -20,7 +20,7 @@ void text(std::vector<uint8_t>& p,const std::string& s){put(p,s.size());p.insert
 std::vector<uint8_t> packet(uint8_t type,uint32_t id){std::vector<uint8_t> p{0,0,0,0,type};put(p,id);return p;}
 void seal(std::vector<uint8_t>& p){auto n=p.size()-4;p[0]=n>>24;p[1]=n>>16;p[2]=n>>8;p[3]=n;}
 int main(int argc,char** argv){
-  store.begin(volume,true);Files files(request);
+  store.begin(volume,true,[]()->uint32_t{return 1024*1024;});Files files(request);
   auto wire=[](const uint8_t* p,size_t n){const bool ok=fwrite(p,1,n,stdout)==n;fflush(stdout);return ok;};
   if(argc>1){
 #ifdef _WIN32

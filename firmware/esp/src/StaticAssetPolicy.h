@@ -39,17 +39,18 @@ inline bool accepts(const char *header,const char *coding){
 }
 inline bool notModified(const char *header,const char *etag){
   if(!header)return false;
-  auto rest=trim(header);if(rest=="*")return true;
+  auto rest=trim(header);if(rest=="*")return true;bool matched=false;
   while(!rest.empty()){
     rest=trim(rest);if(rest.substr(0,2)=="W/")rest.remove_prefix(2);
     if(rest.empty()||rest.front()!='"')return false;
     const auto end=rest.find('"',1);if(end==std::string_view::npos)return false;
-    const bool match=rest.substr(0,end+1)==etag;rest=trim(rest.substr(end+1));
+    for(size_t i=1;i<end;++i)if(static_cast<unsigned char>(rest[i])<0x21||rest[i]==0x7f)return false;
+    matched=matched||rest.substr(0,end+1)==etag;rest=trim(rest.substr(end+1));
     if(!rest.empty()&&rest.front()!=',')return false;
-    if(match)return true;
     if(rest.empty())break;
     rest.remove_prefix(1);
+    if(trim(rest).empty())return false;
   }
-  return false;
+  return matched;
 }
 }

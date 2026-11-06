@@ -12411,3 +12411,56 @@ preflight test later stopped on live PreferencesTab.tsx drift. These gates were
 not bypassed. No ESP binary, firmware flash/RAM measurement, installed-board
 session, reboot or GPIO action is claimed. CI follow-up is deferred at the user's
 request. Simulated replay images are deliberately labeled as such.
+
+## Orbit bidirectional source checkpoint — 2026-11-06
+
+All155 Orbit firmware paths at da50c877 are in the same donor inventory. Exact
+manual text reads cover55 files;10 target comparisons and6 concrete peripheral
+exclusions are hash/range bound.100 files remain unread and39 read files await
+target comparisons. No pending path was silently omitted. Existing non-Orbit
+manual read records were checked structurally unchanged after CSV generation.
+
+Orbit da50c877 is published identically on canonical Gitea and private GitHub;
+mirror draft PR25 tracks issue24. The canonical SSH trust failure was resolved
+by David's directly verified host-key repair, then strict repository reads and
+branch publication succeeded. No trust bypass or hardware operation occurred.
+
+Actual local Orbit host tests:29 HTTP validator checks,39 Web-space checks,
+21 event-space checks, verified-write fault assertions and source-wiring tests
+pass. Pakar metadata rejection/exclusion fixtures and pinned-record idempotence
+pass. Its managed-file wrapper stopped before compilation on pre-existing live
+Pealayer inventory drift. The guard was preserved, not rerouted to direct g++.
+
+Pakar source checkpoint5ff4bae is local and committed, but publication is blocked:
+GitHub receive-pack returns `fatal error in commit_refs` for upstream and fork,
+including explicit CLI credentials and a verified write-permitted fork owner.
+Readback shows no new branch/PR; no force operation was used. An independent API
+blob attempt returned `unexpected end of JSON input`, not upload proof. Root
+cause is unestablished; do not label a global GitHub outage. This source/CI gate
+is separate from the remaining substantive audit and from production readiness.
+
+### Publication recovery and review follow-up — 2026-11-06
+
+The preceding receive-pack failure is historical, not the current publication
+state. A verified bundle preserving the exact d7a4f9f source history was copied
+to the trusted office host. Its stored GitHub credential was invalid; an
+authorized process-scoped credential from this PC published the unchanged branch
+without modifying stored credentials or SSH trust. Pakar PR53 now runs CI.
+
+CI correctly rejected the five PU850 route bindings to the changed application
+file. Reread the actual AsyncOTA, WebSocket and SSDP donors, update/info and info
+registration slices, affected target route bodies and the new storage setup.
+Only those five target hashes changed; ownership/authentication and all open
+route gaps remain. The fifty-route guard and comparison rejection fixtures pass.
+
+Orbit98a699e additionally fences verification reads with a seek before the next
+stdio update-stream write. Consecutive binary chunks, final-seek failure and
+overflow tests pass alongside existing fault tests. Both Orbit remotes contain
+the exact commit; mirror PR25 is ready for review, not merged. The pinned read
+checkpoint and reports bind these revised bytes. Counts remain55 complete reads,
+10 functional comparisons,6 justified exclusions; the substantive audit is open.
+
+Canonical Gitea API login exposed a separate DRSDavidSoft account-wide mandatory
+password-change requirement. No password or forced-change flag was modified.
+Its account repair and canonical PR/checks remain separate from successful SSH
+branch publication. No board, installed app or production setting was changed.
