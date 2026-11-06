@@ -7,7 +7,7 @@ import {resolve,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const donor=resolve(root,'../repos/orbit');
-const revision='173d0929364f7c5344bccf623399e0dc01252e6d';
+const revision='dd0a2a20232f6ed838eb5329c4385287964c4c40';
 const check=process.argv.includes('--check');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const lf=b=>b.toString('utf8').replaceAll('\r\n','\n');
@@ -25,8 +25,8 @@ const expectedTargets={
  'tests/runtime_cpu_test.cpp':'3d718f8f3b61a090c8743b4a5f636d9eee4a62c1b8a4ffebd93ad888011fdf7e',
  'tests/web_runtime_monitor_test.mjs':'1fb9d7443cf32b645ec97005198be3fc531eef53106ef4b50544ec269335220e',
  'docs/PROJECT-FEATURE-COMPARISON.md':'b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1',
- 'firmware/esp/src/WebUi.h':'4fa8c6d223bac7d310f22ffee9ad73581e7b7101639664e69189233608695c2e',
- 'web/index.html':'4b02d6da4e4d21749ea2e8375cb186477ae0830dfc450f8c3049f9449aaded77',
+ 'firmware/esp/src/WebUi.h':'3a89dbfb5b2f17a6dd449517262af1c913a7d1b5fc568d04edeed78a13ebef25',
+ 'web/index.html':'d5160e10596ee3a54eb2471f9c18029f22899e7fad714e3e9edd9a70321560f0',
  'tools/ci-checks.mjs':'003f58a313cff410955db217c461941967436390a5994151714385ae1bd68f1f',
  'tools/generate-font-assets.mjs':'605d4540af5d88aba8bd4b4f8a6d3208a927f975d7e557e61a3e693c1c631fd3',
  'firmware/esp/src/StaticAssetPolicy.h':'971f156e44313d2d751b4bd10e89337669885f28b219df1407f70451deb8bc2b',

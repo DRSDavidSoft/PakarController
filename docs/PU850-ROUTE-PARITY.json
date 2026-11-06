@@ -56,7 +56,7 @@
       "target": "firmware/esp/src/WebUi.h",
       "anchor": "Verified remote update",
       "reason": "Commented donor HTML placeholder replaced by real firmware settings; no second OTA engine.",
-      "target_sha256_utf8_lf": "4fa8c6d223bac7d310f22ffee9ad73581e7b7101639664e69189233608695c2e",
+      "target_sha256_utf8_lf": "3a89dbfb5b2f17a6dd449517262af1c913a7d1b5fc568d04edeed78a13ebef25",
       "target_line": 422
     },
     {
@@ -620,7 +620,7 @@
       "target": "firmware/esp/src/WebUi.h",
       "anchor": "Verified remote update",
       "reason": "Real control workspace rather than donor static placeholder; access gate and actual peer state retained. Optional DHCP/static editor preserves stored station credentials and RGB preview requires fresh actual output, not a synthetic animation.",
-      "target_sha256_utf8_lf": "4fa8c6d223bac7d310f22ffee9ad73581e7b7101639664e69189233608695c2e",
+      "target_sha256_utf8_lf": "3a89dbfb5b2f17a6dd449517262af1c913a7d1b5fc568d04edeed78a13ebef25",
       "target_line": 422
     }
   ]
