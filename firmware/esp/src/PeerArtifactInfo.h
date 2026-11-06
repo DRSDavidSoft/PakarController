@@ -37,6 +37,7 @@ class PeerArtifactInfo {
     auto a=d["artifacts"].to<JsonArray>();if(digest_.length()&&PakarPeerArtifact::transferable()) {
       auto item=a.add<JsonObject>();item["family"]=PakarPeerArtifact::key();
       item["image_marker"]=PakarPeerArtifact::family();item["version"]=BoardCore::BuildInfo::kVersion;
+      item["image_release_marker"]=PakarPeerArtifact::releaseMarker();
       item["bytes"]=size_;item["sha256"]=digest_;item["path"]="/firmware/download";
       item["model"]=FirmwarePlatform::model();item["role"]=BoardCore::GameRole::name;
     }

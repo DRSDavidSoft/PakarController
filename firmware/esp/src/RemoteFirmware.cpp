@@ -173,6 +173,7 @@ bool RemoteFirmware::stagePeer(JsonObjectConst source,const String &authorizatio
   const Artifact local{PakarPeerArtifact::key(),BoardCore::BuildInfo::kVersion,"",0};
   const Artifact remote{artifact["family"]|"",artifact["version"]|"",artifact["sha256"]|"",artifact["bytes"]|0U};
   bool credentials=authorization.isEmpty()||authorization.startsWith("Basic ")||authorization.startsWith("Bearer ");
+  if(compare(local,remote)==Relation::Incompatible){error_="Peer firmware family differs (role, pins, memory or compiled capabilities)";return false;}
   for(size_t i=0;i<authorization.length();++i)if(authorization[i]<32||authorization[i]>126)credentials=false;
   if(boot_.isEmpty()||busy()||ownsEspStage()||id_==UINT32_MAX||!PakarPeerArtifact::transferable()||
       !hostname(host.c_str())||!privateIpv4(address.c_str())||!boardId(board.c_str())||!hexId(boot.c_str())||
@@ -191,6 +192,7 @@ bool RemoteFirmware::stagePeer(JsonObjectConst source,const String &authorizatio
   peerSource_=true;peerHost_=host;peerAddress_=address;peerBoard_=board;peerBoot_=boot;peerAuthorization_=authorization;
   manifestSha_=hash.hex();bearer_=String();downgrade_=false;autoApply_=false;
   prepareDone_=completedThisBoot_=false;error_=String();startedAt_=millis();phase_=DownloadEsp;
+  transfer_={};progressStage_=nullptr;progressDone_=progressTotal_=0;
   if(!parseManifest()||!save()){fail("Cannot validate/journal peer stage");return false;}return true;
 }
 #endif
@@ -420,19 +422,23 @@ bool RemoteFirmware::validateEspStage() {
   if(revision<header.min_chip_rev_full ||
      (header.max_chip_rev_full && header.max_chip_rev_full!=UINT16_MAX && revision>header.max_chip_rev_full)) return false;
   FirmwarePlatform::Sha256 c;uint8_t block[1024+128];size_t tailSize=0;
-  bool familyFound=!peerSource_;const char *marker=PakarPeerArtifact::family();const size_t markerSize=strlen(marker);
-  if(peerSource_&&(markerSize<2||markerSize>128))return false;
+  bool familyFound=!peerSource_,releaseFound=!peerSource_;const char *marker=PakarPeerArtifact::family();const size_t markerSize=strlen(marker);
+  const String releaseMarker=String("PAKAR-PEER-RELEASE:")+plan_.esp.version+":END";
+  if(peerSource_&&(markerSize<2||markerSize>128||releaseMarker.length()>128))return false;
   for(uint32_t offset=0;offset<plan_.esp.size;offset+=1024) {
     const size_t bytes=min<uint32_t>(1024,plan_.esp.size-offset);
     if(!espStage_.read(offset,block+tailSize,bytes)) return false;
     c.add(block+tailSize,bytes);yield();
-    if(!familyFound){
-      for(size_t i=0;i+markerSize<=tailSize+bytes;++i)if(!memcmp(block+i,marker,markerSize)){familyFound=true;break;}
-      const size_t retained=min<size_t>(markerSize-1,tailSize+bytes);
+    if(!familyFound||!releaseFound){
+      for(size_t i=0;i<tailSize+bytes;++i){
+        if(!familyFound&&i+markerSize<=tailSize+bytes&&!memcmp(block+i,marker,markerSize))familyFound=true;
+        if(!releaseFound&&i+releaseMarker.length()<=tailSize+bytes&&!memcmp(block+i,releaseMarker.c_str(),releaseMarker.length()))releaseFound=true;
+      }
+      const size_t retained=min<size_t>(127,tailSize+bytes);
       memmove(block,block+tailSize+bytes-retained,retained);tailSize=retained;
     }else tailSize=0;
   }
-  return familyFound&&c.hex()==plan_.esp.sha;
+  return familyFound&&releaseFound&&c.hex()==plan_.esp.sha;
 #else
   return false;
 #endif

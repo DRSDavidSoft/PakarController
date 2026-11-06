@@ -81,6 +81,8 @@ is for that source alone. The running-image family is generated from MCU/FQBN,
 role, pin map and compiled capabilities, not installation hostname, release,
 initial box mask or an arbitrary Git hash. Validate the retained family marker
 inside the complete SHA-verified image as well as the HTTP identity headers.
+The retained release marker must also match the advertised release; a valid
+hash of an old/different binary is not a newer firmware candidate.
 Different families are visible but cannot replace one another. A same-release
 image is not automatically considered newer just because its digest differs.
 
@@ -107,6 +109,21 @@ drafts/operations to finish. Cached verified candidates are not re-streamed.
 Other native platforms remain discovery/control peers but do not advertise a
 Windows installer; their managed replacement adapters are explicitly absent.
 
-Remaining: richer per-board transfer actions in both views, physical
-board-only/app-only/mixed acceptance and measured RAM/latency/long-soak evidence.
+Both peer views offer newer same-role board firmware to the currently selected
+receiver. Source credentials are entered separately and kept transient; the
+receiving board verifies the exact family and source identity. Flutter uses
+the same fenced general API over network or USB and opens its existing firmware
+progress/Apply/Cancel view. Rust uses its existing confirmed Wi-Fi maintenance
+owner and Firmware settings page. Rust's peer-staging GUI action over USB is
+not yet wired; that exclusion is explicit rather than a claimed parity result.
+
+Automatic board checks discover/offer but do not automatically download or
+apply images: those actions require receiver-owned, authenticated commands.
+In particular, one peer's checking policy is never an installation grant from
+the other. Board-only discovery/offers work without an app; app-only APK/Windows
+package exchange works without a board. Boards and apps do not pretend to be
+interchangeable artifact families.
+
+Remaining: native USB peer-stage GUI, physical board-only/app-only/mixed
+acceptance and measured RAM/latency/long-soak evidence.
 Fixtures and SDK builds are not physical or installed-app acceptance.

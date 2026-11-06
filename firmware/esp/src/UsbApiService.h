@@ -37,17 +37,6 @@ String maintenanceApi(const String &message,bool physicalUsb) {
   if(message.length()>4096||deserializeJson(request,message)||!request.is<JsonObject>())return maintenanceApiError("invalid_request");
   const String method=request["method"]|"",path=request["path"]|"";
   const JsonObjectConst body=request["body"].as<JsonObjectConst>();
-#if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
-  if(method=="GET"&&path=="/api/peer/info")return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,deviceIdentity.hostname()),peerCatalogue.sharing(),peerCatalogue.automaticChecks());
-  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot();
-  if(method=="POST"&&path=="/api/peers/discover") {peerCatalogue.discover();return peerCatalogue.snapshot();}
-  if(method=="POST"&&path=="/api/peers/policy") {String data;serializeJson(body,data);return peerCatalogue.configure(data);}
-  if(method=="POST"&&path=="/api/peers/update") {
-    if(!maintenanceApiIdle())return maintenanceApiError("maintenance_busy");
-    if(!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
-    return remoteFirmware.json();
-  }
-#endif
   // Read-only recovery identity works even when the filesystem cannot mount.
   if(method=="GET"&&path=="/api/maintenance") {
     reply["board_id"]=pcBoardId;reply["boot_id"]=pcBootId;
@@ -61,6 +50,23 @@ String maintenanceApi(const String &message,bool physicalUsb) {
     return encodedJson(reply);
   }
   if(request["board_id"].as<String>()!=pcBoardId||request["boot_id"].as<String>()!=pcBootId)return maintenanceApiError("peer_changed");
+#if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
+  if(method=="GET"&&path=="/api/peer/info")return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,deviceIdentity.hostname()),peerCatalogue.sharing(),peerCatalogue.automaticChecks());
+  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot();
+  if(method=="GET"&&path=="/api/firmware/remote")return remoteFirmware.json();
+  if(method=="POST"&&(path=="/api/peers/discover"||path=="/api/peers/policy"||path=="/api/peers/update"||path=="/api/firmware/apply"||path=="/api/firmware/cancel")) {
+    if(filesystemInitializationComplete)return maintenanceApiError("initialization_requires_reboot");
+    if(path=="/api/firmware/cancel"){
+      if(!remoteFirmware.cancel(body["job_id"]|0U,body["boot_id"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+    }else{
+      if(!maintenanceApiIdle())return maintenanceApiError("maintenance_busy");
+      if(path=="/api/peers/discover"){peerCatalogue.discover();return peerCatalogue.snapshot();}
+      if(path=="/api/peers/policy"){String data;serializeJson(body,data);return peerCatalogue.configure(data);}
+      if(path=="/api/peers/update"&&!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+      if(path=="/api/firmware/apply"&&!remoteFirmware.apply(body["job_id"]|0U,body["boot_id"]|"",body["sha256"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+    }return remoteFirmware.json();
+  }
+#endif
   if(method=="GET"&&path=="/api/network/tools")return networkToolsJson();
   if(method=="GET"&&path=="/api/time")return clockJson();
   if(method=="GET"&&path=="/api/wifi/scan")return wifiScanJson(body["results"]!=true);

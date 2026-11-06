@@ -2453,7 +2453,7 @@ String buildStatusJson(bool compact) {
   body += F(",\"microsd-files\"");
 #endif
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
-  body += F(",\"peer-relay-http\"");
+  body += F(",\"peer-relay-http\",\"peer-exchange\"");
 #endif
 #if PAKAR_PIXEL_CORRECTIONS
   body += F(",\"pixel-corrections\",\"pixel-corrections-preview\",\"pixel-correction-rule-toggle\",\"pixel-corrections-preview-command\"");
@@ -4091,12 +4091,16 @@ void registerApi() {
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
   server.on("/api/peers/discovered",HTTP_GET,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.snapshot());});
   server.on("/api/peers/discover",HTTP_POST,[](){if(!authenticate())return;const bool ok=peerCatalogue.discover();server.send(ok?202:409,"application/json",peerCatalogue.snapshot());});
-  server.on("/api/peers/policy",HTTP_POST,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.configure(server.jsonBody()));});
+  server.on("/api/peers/policy",HTTP_POST,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.configure(server.hasArg("settings")?server.arg("settings"):server.jsonBody()));});
   server.on("/api/peer/offer",HTTP_POST,[](){server.send(200,"application/json",peerCatalogue.offer(server.jsonBody(),server.remoteAddress()));});
   server.on("/api/peers/update",HTTP_POST,[](){
     if(!authenticate())return;
     if(otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){server.send(409,"application/json","{\"error\":\"maintenance_busy\"}");return;}
-    JsonDocument d;if(deserializeJson(d,server.jsonBody())||!d["source"].is<JsonObjectConst>()){server.send(400,"application/json","{\"error\":\"invalid_source\"}");return;}
+    JsonDocument d;
+    const String raw=server.jsonBody();bool parsed=false;
+    if(raw.length())parsed=!deserializeJson(d,raw);
+    else {JsonDocument source;if(!deserializeJson(source,server.arg("source"))){d["source"]=source.as<JsonObjectConst>();d["authorization"]=server.arg("authorization");parsed=true;}}
+    if(!parsed||!d["source"].is<JsonObjectConst>()){server.send(400,"application/json","{\"error\":\"invalid_source\"}");return;}
     const bool ok=remoteFirmware.stagePeer(d["source"].as<JsonObjectConst>(),d["authorization"]|"");
     if(ok)server.send(202,"application/json",remoteFirmware.json());else{JsonDocument error;error["error"]=remoteFirmware.error();String body;serializeJson(error,body);server.send(409,"application/json",body);}
   });

@@ -1643,6 +1643,33 @@ class _ControlShellState extends State<ControlShell>
                   ? const SizedBox.shrink(key: ValueKey('devices-hidden'))
                   : DevicesPage(
                       updates: appUpdates,
+                      openUpdates: () async {
+                        final updateBoard = status?.json['board_id'];
+                        await Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => UpdateCenter(
+                              api: api,
+                              apps: appUpdates,
+                              support: support,
+                              automation: firmwareAutomation,
+                              openBoard: true,
+                              boardProductionHold: const bool.fromEnvironment(
+                                'PAKAR_BOARD_PRODUCTION_HOLD',
+                              ),
+                              boardAvailable:
+                                  peer.has('isp') || peer.has('ota'),
+                              authorized: (feature) =>
+                                  mounted &&
+                                  firmwareAutomation?.busy != true &&
+                                  status?.json['board_id'] == updateBoard &&
+                                  status?.hostname == hostname &&
+                                  status?.peer.has(feature) == true,
+                              busyChanged: (value) =>
+                                  manualMaintenanceBusy = value,
+                            ),
+                          ),
+                        );
+                      },
                       api: api,
                       discovery: discovery,
                       onDiscovered: () =>
@@ -1803,19 +1830,21 @@ class _ControlShellState extends State<ControlShell>
                         child: Scaffold(
                           appBar: AppBar(
                             title: Text(
-                              target == 'advanced'
-                                  ? 'Advanced'
-                                  : 'Firmware',
+                              target == 'advanced' ? 'Advanced' : 'Firmware',
                             ),
                             automaticallyImplyLeading: !locked,
                           ),
                           body: target == 'advanced'
-                              ? AdvancedPage(api: api, observed: () => status,
+                              ? AdvancedPage(
+                                  api: api,
+                                  observed: () => status,
                                   openSettings: (section) {
-                                    workspaces[workspaceBoard]?.settings.page = section;
+                                    workspaces[workspaceBoard]?.settings.page =
+                                        section;
                                     Navigator.of(context).pop();
                                     _navigate('device-settings');
-                                  })
+                                  },
+                                )
                               : FirmwarePage(
                                   api: api,
                                   authorized: (feature) =>
@@ -1873,11 +1902,7 @@ class _ControlShellState extends State<ControlShell>
                     'Pixel corrections…',
                     pixelCorrectionIcon,
                   ),
-                workspaceMenuItem(
-                  'advanced',
-                  'Advanced…',
-                  Icons.tune,
-                ),
+                workspaceMenuItem('advanced', 'Advanced…', Icons.tune),
                 const PopupMenuDivider(),
                 workspaceMenuItem(
                   'header-settings',
@@ -2258,9 +2283,7 @@ class _TablePageState extends State<TablePage> {
     if (mounted) {
       setState(() {
         applying = false;
-        batchMessage = applied
-            ? '${ids.length} cells updated'
-            : failure ?? 'The command did not return a verified result. Nothing was retried.';
+        batchMessage = applied ? '${ids.length} cells updated' : failure ?? 'The command did not return a verified result. Nothing was retried.';
       });
     }
   }
@@ -3621,7 +3644,9 @@ class HardwarePage extends StatelessWidget {
           Card(
             child: ExpansionTile(
               leading: const Icon(Icons.extension_outlined),
-              key: PageStorageKey('hardware-capabilities:${inventory?.ownerKey ?? peer.hostname}'),
+              key: PageStorageKey(
+                'hardware-capabilities:${inventory?.ownerKey ?? peer.hostname}',
+              ),
               title: const Text('Capabilities'),
               subtitle: Text('${features.where(peer.has).length} acknowledged'),
               childrenPadding: const EdgeInsets.all(16),

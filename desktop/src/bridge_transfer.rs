@@ -23,6 +23,7 @@ const RESPONSE_HEADERS: &[&str] = &[
 fn feature(request: &Request) -> Option<&'static str> {
     let path = request.path.split('?').next()?;
     match (request.method.as_str(), path) {
+        ("GET","/api/peers/discovered")|("POST","/api/peers/discover"|"/api/peers/policy"|"/api/peers/update")=>Some("peer-exchange"),
         ("GET" | "HEAD", "/firmware/download") | ("POST", "/update") => Some("ota"),
         ("GET" | "HEAD", "/file/download") => Some("artifacts"),
         ("GET", "/api/firmware/remote")

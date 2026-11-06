@@ -22,6 +22,7 @@ class UpdateCenter extends StatefulWidget {
     this.automation,
     this.boardAvailable = false,
     this.boardProductionHold = false,
+    this.openBoard = false,
   });
   final PakarApi api;
   final AppUpdateCoordinator apps;
@@ -31,6 +32,7 @@ class UpdateCenter extends StatefulWidget {
   final ValueChanged<bool> busyChanged;
   final bool boardAvailable;
   final bool boardProductionHold;
+  final bool openBoard;
   @override
   State<UpdateCenter> createState() => _UpdateCenterState();
 }
@@ -40,6 +42,7 @@ class _UpdateCenterState extends State<UpdateCenter> {
   @override
   Widget build(BuildContext context) => DefaultTabController(
     length: widget.boardAvailable ? 2 : 1,
+    initialIndex: widget.openBoard && widget.boardAvailable ? 1 : 0,
     child: PopScope(
       canPop: !busy,
       child: Scaffold(

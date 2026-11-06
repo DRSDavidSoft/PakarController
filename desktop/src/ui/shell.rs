@@ -961,7 +961,7 @@ impl PakarControllerApp {
                 || self.table.has_pending_edits()
                 || self.table.has_assignment_draft()
                 || mapping_dirty,
-            self.device_settings.maintenance_pending.is_some(),
+            self.device_settings.maintenance_pending.is_some()||self.device_settings.maintenance_confirmation.is_some(),
             self.identity_pending,
         );
         if blocked {
@@ -2017,7 +2017,8 @@ impl PakarControllerApp {
                     Panel::Hardware => self.draw_hardware(ui, false),
                     Panel::Network => self.draw_network(ui),
                     Panel::Peers => {
-                        if let Some(action)=super::peers::draw(ui,&mut self.peer_workspace) {
+                        let destination=self.live_status().filter(|_|self.http_writable()&&self.has_feature("peer-exchange")).and_then(|s|Some((s.capabilities.as_ref()?.role.clone(),s.version.clone(),peer_http::Pin::from_status(s)?)));
+                        if let Some(action)=super::peers::draw(ui,&mut self.peer_workspace,destination.as_ref().map(|(role,version,pin)|(role.as_str(),version.as_str(),pin))) {
                             match action {
                                 super::peers::Action::OpenControls(origin) if !self.connection_change_guard()=>{
                                     self.set_connection(self.transport,false);
@@ -2026,6 +2027,11 @@ impl PakarControllerApp {
                                 },
                                 super::peers::Action::Receive(peer)=>crate::client_management::request_peer(peer,self.config.client_management.clone(),ui.ctx()),
                                 super::peers::Action::Apply=>crate::client_management::request(crate::client_management::Action::Apply,self.config.client_management.clone(),ui.ctx()),
+                                super::peers::Action::StageBoard{source,target} if !self.connection_change_guard()=>{
+                                    self.device_settings.open=true;self.device_settings.page=super::device_settings::page_index("firmware").unwrap_or(9);
+                                    self.device_settings.peer_source_user="admin".into();self.device_settings.peer_source_password.clear();
+                                    self.device_settings.maintenance_confirmation=Some(crate::maintenance::Operation::PeerStage{source,authorization:String::new(),target});
+                                },
                                 _=>{},
                             }
                         }

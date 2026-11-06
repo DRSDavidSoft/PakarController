@@ -60,14 +60,9 @@ pub fn parse_identity(
         "board" => {
             let board = value["board_id"].as_str();
             let boot = value["boot_id"].as_str();
-            if !valid_text(board)
-                || !boot.is_some_and(|s| {
-                    s.len() == 32
-                        && s.bytes()
-                            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
-                        && s.bytes().any(|b| b != b'0')
-                })
-                || board_header != board
+            if !board.zip(boot).is_some_and(|(board, boot)| {
+                crate::peer_http::Pin::from_identity(board, boot).is_some()
+            }) || board_header != board
                 || boot_header != boot
             {
                 return None;
@@ -98,6 +93,7 @@ pub fn probe(endpoint: &str) -> Option<Peer> {
         || url.password().is_some()
         || url.query().is_some()
         || url.fragment().is_some()
+        || !matches!(url.path(), "" | "/")
     {
         return None;
     }
@@ -144,6 +140,38 @@ pub fn probe(endpoint: &str) -> Option<Peer> {
     )?;
     peer.address = address;
     Some(peer)
+}
+pub fn board_source(peer: &Peer, role: &str, version: &str) -> Option<Value> {
+    let address = peer.address?;
+    if !peer.board()
+        || peer.identity["role"] != role
+        || address.port() != 80
+        || !matches!(address.ip(),std::net::IpAddr::V4(ip)if ip.is_private())
+    {
+        return None;
+    }
+    let a = peer.identity["artifacts"]
+        .as_array()?
+        .iter()
+        .find(|a| a["path"] == "/firmware/download")?;
+    if !crate::peer_identity::release_order(a["version"].as_str()?, version)?.is_gt()
+        || !crate::maintenance::valid_hash(a["sha256"].as_str()?)
+        || a["bytes"].as_u64()? < 24
+        || a["family"].as_str()?.is_empty()
+    {
+        return None;
+    }
+    let mut hostname = peer.identity["hostname"].as_str()?.to_owned();
+    if !hostname.ends_with(".local") {
+        hostname.push_str(".local");
+    }
+    let name = hostname.strip_suffix(".local")?;
+    if crate::identity::normalize_name(name).ok().as_deref() != Some(name) {
+        return None;
+    }
+    Some(
+        json!({"hostname":hostname,"address":address.ip().to_string(),"board_id":peer.identity["board_id"],"boot_id":peer.identity["boot_id"],"artifact":a}),
+    )
 }
 #[derive(Default)]
 pub struct Workspace {
@@ -266,5 +294,34 @@ mod tests {
         let info = public_info("app", "host", false);
         assert_eq!(info["artifacts"], json!([]));
         assert_eq!(info["exchange"]["bridge_enabled"], false);
+    }
+    #[test]
+    fn board_transfer_uses_observed_private_address_and_newer_same_role_only() {
+        let boot = "0123456789abcdef0123456789abcdef";
+        let value = json!({"product":"PakarController","kind":"board","board_id":"source-board","boot_id":boot,
+            "role":"table","hostname":"source-board","artifacts":[{"family":"same-pin-build","version":"0.2.9","sha256":"a".repeat(64),"bytes":4096,"path":"/firmware/download"}]});
+        let mut peer = parse_identity(
+            "http://source-board.local",
+            value,
+            Some("source-board"),
+            Some(boot),
+        )
+        .unwrap();
+        assert!(board_source(&peer, "table", "0.2.8").is_none()); // An advert IP is not a dialed identity.
+        peer.address = Some("192.168.2.3:80".parse().unwrap());
+        let source = board_source(&peer, "table", "0.2.8").unwrap();
+        assert_eq!(source["address"], "192.168.2.3");
+        assert_eq!(source["hostname"], "source-board.local");
+        for (role, version) in [
+            ("first-wins", "0.2.8"),
+            ("table", "0.2.9"),
+            ("table", "0.2.10"),
+        ] {
+            assert!(board_source(&peer, role, version).is_none());
+        }
+        for address in ["8.8.8.8:80", "127.0.0.1:80", "192.168.2.3:8789"] {
+            peer.address = Some(address.parse().unwrap());
+            assert!(board_source(&peer, "table", "0.2.8").is_none());
+        }
     }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pakarcontroller/discovery.dart';
+import 'package:pakarcontroller/peers_page.dart';
 
 class _Transport extends AutomatedTestWidgetsFlutterBinding {
   @override
@@ -61,4 +62,66 @@ void main() {
     );
     expect(coalesceDevices([a, b]), hasLength(2));
   });
+  test(
+    'Board transfer requires observed private IP, same role and newer artifact',
+    () {
+      DiscoveredDevice source(
+        String ip, {
+        String version = '0.2.9',
+        String path = '/firmware/download',
+      }) => DiscoveredDevice(
+        'source',
+        'http://source-board.local',
+        'Manual',
+        kind: 'board',
+        verified: true,
+        observedAddress: ip,
+        metadata: {
+          'hostname': 'source-board',
+          'role': 'table',
+          'board_id': 'source-board',
+          'boot_id': '0123456789abcdef0123456789abcdef',
+          'artifacts': [
+            {
+              'family': 'same-pin-build',
+              'version': version,
+              'bytes': 4096,
+              'sha256': 'a' * 64,
+              'path': path,
+            },
+          ],
+        },
+      );
+      final result = boardPeerFirmwareSource(
+        source('192.168.2.3'),
+        'table',
+        '0.2.8',
+      );
+      expect(result?['address'], '192.168.2.3');
+      expect(result?['hostname'], 'source-board.local');
+      for (final ip in ['', '8.8.8.8', '127.0.0.1', '::1']) {
+        expect(boardPeerFirmwareSource(source(ip), 'table', '0.2.8'), isNull);
+      }
+      expect(
+        boardPeerFirmwareSource(source('192.168.2.3'), 'first-wins', '0.2.8'),
+        isNull,
+      );
+      expect(
+        boardPeerFirmwareSource(
+          source('192.168.2.3', version: '0.2.8+other'),
+          'table',
+          '0.2.8',
+        ),
+        isNull,
+      );
+      expect(
+        boardPeerFirmwareSource(
+          source('192.168.2.3', path: '/arbitrary'),
+          'table',
+          '0.2.8',
+        ),
+        isNull,
+      );
+    },
+  );
 }

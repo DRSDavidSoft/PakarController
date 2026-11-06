@@ -6,8 +6,16 @@ pub enum Action {
     OpenControls(String),
     Receive(crate::peer_catalogue::Peer),
     Apply,
+    StageBoard {
+        source: serde_json::Value,
+        target: crate::peer_http::Pin,
+    },
 }
-pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<Action> {
+pub fn draw(
+    ui: &mut egui::Ui,
+    state: &mut Workspace,
+    destination: Option<(&str, &str, &crate::peer_http::Pin)>,
+) -> Option<Action> {
     state.service();
     if !state.started {
         state.discover(None);
@@ -62,6 +70,22 @@ pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<Action> {
             peer.name(),
             |ui| {
                 ui.horizontal_wrapped(|ui| {
+                    if let Some((role, version, target)) = destination
+                        && let Some(source) =
+                            crate::peer_catalogue::board_source(peer, role, version)
+                        && !stale
+                        && dialog::action_button(
+                            ui,
+                            icons::ARROW_DOWN,
+                            "Receive firmware to connected board…",
+                        )
+                        .clicked()
+                    {
+                        open = Some(Action::StageBoard {
+                            source,
+                            target: target.clone(),
+                        });
+                    }
                     ui.label(
                         egui::RichText::new(
                             peer.identity["version"]

@@ -911,6 +911,8 @@ fn scoped_http_request(
             "Read-only: peer has not advertised valid board/boot identity and HTTP fencing".into(),
         );
     }
+    if let HttpCommand::Maintenance(_,_,maintenance::Operation::PeerStage{target,..})=command
+        &&scope.pin.as_ref()!=Some(target){return Err("Peer-update destination changed; nothing sent".into());}
     let before = blocking_status(client, command.endpoint())?;
     let observed = peer_http::Pin::from_status(&before);
     if scope.pin != observed {
@@ -929,6 +931,7 @@ fn scoped_http_request(
             HttpCommand::NameChange(..) => c.has("identity"),
             HttpCommand::AccessChange(..) => c.has("network"),
             HttpCommand::Maintenance(_, _, operation) => c.has(match operation {
+                maintenance::Operation::PeerStage{..}=>"peer-exchange",
                 maintenance::Operation::ReconnectCloud => "network",
                 maintenance::Operation::Probe
                 | maintenance::Operation::Backup

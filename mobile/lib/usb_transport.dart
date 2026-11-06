@@ -40,7 +40,14 @@ class UsbFrame {
     if (opcode < 0 || opcode > 255 || sequence < 0 || sequence > 255) {
       throw const FormatException('USB opcode/sequence is not a byte');
     }
-    final raw = [PakarOpcode.magic, PakarOpcode.reserved, opcode, sequence, payload.length, ...payload];
+    final raw = [
+      PakarOpcode.magic,
+      PakarOpcode.reserved,
+      opcode,
+      sequence,
+      payload.length,
+      ...payload,
+    ];
     raw.add(crc(raw));
     final out = [0];
     var at = 0, code = 1;
@@ -207,7 +214,11 @@ class PakarUsbTransport {
           'USB application release is not representable',
         );
       }
-      final hello = await _exchange(PakarOpcode.hello, [3, ...version.parts], {PakarOpcode.helloResponse});
+      final hello = await _exchange(
+        PakarOpcode.hello,
+        [3, ...version.parts],
+        {PakarOpcode.helloResponse},
+      );
       if (hello.payload.length < 9 || hello.payload[1] != 2) {
         throw const FormatException('USB HELLO is not an ESP board');
       }
@@ -324,7 +335,8 @@ class PakarUsbTransport {
             'board_id': latest!.json['board_id'],
             'boot_id': latest!.json['boot_id'],
           });
-        } else if (frame.opcode == PakarOpcode.panelEvent || frame.opcode == PakarOpcode.pcContractResponse) {
+        } else if (frame.opcode == PakarOpcode.panelEvent ||
+            frame.opcode == PakarOpcode.pcContractResponse) {
           events.add({
             'type': 'usb-peripheral',
             'opcode': frame.opcode,
@@ -724,7 +736,11 @@ class PakarUsbTransport {
       }
       if (_demandAge.elapsedMilliseconds >= 900) await _renewDemand();
       admit();
-      final frame = await _exchange(PakarOpcode.usbApi, [action, ...payload], {PakarOpcode.usbApiResponse});
+      final frame = await _exchange(
+        PakarOpcode.usbApi,
+        [action, ...payload],
+        {PakarOpcode.usbApiResponse},
+      );
       admit();
       final p = frame.payload;
       if (p.length < 9 ||
@@ -826,6 +842,45 @@ class PakarUsbTransport {
       configuration ?? const {},
       authorize,
     );
+  });
+
+  Future<Map<String, dynamic>> peerExchange(
+    String method,
+    String path,
+    Map<String, dynamic> body, {
+    required bool Function() authorize,
+  }) => _exclusive(() async {
+    if (!ready || !authorize() || !latest!.peer.has('peer-exchange')) {
+      throw const FormatException(
+        'Peer exchange is not advertised by this board',
+      );
+    }
+    const reads = {
+      '/api/peer/info',
+      '/api/peers/discovered',
+      '/api/firmware/remote',
+    };
+    const writes = {
+      '/api/peers/discover',
+      '/api/peers/policy',
+      '/api/peers/update',
+      '/api/firmware/apply',
+      '/api/firmware/cancel',
+    };
+    if (!(method == 'GET'
+            ? reads
+            : method == 'POST'
+            ? writes
+            : const <String>{})
+        .contains(path)) {
+      throw const FormatException('Unsupported peer operation');
+    }
+    final result = await _apiJson(method, path, body, authorize);
+    if (result['accepted'] == false ||
+        result['error'] is String && (result['error'] as String).isNotEmpty) {
+      throw FormatException('${result['error'] ?? 'Peer operation rejected'}');
+    }
+    return result;
   });
 
   Future<Map<String, dynamic>> networkApi(
@@ -1331,7 +1386,11 @@ class PakarUsbTransport {
       );
     }
     // One physical dispatch only. ACK is not accepted as an applied state.
-    final reply = await _exchange(PakarOpcode.tableCommand, [...fence, op, ...payload], {PakarOpcode.ack});
+    final reply = await _exchange(
+      PakarOpcode.tableCommand,
+      [...fence, op, ...payload],
+      {PakarOpcode.ack},
+    );
     if (reply.payload.length != 2 ||
         reply.payload[0] != op ||
         reply.payload[1] != 0) {
@@ -1391,15 +1450,18 @@ class PakarUsbTransport {
             (actual.winner != 0 ||
                 actual.effect != 'none' ||
                 actual.ledOutputEnabled != true) ||
-        op == PakarOpcode.cellAction && actual.json['cells'][payload[0] - 1] != values['state'] ||
+        op == PakarOpcode.cellAction &&
+            actual.json['cells'][payload[0] - 1] != values['state'] ||
         op == PakarOpcode.cellsAction &&
             _ids(values['ids'])
                 .any((id) => actual.json['cells'][id - 1] != values['state']) ||
-        op == PakarOpcode.cellLock && actual.json['red_lock'] != (payload[0] == 1) ||
+        op == PakarOpcode.cellLock &&
+            actual.json['red_lock'] != (payload[0] == 1) ||
         op == PakarOpcode.setBrightness && actual.brightness != payload[0] ||
         op == PakarOpcode.setLedPattern && actual.effect != values['value'] ||
         op == PakarOpcode.setMode && actual.mode != values['value'] ||
-        op == PakarOpcode.setLedOutput && !commandReadbackMatches(actual, path, values) ||
+        op == PakarOpcode.setLedOutput &&
+            !commandReadbackMatches(actual, path, values) ||
         op == PakarOpcode.cellAssignments &&
             CellAssignments.fromRows(jsonDecode(values['assignments']!))
                 .values
@@ -1451,9 +1513,15 @@ class PakarUsbTransport {
           throw const FormatException('USB board not ready');
         }
         if (!ControllerOpcode.requests.contains(opcode)) {
-          throw const FormatException('Unknown controller request; no dialect fallback');
+          throw const FormatException(
+            'Unknown controller request; no dialect fallback',
+          );
         }
-        return _exchange(PakarOpcode.pcContract, [opcode, ...payload], {PakarOpcode.pcContractResponse});
+        return _exchange(
+          PakarOpcode.pcContract,
+          [opcode, ...payload],
+          {PakarOpcode.pcContractResponse},
+        );
       });
   Future<void> cue(String cue) => _exclusive(() async {
     const names = [
@@ -1486,8 +1554,13 @@ class PakarUsbTransport {
       throw const FormatException('USB AVR sound settings unavailable');
     }
     Future<BoardSound> read() async {
-      final f = await _exchange(PakarOpcode.pcContract, [ControllerOpcode.getSettings], {PakarOpcode.pcContractResponse});
-      if (f.payload.length != 23 || f.payload.first != ControllerOpcode.settingsResponse) {
+      final f = await _exchange(
+        PakarOpcode.pcContract,
+        [ControllerOpcode.getSettings],
+        {PakarOpcode.pcContractResponse},
+      );
+      if (f.payload.length != 23 ||
+          f.payload.first != ControllerOpcode.settingsResponse) {
         throw const FormatException('USB AVR settings response does not match');
       }
       return BoardSound.parse(BoardSound.encode(f.payload.skip(1)));
@@ -1503,7 +1576,11 @@ class PakarUsbTransport {
         for (var i = 0; i < expected.length; i += 2)
           int.parse(expected.substring(i, i + 2), radix: 16),
       ];
-      final reply = await _exchange(PakarOpcode.pcContract, [ControllerOpcode.setSettings, ...bytes], {PakarOpcode.pcContractResponse});
+      final reply = await _exchange(
+        PakarOpcode.pcContract,
+        [ControllerOpcode.setSettings, ...bytes],
+        {PakarOpcode.pcContractResponse},
+      );
       if (reply.payload.length != 3 ||
           reply.payload[0] != ControllerOpcode.ack ||
           reply.payload[1] != ControllerOpcode.setSettings ||

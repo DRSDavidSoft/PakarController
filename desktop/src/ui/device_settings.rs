@@ -5,6 +5,7 @@ use crate::{
     ui::{dialog, icons},
     *,
 };
+use base64::Engine as _;
 use eframe::egui;
 
 include!("settings_catalog.rs");
@@ -1579,11 +1580,15 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
             });
     });
     }
-    if let Some(operation) = draft.maintenance_confirmation.clone() {
+    if let Some(mut operation) = draft.maintenance_confirmation.clone() {
         egui::Modal::new(egui::Id::new("maintenance-confirm")).show(ui.ctx(), |ui| {
             ui.set_width(420.0);
             ui.heading("Confirm device maintenance");
             ui.label(operation.warning());
+            if matches!(operation,crate::maintenance::Operation::PeerStage{..}) {
+                dialog::setting_row(ui,icons::APP_WINDOW,"Source username",None,|ui|{ui.add(dialog::singleline_text_edit(ui,&mut draft.peer_source_user));});
+                dialog::setting_row(ui,icons::LOCK,"Source password",None,|ui|{ui.add(dialog::singleline_text_edit(ui,&mut draft.peer_source_password).password(true));});
+            }
             if !draft.message.is_empty() {
                 ui.label(&draft.message);
             }
@@ -1607,6 +1612,10 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                     .clicked()
                 {
                     let id = draft.next_id();
+                    if let crate::maintenance::Operation::PeerStage{authorization,..}=&mut operation {
+                        *authorization=if draft.peer_source_password.is_empty(){String::new()}else{format!("Basic {}",base64::engine::general_purpose::STANDARD.encode(format!("{}:{}",draft.peer_source_user,draft.peer_source_password)))};
+                        draft.peer_source_password.clear();
+                    }
                     let transfer =
                         if let crate::maintenance::Operation::SourceImage { progress, .. } =
                             &operation
@@ -1630,6 +1639,7 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                     draft.maintenance_confirmation = None;
                 }
                 if ui.button("Cancel").clicked() {
+                    draft.peer_source_password.clear();
                     draft.maintenance_confirmation = None;
                 }
             });

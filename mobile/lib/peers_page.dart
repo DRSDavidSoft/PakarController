@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,65 @@ import 'app_update_coordinator.dart';
 import 'discovery.dart';
 import 'icons.dart';
 import 'workspace_widgets.dart';
+import 'api.dart';
+import 'peer_policy.dart';
+
+/// A verified source hint, not installation authority. The receiving firmware
+/// still verifies its exact image family, source boot, hash and slot capacity.
+Map<String, dynamic>? boardPeerFirmwareSource(
+  DiscoveredDevice peer,
+  String role,
+  String version,
+) {
+  final address = InternetAddress.tryParse(peer.observedAddress);
+  final octets = address?.rawAddress;
+  final private =
+      address?.type == InternetAddressType.IPv4 &&
+      octets != null &&
+      (octets[0] == 10 ||
+          octets[0] == 172 && octets[1] >= 16 && octets[1] <= 31 ||
+          octets[0] == 192 && octets[1] == 168);
+  if (!peer.verified ||
+      peer.kind != 'board' ||
+      !private ||
+      Uri.tryParse(peer.endpoint)?.port != 80 ||
+      peer.metadata['role'] != role) {
+    return null;
+  }
+  var hostname = '${peer.metadata['hostname'] ?? ''}';
+  if (!hostname.endsWith('.local')) hostname = '$hostname.local';
+  if (!RegExp(r'^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.local$')
+      .hasMatch(hostname)) {
+    return null;
+  }
+  final artifacts = peer.metadata['artifacts'];
+  if (artifacts is! List) return null;
+  for (final raw in artifacts) {
+    if (raw is! Map || raw['path'] != '/firmware/download') continue;
+    final artifact = Map<String, dynamic>.from(raw);
+    final remote = PeerVersion.parse(artifact['version']),
+        local = PeerVersion.parse(version);
+    if (remote == null ||
+        local == null ||
+        remote.compareTo(local) <= 0 ||
+        artifact['sha256'] is! String ||
+        !RegExp(r'^[0-9a-f]{64}$').hasMatch(artifact['sha256'] as String) ||
+        artifact['family'] is! String ||
+        (artifact['family'] as String).isEmpty ||
+        artifact['bytes'] is! int ||
+        (artifact['bytes'] as int) < 24) {
+      continue;
+    }
+    return {
+      'hostname': hostname,
+      'address': peer.observedAddress,
+      'board_id': peer.metadata['board_id'],
+      'boot_id': peer.metadata['boot_id'],
+      'artifact': artifact,
+    };
+  }
+  return null;
+}
 
 /// A standalone catalogue. Opening details never selects a board or starts an
 /// update; package actions reuse the existing verified APK transaction owner.
@@ -16,8 +76,12 @@ class PeersPage extends StatefulWidget {
     this.updates,
     this.seeds = const [],
     this.openBoard,
+    this.api,
+    this.openUpdates,
   });
   final AppUpdateCoordinator? updates;
+  final PakarApi? api;
+  final Future<void> Function()? openUpdates;
   final List<DiscoveredDevice> seeds;
   final Future<void> Function(DiscoveredDevice)? openBoard;
   @override
@@ -30,6 +94,115 @@ class _PeersPageState extends State<PeersPage> {
   List<DiscoveredDevice> peers = [];
   bool busy = false;
   String message = '';
+  bool staged = false;
+  bool canStage(DiscoveredDevice peer) {
+    final status = widget.api?.latestStatus;
+    return status != null &&
+        status.peer.has('peer-exchange') &&
+        boardPeerFirmwareSource(
+              peer,
+              status.peer.role,
+              '${status.json['version']}',
+            ) !=
+            null;
+  }
+
+  Future<void> stage(DiscoveredDevice peer) async {
+    final api = widget.api;
+    if (api == null || !canStage(peer) || busy) return;
+    final owner = api.connectionRevision;
+    final destination = api.latestStatus!;
+    final source = boardPeerFirmwareSource(
+      peer,
+      destination.peer.role,
+      '${destination.json['version']}',
+    )!;
+    final user = TextEditingController(text: 'admin'),
+        password = TextEditingController();
+    final approved = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Receive firmware from peer'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${peer.name} → ${api.latestStatus?.json['hostname'] ?? 'connected board'}',
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Downloads and verifies an inactive image. Apply and reboot remain separate.',
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: user,
+              decoration: const InputDecoration(labelText: 'Source username'),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: password,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Source password (if required)',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Download & verify'),
+          ),
+        ],
+      ),
+    );
+    final authorization = password.text.isEmpty
+        ? ''
+        : 'Basic ${base64Encode(utf8.encode('${user.text}:${password.text}'))}';
+    user.dispose();
+    password.dispose();
+    if (approved != true || !mounted) return;
+    if (api.connectionRevision != owner || !canStage(peer)) {
+      setState(() => message = 'Board session changed. Inspect it again.');
+      return;
+    }
+    setState(() {
+      busy = true;
+      message = '';
+    });
+    try {
+      final receipt = await api.peerExchange('POST', '/api/peers/update', {
+        'source': source,
+        'authorization': authorization,
+      });
+      if (receipt['job_id'] is! int ||
+          (receipt['job_id'] as int) <= 0 ||
+          receipt['targets'] != 1 ||
+          receipt['phase'] != 'download_esp' ||
+          receipt['boot_id'] != destination.json['boot_id'] ||
+          (receipt['esp'] as Map?)?['sha256'] !=
+              (source['artifact'] as Map)['sha256']) {
+        throw const FormatException(
+          'Peer staging receipt differs from this source/destination; inspect progress before retrying.',
+        );
+      }
+      if (mounted) {
+        setState(() {
+          staged = true;
+          message = 'Firmware job ${receipt['job_id']}: ${receipt['phase']}';
+        });
+      }
+    } on Object catch (error) {
+      if (mounted) setState(() => message = '$error');
+    } finally {
+      if (mounted) setState(() => busy = false);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -222,8 +395,9 @@ class _PeersPageState extends State<PeersPage> {
               final state = widget.updates!.updates.state;
               final total = state['bytes'],
                   done = state['received'] ?? state['sent'];
-              if (total is! num || total <= 0 || done is! num)
+              if (total is! num || total <= 0 || done is! num) {
                 return const SizedBox.shrink();
+              }
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Column(
@@ -251,6 +425,15 @@ class _PeersPageState extends State<PeersPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Text(message),
+          ),
+        if (staged && widget.openUpdates != null)
+          Align(
+            alignment: Alignment.centerRight,
+            child: FilledButton.icon(
+              onPressed: busy ? null : widget.openUpdates,
+              icon: const Icon(Icons.system_update_alt),
+              label: const Text('Firmware progress & actions'),
+            ),
           ),
         for (final peer in peers)
           Card(
@@ -329,6 +512,17 @@ class _PeersPageState extends State<PeersPage> {
                           label: const Text('Offer this app'),
                         ),
                       ],
+                    ),
+                  if (canStage(peer))
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: OutlinedButton.icon(
+                        onPressed: busy ? null : () => stage(peer),
+                        icon: const Icon(Icons.system_update_alt),
+                        label: const Text(
+                          'Receive firmware to connected board',
+                        ),
+                      ),
                     ),
                 ],
               ),

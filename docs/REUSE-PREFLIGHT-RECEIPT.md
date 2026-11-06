@@ -35,6 +35,23 @@ packages require explicit apply and do not require cloud enrollment/connectivity
 Added a bounded Windows loopback transfer/reuse fixture. Native non-Windows
 managed-install adapters remain explicitly unavailable, not dummy capabilities.
 
+Candidate9ff3027 passed all repository contracts and all525 Windows native
+tests, including the actual loopback package transfer and verified-cache reuse.
+Android Analyze correctly rejected one remaining missing-braces style item;
+it is fixed in the next candidate, without changing lint policy. Firmware CI
+is still running at this checkpoint, not recorded as accepted.
+
+The next candidate adds peer-to-selected-board staging through the same
+confirmed maintenance owners in both apps, explicit source-only credentials
+and exact destination/job/hash receipts. Flutter reuses its general USB API and
+Firmware page for progress/apply/cancel too. New USB operations now sit after
+the existing board/boot request fence. An embedded release marker joins the
+family marker and SHA check; a matching hash for an older binary must still
+fail before Ready/boot selection. Tests cover observed private-source selection,
+wrong release and separate source/destination credentials. These new tests
+remain CI candidates until their execution is reported. Rust USB peer-stage GUI
+and installed-device/LAN/long-soak checks remain open. No board/app was deployed.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

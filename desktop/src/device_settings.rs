@@ -545,6 +545,8 @@ pub struct Editor {
     pub scan_deadline: Option<std::time::Instant>,
     pub usb_request: Option<Network>,
     pub maintenance_confirmation: Option<crate::maintenance::Operation>,
+    pub peer_source_user:String,
+    pub peer_source_password:String,
     pub maintenance_pending: Option<u64>,
     pub firmware_url: String,
     pub firmware_sha256: String,
@@ -602,6 +604,7 @@ impl Editor {
             || self.ntfy_token.mode != SecretMode::Keep
     }
     pub fn clear_secrets(&mut self) {
+        self.peer_source_password.clear();
         self.feed_token.clear();
         self.firmware_bearer.clear();
         self.wifi_password.clear();

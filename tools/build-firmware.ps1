@@ -283,6 +283,8 @@ foreach ($board in @('avr', 'esp8266', 'esp32s3')) {
         $peerProfile.host_transport=$S3HostTransport;$peerProfile.status_rgb=$S3StatusRgbPin
         $peerProfile.ssh=[bool]$S3Ssh;$peerProfile.scp=[bool]$S3Scp;$peerProfile.sftp=[bool]$S3Sftp;$peerProfile.ftp=[bool]$S3Ftp
         $peerProfile.telnet=-not [bool]$DisableTelnet;$peerProfile.serial_shell=-not [bool]$DisableSerialShell
+        $peerProfile.led_default=$S3LedDefault;$peerProfile.led_pause=[bool]$PauseLedOutput
+        $peerProfile.release_admission=-not [bool]$DisablePeerVersionChecks
         # Installation hostname, initial mask, release and bundled AVR bytes
         # are NOT hardware compatibility. Commissioning images are not donors.
         $peerProfileBytes=[Text.Encoding]::UTF8.GetBytes(($peerProfile|ConvertTo-Json -Compress -Depth 3))

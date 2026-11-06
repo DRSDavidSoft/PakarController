@@ -28,6 +28,7 @@ class DiagnosticUsbApiFixture extends UsbFixture {
       pendingReceipt = false,
       foreignPartial = false;
   void Function()? onAppend;
+  Map<String, dynamic> Function(Map)? apiResponse;
   @override
   Future<dynamic> invoke(MethodCall call) async {
     if (call.method != 'write') return super.invoke(call);
@@ -51,59 +52,65 @@ class DiagnosticUsbApiFixture extends UsbFixture {
       } else if (action == 2) {
         executes++;
         final envelope = jsonDecode(utf8.decode(requestBytes)) as Map;
-        expect(envelope['path'], '/api/command');
-        expect(envelope['method'], 'POST');
         expect(envelope['board_id'], status['board_id']);
-        received = envelope['body'] as Map;
-        final q = received!;
-        expect(q['command'], 'pixel-diagnostic');
-        expect(q.containsKey('packet'), false);
-        status['led_output']['diagnostic'] = {
-          'revision': executes,
-          'active': q['enabled'],
-          'enabled': q['enabled'],
-          'index': q['index'],
-          'count': q['count'],
-          'rgb': q['rgb'],
-          'off': q['off'],
-          'effect': q['effect'],
-          'composite': q['composite'],
-          'period_ms': q['period_ms'],
-          'duty_percent': q['duty_percent'],
-          'min_brightness': q['min_brightness'],
-          'max_brightness': q['max_brightness'],
-          if (q.containsKey('group_layout_revision'))
-            'group_layout_revision': q['group_layout_revision'],
-        };
-        pixels = {'revision': executes, 'pending': false};
-        responseBytes = utf8.encode(
-          jsonEncode({
-            'type': 'command-result',
-            'request_id': q['request_id'],
-            'board_id': status['board_id'],
-            'boot_id': status['boot_id'],
-            'accepted': accepted,
-            'error': accepted ? null : 'diagnostic_busy',
-            if (partialStatus) 'status_partial': true,
-            if (accepted)
-              'status': partialStatus
-                  ? {
-                      for (final key in [
-                        'board_id',
-                        'boot_id',
-                        'version',
-                        'command_clock_ms',
-                        'capabilities',
-                        'pixels',
-                        'led_output',
-                      ])
-                        key: status[key],
-                      'pixel_frame': pendingReceipt ? null : pixels,
-                      if (foreignPartial) 'boot_id': 'b' * 32,
-                    }
-                  : {...status, 'pixel_frame': pixels},
-          }),
-        );
+        expect(envelope['boot_id'], status['boot_id']);
+        if (apiResponse != null) {
+          responseBytes = utf8.encode(jsonEncode(apiResponse!(envelope)));
+        } else {
+          expect(envelope['path'], '/api/command');
+          expect(envelope['method'], 'POST');
+          expect(envelope['board_id'], status['board_id']);
+          received = envelope['body'] as Map;
+          final q = received!;
+          expect(q['command'], 'pixel-diagnostic');
+          expect(q.containsKey('packet'), false);
+          status['led_output']['diagnostic'] = {
+            'revision': executes,
+            'active': q['enabled'],
+            'enabled': q['enabled'],
+            'index': q['index'],
+            'count': q['count'],
+            'rgb': q['rgb'],
+            'off': q['off'],
+            'effect': q['effect'],
+            'composite': q['composite'],
+            'period_ms': q['period_ms'],
+            'duty_percent': q['duty_percent'],
+            'min_brightness': q['min_brightness'],
+            'max_brightness': q['max_brightness'],
+            if (q.containsKey('group_layout_revision'))
+              'group_layout_revision': q['group_layout_revision'],
+          };
+          pixels = {'revision': executes, 'pending': false};
+          responseBytes = utf8.encode(
+            jsonEncode({
+              'type': 'command-result',
+              'request_id': q['request_id'],
+              'board_id': status['board_id'],
+              'boot_id': status['boot_id'],
+              'accepted': accepted,
+              'error': accepted ? null : 'diagnostic_busy',
+              if (partialStatus) 'status_partial': true,
+              if (accepted)
+                'status': partialStatus
+                    ? {
+                        for (final key in [
+                          'board_id',
+                          'boot_id',
+                          'version',
+                          'command_clock_ms',
+                          'capabilities',
+                          'pixels',
+                          'led_output',
+                        ])
+                          key: status[key],
+                        'pixel_frame': pendingReceipt ? null : pixels,
+                        if (foreignPartial) 'boot_id': 'b' * 32,
+                      }
+                    : {...status, 'pixel_frame': pixels},
+            }),
+          );
+        }
       } else if (action == 3) {
         offset = UsbFixture.read(p, 5, 2);
       } else if (action == 4) {

@@ -101,6 +101,7 @@ class DevicesPage extends StatefulWidget {
     this.api,
     this.onDiscovered,
     this.updates,
+    this.openUpdates,
   });
   final Future<void> Function(SavedDevice, String) select;
   final DeviceRegistry? registry;
@@ -109,6 +110,7 @@ class DevicesPage extends StatefulWidget {
   final PakarApi? api;
   final VoidCallback? onDiscovered;
   final AppUpdateCoordinator? updates;
+  final Future<void> Function()? openUpdates;
   @override
   State<DevicesPage> createState() => _DevicesPageState();
 }
@@ -605,6 +607,8 @@ class _DevicesPageState extends State<DevicesPage> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => PeersPage(
+                      api: widget.api,
+                      openUpdates: widget.openUpdates,
                       updates: widget.updates,
                       seeds: found,
                       openBoard: (peer) async {

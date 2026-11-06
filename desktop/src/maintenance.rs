@@ -33,10 +33,18 @@ pub enum Operation {
     RemoteApply(RemoteJob),
     RemoteCancel(RemoteJob),
     RemoteStatus,
+    PeerStage {
+        source: serde_json::Value,
+        authorization: String,
+        target: crate::peer_http::Pin,
+    },
 }
 impl Operation {
     pub fn warning(&self) -> &'static str {
         match self {
+            Self::PeerStage { .. } => {
+                "Download the selected peer's newer compatible ESP image into the inactive slot. This does not activate it or reboot. Source credentials are used for this transfer only; inspect progress before explicitly applying."
+            }
             Self::RemoteStage { .. } => {
                 "Download and SHA-256-verify the pinned manifest and selected complete firmware images into ESP storage. This stages only: neither board is programmed. Endpoint credentials are not saved by this app."
             }
@@ -172,6 +180,7 @@ pub fn run(client: &Client, endpoint: &Endpoint, operation: Operation) -> Result
             | Operation::RemoteApply(_)
             | Operation::RemoteCancel(_)
             | Operation::RemoteStatus
+            | Operation::PeerStage { .. }
     ) {
         return remote_run(client, endpoint, operation);
     }
@@ -385,7 +394,33 @@ fn remote_run(
     endpoint: &Endpoint,
     operation: Operation,
 ) -> Result<String, String> {
+    let peer_client = if let Operation::PeerStage { target, .. } = &operation {
+        Some(target.client()?)
+    } else {
+        None
+    };
+    let client = peer_client.as_ref().unwrap_or(client);
     let (path, form) = match &operation {
+        Operation::PeerStage {
+            source,
+            authorization,
+            ..
+        } => {
+            if !source.is_object()
+                || serde_json::to_vec(source).map_err(|e| e.to_string())?.len() > 3072
+                || authorization.len() > 512
+                || authorization.bytes().any(|b| !(32..=126).contains(&b))
+            {
+                return Err("Invalid peer staging source".into());
+            }
+            (
+                "/api/peers/update",
+                Some(vec![
+                    ("source", source.to_string()),
+                    ("authorization", authorization.clone()),
+                ]),
+            )
+        }
         Operation::RemoteStatus => ("/api/firmware/remote", None),
         Operation::RemoteStage {
             url,
@@ -462,6 +497,16 @@ fn remote_run(
         serde_json::from_slice(&bytes).map_err(|_| "Invalid remote acknowledgment JSON")?;
     let job = parse_job(value.clone())?;
     match operation {
+        Operation::PeerStage { source, target, .. } => {
+            if job.job_id == 0
+                || job.targets != 1
+                || job.phase != "download_esp"
+                || !target.matches_identity(target.board_id(), &job.boot_id)
+                || value["esp"]["sha256"] != source["artifact"]["sha256"]
+            {
+                return Err("Peer staging receipt differs from the selected source/destination; inspect before retrying".into());
+            }
+        }
         Operation::RemoteStage {
             sha256, targets, ..
         } if job.job_id == 0
@@ -625,6 +670,84 @@ mod tests {
         value["phase"] = "failed".into();
         assert_eq!(result_severity(&Ok(value.to_string())), Severity::Error);
         assert_eq!(result_severity(&Err("ACK lost".into())), Severity::Error);
+    }
+    #[test]
+    fn peer_stage_has_destination_fence_separate_source_credentials_and_exact_receipt() {
+        use std::net::TcpListener;
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let address = listener.local_addr().unwrap();
+        let boot = "0123456789abcdef0123456789abcdef";
+        let sha = "b".repeat(64);
+        let image_hash = sha.clone();
+        let server = std::thread::spawn(move || {
+            for (i, stream) in listener.incoming().take(2).enumerate() {
+                let mut stream = stream.unwrap();
+                stream
+                    .set_read_timeout(Some(Duration::from_secs(3)))
+                    .unwrap();
+                let mut bytes = Vec::new();
+                let mut block = [0; 1024];
+                loop {
+                    let n = stream.read(&mut block).unwrap();
+                    assert!(n > 0);
+                    bytes.extend_from_slice(&block[..n]);
+                    if let Some(end) = bytes.windows(4).position(|p| p == b"\r\n\r\n") {
+                        let header = String::from_utf8_lossy(&bytes[..end]).to_lowercase();
+                        let size = header
+                            .lines()
+                            .find_map(|l| l.strip_prefix("content-length: ")?.parse::<usize>().ok())
+                            .unwrap_or(0);
+                        if bytes.len() >= end + 4 + size {
+                            break;
+                        }
+                    }
+                }
+                let text = String::from_utf8(bytes).unwrap();
+                let lower = text.to_lowercase();
+                assert!(text.starts_with("POST /api/peers/update"));
+                assert!(lower.contains("x-pakar-board: destination-board"));
+                assert!(lower.contains(&format!("x-pakar-boot: {boot}")));
+                assert!(
+                    lower.contains(
+                        "authorization: basic ZGVzdGluYXRpb246ZGVzdC1zZWNyZXQ="
+                            .to_lowercase()
+                            .as_str()
+                    )
+                );
+                let form: std::collections::HashMap<_, _> = reqwest::Url::parse(&format!(
+                    "http://fixture/?{}",
+                    text.split("\r\n\r\n").nth(1).unwrap()
+                ))
+                .unwrap()
+                .query_pairs()
+                .into_owned()
+                .collect();
+                assert_eq!(form["authorization"], "Bearer source-only");
+                let source: serde_json::Value = serde_json::from_str(&form["source"]).unwrap();
+                assert_eq!(source["artifact"]["sha256"], image_hash);
+                let reply=serde_json::json!({"job_id":1,"boot_id":if i==0{boot}else{"abcdef0123456789abcdef0123456789ab"},"phase":"download_esp","targets":1,"manifest_sha256":"a".repeat(64),"busy":true,"cancellable":true,"received_bytes":0,"expected_bytes":4096,"error":"","esp":{"sha256":image_hash}}).to_string();
+                write!(stream,"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{reply}",reply.len()).unwrap();
+            }
+        });
+        let endpoint = Endpoint {
+            base: format!("http://{address}"),
+            user: "destination".into(),
+            password: "dest-secret".into(),
+        };
+        let client = Client::builder().no_proxy().build().unwrap();
+        let target = crate::peer_http::Pin::from_identity("destination-board", boot).unwrap();
+        let operation = Operation::PeerStage {
+            source: serde_json::json!({"artifact":{"sha256":sha}}),
+            authorization: "Bearer source-only".into(),
+            target,
+        };
+        assert!(run(&client, &endpoint, operation.clone()).is_ok());
+        assert!(
+            run(&client, &endpoint, operation)
+                .unwrap_err()
+                .contains("differs")
+        );
+        server.join().unwrap();
     }
     #[test]
     fn rejects_wrong_target_or_partial_images() {
