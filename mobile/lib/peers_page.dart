@@ -57,7 +57,7 @@ class _PeersPageState extends State<PeersPage> {
           'Manual',
         );
         final verified = await verifyDiscoveredDevice(candidate);
-        found = [if (verified != null) verified];
+        found = [?verified];
       } else {
         found = await discovery.scan(seeds: widget.seeds);
         final updates = widget.updates;
@@ -80,11 +80,12 @@ class _PeersPageState extends State<PeersPage> {
           );
         }
       }
-      if (mounted)
+      if (mounted) {
         setState(() {
           peers = coalesceDevices([...peers, ...found]);
           if (found.isEmpty) message = 'No peers reached in this sweep';
         });
+      }
     } on Object catch (error) {
       if (mounted) setState(() => message = 'Discovery failed: $error');
     } finally {
@@ -105,11 +106,12 @@ class _PeersPageState extends State<PeersPage> {
       } else {
         await updates.updates.pushPeer(peer.endpoint);
       }
-      if (mounted)
+      if (mounted) {
         setState(
           () => message =
               '${updates.updates.state['state'] ?? 'Transfer complete'}',
         );
+      }
     } on Object catch (error) {
       if (mounted) setState(() => message = '$error');
     } finally {
@@ -213,6 +215,38 @@ class _PeersPageState extends State<PeersPage> {
         ),
         const SizedBox(height: 12),
         if (busy) const LinearProgressIndicator(),
+        if (widget.updates != null)
+          ListenableBuilder(
+            listenable: widget.updates!.updates,
+            builder: (context, child) {
+              final state = widget.updates!.updates.state;
+              final total = state['bytes'],
+                  done = state['received'] ?? state['sent'];
+              if (total is! num || total <= 0 || done is! num)
+                return const SizedBox.shrink();
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${state['state'] ?? 'App transfer'}',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 6),
+                    LinearProgressIndicator(
+                      value: (done / total).clamp(0, 1).toDouble(),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '$done / $total bytes',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         if (message.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

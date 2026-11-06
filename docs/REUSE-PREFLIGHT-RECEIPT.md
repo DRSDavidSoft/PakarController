@@ -18,6 +18,23 @@ drafts or run compilers directly to bypass the gate. CI against the committed
 review snapshot is required; no build or hardware acceptance is claimed yet.
 Boards and installed applications have not been modified by this source pass.
 
+Candidate cb4c75c passed CI contract checks and 520 native tests; three native
+layout tests correctly found that the new Peers enum was missing from the
+canonical default layout. Added it to the existing right-hand tab group and
+same-slot restoration so old workspaces do not gain a new split. Android Analyze
+found five style infos, fixed without suppressions. Linux's updater fixture did
+not carry the peer-image family define used by the PowerShell fixture; the Bash
+wrapper now supplies it and runs the actual catalogue fixture too. Those failed
+candidate results are retained, not relabelled accepted.
+
+The follow-up completes Windows peer EXE export/receive through the existing
+client_install/client_management owners: asynchronous source hashing, exact
+peer/session/artifact/TCP pinning, bounded streaming and SHA/PE checks. Apply
+intent now binds a package hash rather than a global boolean; received peer
+packages require explicit apply and do not require cloud enrollment/connectivity.
+Added a bounded Windows loopback transfer/reuse fixture. Native non-Windows
+managed-install adapters remain explicitly unavailable, not dummy capabilities.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

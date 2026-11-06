@@ -27,6 +27,7 @@ mod pixels;
 pub struct Settings {
     pub enabled: bool,
     pub peer_discovery: bool,
+    pub peer_package_sharing: bool,
     pub listen: String,
     pub port: u16,
     pub hostname: String,
@@ -40,6 +41,7 @@ impl Default for Settings {
         Self {
             enabled: false,
             peer_discovery: true,
+            peer_package_sharing: true,
             listen: "0.0.0.0".into(),
             port: 8789,
             hostname: std::env::var("COMPUTERNAME")
@@ -142,6 +144,7 @@ impl Runtime {
         if fixture || (!settings.enabled&&!settings.peer_discovery) {
             return;
         }
+        if settings.peer_package_sharing{crate::peer_package::prime();}
         match settings
             .validate()
             .and_then(|address| TcpListener::bind(address).map_err(|e| e.to_string()))
@@ -1447,10 +1450,11 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
                 | "/api/auth/info"
                 | "/api/peer/info"
         );
-    if !shared.settings.enabled&&!(request.method=="GET"&&matches!(path,"/api/peer/info"|"/description.xml"|"/upnp/device.xml"|"/api/discovery"|"/upnp/public.json"|"/healthz"|"/api/auth/info")) {
+    let peer_package=matches!(request.method.as_str(),"GET"|"HEAD")&&path==crate::peer_package::PATH&&shared.settings.peer_package_sharing;
+    if !shared.settings.enabled&&!peer_package&&!(request.method=="GET"&&matches!(path,"/api/peer/info"|"/description.xml"|"/upnp/device.xml"|"/api/discovery"|"/upnp/public.json"|"/healthz"|"/api/auth/info")) {
         return write_response(&mut socket,403,"application/json",b"{\"error\":\"bridge_disabled\"}");
     }
-    if (!bootstrap || (path!="/api/peer/info"&&request.headers.contains_key("x-pakar-version")))
+    if !peer_package&&(!bootstrap || (path!="/api/peer/info"&&request.headers.contains_key("x-pakar-version")))
         && let Err(error) = crate::peer_identity::validate_client(
             request.headers.get("x-pakar-version").map(String::as_str),
         )
@@ -1511,7 +1515,12 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
         );
     }
     if request.method == "GET" && path == "/api/peer/info" {
-        let value = crate::peer_catalogue::public_info(&shared.settings.instance_id,&shared.settings.hostname,shared.settings.enabled);
+        let mut value = crate::peer_catalogue::public_info(&shared.settings.instance_id,&shared.settings.hostname,shared.settings.enabled);
+        value["build"]=crate::client_management::build().into();
+        value["exchange"]["native_package_state"]=if shared.settings.peer_package_sharing{crate::peer_package::state()}else{"disabled"}.into();
+        if shared.settings.peer_package_sharing&&let Some(artifact)=crate::peer_package::artifact(){
+            value["artifacts"]=json!([artifact]);value["exchange"]["native_package_sharing"]=true.into();
+        }
         return write_response(
             &mut socket,
             200,
@@ -1519,6 +1528,11 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
             value.to_string().as_bytes(),
         );
     }
+    if peer_package {
+        if crate::peer_package::artifact().is_none(){return write_response(&mut socket,503,"application/json",b"{\"error\":\"peer_package_unavailable\"}");}
+        return crate::peer_package::serve(&mut socket,&shared.settings.instance_id,request.method=="HEAD");
+    }
+    if path==crate::peer_package::PATH{return write_response(&mut socket,403,"application/json",b"{\"error\":\"peer_package_sharing_disabled\"}");}
     if request.method == "GET" && path == "/api/clients" {
         let mut peers = shared.peers.lock().unwrap();
         peers.retain(|_, (at, _)| at.elapsed() < Duration::from_secs(120));

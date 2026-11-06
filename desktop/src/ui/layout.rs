@@ -112,7 +112,7 @@ pub fn create_initial_layout() -> DockState<Panel> {
     let [center, right] = dock.main_surface_mut().split_right(
         NodeIndex::root(),
         0.72,
-        vec![Panel::Game, Panel::GameSettings, Panel::EffectControls, Panel::PixelDiagnostics, Panel::PixelCorrections, Panel::Network],
+        vec![Panel::Game, Panel::GameSettings, Panel::EffectControls, Panel::PixelDiagnostics, Panel::PixelCorrections, Panel::Network, Panel::Peers],
     );
     dock.main_surface_mut()
         .split_below(right, 0.48, vec![Panel::FrontPanel, Panel::Melodies, Panel::Hardware]);
@@ -201,7 +201,7 @@ pub fn restore_canonical(dock: &mut DockState<Panel>, panel: Panel) {
     let siblings: &[Panel] = match panel {
         Panel::FrontPanel | Panel::Melodies | Panel::Hardware => &[Panel::FrontPanel, Panel::Melodies, Panel::Hardware],
         Panel::Events | Panel::Streaming => &[Panel::Events, Panel::Streaming],
-        Panel::Game | Panel::GameSettings | Panel::Network | Panel::EffectControls | Panel::PixelDiagnostics | Panel::PixelCorrections => &[Panel::Game, Panel::GameSettings, Panel::EffectControls, Panel::PixelDiagnostics, Panel::PixelCorrections, Panel::Network],
+        Panel::Game | Panel::GameSettings | Panel::Network | Panel::Peers | Panel::EffectControls | Panel::PixelDiagnostics | Panel::PixelCorrections => &[Panel::Game, Panel::GameSettings, Panel::EffectControls, Panel::PixelDiagnostics, Panel::PixelCorrections, Panel::Network, Panel::Peers],
         _ => &[],
     };
     if let Some(path) = siblings.iter().find_map(|p| dock.find_tab(p)) {

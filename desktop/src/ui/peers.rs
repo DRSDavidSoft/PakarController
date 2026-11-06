@@ -2,8 +2,16 @@ use super::{dialog, icons};
 use crate::peer_catalogue::Workspace;
 use eframe::egui;
 
-pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<String> {
+pub enum Action {
+    OpenControls(String),
+    Receive(crate::peer_catalogue::Peer),
+    Apply,
+}
+pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<Action> {
     state.service();
+    if !state.started {
+        state.discover(None);
+    }
     let mut open = None;
     ui.horizontal_wrapped(|ui| {
         ui.heading(format!("{}  Peers", icons::GLOBE));
@@ -95,7 +103,22 @@ pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<String> {
                             .inner
                             .clicked()
                     {
-                        open = Some(peer.endpoint.clone());
+                        open = Some(Action::OpenControls(peer.endpoint.clone()));
+                    }
+                    if cfg!(windows)
+                        && !stale
+                        && !crate::client_management::busy()
+                        && crate::peer_package::release(
+                            &peer.identity,
+                            &peer.endpoint,
+                            crate::peer_identity::VERSION,
+                            crate::client_management::build(),
+                        )
+                        .is_ok()
+                        && dialog::action_button(ui, icons::ARROW_DOWN, "Receive app update")
+                            .clicked()
+                    {
+                        open = Some(Action::Receive(peer.clone()));
                     }
                     ui.menu_button("Details", |ui| {
                         if dialog::action_button(ui, icons::COPY, "Copy address").clicked() {
@@ -124,6 +147,34 @@ pub fn draw(ui: &mut egui::Ui, state: &mut Workspace) -> Option<String> {
             },
         );
         ui.add_space(10.0);
+    }
+    let update = crate::client_management::snapshot();
+    if update.peer_candidate {
+        dialog::section(ui, icons::ARROW_DOWN, "Peer app update", |ui| {
+            ui.label(&update.detail);
+            if let Some(total) = update.expected_bytes.filter(|n| *n > 0) {
+                ui.add(
+                    egui::ProgressBar::new(
+                        (update.received_bytes as f64 / total as f64).clamp(0.0, 1.0) as f32,
+                    )
+                    .text(format!("{} / {total} bytes", update.received_bytes)),
+                );
+            }
+            if update.package_verified
+                && update.managed_installation
+                && dialog::action_button(ui, icons::ARROW_CLOCKWISE, "Apply and restart").clicked()
+            {
+                open = Some(Action::Apply);
+            } else if update.package_verified && !update.managed_installation {
+                ui.weak(
+                    "Initialize managed updates in Preferences before applying this candidate.",
+                );
+            }
+            if crate::client_management::busy() || update.applying {
+                ui.ctx()
+                    .request_repaint_after(std::time::Duration::from_millis(150));
+            }
+        });
     }
     open
 }

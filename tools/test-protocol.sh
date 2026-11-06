@@ -49,12 +49,17 @@ done
 c++ -std=c++17 -Wall -Wextra -Werror -I "$root/tests/remote_stubs" -I "$HOME/Arduino/libraries/ArduinoJson/src" -I "$root/libraries/BoardCore/src" "$root/tests/remote_firmware_test.cpp" "$root/firmware/esp/src/RemoteFirmware.cpp" -lcrypto -o "$root/build/remote-firmware-test"
 "$root/build/remote-firmware-test"
 pwsh -NoProfile -File "$root/tools/consult-reuse.ps1" -Concern remote-ota -Gate > /dev/null
-c++ -std=c++17 -Wall -Wextra -Werror -DARDUINO_ARCH_ESP32 -DESP32 \
+c++ -std=c++17 -Wall -Wextra -Werror -DARDUINO_ARCH_ESP32 -DESP32 '-DPAKAR_PEER_IMAGE_FAMILY="fixture-family"' \
   -I "$root/tests/s3_ota_stubs" -I "$root/tests/remote_stubs" \
   -I "$HOME/Arduino/libraries/ArduinoJson/src" -I "$root/libraries/BoardCore/src" \
   "$root/tests/remote_s3_test.cpp" "$root/firmware/esp/src/RemoteFirmware.cpp" \
   -lcrypto -o "$root/build/remote-s3-test"
 "$root/build/remote-s3-test"
+c++ -std=c++17 -Wall -Wextra -Werror -DARDUINO_ARCH_ESP32 -DESP32 '-DPAKAR_PEER_IMAGE_FAMILY="fixture-family"' \
+  -I "$root/tests/s3_ota_stubs" -I "$root/tests/remote_stubs" \
+  -I "$HOME/Arduino/libraries/ArduinoJson/src" -I "$root/libraries/BoardCore/src" \
+  "$root/tests/peer_catalogue_test.cpp" -lcrypto -o "$root/build/peer-catalogue-test"
+"$root/build/peer-catalogue-test"
 c++ -std=c++17 -Wall -Wextra -Werror -I "$root/tests/s3_dns_stubs" \
   "$root/tests/s3_dns_lock_test.cpp" "$root/tests/s3_dns_runtime.cpp" \
   "$root/firmware/esp32s3/src/DnsCoreLock.cpp" -Wl,--wrap=dns_clear_cache -o "$root/build/s3-dns-lock-test"

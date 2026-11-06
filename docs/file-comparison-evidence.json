@@ -373,7 +373,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "desktop.set_icon(&icon)"
         }
       ],
@@ -1923,7 +1923,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn draw_table(",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         }
       ],
       "proof": [
@@ -1960,7 +1960,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn table_scene_fits_small_dock_and_zooms_at_pointer()",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         }
       ],
       "omissions": [
@@ -1994,24 +1994,24 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn device_settings_link(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn editor_contents(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "omissions": [
@@ -2044,14 +2044,14 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "omissions": [
@@ -2091,7 +2091,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "egui::Scene::new()",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         }
       ],
       "proof": [
@@ -7818,7 +7818,7 @@
       "targets": [
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "#![cfg_attr(windows, windows_subsystem = \"windows\")]"
         },
         {
@@ -7886,7 +7886,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "cli_println!(\"{reply}\")"
         },
         {
@@ -8258,7 +8258,7 @@
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "pub fn newer(",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         },
         {
           "path": "desktop/src/client_install.rs",
@@ -8268,14 +8268,14 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn app_management(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "release_policy_checks_numeric_build_semver_platform_origin_and_integrity",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         },
         {
           "path": "desktop/src/client_install.rs",
@@ -8310,7 +8310,7 @@
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "release_policy_checks_numeric_build_semver_platform_origin_and_integrity",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         },
         {
           "path": "desktop/src/client_install.rs",
@@ -8343,14 +8343,14 @@
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "pub fn newer(",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         }
       ],
       "proof": [
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "release_policy_checks_numeric_build_semver_platform_origin_and_integrity",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         },
         {
           "path": "desktop/src/client_install.rs",
@@ -8385,7 +8385,7 @@
         {
           "path": "desktop/src/client_management.rs",
           "anchor": "release_policy_checks_numeric_build_semver_platform_origin_and_integrity",
-          "sha256": "29d4d38c2785187fe4ec71ba04dd8d297d4f3ec4a8161cf84fcd6b16336d87d1"
+          "sha256": "b84d56bec60ff8f6f729df9d8baa4b9684e6fee7e58a91a91425a9fe2065c80c"
         },
         {
           "path": "desktop/src/client_install.rs",
@@ -8887,7 +8887,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "value[\"pixel_preview\"]"
         },
         {
@@ -9559,7 +9559,7 @@
         {
           "path": "mobile/lib/discovery.dart",
           "anchor": "DiscoveredDevice? parseMndp",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98"
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76"
         }
       ],
       "omissions": [
@@ -9634,7 +9634,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9668,7 +9668,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9704,7 +9704,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         }
       ],
       "omissions": [
@@ -9718,12 +9718,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_http_recovery_uses_existing_packet_form_contract",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         }
       ],
       "remaining": [
@@ -9743,12 +9743,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/main.rs",
           "anchor": "SerialCommand::Bridge(target",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea"
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be"
         }
       ],
       "omissions": [
@@ -9762,7 +9762,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         }
       ],
       "remaining": [
@@ -9783,7 +9783,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
@@ -9803,7 +9803,7 @@
         {
           "path": "desktop/src/peer_identity.rs",
           "anchor": "pub fn sanitize_report(",
-          "sha256": "bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2"
+          "sha256": "ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e"
         },
         {
           "path": "mobile/lib/peer_identity.dart",
@@ -9822,12 +9822,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "tests/peer_compatibility_test.cpp",
@@ -9842,7 +9842,7 @@
         {
           "path": "desktop/src/peer_identity.rs",
           "anchor": "fn reports_drop_secrets_and_never_replace_observed_ip()",
-          "sha256": "bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2"
+          "sha256": "ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e"
         }
       ],
       "remaining": [
@@ -9863,7 +9863,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         }
       ],
       "omissions": [
@@ -9877,7 +9877,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -9951,7 +9951,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "Enable API bridge / repeater",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "omissions": [
@@ -13423,7 +13423,7 @@
         {
           "path": "tools/test-protocol.sh",
           "anchor": "for upgrade_case in",
-          "sha256": "86efd5950787d82747f93766f59f7eb968a5adaf889a94d470ce891d60eecd7a"
+          "sha256": "cc67df18b7af5bd8d8716e90c7c96d2757d64b286805eb1faedb4dbfa90da664"
         }
       ],
       "remaining": [
@@ -14036,7 +14036,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -14177,7 +14177,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -14504,12 +14504,12 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "Future<DiscoveredDevice?> verifyDiscoveredDevice("
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "bool sameBoard(DiscoveredDevice other)"
         },
         {
@@ -15629,7 +15629,7 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "class DeviceDiscovery"
         },
         {
@@ -15650,7 +15650,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "829dd0c92acbd5793637e9928ee9f90fd4580bb161a31766f914c799cd18606a"
+          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
         }
       ],
       "omissions": [
@@ -15734,7 +15734,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "DiscoveredDevice? parseMndp"
         },
         {
@@ -15823,7 +15823,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "DiscoveredDevice? parseMndp"
         }
       ],
@@ -16089,7 +16089,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "fn scoped_http_request("
         },
         {
@@ -16159,7 +16159,7 @@
         },
         {
           "path": "desktop/src/peer_identity.rs",
-          "sha256": "bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2",
+          "sha256": "ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e",
           "anchor": "pub fn usb_introduction_error("
         }
       ],
@@ -16203,7 +16203,7 @@
         },
         {
           "path": "desktop/src/peer_identity.rs",
-          "sha256": "bb0f401dac454544bc8ac561c36b79e3c0963ca5d7a1cacc72a1ee8380d930d2",
+          "sha256": "ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e",
           "anchor": "fn usb_introduction_error_preserves_actual_board_reason_without_suggesting_policy_bypass()"
         },
         {
@@ -16233,7 +16233,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "// The mapping response identifies its own producer."
         },
         {
@@ -16778,7 +16778,7 @@
           "path": "desktop/src/ui/connection_controls.rs"
         },
         {
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "super::dropdown::ComboBox::from_id_salt(\"theme\")",
           "path": "desktop/src/ui/preferences.rs"
         },
@@ -16788,7 +16788,7 @@
           "path": "desktop/src/ui/device_settings.rs"
         },
         {
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "super::dropdown::ComboBox",
           "path": "desktop/src/ui/shell.rs"
         },
@@ -16954,7 +16954,7 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "from_id_salt(\"control-density\")"
         },
         {
@@ -17029,7 +17029,7 @@
           "path": "desktop/src/ui/color_picker.rs"
         },
         {
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "super::color_picker::accent_picker",
           "path": "desktop/src/ui/preferences.rs"
         },
@@ -17182,7 +17182,7 @@
         },
         {
           "path": "tools/test-protocol.sh",
-          "sha256": "86efd5950787d82747f93766f59f7eb968a5adaf889a94d470ce891d60eecd7a",
+          "sha256": "cc67df18b7af5bd8d8716e90c7c96d2757d64b286805eb1faedb4dbfa90da664",
           "anchor": "for display_flags"
         }
       ],
@@ -18329,7 +18329,7 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "AppLanguage::Persian"
         },
         {
@@ -18885,12 +18885,12 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "fn save_status_bar_preferences("
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "let firmware_progress = self.firmware_observation().filter(|p| p.active);"
         },
         {
@@ -18999,7 +18999,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "fn status_bar_startup_message_respects_disconnected_and_selected_route()"
         },
         {
@@ -19258,7 +19258,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "fn synchronize_context("
         },
         {
@@ -19279,7 +19279,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -19693,7 +19693,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "menu::top_menu_button(ui, crate::ui::i18n::text(\"File\")"
         },
         {
@@ -20224,12 +20224,12 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "Keyboard shortcuts"
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "crate::application_shortcuts::take_action"
         }
       ],
@@ -20352,7 +20352,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20522,7 +20522,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -20749,7 +20749,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "value[\"messages\"]",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         },
         {
           "path": "desktop/src/platform/notifications.rs",
@@ -20844,7 +20844,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "icons::searchable_workspace_icon_picker"
         },
         {
@@ -22819,7 +22819,7 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "let action_height = super::control_density::height(ui).max(dialog::ACTION_HEIGHT);"
         },
         {
@@ -23717,7 +23717,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "event_log.failure(\"Windows tray tooltip\", &error)"
         }
       ],
@@ -23778,7 +23778,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "value[\"tray_shell\"]"
         },
         {
@@ -23841,7 +23841,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "fn serial_worker("
         },
         {
@@ -23878,7 +23878,7 @@
         },
         {
           "path": "desktop/src/main.rs",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea",
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be",
           "anchor": "fn usb_selected_http_worker_never_contacts_even_a_live_network_endpoint()"
         },
         {
@@ -23912,22 +23912,22 @@
       "targets": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "egui::Panel::bottom(ui.id().with(\"preferences-footer\"))"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn sync_connection_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn sync_status_owner("
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn connection_summary("
         },
         {
@@ -23938,7 +23938,7 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "pub(super) fn draw_led_settings(",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         }
       ],
       "omissions": [
@@ -23980,7 +23980,7 @@
       "proof": [
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn preferences_footer_stays_at_the_bottom_in_both_hosts_and_short_pages()"
         },
         {
@@ -23990,28 +23990,28 @@
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn lamp_background_preview_and_discard_preserve_saved_configuration()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn external_connection_owner_updates_all_baselines_without_losing_unrelated_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn status_bar_changes_survive_preferences_save_or_discard_without_erasing_drafts()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577",
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62",
           "anchor": "fn connection_summary_is_contextual_and_dirty_preferences_cannot_open_another_editor()"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_settings_navigation_preserves_unsaved_application_preferences()",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         }
       ],
       "improvement": "One connection owner instead of conflicting Preferences editors, while preserving unrelated drafts and the donor's triple-baseline merge mechanism.",
@@ -24060,7 +24060,7 @@
         {
           "path": "desktop/src/ui/preferences.rs",
           "anchor": "fn board_controls(",
-          "sha256": "eaa5ca730e0c24f90ac57159c9f0727ccffd2ffbb9fc466bc9008372715a2577"
+          "sha256": "4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62"
         },
         {
           "path": "mobile/lib/api.dart",
@@ -24751,7 +24751,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "b91132826dd4f67735208499731acefbac39014ed027b3227f0502432cd28a98",
+          "sha256": "b5be38f2e0faa45c19079bfc526a268dbac1315a6cf4923150a5542e56aa0e76",
           "anchor": "class DiscoveryCatalog"
         },
         {
@@ -24767,7 +24767,7 @@
         {
           "path": "desktop/src/main.rs",
           "anchor": "peer_http::remember_address",
-          "sha256": "9d884096e08c876cac442c9cd9c07cb0ad2d6078d17453a6d3743aceb802a5ea"
+          "sha256": "ec6438c4ecc859ed2f264c9ed29682389b477019dcb998aa6257db7b19fe75be"
         },
         {
           "path": "firmware/esp/src/PeerLanResolver.h",
@@ -25003,7 +25003,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -25340,7 +25340,7 @@
         },
         {
           "path": "desktop/src/ui/shell.rs",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9",
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c",
           "anchor": "fn send_pixel_probe("
         },
         {
@@ -25550,12 +25550,12 @@
         {
           "path": "desktop/src/ui/shell.rs",
           "anchor": "fn synchronize_context",
-          "sha256": "2f17c3f20afb9cc01bf5ecb9fa06bf2aae7751f4e8eae02aa6ae81e2d0d60eb9"
+          "sha256": "f84a53fd3cac6920d5c008b3035eef6db6a581e73fc8b3ba480b0bdd43a03e8c"
         },
         {
           "path": "desktop/src/ui/layout.rs",
           "anchor": "presentation_context()",
-          "sha256": "fb37109e6fc3fd4c37a82c386cc4d07e717f04fa74209ce82d7e9a986f8131a5"
+          "sha256": "c78c867eb95a90529ebecbc5cc1b25b6dbb774f209a850bd6df0ecd4a320fb0f"
         },
         {
           "path": "desktop/src/native_workspace.rs",

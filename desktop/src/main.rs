@@ -49,6 +49,7 @@ mod protocol_opcodes;
 mod peer_http;
 mod peer_identity;
 mod peer_catalogue;
+mod peer_package;
 mod pixel_diagnostic;
 mod pixel_corrections;
 mod pixel_groups;

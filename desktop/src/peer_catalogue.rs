@@ -10,6 +10,7 @@ use std::{
 
 #[derive(Clone, Debug)]
 pub struct Peer {
+    pub address: Option<std::net::SocketAddr>,
     pub endpoint: String,
     pub identity: Value,
     pub observed: Instant,
@@ -84,6 +85,7 @@ pub fn parse_identity(
         _ => return None,
     }
     Some(Peer {
+        address: None,
         endpoint: endpoint.into(),
         identity: value,
         observed: Instant::now(),
@@ -118,6 +120,7 @@ pub fn probe(endpoint: &str) -> Option<Peer> {
     if !response.status().is_success() {
         return None;
     }
+    let address = response.remote_addr();
     let board = response
         .headers()
         .get("x-pakar-board")
@@ -133,15 +136,18 @@ pub fn probe(endpoint: &str) -> Option<Peer> {
     if body.len() > 16384 {
         return None;
     }
-    parse_identity(
+    let mut peer = parse_identity(
         endpoint,
         serde_json::from_slice(&body).ok()?,
         board.as_deref(),
         boot.as_deref(),
-    )
+    )?;
+    peer.address = address;
+    Some(peer)
 }
 #[derive(Default)]
 pub struct Workspace {
+    pub started: bool,
     pub peers: BTreeMap<String, Peer>,
     pub endpoint: String,
     pub error: String,
@@ -156,17 +162,38 @@ impl Workspace {
             return;
         }
         self.error.clear();
+        self.started = true;
         let (tx, rx) = mpsc::channel();
         self.receiver = Some(rx);
         std::thread::spawn(move || {
             let origins = manual.map(|p| vec![p]).unwrap_or_else(|| {
                 crate::platform::discovery::board_locations(Duration::from_millis(1400))
             });
-            let peers = origins
-                .into_iter()
-                .take(16)
-                .filter_map(|p| probe(&p))
-                .collect();
+            let queue = std::sync::Mutex::new(
+                origins
+                    .into_iter()
+                    .take(16)
+                    .collect::<std::collections::VecDeque<_>>(),
+            );
+            let rows = std::sync::Mutex::new(Vec::new());
+            let deadline = Instant::now() + Duration::from_secs(9);
+            std::thread::scope(|scope| {
+                for _ in 0..4 {
+                    let queue = &queue;
+                    let rows = &rows;
+                    scope.spawn(move || {
+                        while Instant::now() < deadline {
+                            let Some(origin) = queue.lock().unwrap().pop_front() else {
+                                break;
+                            };
+                            if let Some(peer) = probe(&origin) {
+                                rows.lock().unwrap().push(peer);
+                            }
+                        }
+                    });
+                }
+            });
+            let peers = rows.into_inner().unwrap();
             let _ = tx.send(peers);
         });
     }

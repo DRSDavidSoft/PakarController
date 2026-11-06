@@ -466,8 +466,9 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
         final value = jsonDecode(response.$2);
         if (value is Map<String, dynamic> &&
             (value['product'] == 'PakarController' ||
-                value['application'] == 'PakarController'))
+                value['application'] == 'PakarController')) {
           info = value;
+        }
       }
     } on Object {
       /* Older public discovery endpoints remain usable. */
@@ -476,8 +477,9 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
     if ({'android-app', 'desktop-app', 'bridge'}.contains(kind)) {
       final id = info['instance_id'] ?? info['id'];
       if (!validText(id, 80) ||
-          candidate.instanceId.isNotEmpty && id != candidate.instanceId)
+          candidate.instanceId.isNotEmpty && id != candidate.instanceId) {
         return null;
+      }
       return DiscoveredDevice(
         info['name'] is String
             ? info['name'] as String

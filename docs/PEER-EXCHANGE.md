@@ -95,7 +95,18 @@ passive identity listener; disabling API bridging still blocks WebSocket and
 board/control/export calls. Opening a peer's controls uses the existing draft
 guard, explicit connection and credential flow, not discovery authority.
 
-Remaining: native desktop package sharing/apply via peer sources (not advertised
-as implemented), richer per-peer transfer actions in both views, physical
+Windows x64 apps also share only their running, hashed executable through
+`GET/HEAD /api/peer/package`. Package preparation is asynchronous; unavailable
+packages are never advertised. `peer_package_sharing` is separate from API
+bridging and automatic update checks. Receivers re-probe the exact app/session,
+pin its actual TCP address while retaining Host/TLS identity, validate family,
+platform, release/build, byte length and complete SHA-256, then use the existing
+managed candidate/rollback installer. Peer reception never inherits automatic
+apply; Apply and restart binds the exact verified hash and still waits for all
+drafts/operations to finish. Cached verified candidates are not re-streamed.
+Other native platforms remain discovery/control peers but do not advertise a
+Windows installer; their managed replacement adapters are explicitly absent.
+
+Remaining: richer per-board transfer actions in both views, physical
 board-only/app-only/mixed acceptance and measured RAM/latency/long-soak evidence.
 Fixtures and SDK builds are not physical or installed-app acceptance.

@@ -128,6 +128,7 @@ impl Release {
         self.pre.len().cmp(&other.pre.len())
     }
 }
+pub fn release_order(left:&str,right:&str)->Option<std::cmp::Ordering>{Some(Release::parse(left)?.compare(&Release::parse(right)?))}
 fn range(version: &str, minimum: &str, maximum: Option<&str>, role: &str) -> Result<(), String> {
     let current=Release::parse(version).ok_or_else(||format!("Peer compatibility: {role} omitted a valid software version; update that peer or explicitly disable version matching in its build"))?;
     let lower =

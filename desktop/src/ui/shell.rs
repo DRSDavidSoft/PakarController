@@ -2017,11 +2017,17 @@ impl PakarControllerApp {
                     Panel::Hardware => self.draw_hardware(ui, false),
                     Panel::Network => self.draw_network(ui),
                     Panel::Peers => {
-                        if let Some(origin)=super::peers::draw(ui,&mut self.peer_workspace)
-                            && !self.connection_change_guard() {
-                            self.set_connection(self.transport,false);
-                            self.base=origin;self.user="admin".into();self.password.clear();
-                            self.set_connection(Transport::WiFi,false);self.show_connection=true;
+                        if let Some(action)=super::peers::draw(ui,&mut self.peer_workspace) {
+                            match action {
+                                super::peers::Action::OpenControls(origin) if !self.connection_change_guard()=>{
+                                    self.set_connection(self.transport,false);
+                                    self.base=origin;self.user="admin".into();self.password.clear();
+                                    self.set_connection(Transport::WiFi,false);self.show_connection=true;
+                                },
+                                super::peers::Action::Receive(peer)=>crate::client_management::request_peer(peer,self.config.client_management.clone(),ui.ctx()),
+                                super::peers::Action::Apply=>crate::client_management::request(crate::client_management::Action::Apply,self.config.client_management.clone(),ui.ctx()),
+                                _=>{},
+                            }
                         }
                     },
                     Panel::Streaming => self.draw_streaming(ui),
