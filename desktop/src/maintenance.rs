@@ -400,7 +400,39 @@ fn remote_run(
         None
     };
     let client = peer_client.as_ref().unwrap_or(client);
-    let (path, form) = match &operation {
+    let (path, form) = remote_request(&operation)?;
+    let url = format!("{}{path}", endpoint.base.trim_end_matches('/'));
+    let request = if let Some(form) = form {
+        client.post(url).form(&form)
+    } else {
+        client.get(url)
+    };
+    let response = request
+        .basic_auth(&endpoint.user, Some(&endpoint.password))
+        .timeout(Duration::from_secs(15))
+        .send()
+        .map_err(|_| "Remote firmware request outcome unknown. No mutation was replayed.")?;
+    if !response.status().is_success() {
+        return Err(format!(
+            "Remote firmware rejected (HTTP {})",
+            response.status()
+        ));
+    }
+    let mut bytes = Vec::new();
+    response
+        .take(8193)
+        .read_to_end(&mut bytes)
+        .map_err(|_| "Remote acknowledgment unreadable")?;
+    if bytes.len() > 8192 {
+        return Err("Oversized remote acknowledgment".into());
+    }
+    let value: serde_json::Value =
+        serde_json::from_slice(&bytes).map_err(|_| "Invalid remote acknowledgment JSON")?;
+    verify_remote_receipt(&operation, value)
+}
+type RemoteForm = Option<Vec<(&'static str, String)>>;
+fn remote_request(operation: &Operation) -> Result<(&'static str, RemoteForm), String> {
+    let request = match operation {
         Operation::PeerStage {
             source,
             authorization,
@@ -468,33 +500,45 @@ fn remote_run(
         }
         _ => return Err("Not a remote operation".into()),
     };
-    let url = format!("{}{path}", endpoint.base.trim_end_matches('/'));
-    let request = if let Some(form) = form {
-        client.post(url).form(&form)
-    } else {
-        client.get(url)
-    };
-    let response = request
-        .basic_auth(&endpoint.user, Some(&endpoint.password))
-        .timeout(Duration::from_secs(15))
-        .send()
-        .map_err(|_| "Remote firmware request outcome unknown. No mutation was replayed.")?;
-    if !response.status().is_success() {
-        return Err(format!(
-            "Remote firmware rejected (HTTP {})",
-            response.status()
-        ));
+    Ok(request)
+}
+pub fn usb_remote_request(
+    operation: &Operation,
+) -> Result<(&'static str, &'static str, serde_json::Value), String> {
+    if !matches!(
+        operation,
+        Operation::PeerStage { .. }
+            | Operation::RemoteStatus
+            | Operation::RemoteApply(_)
+            | Operation::RemoteCancel(_)
+    ) {
+        return Err("This maintenance source requires Wi-Fi; nothing sent over USB".into());
     }
-    let mut bytes = Vec::new();
-    response
-        .take(8193)
-        .read_to_end(&mut bytes)
-        .map_err(|_| "Remote acknowledgment unreadable")?;
-    if bytes.len() > 8192 {
-        return Err("Oversized remote acknowledgment".into());
+    let (path, form) = remote_request(operation)?;
+    let method = if form.is_some() { "POST" } else { "GET" };
+    let mut body = serde_json::json!({});
+    for (key, value) in form.unwrap_or_default() {
+        body[key] = match key {
+            "source" => serde_json::from_str(&value).map_err(|_| "Invalid peer source JSON")?,
+            "job_id" => value
+                .parse::<u32>()
+                .map_err(|_| "Invalid firmware job")?
+                .into(),
+            _ => value.into(),
+        };
     }
-    let value: serde_json::Value =
-        serde_json::from_slice(&bytes).map_err(|_| "Invalid remote acknowledgment JSON")?;
+    Ok((method, path, body))
+}
+pub fn verify_remote_receipt(
+    operation: &Operation,
+    value: serde_json::Value,
+) -> Result<String, String> {
+    if value["accepted"] == false {
+        return Err(value["error"]
+            .as_str()
+            .unwrap_or("Maintenance rejected")
+            .into());
+    }
     let job = parse_job(value.clone())?;
     match operation {
         Operation::PeerStage { source, target, .. } => {
@@ -510,8 +554,8 @@ fn remote_run(
         Operation::RemoteStage {
             sha256, targets, ..
         } if job.job_id == 0
-            || job.manifest_sha256 != sha256
-            || job.targets != targets
+            || job.manifest_sha256 != *sha256
+            || job.targets != *targets
             || job.phase != "manifest" =>
         {
             return Err("Peer did not acknowledge the pinned staging request".into());
@@ -520,8 +564,8 @@ fn remote_run(
             if job.job_id != expected.job_id
                 || job.boot_id != expected.boot_id
                 || job.manifest_sha256 != expected.manifest_sha256
-                || (path.ends_with("apply") && job.phase != "prepare")
-                || (path.ends_with("cancel") && job.phase != "cancelled")
+                || (matches!(operation, Operation::RemoteApply(_)) && job.phase != "prepare")
+                || (matches!(operation, Operation::RemoteCancel(_)) && job.phase != "cancelled")
             {
                 return Err("Remote mutation acknowledgment did not match this exact job".into());
             }

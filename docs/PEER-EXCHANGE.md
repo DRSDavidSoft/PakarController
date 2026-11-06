@@ -121,9 +121,11 @@ Both peer views offer newer same-role board firmware to the currently selected
 receiver. Source credentials are entered separately and kept transient; the
 receiving board verifies the exact family and source identity. Flutter uses
 the same fenced general API over network or USB and opens its existing firmware
-progress/Apply/Cancel view. Rust uses its existing confirmed Wi-Fi maintenance
-owner and Firmware settings page. Rust's peer-staging GUI action over USB is
-not yet wired; that exclusion is explicit rather than a claimed parity result.
+progress/Apply/Cancel view. Rust uses its existing confirmed maintenance owner
+and Firmware settings page over Wi-Fi or its existing general USB API actor.
+Both share request construction and receipt validation rather than introducing
+a second flasher. Native progress refreshes only while that page has an active
+job; it stops when terminal, and reads do not emit action toasts.
 
 Automatic board checks discover/offer but do not automatically download or
 apply images: those actions require receiver-owned, authenticated commands.
@@ -132,6 +134,6 @@ the other. Board-only discovery/offers work without an app; app-only APK/Windows
 package exchange works without a board. Boards and apps do not pretend to be
 interchangeable artifact families.
 
-Remaining: native USB peer-stage GUI, physical board-only/app-only/mixed
-acceptance and measured RAM/latency/long-soak evidence.
+Remaining: physical board-only/app-only/mixed acceptance and measured
+RAM/latency/long-soak evidence.
 Fixtures and SDK builds are not physical or installed-app acceptance.

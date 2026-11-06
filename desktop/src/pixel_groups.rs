@@ -137,6 +137,7 @@ pub struct Editor {
     pub open: bool,
 }
 pub enum Purpose {
+    Maintenance { id:u64, operation:crate::maintenance::Operation },
     Minigame(crate::minigame::UsbRequest),
     Groups,
     Frame { revision: u32, layout_revision: u32, at: Instant },

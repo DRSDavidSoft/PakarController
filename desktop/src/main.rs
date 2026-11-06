@@ -4357,6 +4357,31 @@ impl PakarControllerApp {
             "ESP Wi-Fi update queued once; do not disconnect its power".into();
         Ok(())
     }
+    fn finish_maintenance(&mut self,id:u64,result:Result<String,String>){
+        if self.device_settings.maintenance_pending!=Some(id){return;}
+        if let Ok(text)=&result && let Ok(value)=serde_json::from_str(text){
+            let _=self.device_settings.observe("/api/firmware/remote",value);
+        }
+        self.device_settings.maintenance_pending=None;
+        if std::mem::take(&mut self.device_settings.maintenance_read){
+            if let Err(error)=result{self.device_settings.message=error;}
+            return; // Progress reads do not emit action toasts or event spam.
+        }
+        if let Some(progress)=self.firmware_transfer.as_ref(){progress.finish(&result);}
+        let severity=maintenance::result_severity(&result);
+        self.device_settings.message=match result {
+            Ok(text)=>serde_json::from_str(&text).ok().and_then(|v|maintenance::parse_job(v).ok())
+                .map(|j|format!("Firmware job {} · {}{}",j.job_id,j.phase,if j.error.is_empty(){String::new()}else{format!(" · {}",j.error)})).unwrap_or(text),
+            Err(error)=>error,
+        };
+        self.record_event("Maintenance",&self.device_settings.message.clone());
+        if severity==messaging::Severity::Error {
+            self.notify_detailed_id("pakar.maintenance","Maintenance result","Maintenance did not complete.",&self.device_settings.message,severity);
+        }else{
+            self.notify_id("pakar.maintenance","Maintenance result",&self.device_settings.message,severity);
+        }
+        self.configuration_loaded=false;
+    }
     fn poll(&mut self) {
         self.poll_pixel_api();
         if let Some((id, receiver, cancel)) = &self.pixel_usb_reply {
@@ -4843,32 +4868,7 @@ impl PakarControllerApp {
                     self.pixel_corrections.live.finish(id, result, Instant::now());
                 }
                 Event::MaintenanceFinished(id, result) => {
-                    if self.device_settings.maintenance_pending == Some(id) {
-                        if let Some(progress) = self.firmware_transfer.as_ref() {
-                            progress.finish(&result);
-                        }
-                        let severity = maintenance::result_severity(&result);
-                        self.device_settings.maintenance_pending = None;
-                        self.device_settings.message = result.unwrap_or_else(|e| e);
-                        self.record_event("Maintenance", &self.device_settings.message.clone());
-                        if severity == messaging::Severity::Error {
-                            self.notify_detailed_id(
-                                "pakar.maintenance",
-                                "Maintenance result",
-                                "Maintenance did not complete.",
-                                &self.device_settings.message,
-                                severity,
-                            );
-                        } else {
-                            self.notify_id(
-                                "pakar.maintenance",
-                                "Maintenance result",
-                                &self.device_settings.message,
-                                severity,
-                            );
-                        }
-                        self.configuration_loaded = false;
-                    }
+                    self.finish_maintenance(id,result);
                 }
                 Event::SettingsFinished(id, group, result) => {
                     if self.device_settings.pending != Some((id, group)) {

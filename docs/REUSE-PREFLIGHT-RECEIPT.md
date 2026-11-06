@@ -63,6 +63,15 @@ guarded Analyze still stops on live donor drift. Publication's first HTTPS
 push hit a low-speed timeout; the unchanged commit published on the next
 bounded normal HTTPS attempt without changing credentials or SSH trust.
 
+The previously listed native USB GUI gap is implemented in the follow-up:
+the existing USB API actor carries the same maintenance request and exact
+job/boot/hash receipt checks as Wi-Fi. No new opcode, port owner, installer or
+cross-route retry was added. The same Firmware page owns progress, Apply and
+Cancel; its active-job read refreshes stop at terminal states and do not spam
+action toasts. A native chunk fixture runs stage/status/apply/cancel exactly
+once through that transaction. Exact-head CI remains required; this is not
+physical USB, app-screen or deployed OTA acceptance.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

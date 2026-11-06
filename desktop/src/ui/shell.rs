@@ -2017,7 +2017,7 @@ impl PakarControllerApp {
                     Panel::Hardware => self.draw_hardware(ui, false),
                     Panel::Network => self.draw_network(ui),
                     Panel::Peers => {
-                        let destination=self.live_status().filter(|_|self.http_writable()&&self.has_feature("peer-exchange")).and_then(|s|Some((s.capabilities.as_ref()?.role.clone(),s.version.clone(),peer_http::Pin::from_status(s)?)));
+                        let destination=self.live_status().filter(|_|self.peer_maintenance_ready()).and_then(|s|Some((s.capabilities.as_ref()?.role.clone(),s.version.clone(),peer_http::Pin::from_status(s)?)));
                         if let Some(action)=super::peers::draw(ui,&mut self.peer_workspace,destination.as_ref().map(|(role,version,pin)|(role.as_str(),version.as_str(),pin))) {
                             match action {
                                 super::peers::Action::OpenControls(origin) if !self.connection_change_guard()=>{
@@ -2194,6 +2194,22 @@ impl PakarControllerApp {
             }
         });
     }
+    pub(crate) fn peer_maintenance_ready(&self)->bool {
+        self.has_feature("peer-exchange") && (self.http_writable() ||
+            self.command_route()==Some(Transport::Serial)&&self.has_feature("usb-api")&&self.pixel_api_reply.is_none())
+    }
+    pub(crate) fn submit_peer_maintenance(&mut self,id:u64,operation:crate::maintenance::Operation)->Result<(),String>{
+        if self.command_route()!=Some(Transport::Serial){
+            return self.http_tx.send(HttpCommand::Maintenance(self.endpoint(),id,operation)).map_err(|_|"Maintenance queue unavailable".into());
+        }
+        if !self.peer_maintenance_ready(){return Err("USB peer maintenance is busy or unsupported; nothing sent".into());}
+        let pin=self.live_status().and_then(peer_http::Pin::from_status).ok_or("USB destination unavailable")?;
+        if let crate::maintenance::Operation::PeerStage{target,..}=&operation && *target!=pin{return Err("USB destination changed; nothing sent".into());}
+        if let crate::maintenance::Operation::RemoteApply(job)|crate::maintenance::Operation::RemoteCancel(job)=&operation
+            && !pin.matches_identity(pin.board_id(),&job.boot_id){return Err("USB job belongs to a different boot; nothing sent".into());}
+        let (method,path,body)=crate::maintenance::usb_remote_request(&operation)?;
+        self.begin_pixel_api(pixel_groups::Purpose::Maintenance{id,operation},method,path,body)
+    }
     fn begin_pixel_api(&mut self, purpose: pixel_groups::Purpose, method: &str, path: &str, body: serde_json::Value) -> Result<(),String> {
         if self.pixel_api_reply.is_some() || self.command_route()!=Some(Transport::Serial) { return Err("USB API owner busy or unavailable; nothing sent".into()); }
         let status=self.live_status().ok_or("Fresh USB board identity unavailable")?;
@@ -2210,10 +2226,17 @@ impl PakarControllerApp {
         let result=match receiver.try_recv() { Ok(value)=>value, Err(TryRecvError::Empty)=>return,
             Err(TryRecvError::Disconnected)=>Err("USB API ended without a complete receipt; no replay".into()) };
         let (peer,purpose,_)=self.pixel_api_reply.take().unwrap();
-        let result=if self.transport!=Transport::Serial || self.live_status().and_then(peer_http::Pin::from_status)!=Some(peer) {
+        let result=if self.transport!=Transport::Serial || self.live_status().and_then(peer_http::Pin::from_status)!=Some(peer.clone()) {
             Err("USB API peer retired; result not applied".into())
         } else {result};
         match purpose {
+            pixel_groups::Purpose::Maintenance{id,operation}=>{
+                let result=result.and_then(|value|{
+                    if !peer.matches_identity(peer.board_id(),value["boot_id"].as_str().unwrap_or("")){return Err("USB firmware receipt belongs to a different boot; no replay".into());}
+                    crate::maintenance::verify_remote_receipt(&operation,value)
+                });
+                self.finish_maintenance(id,result);
+            },
             pixel_groups::Purpose::Minigame(request) => {
                 match result.and_then(|value|request.verify(value)) {
                     Ok(observed) => {
