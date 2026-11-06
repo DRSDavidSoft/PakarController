@@ -1037,7 +1037,7 @@ Verdict: **equivalent-behavior**. Revision: `dd0a2a20232f6ed838eb5329c4385287964
 Verdict: **parity-gap**. Revision: `dd0a2a20232f6ed838eb5329c4385287964c4c40`. Original-byte SHA-256: `47c64688234c18e99f4266684860c82ad89aedc1048d52f62fa252fade5ee0e1`.
 
 - Complete text read: lines 1-14, exact source hash above.
-- Target: `docs/PROJECT-FEATURE-COMPARISON.md:57 [UTF8-LF sha256=b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1; anchor=component performance]`.
+- Target: `docs/PROJECT-FEATURE-COMPARISON.md:57 [UTF8-LF sha256=92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19; anchor=component performance]`.
 - Retained: Compared nested component wall-time windows separately from measured CPU. Preserve this useful feature as an explicit next transfer, not a completed import.
 - Omitted/replaced code: `Component elapsed/max timing`. Disposition: **pending**. Reason: Pakar CPU measurement does not implement Orbit main-loop section timers or its performance page.
 - Remaining: Add bounded shared component counters and consumers after section ownership review.
@@ -1103,7 +1103,7 @@ Verdict: **parity-gap**. Revision: `dd0a2a20232f6ed838eb5329c4385287964c4c40`. O
 
 - Complete text read: lines 1-107, exact source hash above.
 - Target: `assets/web/user-files.js:35 [UTF8-LF sha256=8b25d6925e5a604b95769d844c1c1d7d06ae9e49a33a9e2307bae5c75d77ec5f; anchor=function create(o)]`.
-- Target: `docs/PROJECT-FEATURE-COMPARISON.md:56 [UTF8-LF sha256=b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1; anchor=HTTP composer/exchange journal]`.
+- Target: `docs/PROJECT-FEATURE-COMPARISON.md:56 [UTF8-LF sha256=92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19; anchor=HTTP composer/exchange journal]`.
 - Retained: Reciprocal Pakar user-files create/draw/list workflow adapted into Orbit. File filtering, metadata rows, per-file actions, confirmation and stable live rendering now use Orbit existing storage operations.
 - Omitted/replaced code: `HTTP composer/exchange journal into Pakar`. Disposition: **pending**. Reason: Orbit retains richer HTTP GET/POST composer, scheduled telemetry and exchange inspection/export; not imported by the CPU/file-browser checkpoint.
 - Remaining: Port the generic request journal/composer without modem-specific routes; retain full operation and peer ownership.

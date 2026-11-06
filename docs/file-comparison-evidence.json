@@ -27742,7 +27742,7 @@
       "targets": [
         {
           "path": "docs/PROJECT-FEATURE-COMPARISON.md",
-          "sha256": "b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1",
+          "sha256": "92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19",
           "anchor": "component performance"
         }
       ],
@@ -27783,7 +27783,7 @@
         },
         {
           "path": "docs/PROJECT-FEATURE-COMPARISON.md",
-          "sha256": "b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1",
+          "sha256": "92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19",
           "anchor": "HTTP composer/exchange journal"
         }
       ],

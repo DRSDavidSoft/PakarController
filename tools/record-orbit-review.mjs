@@ -24,7 +24,7 @@ const expectedTargets={
  'assets/web/feature-workspaces.js':'9f3c15aada84a55d0ba96623552a6adac3a9292c838fd7dfee271e4e74824a34',
  'tests/runtime_cpu_test.cpp':'3d718f8f3b61a090c8743b4a5f636d9eee4a62c1b8a4ffebd93ad888011fdf7e',
  'tests/web_runtime_monitor_test.mjs':'1fb9d7443cf32b645ec97005198be3fc531eef53106ef4b50544ec269335220e',
- 'docs/PROJECT-FEATURE-COMPARISON.md':'b9c5f379ddc0f0252c2fea192325484e9d38c4b54138cfb1feb13f79726b29f1',
+ 'docs/PROJECT-FEATURE-COMPARISON.md':'92160bc3bbde1884648cefe66c68b76a551bd371ccc645675f286d1a0c049f19',
  'firmware/esp/src/WebUi.h':'3a89dbfb5b2f17a6dd449517262af1c913a7d1b5fc568d04edeed78a13ebef25',
  'web/index.html':'d5160e10596ee3a54eb2471f9c18029f22899e7fad714e3e9edd9a70321560f0',
  'tools/ci-checks.mjs':'003f58a313cff410955db217c461941967436390a5994151714385ae1bd68f1f',
