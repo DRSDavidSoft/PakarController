@@ -9559,7 +9559,7 @@
         {
           "path": "mobile/lib/discovery.dart",
           "anchor": "DiscoveredDevice? parseMndp",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1"
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9"
         }
       ],
       "omissions": [
@@ -13299,7 +13299,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String localUpdateJson() {",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         },
         {
           "path": "firmware/esp/src/RemoteFirmware.h",
@@ -13801,7 +13801,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "std::atomic<uint32_t> otaRebootAt{0};",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         },
         {
           "path": "firmware/esp/src/AsyncHttpService.h",
@@ -13859,7 +13859,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "AsyncWebSocket webSocket(\"/ws\");",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         }
       ],
       "omissions": [
@@ -13920,7 +13920,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "loopMessages.begin(); // PSRAM-backed S3 queue"
         },
         {
@@ -13936,7 +13936,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "void onWebSocketEvent(",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         },
         {
           "path": "firmware/esp32s3/src/EthernetPort.h",
@@ -14504,12 +14504,12 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "Future<DiscoveredDevice?> verifyDiscoveredDevice("
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "bool sameBoard(DiscoveredDevice other)"
         },
         {
@@ -15319,7 +15319,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "void serviceStatusRgb(uint32_t now)"
         },
         {
@@ -15629,7 +15629,7 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "class DeviceDiscovery"
         },
         {
@@ -15734,7 +15734,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "DiscoveredDevice? parseMndp"
         },
         {
@@ -15749,7 +15749,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "void serviceConfigurationChanges()"
         }
       ],
@@ -15823,7 +15823,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "DiscoveredDevice? parseMndp"
         }
       ],
@@ -16074,7 +16074,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "bool authenticate()"
         },
         {
@@ -19099,7 +19099,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "if(BoardCore::Context::pixelEvents(available))"
         },
         {
@@ -24044,7 +24044,7 @@
       "targets": [
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "void serviceScenePersistence(bool flush)"
         },
         {
@@ -24480,7 +24480,7 @@
         },
         {
           "path": "tests/remote_stubs/ESP8266HTTPClient.h",
-          "sha256": "346ba4f449d803fdea60500d757e89f46ad0b0841006736aa067748b2d8a9870",
+          "sha256": "9bc305753420618d066d03870afe895ae58d3e74473e934bfc6c8c60f485bd1e",
           "anchor": "Actual S3 end() retains _client"
         },
         {
@@ -24751,7 +24751,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "baf30ffaf8399d5f8f2d6d6dd04ebe255771ece33f3c391cb4a4ad896b8fe8f1",
+          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
           "anchor": "class DiscoveryCatalog"
         },
         {
@@ -24943,7 +24943,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25024,7 +25024,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         },
         {
           "path": "libraries/BoardCore/src/PixelGroupLayout.h",
@@ -25285,7 +25285,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb",
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25361,7 +25361,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "3f130336df8be240a6f99ceb82e92b4655d04b9375fb29f06265c6c92a6d95fb"
+          "sha256": "70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29"
         }
       ],
       "omissions": [

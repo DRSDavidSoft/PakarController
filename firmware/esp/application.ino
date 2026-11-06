@@ -3107,10 +3107,10 @@ bool handleCloudCommand(const String &message, String &result) {
   if(command=="peer-network-status"){result=peerNetworkCommission.snapshot(commandRequest["job_request_id"]|"");return true;}
   if(command=="peer-relay-result"){result=peerRelay.snapshot(commandRequest["job_request_id"]|"");return true;}
   if(command=="peer-directory"){result=peerRelay.directory();return true;}
-  if(command=="peer-catalogue"){result=peerCatalogue.snapshot();return true;}
+  if(command=="peer-catalogue"){result=peerCatalogue.snapshot(commandRequest["offset"]|0U);return true;}
   if(command=="peer-discover"){const bool ok=peerCatalogue.discover();result=peerCatalogue.snapshot();return ok;}
   if(command=="peer-update-stage") {
-    if(otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){result="maintenance_busy";return false;}
+    if(peerCatalogue.busy()||otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){result="maintenance_busy";return false;}
     const bool ok=remoteFirmware.stagePeer(commandRequest["source"].as<JsonObjectConst>(),commandRequest["authorization"]|"");
     result=ok?remoteFirmware.json():remoteFirmware.error();return ok;
   }
@@ -4089,13 +4089,13 @@ void servicePeerRelay() {
 #endif
 void registerApi() {
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
-  server.on("/api/peers/discovered",HTTP_GET,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.snapshot());});
+  server.on("/api/peers/discovered",HTTP_GET,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.snapshot(server.arg("offset").toInt()));});
   server.on("/api/peers/discover",HTTP_POST,[](){if(!authenticate())return;const bool ok=peerCatalogue.discover();server.send(ok?202:409,"application/json",peerCatalogue.snapshot());});
   server.on("/api/peers/policy",HTTP_POST,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.configure(server.hasArg("settings")?server.arg("settings"):server.jsonBody()));});
   server.on("/api/peer/offer",HTTP_POST,[](){server.send(200,"application/json",peerCatalogue.offer(server.jsonBody(),server.remoteAddress()));});
   server.on("/api/peers/update",HTTP_POST,[](){
     if(!authenticate())return;
-    if(otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){server.send(409,"application/json","{\"error\":\"maintenance_busy\"}");return;}
+    if(peerCatalogue.busy()||otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){server.send(409,"application/json","{\"error\":\"maintenance_busy\"}");return;}
     JsonDocument d;
     const String raw=server.jsonBody();bool parsed=false;
     if(raw.length())parsed=!deserializeJson(d,raw);

@@ -538,7 +538,8 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
         value = raw;
       }
     }
-    if (metadata == null && value == null) return null;
+    if (metadata == null && value == null && info['kind'] != 'board')
+      return null;
     if (value != null &&
         info['kind'] == 'board' &&
         (info['board_id'] != value['board_id'] ||
@@ -553,7 +554,10 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
     if (candidate.instanceId.isNotEmpty && instance != candidate.instanceId) {
       return null;
     }
-    final board = value?['board_id'] as String? ?? candidate.boardId;
+    final board =
+        value?['board_id'] as String? ??
+        info['board_id'] as String? ??
+        candidate.boardId;
     if (candidate.boardId.isNotEmpty &&
         value != null &&
         candidate.boardId != board) {
@@ -569,7 +573,9 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
       }
     }
     return DiscoveredDevice(
-      value == null ? metadata!.$1 : PeerContext.fromStatus(value).name,
+      value == null
+          ? (info['hostname'] as String? ?? metadata?.$1 ?? candidate.name)
+          : PeerContext.fromStatus(value).name,
       candidate.endpoint,
       candidate.protocol,
       boardId: board,
@@ -583,11 +589,13 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
           ? null
           : PeerContext.fromStatus(value).application,
       instanceId: instance,
-      kind: value?['bridge'] is Map ? 'bridge' : candidate.kind,
+      kind: value?['bridge'] is Map
+          ? 'bridge'
+          : info['kind'] as String? ?? candidate.kind,
       compatible: compatible,
       hostname: value?['hostname'] is String
           ? value!['hostname'] as String
-          : '',
+          : info['hostname'] as String? ?? '',
       metadata: info,
       observedAddress: identityAddress,
     );

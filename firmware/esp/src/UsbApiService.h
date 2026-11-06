@@ -52,7 +52,7 @@ String maintenanceApi(const String &message,bool physicalUsb) {
   if(request["board_id"].as<String>()!=pcBoardId||request["boot_id"].as<String>()!=pcBootId)return maintenanceApiError("peer_changed");
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
   if(method=="GET"&&path=="/api/peer/info")return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,deviceIdentity.hostname()),peerCatalogue.sharing(),peerCatalogue.automaticChecks());
-  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot();
+  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot(body["offset"]|0U);
   if(method=="GET"&&path=="/api/firmware/remote")return remoteFirmware.json();
   if(method=="POST"&&(path=="/api/peers/discover"||path=="/api/peers/policy"||path=="/api/peers/update"||path=="/api/firmware/apply"||path=="/api/firmware/cancel")) {
     if(filesystemInitializationComplete)return maintenanceApiError("initialization_requires_reboot");
@@ -62,7 +62,10 @@ String maintenanceApi(const String &message,bool physicalUsb) {
       if(!maintenanceApiIdle())return maintenanceApiError("maintenance_busy");
       if(path=="/api/peers/discover"){peerCatalogue.discover();return peerCatalogue.snapshot();}
       if(path=="/api/peers/policy"){String data;serializeJson(body,data);return peerCatalogue.configure(data);}
-      if(path=="/api/peers/update"&&!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+      if(path=="/api/peers/update"){
+        if(peerCatalogue.busy())return maintenanceApiError("maintenance_busy");
+        if(!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+      }
       if(path=="/api/firmware/apply"&&!remoteFirmware.apply(body["job_id"]|0U,body["boot_id"]|"",body["sha256"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
     }return remoteFirmware.json();
   }

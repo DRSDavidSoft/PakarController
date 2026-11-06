@@ -86,6 +86,14 @@ hash of an old/different binary is not a newer firmware candidate.
 Different families are visible but cannot replace one another. A same-release
 image is not automatically considered newer just because its digest differs.
 
+The eight-entry firmware catalogue retains compact identity/artifact metadata,
+not complete app hardware reports. Full information remains at each endpoint.
+Catalogue pages fit the existing USB response budget: follow `next_offset` via
+the HTTP `offset` query or WS/USB `offset` field until null. Age/stale information
+belongs to each observation; a saved index is not control or update authority.
+Staging refuses to overlap an active discovery worker to avoid concurrent
+network/maintenance allocation pressure.
+
 The USB general API has the same catalogue, policy and staging operations.
 WebSocket/MQTT use existing peer-fenced commands `peer-catalogue`,
 `peer-discover` and `peer-update-stage`; no numeric wire opcode was added.

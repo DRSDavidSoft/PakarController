@@ -36,5 +36,36 @@ int main(){
   assert(catalogue.discover());taken=false;try{testWorker(testOwner);}catch(const std::runtime_error&e){assert(std::string(e.what())=="idle");}
   auto state=decode(catalogue.snapshot());assert(!catalogue.busy()&&state["peers"].size()==1);
   assert(state["peers"][0]["info"]["kind"]=="desktop-app");assert(OtaFixture::begins==0);
-  puts("Actual peer catalogue: passive offers with checks off, source binding, expiry, persistent policy, standalone app discovery and no implicit OTA passed (SDK doubles).");
+  assert(decode(catalogue.configure("{\"automatic_check\":false,\"accept_offers\":true,\"sharing\":true}"))["accepted"]==true);
+  JsonDocument local;local["product"]="PakarController";local["kind"]="board";local["board_id"]="self-board";local["boot_id"]=boot;local["hostname"]="self-board";
+  auto ourImage=local["artifacts"].to<JsonArray>().add<JsonObject>();ourImage.set(a);ourImage["version"]="0.2.8";
+  const String localInfo=encode(local);catalogue.setLocalInfo([localInfo](){return localInfo;});
+  identity.clear();identity["product"]="PakarController";identity["kind"]="board";identity["board_id"]="older-board";identity["boot_id"]=boot;
+  auto oldImage=identity["artifacts"].to<JsonArray>().add<JsonObject>();oldImage.set(a);oldImage["version"]="0.2.7";
+  result.port=80;const String boardUrl="http://neighbor.local:80/api/peer/info",offerUrl="http://neighbor.local:80/api/peer/offer";
+  const String older=encode(identity);testResponses[boardUrl].bytes.assign(older.begin(),older.end());testResponses[boardUrl].board="older-board";testResponses[boardUrl].boot=boot;
+  testResponses[offerUrl].bytes=std::vector<uint8_t>{'{','}'};testRequests.clear();
+  assert(catalogue.discover());taken=false;try{testWorker(testOwner);}catch(const std::runtime_error&){}
+  bool offered=false;for(const auto &request:testRequests)if(request.method=="POST"&&request.url==offerUrl){
+    offered=true;const auto suggestion=decode(request.body);assert(suggestion["source"]["board_id"]=="self-board");
+    assert(suggestion["source"]["artifact"]["version"]=="0.2.8"&&suggestion["source"]["address"]=="192.168.1.20");
+  }
+  assert(offered&&!catalogue.automaticChecks()&&OtaFixture::begins==0);
+  PeerCatalogue bounded;bounded.begin("self-board");
+  mdns_result_t nodes[8];std::string names[8];
+  for(unsigned i=0;i<8;++i){
+    names[i]="node-"+std::to_string(i);nodes[i].hostname=names[i].c_str();nodes[i].port=8789;nodes[i].addr=&address;nodes[i].next=i<7?&nodes[i+1]:nullptr;
+    JsonDocument app;app["product"]="PakarController";app["kind"]="desktop-app";app["instance_id"]=names[i];app["version"]="0.2.9";
+    app["client"]["hardware_report"]=String(1800,'x');app["exchange"]["future_optional_data"]=String(900,'x');
+    const String packet=encode(app),url=String("http://")+names[i].c_str()+".local:8789/api/peer/info";
+    testResponses[url].bytes.assign(packet.begin(),packet.end());
+  }
+  testMdnsResults=nodes;assert(bounded.discover());taken=false;try{testWorker(testOwner);}catch(const std::runtime_error&){}
+  unsigned found=0,offset=0,pages=0;
+  do {const String packet=bounded.snapshot(offset);assert(packet.length()<8192);const auto page=decode(packet);++pages;
+    for(const auto row:page["peers"].as<JsonArrayConst>()){++found;assert(row["info"]["metadata_compact"]==true&&row["info"]["client"].isNull());}
+    if(page["next_offset"].isNull())break;const unsigned next=page["next_offset"];assert(next>offset);offset=next;
+  }while(pages<8);
+  assert(found==8&&pages>1&&OtaFixture::begins==0);
+  puts("Actual peer catalogue: passive offers with checks off, source binding, expiry, persistent policy, standalone app discovery, board-owned newer-image offer without apps and no implicit OTA passed (SDK doubles).");
 }

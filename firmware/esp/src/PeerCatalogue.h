@@ -63,7 +63,7 @@ class PeerCatalogue {
     if(!worker_&&xTaskCreate(worker,"pakar-catalogue",6144,this,1,&worker_)!=pdPASS){busy_=false;return false;}
     xTaskNotifyGive(worker_);return true;
   }
-  String snapshot() {
+  String snapshot(unsigned offset=0) {
     std::lock_guard<std::mutex> lock(mutex_);JsonDocument d;
     d["busy"]=busy();d["automatic_authority"]=false;d["error"]=error_;
     d["policy"]["automatic_check"]=automatic_.load();d["policy"]["accept_offers"]=acceptOffers_.load();d["policy"]["sharing"]=sharing_.load();
@@ -72,14 +72,19 @@ class PeerCatalogue {
       d["offer_verified"]=false; // Suggestion only; staging verifies source/hash.
     }
     auto rows=d["peers"].to<JsonArray>();
-    for(const auto &r:rows_)if(r.identity.length()) {
+    unsigned index=0;d["offset"]=offset;d["next_offset"]=nullptr;
+    for(const auto &r:rows_){const unsigned row=index++;if(row<offset||!r.identity.length())continue;
       JsonDocument peer;if(deserializeJson(peer,r.identity))continue;
+      // Same bounded result fits HTTP, WS and the existing 8 KiB USB API.
+      // A continuation retains every peer, rather than silently dropping rows.
+      if(measureJson(d)+r.identity.length()+256>7600){d["next_offset"]=row;break;}
       auto o=rows.add<JsonObject>();o["info"]=peer.as<JsonObjectConst>();o["endpoint"]=r.origin;
       o["observed_address"]=r.address;o["observation_age_ms"]=uint32_t(millis()-r.at);
       o["stale"]=uint32_t(millis()-r.at)>=BoardCore::PeerCatalogPolicy::staleAfterMs;
       o["verified"]=true;
     }
-    String out;serializeJson(d,out);return out;
+    String out;if(d.overflowed()||!out.reserve(measureJson(d)+1))return "{\"accepted\":false,\"error\":\"catalogue_memory_unavailable\"}";
+    serializeJson(d,out);return out;
   }
  private:
   struct Row {String key,origin,address,identity;uint32_t at=0;} rows_[BoardCore::PeerCatalogPolicy::capacity];
@@ -140,11 +145,20 @@ class PeerCatalogue {
         }
       }
     }
+    // An index retains identity/update metadata, not each app's full hardware
+    // report. Eight 4 KiB reports plus a JSON snapshot could exhaust S3 heap.
+    // The original endpoint remains available for complete information.
+    JsonDocument compact;
+    for(const char *field:{"product","application","kind","id","instance_id","session_id","board_id","boot_id","hostname","name","role","version","build","compatibility","exchange","artifacts"})
+      if(!d[field].isNull())compact[field]=d[field];
+    compact["metadata_compact"]=true;
+    const size_t compactSize=measureJson(compact);if(compact.overflowed()||compactSize>1536)return;
+    String retained;if(!retained.reserve(compactSize+1))return;serializeJson(compact,retained);if(retained.length()!=compactSize)return;
     std::lock_guard<std::mutex> lock(mutex_);Row *slot=nullptr;
     for(auto &r:rows_)if(r.key==key){slot=&r;break;}
     if(!slot)for(auto &r:rows_)if(r.key.isEmpty()){slot=&r;break;}
     if(!slot){slot=&rows_[0];for(auto &r:rows_)if(uint32_t(millis()-r.at)>uint32_t(millis()-slot->at))slot=&r;}
-    *slot={key,origin,ip.toString(),body,millis()};
+    *slot={key,origin,ip.toString(),retained,millis()};
   }
   void scan() {
     {std::lock_guard<std::mutex> lock(mutex_);error_="";}

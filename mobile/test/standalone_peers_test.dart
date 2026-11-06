@@ -62,6 +62,62 @@ void main() {
     );
     expect(coalesceDevices([a, b]), hasLength(2));
   });
+  for (final mismatch in [false, true]) {
+    test(
+      'Public board identity remains visible without command/status admission; mismatch=$mismatch',
+      () async {
+        const boot = '0123456789abcdef0123456789abcdef';
+        final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        server.listen((request) async {
+          if (request.uri.path == '/api/peer/info') {
+            request.response.headers.contentType = ContentType.json;
+            request.response.headers.set(
+              'x-pakar-board',
+              mismatch ? 'foreign-board' : 'private-board',
+            );
+            request.response.headers.set('x-pakar-boot', boot);
+            request.response.write(
+              jsonEncode({
+                'product': 'PakarController',
+                'kind': 'board',
+                'board_id': 'private-board',
+                'boot_id': boot,
+                'hostname': 'private-board',
+                'version': '0.1.0',
+                'exchange': {'automatic_check': false},
+              }),
+            );
+          } else {
+            request.response.statusCode = request.uri.path == '/api/status'
+                ? 401
+                : 404;
+          }
+          await request.response.close();
+        });
+        try {
+          final peer = await verifyDiscoveredDevice(
+            DiscoveredDevice(
+              'hint',
+              'http://127.0.0.1:${server.port}',
+              'Manual',
+            ),
+          );
+          if (mismatch) {
+            expect(peer, isNull);
+          } else {
+            expect(peer?.boardId, 'private-board');
+            expect(peer?.kind, 'board');
+            expect(peer?.verified, true);
+            expect(peer?.authRequired, true);
+            expect(peer?.compatible, false);
+            expect(peer?.observedAddress, '127.0.0.1');
+          }
+        } finally {
+          await server.close(force: true);
+        }
+      },
+    );
+  }
   test(
     'Board transfer requires observed private IP, same role and newer artifact',
     () {

@@ -52,6 +52,17 @@ wrong release and separate source/destination credentials. These new tests
 remain CI candidates until their execution is reported. Rust USB peer-stage GUI
 and installed-device/LAN/long-soak checks remain open. No board/app was deployed.
 
+Review also found Flutter still discarded a valid public board identity when
+both description and control-status reads were unavailable. It now retains
+that verified board as auth-required/read-only, never auto-selecting it or
+loosening command admission. Bounded HTTP fixtures cover missing status and
+conflicting transport identity. The actual catalogue fixture now observes the
+firmware itself offering a newer image to another board with no app attached;
+the HTTP double records method/body, and staging remains untouched. Local
+guarded Analyze still stops on live donor drift. Publication's first HTTPS
+push hit a low-speed timeout; the unchanged commit published on the next
+bounded normal HTTPS attempt without changing credentials or SSH trust.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked
