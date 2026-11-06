@@ -24480,7 +24480,7 @@
         },
         {
           "path": "tests/remote_stubs/ESP8266HTTPClient.h",
-          "sha256": "9bc305753420618d066d03870afe895ae58d3e74473e934bfc6c8c60f485bd1e",
+          "sha256": "cd73a7e460b3a521e921535eb54e81d957f69ac51ffd11196249772d3bd8a7bd",
           "anchor": "Actual S3 end() retains _client"
         },
         {

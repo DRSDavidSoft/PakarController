@@ -5231,7 +5231,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 - Test-code evidence: `tests/async_http_test.cpp:44 [UTF8-LF sha256=00b94a5c0e929470d30095207036fb640b648fa9e26ea7706fa1d7a615fc0bbe; anchor=Reproduce installed SDK3.12.1]`.
 - Test-code evidence: `tests/access_stubs/ESPAsyncWebServer.h:125 [UTF8-LF sha256=7ae9dace972d3bb2384ce0b08bac1870938968e1aa271f2b9d839df3cd8794eb; anchor=if(onPause)onPause();]`.
 - Test-code evidence: `tests/s3_dns_recovery_test.cpp:23 [UTF8-LF sha256=c41d7526e9983da068a7c23db8dcad9cf0b4589b4f94ca1ad08d939e56a1fa8a; anchor=DnsRecovery promote;]`.
-- Test-code evidence: `tests/remote_stubs/ESP8266HTTPClient.h:24 [UTF8-LF sha256=9bc305753420618d066d03870afe895ae58d3e74473e934bfc6c8c60f485bd1e; anchor=Actual S3 end() retains _client]`.
+- Test-code evidence: `tests/remote_stubs/ESP8266HTTPClient.h:24 [UTF8-LF sha256=cd73a7e460b3a521e921535eb54e81d957f69ac51ffd11196249772d3bd8a7bd; anchor=Actual S3 end() retains _client]`.
 - Test-code evidence: `tests/remote_stubs/ESP8266WiFi.h:16 [UTF8-LF sha256=db8ac280e5312a9ca6b3c989318e0105da61f12171631b0de504b6acbfa21e2e; anchor=inline static std::set<const WiFiClient*> live;]`.
 - Test-code evidence: `tests/s3_flash_guard_test.cpp:12 [UTF8-LF sha256=64f42d3285941d68b5692c45a5c2ecb7f3357b633e5fcf6e4014d356b9da3334; anchor=namespace FlashGuardFixture]`.
 - Test-code evidence: `tests/esp_only_maintenance_test.mjs:73 [UTF8-LF sha256=a01f41e093caa5effea531e3f912ac2c3f97debef842f4e045dc815be5174a8e; anchor=ESP-only maintenance source guards passed]`.

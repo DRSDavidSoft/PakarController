@@ -97,8 +97,9 @@ class PeerCatalogue {
     int connect(const char*,uint16_t port,int32_t ms)override{return NetworkClient::connect(ip_,port,ms);}
    private:IPAddress ip_;
   };
-  void probe(const String &host,uint16_t port,IPAddress ip) {
+  void probe(String host,uint16_t port,IPAddress ip) {
     using namespace BoardCore::PeerRoutePolicy;
+    host.toLowerCase(); // DNS names are case-insensitive, including NSD app hosts.
     if(!hostname(host.c_str())||!port||!privateAddress(ip[0],ip[1],ip[2],ip[3])||ip==WiFi.localIP()||ip==WiFi.softAPIP())return;
     PinnedClient client(ip);HTTPClient http;
     String origin=String("http://")+host+":";origin+=String(port);
@@ -153,7 +154,10 @@ class PeerCatalogue {
       if(!d[field].isNull())compact[field]=d[field];
     compact["metadata_compact"]=true;
     const size_t compactSize=measureJson(compact);if(compact.overflowed()||compactSize>1536)return;
-    String retained;if(!retained.reserve(compactSize+1))return;serializeJson(compact,retained);if(retained.length()!=compactSize)return;
+    String retained;
+    if(!retained.reserve(compactSize+1))return;
+    serializeJson(compact,retained);
+    if(retained.length()!=compactSize)return;
     std::lock_guard<std::mutex> lock(mutex_);Row *slot=nullptr;
     for(auto &r:rows_)if(r.key==key){slot=&r;break;}
     if(!slot)for(auto &r:rows_)if(r.key.isEmpty()){slot=&r;break;}

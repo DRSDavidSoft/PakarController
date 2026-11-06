@@ -32,7 +32,7 @@ int main(){
   const String url="http://neighbor.local:8789/api/peer/info";testResponses[url].bytes=std::vector<uint8_t>();
   const String info=encode(identity);testResponses[url].bytes.assign(info.begin(),info.end());
   mdns_ip_addr_t address;address.addr.u_addr.ip4.addr=0x1501a8c0;
-  mdns_result_t result;result.hostname="neighbor";result.port=8789;result.addr=&address;testMdnsResults=&result;
+  mdns_result_t result;result.hostname="NeIgHbOr";result.port=8789;result.addr=&address;testMdnsResults=&result;
   assert(catalogue.discover());taken=false;try{testWorker(testOwner);}catch(const std::runtime_error&e){assert(std::string(e.what())=="idle");}
   auto state=decode(catalogue.snapshot());assert(!catalogue.busy()&&state["peers"].size()==1);
   assert(state["peers"][0]["info"]["kind"]=="desktop-app");assert(OtaFixture::begins==0);
@@ -64,7 +64,8 @@ int main(){
   unsigned found=0,offset=0,pages=0;
   do {const String packet=bounded.snapshot(offset);assert(packet.length()<8192);const auto page=decode(packet);++pages;
     for(const auto row:page["peers"].as<JsonArrayConst>()){++found;assert(row["info"]["metadata_compact"]==true&&row["info"]["client"].isNull());}
-    if(page["next_offset"].isNull())break;const unsigned next=page["next_offset"];assert(next>offset);offset=next;
+    if(page["next_offset"].isNull())break;
+    const unsigned next=page["next_offset"];assert(next>offset);offset=next;
   }while(pages<8);
   assert(found==8&&pages>1&&OtaFixture::begins==0);
   puts("Actual peer catalogue: passive offers with checks off, source binding, expiry, persistent policy, standalone app discovery, board-owned newer-image offer without apps and no implicit OTA passed (SDK doubles).");

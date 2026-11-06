@@ -2,7 +2,7 @@
 #include "ESP8266WiFi.h"
 #include <map>
 struct TestResponse{std::vector<uint8_t>bytes;int status=200,length=-1;String encoding,transfer,board,boot;};
-struct TestRequest{String url,authorization,method="GET",body;};
+struct TestRequest{String url,authorization,method="GET",body=String();};
 extern std::map<std::string,TestResponse>testResponses;
 extern std::vector<TestRequest>testRequests;
 constexpr int HTTPC_DISABLE_FOLLOW_REDIRECTS=0;
