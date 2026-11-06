@@ -538,8 +538,9 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
         value = raw;
       }
     }
-    if (metadata == null && value == null && info['kind'] != 'board')
+    if (metadata == null && value == null && info['kind'] != 'board') {
       return null;
+    }
     if (value != null &&
         info['kind'] == 'board' &&
         (info['board_id'] != value['board_id'] ||

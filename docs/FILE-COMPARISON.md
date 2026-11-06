@@ -1512,8 +1512,8 @@ Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920
 
 Verdict: **scoped-improvement**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `fc37b6638aee7b3078b3822d8b221374066d68b40908d815968a06d0c3f351da`.
 
-- Target: `mobile/lib/discovery.dart:436 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=Future<DiscoveredDevice?> verifyDiscoveredDevice(]`.
-- Target: `mobile/lib/discovery.dart:50 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=bool sameBoard(DiscoveredDevice other)]`.
+- Target: `mobile/lib/discovery.dart:436 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=Future<DiscoveredDevice?> verifyDiscoveredDevice(]`.
+- Target: `mobile/lib/discovery.dart:50 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=bool sameBoard(DiscoveredDevice other)]`.
 - Target: `mobile/lib/devices_page.dart:61 [UTF8-LF sha256=bf2fc68098d9ed50f7855e403ac7c5984651c2a14178b6aba7688aa02931a694; anchor=String? preferredOrigin(ConnectionMethod method)]`.
 - Target: `mobile/lib/discovery_datagrams.dart:8 [UTF8-LF sha256=4a3a65c3e5227dbce188f3576dd9cee6a386594939cb3dac03ab52cacfb033a9; anchor=Future<void> collectDiscoveryDatagrams({]`.
 - Target: `mobile/lib/api.dart:3141 [UTF8-LF sha256=eec5871d734edebc0f31c67315c271bb21788f736bf986f39a2e103063439135; anchor=Future<Set<String>> _discoverSsdp()]`.
@@ -2556,7 +2556,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `4ca50ce622f998f1922a828350ad71aea5fa5dee7506069ca3df2e857536198e`.
 
-- Target: `mobile/lib/discovery.dart:183 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=class DeviceDiscovery]`.
+- Target: `mobile/lib/discovery.dart:183 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=class DeviceDiscovery]`.
 - Target: `mobile/android/app/src/main/kotlin/ir/digitalogic/pakar/pakarcontroller/DiscoveryChannel.kt:15 [UTF8-LF sha256=0c1215ebc188d720fe9c181a475efac7567d6b5b884de5e8d97a2d443593bd61; anchor=class DiscoveryChannel]`.
 - Target: `mobile/lib/devices_page.dart:94 [UTF8-LF sha256=bf2fc68098d9ed50f7855e403ac7c5984651c2a14178b6aba7688aa02931a694; anchor=class DevicesPage]`.
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b; anchor=pub struct Advertiser]`.
@@ -2580,7 +2580,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `6faf511e686c83114025020a25d2da6ff0960240c969dd3872c6cf18ff20baf3`.
 
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b; anchor=pub struct Advertiser]`.
-- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=DiscoveredDevice? parseMndp]`.
+- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=DiscoveredDevice? parseMndp]`.
 - Retained: Read through EOF. Port actual big-endian MNDP vendor product/API-port TLVs, application-scoped locally administered virtual MAC, bounded records, 30s announcement and rate-limited query response to Rust. Dart consumes explicit API port and separate instance ID.
 - Omitted/replaced code: `Full multi-interface broadcast/IPv6/network-change acceptance`. Disposition: **pending**. Reason: Parser/socket fixture is not proof that real adapters, Windows firewall and Android multicast allow discovery across the actual LAN. Rebinding after adapter changes is not yet implemented.
 - Test-code evidence: `desktop/src/platform/lan_discovery.rs:756 [UTF8-LF sha256=02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
@@ -2817,7 +2817,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 - Target: `mobile/lib/lan_resolver.dart:8 [UTF8-LF sha256=0dd6bae6e31632f2b526796cf4a67b5b31af978bac11d00bc932f3aef5576e92; anchor=class LanResolver]`.
 - Target: `mobile/lib/api.dart:181 [UTF8-LF sha256=eec5871d734edebc0f31c67315c271bb21788f736bf986f39a2e103063439135; anchor=final LanResolver resolver;]`.
-- Target: `mobile/lib/discovery.dart:122 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=class DiscoveryCatalog]`.
+- Target: `mobile/lib/discovery.dart:122 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=class DiscoveryCatalog]`.
 - Target: `mobile/lib/devices_page.dart:75 [UTF8-LF sha256=bf2fc68098d9ed50f7855e403ac7c5984651c2a14178b6aba7688aa02931a694; anchor=catalog]`.
 - Target: `desktop/src/peer_http.rs:339 [UTF8-LF sha256=ae1b14ad237c9e218d29f7eb3076cda183ec267a73394f9c05ca2bf13469270b; anchor=pub fn device_client_builder]`.
 - Target: `desktop/src/main.rs:824 [UTF8-LF sha256=25863bdbc71f10cd91c655eaed9d63d4ce45af18dc331bb85917f4887dceff37; anchor=peer_http::remember_address]`.
@@ -5475,7 +5475,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 - Target: `firmware/esp/src/Mndp.h:21 [UTF8-LF sha256=500029f5f59c9612ddf64572d2d878d4d6f5d79699fce9ffbf49106c88eecfe0; anchor=class Packet]`.
 - Target: `firmware/esp/src/MndpService.h:17 [UTF8-LF sha256=465067669cc66495299af3687dd91e78258ae3c4d01a65b7a15899c14c808537; anchor=class MndpService]`.
-- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=DiscoveredDevice? parseMndp]`.
+- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=DiscoveredDevice? parseMndp]`.
 - Target: `firmware/esp32s3/src/DiscoveryInterfacePolicy.h:12 [UTF8-LF sha256=94ead0d3e60e0aebe1a4bce7c18203cce57cfebacfbc2caff0fe3f6bb6b85814; anchor=struct DiscoveryInterfaces]`.
 - Target: `firmware/esp/src/ConfigurationChanges.h:24 [UTF8-LF sha256=067b5a6943105d2d895ec939447dcefa38ff14370a13c1bbb33dc8ee7ad89393; anchor=class Journal]`.
 - Target: `firmware/esp/application.ino:2581 [UTF8-LF sha256=70c9bf1dcfaad9ce067a0f3e3f1587ecbed0ea970947339910ae7c2d77f6fa29; anchor=void serviceConfigurationChanges()]`.
@@ -5498,7 +5498,7 @@ Verdict: **parity-gap**. Revision: `431104072952f694a35b3a83c19f13fbb098ca5b`. O
 
 - Target: `firmware/esp/src/Mndp.h:21 [UTF8-LF sha256=500029f5f59c9612ddf64572d2d878d4d6f5d79699fce9ffbf49106c88eecfe0; anchor=class Packet]`.
 - Target: `firmware/esp/src/MndpService.h:17 [UTF8-LF sha256=465067669cc66495299af3687dd91e78258ae3c4d01a65b7a15899c14c808537; anchor=class MndpService]`.
-- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9; anchor=DiscoveredDevice? parseMndp]`.
+- Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=DiscoveredDevice? parseMndp]`.
 - Retained: Fully read header/implementation. Actual port 5678/group 224.0.0.88 and big-endian TLV type/length layout adapted into bounded packets; MAC, hostname, firmware version, platform, board, uptime, stable board ID and IPv4 metadata retained.
 - Retained: Integrated station lifecycle starts/stops MNDP alongside existing discovery, announces at 30 seconds and accepts only a rate-limited four-zero-byte query. Android scans/decodes defensive bounded TLVs without sending credentials. Packet overflow prevents any partial advertisement.
 - Omitted/replaced code: `Unbounded addTlv into 255-byte buffer; global UDP/ASA0002E header inclusion`. Disposition: **replaced**. Reason: Each copy checks the complete packet capacity and fails closed; module-owned socket state avoids donor globals/application header dependency. The header uses reserved/version bytes plus a bounded big-endian sequence, not a host-endian counter.

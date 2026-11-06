@@ -9559,7 +9559,7 @@
         {
           "path": "mobile/lib/discovery.dart",
           "anchor": "DiscoveredDevice? parseMndp",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9"
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3"
         }
       ],
       "omissions": [
@@ -14504,12 +14504,12 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "Future<DiscoveredDevice?> verifyDiscoveredDevice("
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "bool sameBoard(DiscoveredDevice other)"
         },
         {
@@ -15629,7 +15629,7 @@
       "targets": [
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "class DeviceDiscovery"
         },
         {
@@ -15734,7 +15734,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "DiscoveredDevice? parseMndp"
         },
         {
@@ -15823,7 +15823,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "DiscoveredDevice? parseMndp"
         }
       ],
@@ -24751,7 +24751,7 @@
         },
         {
           "path": "mobile/lib/discovery.dart",
-          "sha256": "304134b1f161ecaba9653a86d2c8824dcfcc1a6a698fd97fdb274d8f4ad714e9",
+          "sha256": "069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3",
           "anchor": "class DiscoveryCatalog"
         },
         {
