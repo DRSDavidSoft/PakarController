@@ -998,7 +998,7 @@ impl PakarControllerApp {
         self.presentation_context().is_some_and(|c| c.table())
     }
     fn panel_live(&self, panel: Panel) -> bool {
-        if panel == Panel::Events {
+        if matches!(panel,Panel::Events|Panel::Peers) {
             return true;
         }
         if !panel.available(self.peer_context()) {
@@ -1016,7 +1016,7 @@ impl PakarControllerApp {
             Panel::Hardware => &["telemetry", "inputs", "outputs"],
             Panel::Network => &["network"],
             Panel::Streaming => &["table", "streaming"],
-            Panel::Events => &[],
+            Panel::Events | Panel::Peers => &[],
         };
         required
             .iter()
@@ -1976,7 +1976,7 @@ impl PakarControllerApp {
         };
         self.usb_ui_demand.0 = self.usb_ui_demand.0.merge(crate::usb_demand::Demand {
             flags,
-            table: panel != Panel::Events,
+            table: !matches!(panel,Panel::Events|Panel::Peers),
         });
         let live = self.panel_live(panel);
         dialog::scroll_column(
@@ -2016,6 +2016,14 @@ impl PakarControllerApp {
                     Panel::FrontPanel => self.draw_front_panel(ui),
                     Panel::Hardware => self.draw_hardware(ui, false),
                     Panel::Network => self.draw_network(ui),
+                    Panel::Peers => {
+                        if let Some(origin)=super::peers::draw(ui,&mut self.peer_workspace)
+                            && !self.connection_change_guard() {
+                            self.set_connection(self.transport,false);
+                            self.base=origin;self.user="admin".into();self.password.clear();
+                            self.set_connection(Transport::WiFi,false);self.show_connection=true;
+                        }
+                    },
                     Panel::Streaming => self.draw_streaming(ui),
                     Panel::Events => self.draw_events(ui),
                 });

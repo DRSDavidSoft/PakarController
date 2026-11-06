@@ -1,5 +1,23 @@
 # Donor-first preflight receipt
 
+## Standalone peer exchange candidate, 2026-11-07
+
+Issue58 separates boards, Android apps and native apps as peers without an
+attached controller/board prerequisite. Reread actual PCController resolver.go,
+resolver_test.go and link/discovery.go and reused the existing pinned numeric
+dial/logical Host, provisional identity and explicit-control handoff owners.
+Android package exchange remains owned by AppUpdatePeers/AppUpdates; S3 staging
+remains owned by RemoteFirmware/S3OtaStage, not a new flash writer. Added pure
+policy, actual catalogue/updater SDK-double and standalone app-discovery tests.
+
+The local mobile Analyze wrapper first stopped at the changed WebAccess hash;
+owned additive target diffs/anchors were reviewed and rebound without changing
+donor hashes or prior gap decisions. A subsequent guarded Analyze stops at live
+Pealayer inventory drift before Flutter. Do not refresh/bless that other chat's
+drafts or run compilers directly to bypass the gate. CI against the committed
+review snapshot is required; no build or hardware acceptance is claimed yet.
+Boards and installed applications have not been modified by this source pass.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

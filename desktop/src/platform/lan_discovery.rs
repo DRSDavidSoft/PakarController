@@ -403,9 +403,10 @@ fn verify(candidate: Candidate, registry: &Mutex<Registry>) {
         response.take(limit + 1).read_to_end(&mut bytes).ok()?;
         (bytes.len() <= limit as usize).then_some(bytes)
     };
-    let public = read("/api/discovery", 8192)
+    let public = read("/api/peer/info", 8192)
         .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
-        .filter(|v| v["product"] == "PakarController");
+        .filter(|v| v["product"] == "PakarController"||v["application"]=="PakarController")
+        .or_else(||read("/api/discovery",8192).and_then(|b|serde_json::from_slice::<Value>(&b).ok()).filter(|v|v["product"]=="PakarController"));
     let status = read("/api/status", 32768)
         .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
         .filter(valid_status);
@@ -549,7 +550,7 @@ pub(super) fn scan_origins(timeout: Duration) -> Vec<String> {
         .as_ref()
         .into_iter()
         .flat_map(|d| {
-            ["_pakarcontroller._tcp.local.", "_http._tcp.local."]
+            ["_pakarcontroller._tcp.local.", "_pakar-update._tcp.local.", "_http._tcp.local."]
                 .into_iter()
                 .filter_map(|kind| d.browse(kind).ok())
         })

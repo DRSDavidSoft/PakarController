@@ -27,6 +27,7 @@ class DiscoveredDevice {
     this.compatible = false,
     this.hostname = '',
     this.application,
+    this.metadata = const {},
   });
   final String name, endpoint, protocol;
   final String boardId, mac, udn;
@@ -35,6 +36,7 @@ class DiscoveredDevice {
   final String hostname;
   final PeerApplication? application;
   final String instanceId, kind;
+  final Map<String, dynamic> metadata;
 
   Set<String> get origins =>
       {endpoint, ...aliases}.map(PakarApi.normalizeEndpoint).toSet();
@@ -80,7 +82,8 @@ class DiscoveredDevice {
     verified: verified || other.verified,
     authRequired: other.authRequired,
     instanceId: other.instanceId.isNotEmpty ? other.instanceId : instanceId,
-    kind: other.kind == 'bridge' ? other.kind : kind,
+    kind: other.verified ? other.kind : kind,
+    metadata: other.metadata.isNotEmpty ? other.metadata : metadata,
     compatible: other.verified ? other.compatible : compatible,
     hostname: other.hostname.isNotEmpty ? other.hostname : hostname,
     application: other.application ?? application,
@@ -456,6 +459,41 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
   }
 
   Future<DiscoveredDevice?> probe() async {
+    Map<String, dynamic> info = const {};
+    try {
+      final response = await read('/api/peer/info');
+      if (response.$1 == 200) {
+        final value = jsonDecode(response.$2);
+        if (value is Map<String, dynamic> &&
+            (value['product'] == 'PakarController' ||
+                value['application'] == 'PakarController'))
+          info = value;
+      }
+    } on Object {
+      /* Older public discovery endpoints remain usable. */
+    }
+    final kind = info['kind'];
+    if ({'android-app', 'desktop-app', 'bridge'}.contains(kind)) {
+      final id = info['instance_id'] ?? info['id'];
+      if (!validText(id, 80) ||
+          candidate.instanceId.isNotEmpty && id != candidate.instanceId)
+        return null;
+      return DiscoveredDevice(
+        info['name'] is String
+            ? info['name'] as String
+            : info['hostname'] is String
+            ? info['hostname'] as String
+            : candidate.name,
+        candidate.endpoint,
+        candidate.protocol,
+        instanceId: id as String,
+        kind: kind as String,
+        verified: true,
+        metadata: info,
+        addresses: observedIps,
+        aliases: candidate.origins,
+      );
+    }
     final xml = await read('/description.xml');
     final metadata = xml.$1 == 200 ? pakarXmlIdentity(xml.$2) : null;
     if (metadata != null &&
@@ -518,6 +556,7 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
       hostname: value?['hostname'] is String
           ? value!['hostname'] as String
           : '',
+      metadata: info,
     );
   }
 

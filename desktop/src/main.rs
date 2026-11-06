@@ -48,6 +48,7 @@ mod pc_contract;
 mod protocol_opcodes;
 mod peer_http;
 mod peer_identity;
+mod peer_catalogue;
 mod pixel_diagnostic;
 mod pixel_corrections;
 mod pixel_groups;
@@ -3619,6 +3620,7 @@ fn command_route(selected: Transport, wifi_fresh: bool, usb_fresh: bool) -> Opti
     }
 }
 struct PakarControllerApp {
+    peer_workspace: peer_catalogue::Workspace,
     firmware_feed: Option<firmware_feed::Session>,
     firmware_transfer: Option<firmware_progress::Transfer>,
     firmware_feed_message: String,
@@ -3819,6 +3821,7 @@ impl PakarControllerApp {
             firmware_feed: None,
             firmware_transfer: None,
             firmware_feed_message: String::new(),
+            peer_workspace: Default::default(),
             bridge: Default::default(),
             connection_gate,
             connection_enabled: startup_enabled,

@@ -26,6 +26,7 @@ mod pixels;
 #[serde(default)]
 pub struct Settings {
     pub enabled: bool,
+    pub peer_discovery: bool,
     pub listen: String,
     pub port: u16,
     pub hostname: String,
@@ -38,6 +39,7 @@ impl Default for Settings {
     fn default() -> Self {
         Self {
             enabled: false,
+            peer_discovery: true,
             listen: "0.0.0.0".into(),
             port: 8789,
             hostname: std::env::var("COMPUTERNAME")
@@ -137,7 +139,7 @@ impl Runtime {
         self.stop();
         self.settings = Some(settings.clone());
         self.error.clear();
-        if fixture || !settings.enabled {
+        if fixture || (!settings.enabled&&!settings.peer_discovery) {
             return;
         }
         match settings
@@ -1198,6 +1200,7 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
     if std::str::from_utf8(&peek[..count])
         .is_ok_and(|s| s.to_ascii_lowercase().contains("upgrade: websocket"))
     {
+        if !shared.settings.enabled{return write_response(&mut socket,403,"application/json",b"{\"error\":\"bridge_disabled\"}");}
         let mut limits = tungstenite::protocol::WebSocketConfig::default();
         limits.max_message_size = Some(8192);
         limits.max_frame_size = Some(8192);
@@ -1417,7 +1420,7 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
         }
     };
     let path = request.path.split('?').next().unwrap_or("");
-    if request.method == "GET"
+    if shared.settings.enabled && request.method == "GET"
         && matches!(path, "/api/status" | "/api/cells/mapping" | "/api/events")
     {
         let pixels = request.path.split_once('?').is_some_and(|(_, query)| {
@@ -1444,7 +1447,10 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
                 | "/api/auth/info"
                 | "/api/peer/info"
         );
-    if (!bootstrap || request.headers.contains_key("x-pakar-version"))
+    if !shared.settings.enabled&&!(request.method=="GET"&&matches!(path,"/api/peer/info"|"/description.xml"|"/upnp/device.xml"|"/api/discovery"|"/upnp/public.json"|"/healthz"|"/api/auth/info")) {
+        return write_response(&mut socket,403,"application/json",b"{\"error\":\"bridge_disabled\"}");
+    }
+    if (!bootstrap || (path!="/api/peer/info"&&request.headers.contains_key("x-pakar-version")))
         && let Err(error) = crate::peer_identity::validate_client(
             request.headers.get("x-pakar-version").map(String::as_str),
         )
@@ -1505,7 +1511,7 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
         );
     }
     if request.method == "GET" && path == "/api/peer/info" {
-        let value = json!({"product":"PakarController","role":"bridge","id":shared.settings.instance_id,"session_id":crate::peer_identity::session_id(),"version":crate::peer_identity::VERSION,"hostname":shared.settings.hostname,"compatibility":crate::peer_identity::advertised_policy(),"client":crate::client_telemetry::Reporter::new().value_for_transport("bridge")});
+        let value = crate::peer_catalogue::public_info(&shared.settings.instance_id,&shared.settings.hostname,shared.settings.enabled);
         return write_response(
             &mut socket,
             200,
@@ -1882,6 +1888,7 @@ mod tests {
     }
     pub(super) fn fixture() -> (Arc<Shared>, mpsc::Receiver<SerialCommand>, connection::Gate) {
         let settings = Settings {
+            enabled: true,
             hostname: "fixture-host".into(),
             listen: "127.0.0.1".into(),
             ..Default::default()

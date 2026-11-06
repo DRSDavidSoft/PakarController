@@ -38,6 +38,11 @@ class RemoteFirmware {
   void begin(const String &boot, Prepare prepare, Program program, Finish finish);
   bool queue(const String &url,const String &sha,uint8_t targets,bool apply,
              bool downgrade,const String &bearer);
+#if defined(ARDUINO_ARCH_ESP32)
+  // Explicit receiver-owned staging, NEVER implicit apply. Source credentials
+  // are supplied for this source only and never journalled or advertised.
+  bool stagePeer(JsonObjectConst source,const String &authorization);
+#endif
   bool apply(uint32_t id,const String &boot,const String &sha);
   bool cancel(uint32_t id,const String &boot);
   void service();
@@ -93,6 +98,10 @@ class RemoteFirmware {
   Phase phase_=Idle;
   Plan plan_;
   String boot_,manifestSha_,bearer_,error_,credentialOrigin_;
+#if defined(ARDUINO_ARCH_ESP32)
+  String peerHost_,peerAddress_,peerBoard_,peerBoot_,peerAuthorization_;
+  bool peerSource_=false;
+#endif
   uint32_t id_=0,lastDataAt_=0,startedAt_=0,rebootAt_=0,verifyAt_=0;
   bool autoApply_=false,downgrade_=false,opened_=false,prepareDone_=false;
   bool completedThisBoot_=false;

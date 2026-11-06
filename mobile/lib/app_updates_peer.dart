@@ -98,6 +98,12 @@ class AppUpdatePeers extends ChangeNotifier {
 
   Future<Map<String, dynamic>> manifest() async {
     final support = _publicSupport();
+    final package = await updates.rpc('app.package.info', {});
+    final signers =
+        (package['signers'] is List
+              ? List<String>.from(package['signers'] as List)
+              : <String>[])
+          ..sort();
     return {
       'product': 'PakarController',
       'kind': 'android-app',
@@ -108,7 +114,26 @@ class AppUpdatePeers extends ChangeNotifier {
       'compatibility': peerCompatibility(enabled: enforceVersions),
       'peer': PeerIdentity.current.report(),
       'package_sharing': true,
-      'app_updates': await updates.rpc('app.package.info', {}),
+      'app_updates': package,
+      'exchange': {
+        'passive_identity': true,
+        'package_sharing': true,
+        'automatic_apply': false,
+        'download': '/api/rpc',
+      },
+      'artifacts': [
+        if (package['sha256'] is String && signers.isNotEmpty)
+          {
+            'family':
+                'pakar-android:${package['package']}:${signers.join(',')}',
+            'version': package['version_name'],
+            'build': package['version_code'],
+            'bytes': package['bytes'],
+            'sha256': package['sha256'],
+            'method': 'app.package.read',
+            'rpc': '/api/rpc',
+          },
+      ],
       'rpc': '/api/rpc',
       'support': ?support,
       'capabilities': [

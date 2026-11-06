@@ -37,6 +37,17 @@ String maintenanceApi(const String &message,bool physicalUsb) {
   if(message.length()>4096||deserializeJson(request,message)||!request.is<JsonObject>())return maintenanceApiError("invalid_request");
   const String method=request["method"]|"",path=request["path"]|"";
   const JsonObjectConst body=request["body"].as<JsonObjectConst>();
+#if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
+  if(method=="GET"&&path=="/api/peer/info")return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,deviceIdentity.hostname()),peerCatalogue.sharing(),peerCatalogue.automaticChecks());
+  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot();
+  if(method=="POST"&&path=="/api/peers/discover") {peerCatalogue.discover();return peerCatalogue.snapshot();}
+  if(method=="POST"&&path=="/api/peers/policy") {String data;serializeJson(body,data);return peerCatalogue.configure(data);}
+  if(method=="POST"&&path=="/api/peers/update") {
+    if(!maintenanceApiIdle())return maintenanceApiError("maintenance_busy");
+    if(!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+    return remoteFirmware.json();
+  }
+#endif
   // Read-only recovery identity works even when the filesystem cannot mount.
   if(method=="GET"&&path=="/api/maintenance") {
     reply["board_id"]=pcBoardId;reply["boot_id"]=pcBootId;

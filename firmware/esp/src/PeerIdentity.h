@@ -25,6 +25,7 @@ inline String admissionError() {
 inline String info(const String &board,const String &boot,const String &hostname) {
   JsonDocument document;
   document["application"]="PakarController";document["version"]=BoardCore::BuildInfo::kVersion;
+  document["product"]="PakarController";document["kind"]="board";
   document["board_id"]=board;document["boot_id"]=boot;document["hostname"]=hostname;
   compatibility(document["compatibility"].to<JsonObject>());
   String body;serializeJson(document,body);return body;

@@ -13,6 +13,8 @@ import 'api.dart';
 import 'workspace_widgets.dart';
 import 'ble_transport.dart';
 import 'usb_transport.dart';
+import 'app_update_coordinator.dart';
+import 'peers_page.dart';
 
 final _discoveryFallbackArtwork = base64Decode(applicationArtworkBase64);
 
@@ -98,6 +100,7 @@ class DevicesPage extends StatefulWidget {
     this.apiFactory,
     this.api,
     this.onDiscovered,
+    this.updates,
   });
   final Future<void> Function(SavedDevice, String) select;
   final DeviceRegistry? registry;
@@ -105,6 +108,7 @@ class DevicesPage extends StatefulWidget {
   final PakarApi Function(SavedDevice, String)? apiFactory;
   final PakarApi? api;
   final VoidCallback? onDiscovered;
+  final AppUpdateCoordinator? updates;
   @override
   State<DevicesPage> createState() => _DevicesPageState();
 }
@@ -574,6 +578,7 @@ class _DevicesPageState extends State<DevicesPage> {
                               (method == ConnectionMethod.bluetooth),
               ),
             )
+            .where((entry) => entry.peer.kind == 'board' || entry.saved != null)
             .toList();
     final visible = entries.where(
       (entry) =>
@@ -592,6 +597,31 @@ class _DevicesPageState extends State<DevicesPage> {
           icon: PakarIcons.circuitry,
           subtitle: '$count available · $savedCount saved',
           actions: [
+            if (method == ConnectionMethod.network)
+              OutlinedButton.icon(
+                icon: const Icon(PakarIcons.broadcast),
+                label: const Text('Peers'),
+                onPressed: () => Navigator.push<void>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => PeersPage(
+                      updates: widget.updates,
+                      seeds: found,
+                      openBoard: (peer) async {
+                        Navigator.pop(context);
+                        await connect(
+                          DeviceListEntry(
+                            peer,
+                            null,
+                            true,
+                            observedOrigins: peer.origins,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
             if (method == ConnectionMethod.network && HostWifi.supported)
               IconButton.outlined(
                 tooltip: 'Join or manage this device’s Wi-Fi',

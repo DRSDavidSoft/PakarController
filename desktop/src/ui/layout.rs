@@ -17,11 +17,12 @@ pub enum Panel {
     FrontPanel,
     Hardware,
     Network,
+    Peers,
     Streaming,
     Events,
 }
 impl Panel {
-    pub const ALL: [Self; 13] = [
+    pub const ALL: [Self; 14] = [
         Self::Table,
         Self::PixelDiagnostics,
         Self::PixelCorrections,
@@ -33,6 +34,7 @@ impl Panel {
         Self::FrontPanel,
         Self::Hardware,
         Self::Network,
+        Self::Peers,
         Self::Streaming,
         Self::Events,
     ];
@@ -49,6 +51,7 @@ impl Panel {
             Self::FrontPanel => "Front panel",
             Self::Hardware => "Hardware monitor",
             Self::Network => "Network & cloud",
+            Self::Peers => "Peers",
             Self::Streaming => "Streaming",
             Self::Events => "Events",
         }
@@ -67,6 +70,7 @@ impl Panel {
             Self::FrontPanel => GAUGE,
             Self::Hardware => CIRCUITRY,
             Self::Network => GLOBE,
+            Self::Peers => RADIO,
             Self::Streaming => BROADCAST,
             Self::Events => LIST,
         }
@@ -78,7 +82,7 @@ impl Panel {
         })
     }
     pub fn available(self, context: Option<&crate::capabilities::Manifest>) -> bool {
-        if self == Self::Events {
+        if matches!(self,Self::Events|Self::Peers) {
             return true;
         }
         let Some(c) = context else {
@@ -98,7 +102,7 @@ impl Panel {
             Self::Hardware => c.has("telemetry"),
             Self::Network => c.has("network"),
             Self::Streaming => c.table() && c.has("streaming"),
-            Self::Events => true,
+            Self::Events | Self::Peers => true,
         }
     }
 }

@@ -43,7 +43,11 @@ class WebAccess {
          path == F("/board-icon.png") || path == F("/app-icon.png") ||
          path == F("/assets/fonts/Vazirmatn-Regular.ttf") || path == F("/assets/fonts/Vazirmatn-OFL.txt"));
     const bool login = path == F("/login") && request->method() == HTTP_POST;
-    if (publicRead || login) { next(); return; }
+    // An offer stores one bounded, expiring suggestion, never a transfer or
+    // control permission. The handler binds its origin to the actual LAN TCP
+    // source. Keep this passive listener independent of release/check policy.
+    const bool peerOffer=path==F("/api/peer/offer")&&request->method()==HTTP_POST&&!request->hasHeader("Origin");
+    if (publicRead || login || peerOffer) { next(); return; }
     String unavailable;
     if (!ready(unavailable)) { request->send(503, "text/plain", unavailable); return; }
     if (!sameOrigin(request)) { request->send(403, "text/plain", F("Cross-origin request rejected")); return; }
@@ -64,6 +68,7 @@ class WebAccess {
     refreshCredentialsLocked();
   }
   AsyncMiddleware *middleware() { return &middleware_; }
+  void setPeerInfoDecorator(std::function<String(const String&)> decorator){peerInfoDecorator_=std::move(decorator);}
   static String clientVersion(AsyncWebServerRequest *request) {
     const auto *header=request->getHeader("X-Pakar-Version");
     const String query=request->url()==F("/ws")?request->arg("version"):String();
@@ -191,7 +196,9 @@ class WebAccess {
     server.on("/api/peer/info",HTTP_GET,[this](AsyncWebServerRequest *request){
       String board,boot,hostname;
       {PakarAccessDetail::Guard lock(mutex_);board=boardId_;boot=bootId_;hostname=hostname_;}
-      auto *response=request->beginResponse(200,"application/json",PakarPeer::info(board,boot,hostname));
+      String body=PakarPeer::info(board,boot,hostname);
+      if(peerInfoDecorator_)body=peerInfoDecorator_(body);
+      auto *response=request->beginResponse(200,"application/json",body);
       response->addHeader("Cache-Control","no-store");request->send(response);
     });
     server.on("/api/auth/info", HTTP_GET, [this](AsyncWebServerRequest *request) {
@@ -309,6 +316,7 @@ class WebAccess {
     return String();
   }
   AsyncAuthenticationMiddleware basic_;
+  std::function<String(const String&)> peerInfoDecorator_;
   mutable PakarAccessDetail::Mutex mutex_;
   String boardId_, bootId_,hostname_;
   AsyncMiddlewareFunction middleware_;

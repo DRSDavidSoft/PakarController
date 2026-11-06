@@ -1642,6 +1642,7 @@ class _ControlShellState extends State<ControlShell>
               page != 'devices'
                   ? const SizedBox.shrink(key: ValueKey('devices-hidden'))
                   : DevicesPage(
+                      updates: appUpdates,
                       api: api,
                       discovery: discovery,
                       onDiscovered: () =>

@@ -242,10 +242,11 @@ class PeerRelay {
         if(!fenced||!parsed)errorText=code==401||code==403?"peer_authentication_required":"peer_response_unavailable";
         else if(identityRead&&(reply["application"]!="PakarController"||reply["board_id"]!=board_||
             !BoardCore::PeerRoutePolicy::hexId(reply["boot_id"]|"")||(boot_.length()&&reply["boot_id"]!=boot_)||
-            !BoardCore::PeerCompatibility::boardAllowed(reply["version"]|"")))errorText="peer_identity_not_verified";
+            (path_!="/api/peer/info"&&BoardCore::PeerCompatibility::enforced&&!BoardCore::PeerCompatibility::boardAllowed(reply["version"]|""))))errorText="peer_identity_not_verified";
         else if(!identityRead){verified=true;remember(ip,boot_);}
         else {
-          remember(ip,reply["boot_id"].as<String>());
+          // Metadata visibility does not grant a supported control route.
+          if(!BoardCore::PeerCompatibility::enforced||BoardCore::PeerCompatibility::boardAllowed(reply["version"]|""))remember(ip,reply["boot_id"].as<String>());
           if(path_=="/api/peer/info")verified=true;
           else if(uint32_t(millis()-started_)>=4000U)errorText="peer_deadline_elapsed";
           else {
