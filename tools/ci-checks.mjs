@@ -80,6 +80,8 @@ export const phases={
     ["pwsh", "-NoProfile", "-File", "tests/avr_rx_script_test.ps1"],
     ["pwsh", "-File", "tools/test-network.ps1"],
     ["pwsh", "-File", "tools/test-filesystem-telemetry.ps1"],
+    ["pwsh", "-File", "tools/test-runtime-cpu.ps1"],
+    ["node", "tests/web_runtime_monitor_test.mjs"],
     ["node", "tests/loop_stack_test.mjs"],
     ["pwsh", "-File", "tools/test-upnp.ps1"],
     ["node", "tests/web_streaming_test.mjs"],

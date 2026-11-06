@@ -55,6 +55,8 @@
 #include <WiFiUdp.h>
 #include <time.h>
 #include "src/SystemPlatform.h"
+#include "src/RuntimeCpu.h"
+RuntimeCpu runtimeCpu;
 #include "src/FirmwarePlatform.h"
 #include "src/UserFileStore.h"
 #include "src/OptionalMicroSd.h"
@@ -5612,6 +5614,7 @@ void serviceGameLink(uint32_t now) {
 #endif
 }
 void loop() {
+  runtimeCpu.poll();
   serviceFilesystemInitialization();
   if(hostPresentation.model.service(millis())){grid.presentationChanged();keyObservationPending=true;}
 #if PAKAR_PIXEL_CORRECTIONS

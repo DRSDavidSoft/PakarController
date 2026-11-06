@@ -12464,3 +12464,37 @@ Canonical Gitea API login exposed a separate DRSDavidSoft account-wide mandatory
 password-change requirement. No password or forced-change flag was modified.
 Its account repair and canonical PR/checks remain separate from successful SSH
 branch publication. No board, installed app or production setting was changed.
+
+## Useful-feature exchange — 6 November 2026
+
+The user explicitly requested feature/polish/utility comparison, not another
+hardening-only checkpoint. The 25-family source inventory is in
+PROJECT-FEATURE-COMPARISON.md, with exact implementation locations, project-only
+features and useful next transfers. The same file ledger remains authoritative.
+
+Completely reread Orbit EspLoad.h, RuntimePerf.h, StorageFiles.h,
+storage-telemetry.js and remote-tools.js. Adapt actual five-second runtime-counter
+sampling to Pakar's loop owner, cached telemetry and Web CPU/memory monitor.
+Compare per-task/component timers separately; do not call those imported.
+Reciprocally adapt Pakar user-files.js create/draw/list into Orbit, retaining its
+existing storage API and transfer owner. Actual DOM fixtures cover filtering,
+actions, confirmations, stable live rendering and peer changes.
+
+Pakar full/onboard Web generation and both canonical-source/gzip checks pass;
+the first single-source test correctly rejected the old full-profile output
+after only onboard had been rebuilt. Rebuilding the affected full Web profile
+resolved it; no guard was relaxed. CPU monitor/feature-workspace/source tests
+pass. The C++ wrapper stops before compilation on live Pealayer inventory drift,
+so CPU arithmetic/ESP sampling execution must come from CI or later host/device
+acceptance, not a direct compiler bypass.
+
+Orbit's canonical composer initially lacked the optional local formatter and
+sparse catalog dependency. Keep the same composer, add explicit --builtin-gzip
+using .NET compression, materialize the tracked catalog and compile with absolute
+Windows paths (relative slash paths were rejected by csc). The resulting full
+119316-byte package round-trips and both inline scripts compile. No feature was
+removed or duplicate app introduced. Windows CI now runs this composition check.
+
+Only CPU telemetry/include/poll lines and generated Web bindings are refreshed
+in the earlier route comparisons; route ownership and behavior remain intact.
+No production board, installed application or saved instance setting changed.
