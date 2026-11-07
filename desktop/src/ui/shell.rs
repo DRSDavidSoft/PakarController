@@ -961,7 +961,7 @@ impl PakarControllerApp {
                 || self.table.has_pending_edits()
                 || self.table.has_assignment_draft()
                 || mapping_dirty,
-            self.device_settings.maintenance_pending.is_some(),
+            self.device_settings.maintenance_pending.is_some()||self.device_settings.maintenance_confirmation.is_some(),
             self.identity_pending,
         );
         if blocked {
@@ -998,7 +998,7 @@ impl PakarControllerApp {
         self.presentation_context().is_some_and(|c| c.table())
     }
     fn panel_live(&self, panel: Panel) -> bool {
-        if panel == Panel::Events {
+        if matches!(panel,Panel::Events|Panel::Peers) {
             return true;
         }
         if !panel.available(self.peer_context()) {
@@ -1016,7 +1016,7 @@ impl PakarControllerApp {
             Panel::Hardware => &["telemetry", "inputs", "outputs"],
             Panel::Network => &["network"],
             Panel::Streaming => &["table", "streaming"],
-            Panel::Events => &[],
+            Panel::Events | Panel::Peers => &[],
         };
         required
             .iter()
@@ -1976,7 +1976,7 @@ impl PakarControllerApp {
         };
         self.usb_ui_demand.0 = self.usb_ui_demand.0.merge(crate::usb_demand::Demand {
             flags,
-            table: panel != Panel::Events,
+            table: !matches!(panel,Panel::Events|Panel::Peers),
         });
         let live = self.panel_live(panel);
         dialog::scroll_column(
@@ -2016,6 +2016,26 @@ impl PakarControllerApp {
                     Panel::FrontPanel => self.draw_front_panel(ui),
                     Panel::Hardware => self.draw_hardware(ui, false),
                     Panel::Network => self.draw_network(ui),
+                    Panel::Peers => {
+                        let destination=self.live_status().filter(|_|self.peer_maintenance_ready()).and_then(|s|Some((s.capabilities.as_ref()?.role.clone(),s.version.clone(),peer_http::Pin::from_status(s)?)));
+                        if let Some(action)=super::peers::draw(ui,&mut self.peer_workspace,destination.as_ref().map(|(role,version,pin)|(role.as_str(),version.as_str(),pin))) {
+                            match action {
+                                super::peers::Action::OpenControls(origin) if !self.connection_change_guard()=>{
+                                    self.set_connection(self.transport,false);
+                                    self.base=origin;self.user="admin".into();self.password.clear();
+                                    self.set_connection(Transport::WiFi,false);self.show_connection=true;
+                                },
+                                super::peers::Action::Receive(peer)=>crate::client_management::request_peer(peer,self.config.client_management.clone(),ui.ctx()),
+                                super::peers::Action::Apply=>crate::client_management::request(crate::client_management::Action::Apply,self.config.client_management.clone(),ui.ctx()),
+                                super::peers::Action::StageBoard{source,target} if !self.connection_change_guard()=>{
+                                    self.device_settings.open=true;self.device_settings.page=super::device_settings::page_index("firmware").unwrap_or(9);
+                                    self.device_settings.peer_source_user="admin".into();self.device_settings.peer_source_password.clear();
+                                    self.device_settings.maintenance_confirmation=Some(crate::maintenance::Operation::PeerStage{source,authorization:String::new(),target});
+                                },
+                                _=>{},
+                            }
+                        }
+                    },
                     Panel::Streaming => self.draw_streaming(ui),
                     Panel::Events => self.draw_events(ui),
                 });
@@ -2174,6 +2194,22 @@ impl PakarControllerApp {
             }
         });
     }
+    pub(crate) fn peer_maintenance_ready(&self)->bool {
+        self.has_feature("peer-exchange") && (self.http_writable() ||
+            self.command_route()==Some(Transport::Serial)&&self.has_feature("usb-api")&&self.pixel_api_reply.is_none())
+    }
+    pub(crate) fn submit_peer_maintenance(&mut self,id:u64,operation:crate::maintenance::Operation)->Result<(),String>{
+        if self.command_route()!=Some(Transport::Serial){
+            return self.http_tx.send(HttpCommand::Maintenance(self.endpoint(),id,operation)).map_err(|_|"Maintenance queue unavailable".into());
+        }
+        if !self.peer_maintenance_ready(){return Err("USB peer maintenance is busy or unsupported; nothing sent".into());}
+        let pin=self.live_status().and_then(peer_http::Pin::from_status).ok_or("USB destination unavailable")?;
+        if let crate::maintenance::Operation::PeerStage{target,..}=&operation && *target!=pin{return Err("USB destination changed; nothing sent".into());}
+        if let crate::maintenance::Operation::RemoteApply(job)|crate::maintenance::Operation::RemoteCancel(job)=&operation
+            && !pin.matches_identity(pin.board_id(),&job.boot_id){return Err("USB job belongs to a different boot; nothing sent".into());}
+        let (method,path,body)=crate::maintenance::usb_remote_request(&operation)?;
+        self.begin_pixel_api(pixel_groups::Purpose::Maintenance{id,operation},method,path,body)
+    }
     fn begin_pixel_api(&mut self, purpose: pixel_groups::Purpose, method: &str, path: &str, body: serde_json::Value) -> Result<(),String> {
         if self.pixel_api_reply.is_some() || self.command_route()!=Some(Transport::Serial) { return Err("USB API owner busy or unavailable; nothing sent".into()); }
         let status=self.live_status().ok_or("Fresh USB board identity unavailable")?;
@@ -2190,10 +2226,17 @@ impl PakarControllerApp {
         let result=match receiver.try_recv() { Ok(value)=>value, Err(TryRecvError::Empty)=>return,
             Err(TryRecvError::Disconnected)=>Err("USB API ended without a complete receipt; no replay".into()) };
         let (peer,purpose,_)=self.pixel_api_reply.take().unwrap();
-        let result=if self.transport!=Transport::Serial || self.live_status().and_then(peer_http::Pin::from_status)!=Some(peer) {
+        let result=if self.transport!=Transport::Serial || self.live_status().and_then(peer_http::Pin::from_status)!=Some(peer.clone()) {
             Err("USB API peer retired; result not applied".into())
         } else {result};
         match purpose {
+            pixel_groups::Purpose::Maintenance{id,operation}=>{
+                let result=result.and_then(|value|{
+                    if !peer.matches_identity(peer.board_id(),value["boot_id"].as_str().unwrap_or("")){return Err("USB firmware receipt belongs to a different boot; no replay".into());}
+                    crate::maintenance::verify_remote_receipt(&operation,value)
+                });
+                self.finish_maintenance(id,result);
+            },
             pixel_groups::Purpose::Minigame(request) => {
                 match result.and_then(|value|request.verify(value)) {
                     Ok(observed) => {

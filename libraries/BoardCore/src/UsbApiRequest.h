@@ -30,6 +30,7 @@ template<size_t Capacity=4096> class UsbApiRequest {
     claimed_=true;return true;
   }
   bool claimed()const{return claimed_;}
+  bool receiptPending(uint32_t now)const{return claimed_&&live(token_,now);}
   uint32_t token()const{return token_;}
   uint16_t used()const{return used_;}
   const char *text()const{return reinterpret_cast<const char*>(bytes_);}

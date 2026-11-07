@@ -71,6 +71,7 @@ pub struct Snapshot {
     pub managed_installation: bool,
     pub applying: bool,
     pub package_verified: bool,
+    pub peer_candidate: bool,
 }
 #[derive(Serialize, Deserialize)]
 struct Enrollment {
@@ -103,7 +104,7 @@ struct Engine {
     last_report: Mutex<Option<Instant>>,
     ready_quit: Mutex<Option<Instant>>,
     health_attempted: AtomicBool,
-    apply_requested: AtomicBool,
+    apply_requested: Mutex<Option<String>>,
     started: Instant,
     settings: Mutex<Option<Settings>>,
     epoch: AtomicU64,
@@ -122,7 +123,7 @@ fn engine() -> &'static Engine {
         last_report: Mutex::new(None),
         ready_quit: Mutex::new(None),
         health_attempted: AtomicBool::new(false),
-        apply_requested: AtomicBool::new(false),
+        apply_requested: Mutex::new(None),
         started: Instant::now(),
         settings: Mutex::new(None),
         epoch: AtomicU64::new(0),
@@ -136,7 +137,9 @@ fn bind(settings: &Settings) -> u64 {
         if old.as_ref() != Some(settings) {
             *old = Some(settings.clone());
             e.epoch.fetch_add(1, Ordering::AcqRel);
-            e.apply_requested.store(false, Ordering::Release);
+            if let Ok(mut requested) = e.apply_requested.lock() {
+                *requested = None;
+            }
             if let Ok(mut ready) = e.ready_quit.lock() {
                 *ready = None;
             }
@@ -152,6 +155,7 @@ fn bind(settings: &Settings) -> u64 {
                 value.client_id = None;
                 value.applying = false;
                 value.package_verified = false;
+                value.peer_candidate = false;
                 value.state = "idle".into();
                 value.detail.clear();
             }
@@ -174,6 +178,9 @@ pub fn snapshot() -> Snapshot {
         .lock()
         .map(|v| v.clone())
         .unwrap_or_default()
+}
+pub fn busy() -> bool {
+    engine().busy.load(Ordering::Acquire)
 }
 fn state(name: &str, detail: &str) {
     if let Ok(mut value) = engine().snapshot.lock() {
@@ -336,6 +343,9 @@ fn candidate(release: &Release) -> Result<PathBuf, String> {
 }
 fn download(settings: &Settings, epoch: u64) -> Result<(), String> {
     guard(settings, epoch)?;
+    if let Ok(mut value) = engine().snapshot.lock() {
+        value.peer_candidate = false;
+    }
     let release = snapshot().release.ok_or("Check for an app release first")?;
     if !newer(&release, env!("CARGO_PKG_VERSION"), build(), settings) {
         return Err("Release no longer passes the app upgrade policy".into());
@@ -675,13 +685,22 @@ fn heartbeat(settings: &Settings, epoch: u64) -> Result<(), String> {
     Ok(())
 }
 pub fn request(action: Action, settings: Settings, ctx: &eframe::egui::Context) {
-    if let Err(error) = settings.validate() {
+    if !matches!(action, Action::Apply | Action::Cleanup)
+        && let Err(error) = settings.validate()
+    {
         state("blocked", &error);
         return;
     }
     let epoch = bind(&settings);
     if matches!(action, Action::Apply) {
-        engine().apply_requested.store(true, Ordering::Release);
+        let current = snapshot();
+        let Some(release) = current.release.filter(|_| current.package_verified) else {
+            state("blocked", "No verified app package is ready to apply");
+            return;
+        };
+        if let Ok(mut requested) = engine().apply_requested.lock() {
+            *requested = Some(release.sha256);
+        }
         state(
             "staged",
             "Waiting for all Preferences/device drafts and pending operations to close",
@@ -698,6 +717,72 @@ pub fn request(action: Action, settings: Settings, ctx: &eframe::egui::Context) 
         if guard(&settings, epoch).is_ok() {
             if let Err(error) = result {
                 state("blocked", &error);
+            }
+        }
+        engine().busy.store(false, Ordering::Release);
+        ctx.request_repaint();
+    });
+}
+/// Local explicit receive from a discovered app; no board or cloud enrollment
+/// prerequisite. Reuses the SAME candidate/managed replacement lifecycle.
+pub fn request_peer(
+    peer: crate::peer_catalogue::Peer,
+    settings: Settings,
+    ctx: &eframe::egui::Context,
+) {
+    // LAN peer reception does not depend on cloud enrollment or a cloud URL.
+    let epoch = bind(&settings);
+    if engine().busy.swap(true, Ordering::AcqRel) {
+        return;
+    }
+    if let Ok(mut requested) = engine().apply_requested.lock() {
+        *requested = None;
+    }
+    if let Ok(mut staged) = engine().staged.lock() {
+        *staged = None;
+    }
+    if let Ok(mut current) = engine().snapshot.lock() {
+        current.package_verified = false;
+        current.release = None;
+        current.peer_candidate = true;
+        current.received_bytes = 0;
+        current.expected_bytes = None;
+    }
+    state(
+        "downloading",
+        "Receiving peer package; no restart has been requested",
+    );
+    if let Ok(mut last) = engine().last_check.lock() {
+        *last = Some(Instant::now());
+    }
+    let ctx = ctx.clone();
+    std::thread::spawn(move || {
+        let result = crate::peer_package::download(&peer, |done, total| {
+            guard(&settings, epoch)?;
+            if let Ok(mut current) = engine().snapshot.lock() {
+                current.received_bytes = done;
+                current.expected_bytes = Some(total);
+            }
+            ctx.request_repaint();
+            Ok(())
+        });
+        if guard(&settings, epoch).is_ok() {
+            match result {
+                Ok((release, _path)) => {
+                    if let Ok(mut staged) = engine().staged.lock() {
+                        *staged = Some(release.sha256.clone());
+                    }
+                    if let Ok(mut current) = engine().snapshot.lock() {
+                        current.release = Some(release);
+                        current.package_verified = true;
+                        current.peer_candidate = true;
+                    }
+                    state(
+                        "staged",
+                        "Peer package verified; Apply and restart remains explicit",
+                    );
+                }
+                Err(error) => state("blocked", &error),
             }
         }
         engine().busy.store(false, Ordering::Release);
@@ -747,7 +832,10 @@ pub fn tick(settings: &Settings, ctx: &eframe::egui::Context, can_apply: bool) -
         && current.release.is_some()
         && !current.applying
         && current.state != "apply-blocked"
-        && (settings.auto_apply || e.apply_requested.load(Ordering::Acquire))
+        && ((settings.auto_apply && !current.peer_candidate)
+            || e.apply_requested
+                .lock()
+                .is_ok_and(|sha| sha.as_ref() == current.release.as_ref().map(|r| &r.sha256)))
         && can_apply
     {
         if let Some(release) = current.release {

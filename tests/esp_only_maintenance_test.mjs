@@ -71,3 +71,25 @@ checkBootImageCache(source,sketch);
 assert.throws(()=>checkBootImageCache(source.replace('String buildTelemetryJson() {','String buildTelemetryJson() { FirmwarePlatform::sketchMd5();'),sketch));
 assert.throws(()=>checkBootImageCache(source,sketch.replace(/^  registerMaintenanceRoutes\(\);/m,'')));
 console.log('ESP-only maintenance source guards passed: compile-independent optional AVR, maintenance/latch gates and existing paired recovery retained. Not an SDK build, OTA or physical proof.');
+
+// General USB chunks must drain after a stage/apply changes the job to busy.
+// That carrier exception never grants another API mutation or raw AVR access.
+const usbApi=readFileSync(new URL('../firmware/esp/src/UsbApiService.h',import.meta.url),'utf8');
+function checkUsbMaintenance(main,api){
+  assert.match(main,/const bool remoteApiDrain=frame.opcode==kUsbApi && remoteFirmware.busy\(\) &&\s*!urbootBusy.get\(\)&&!otaActive&&!otaRebootAt&&!avrUploadOwner/);
+  assert.match(main,/!shellPoll && !remoteApiDrain/);
+  const fence=api.indexOf('return maintenanceApiError("peer_changed")');
+  const busy=api.indexOf('PeerUpdatePolicy::duringMaintenance(method.c_str(),path.c_str())');
+  const dispatch=api.indexOf('remoteFirmware.stagePeer(');
+  assert.ok(fence>=0&&busy>fence&&dispatch>busy);
+  assert.match(main,/return !usbApiReceiptPending\(\)&&upgradeLifecycle.readyToReboot/);
+  assert.match(main,/if \(remoteFirmware.busy\(\)&&!usbApiReceiptPending\(\)\) \{\s*if\(remoteFirmware.needsDownloadConnection\(\)\)/,
+    'Accepted chunks drain before DNS/network connect, flash validation or apply can block');
+  assert.match(api,/usbApiRequest.receiptPending\(now\)\|\|usbApiClosing/);
+  assert.match(api,/usbApiClosedAt=millis\(\);usbApiClosing=true/);
+}
+checkUsbMaintenance(sketch,usbApi);
+assert.throws(()=>checkUsbMaintenance(sketch.replace(' && !remoteApiDrain',''),usbApi));
+assert.throws(()=>checkUsbMaintenance(sketch,usbApi.replace('PeerUpdatePolicy::duringMaintenance(method.c_str(),path.c_str())','true')));
+assert.throws(()=>checkUsbMaintenance(sketch.replace('!usbApiReceiptPending()&&',''),usbApi));
+assert.throws(()=>checkUsbMaintenance(sketch.replace('remoteFirmware.busy()&&!usbApiReceiptPending()', 'remoteFirmware.busy()'),usbApi));

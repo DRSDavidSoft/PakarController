@@ -275,6 +275,22 @@ foreach ($board in @('avr', 'esp8266', 'esp32s3')) {
         if ($DeviceName) { $ledProfile.Content += "#ifndef PAKAR_INITIAL_NAME`n#define PAKAR_INITIAL_NAME $DeviceName`n#endif`n" }
         $ledProfile.Content += "#ifndef PAKAR_S3_LED_DATA`n#define PAKAR_S3_LED_DATA $S3LedDataPin`n#endif`n"
         $ledProfile.Content += "#ifndef PAKAR_S3_ISP_ELECTRICAL_VERIFIED`n#define PAKAR_S3_ISP_ELECTRICAL_VERIFIED $(if($S3IspElectricalVerified){1}else{0})`n#endif`n#ifndef PAKAR_INITIALIZE_FILESYSTEM`n#define PAKAR_INITIALIZE_FILESYSTEM $(if($InitializeFilesystem){1}else{0})`n#endif`n"
+        # A conservative transferable-image family: same MCU/FQBN, pin map and
+        # compiled features. Release/source revisions are deliberately NOT part
+        # of this key. A different family stays visible but cannot self-update.
+        $peerProfile=[ordered]@{fqbn=$fqbn;link=$LinkMode;role=$GameMode;led_pin=$S3LedDataPin;gpio=[bool]$S3LedGpio;rmt=[bool]$S3LedRmtDma;ethernet=[bool]$S3Ethernet;bluetooth=$S3Bluetooth;sd=[bool]$S3MicroSd;sd_clk=$S3SdClk;sd_cmd=$S3SdCmd;sd_d0=$S3SdD0;isp=[bool]$S3IspElectricalVerified;mini_games=@($KeyMiniGames|Sort-Object);corrections=$PixelCorrections;snake=[bool]$BoardSnake}
+        $peerProfile.network=-not [bool]$DisableNetworking;$peerProfile.avr_link=-not [bool]$PauseAvrLink
+        $peerProfile.host_transport=$S3HostTransport;$peerProfile.status_rgb=$S3StatusRgbPin
+        $peerProfile.ssh=[bool]$S3Ssh;$peerProfile.scp=[bool]$S3Scp;$peerProfile.sftp=[bool]$S3Sftp;$peerProfile.ftp=[bool]$S3Ftp
+        $peerProfile.telnet=-not [bool]$DisableTelnet;$peerProfile.serial_shell=-not [bool]$DisableSerialShell
+        $peerProfile.led_default=$S3LedDefault;$peerProfile.led_pause=[bool]$PauseLedOutput
+        $peerProfile.release_admission=-not [bool]$DisablePeerVersionChecks
+        # Installation hostname, initial mask, release and bundled AVR bytes
+        # are NOT hardware compatibility. Commissioning images are not donors.
+        $peerProfileBytes=[Text.Encoding]::UTF8.GetBytes(($peerProfile|ConvertTo-Json -Compress -Depth 3))
+        $peerProfileHash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($peerProfileBytes)).ToLowerInvariant()
+        $peerFamily=if($InitializeFilesystem){''}else{"pakar-esp32s3-$gameModeCode-$peerProfileHash"}
+        $ledProfile.Content += "#define PAKAR_PEER_IMAGE_FAMILY `"$peerFamily`"`n"
     }
     if ($VerboseBuild) { $arguments += '--verbose' }
     if ($Plan) {

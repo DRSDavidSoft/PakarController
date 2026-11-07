@@ -5,6 +5,7 @@ use crate::{
     ui::{dialog, icons},
     *,
 };
+use base64::Engine as _;
 use eframe::egui;
 
 include!("settings_catalog.rs");
@@ -1019,16 +1020,16 @@ fn maintenance_page(
                     });
             });
             let available =
-                app.command_route() == Some(Transport::WiFi) && draft.maintenance_pending.is_none();
+                (app.command_route() == Some(Transport::WiFi)||app.peer_maintenance_ready()) && draft.maintenance_pending.is_none();
+            let mut refresh=false; // Live progress comes from ordinary peer-bound status/snapshots.
             ui.horizontal_wrapped(|ui| {
                 if ui
                     .add_enabled(available, egui::Button::new("Refresh update & telemetry"))
                     .clicked()
                 {
-                    for path in ["/api/firmware/remote", "/api/telemetry"] {
-                        let _ = app
-                            .http_tx
-                            .send(HttpCommand::Configuration(app.endpoint(), path));
+                    refresh=true;
+                    if app.command_route()==Some(Transport::WiFi){
+                        let _=app.http_tx.send(HttpCommand::Configuration(app.endpoint(),"/api/telemetry"));
                     }
                 }
                 let valid = crate::maintenance::validate_remote(
@@ -1040,6 +1041,7 @@ fn maintenance_page(
                 if ui
                     .add_enabled(
                         available
+                            && app.command_route()==Some(Transport::WiFi)
                             && draft.remote_job.is_some()
                             && !busy
                             && valid.is_ok()
@@ -1056,11 +1058,21 @@ fn maintenance_page(
                     });
                 }
             });
+            if refresh {
+                let id=draft.next_id();
+                match app.submit_peer_maintenance(id,Operation::RemoteStatus){
+                    Ok(())=>{draft.maintenance_pending=Some(id);draft.maintenance_read=true;},
+                    Err(error)=>draft.message=error,
+                }
+            }
             if let Some(job) = draft.remote_job.clone() {
                 ui.label(format!(
                     "Job {} · {} · {}/{} bytes",
                     job.job_id, job.phase, job.received_bytes, job.expected_bytes
                 ));
+                if job.expected_bytes>0 {
+                    ui.add(egui::ProgressBar::new((job.received_bytes as f64/job.expected_bytes as f64).clamp(0.0,1.0) as f32).show_percentage());
+                }
                 if !job.error.is_empty() {
                     ui.colored_label(ui.visuals().warn_fg_color, &job.error);
                 }
@@ -1337,7 +1349,7 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
             draft.message = "Reading device configuration…".into();
         }
     });
-    if !ready && matches!(draft.page, 2..=5 | 9) {
+    if !ready && matches!(draft.page, 2..=5 | 9) && !(draft.page==9&&app.peer_maintenance_ready()) {
         ui.label(egui::RichText::new("Wi-Fi configuration is read-only until the device is connected and not programming. USB AVR controls remain available when advertised.").small().color(ui.visuals().warn_fg_color));
     }
     ui.add_space(10.0);
@@ -1579,11 +1591,15 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
             });
     });
     }
-    if let Some(operation) = draft.maintenance_confirmation.clone() {
+    if let Some(mut operation) = draft.maintenance_confirmation.clone() {
         egui::Modal::new(egui::Id::new("maintenance-confirm")).show(ui.ctx(), |ui| {
             ui.set_width(420.0);
             ui.heading("Confirm device maintenance");
             ui.label(operation.warning());
+            if matches!(operation,crate::maintenance::Operation::PeerStage{..}) {
+                dialog::setting_row(ui,icons::APP_WINDOW,"Source username",None,|ui|{ui.add(dialog::singleline_text_edit(ui,&mut draft.peer_source_user));});
+                dialog::setting_row(ui,icons::LOCK,"Source password",None,|ui|{ui.add(dialog::singleline_text_edit(ui,&mut draft.peer_source_password).password(true));});
+            }
             if !draft.message.is_empty() {
                 ui.label(&draft.message);
             }
@@ -1593,9 +1609,10 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                         (ready
                             || (matches!(
                                 operation,
-                                crate::maintenance::Operation::RemoteApply(_)
+                                crate::maintenance::Operation::PeerStage { .. }
+                                    | crate::maintenance::Operation::RemoteApply(_)
                                     | crate::maintenance::Operation::RemoteCancel(_)
-                            ) && app.http_writable()
+                            ) && app.peer_maintenance_ready()
                                 && draft.maintenance_pending.is_none())
                             || (matches!(operation, crate::maintenance::Operation::ProgramAvr)
                                 && app.http_writable()
@@ -1607,6 +1624,10 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                     .clicked()
                 {
                     let id = draft.next_id();
+                    if let crate::maintenance::Operation::PeerStage{authorization,..}=&mut operation {
+                        *authorization=if draft.peer_source_password.is_empty(){String::new()}else{format!("Basic {}",base64::engine::general_purpose::STANDARD.encode(format!("{}:{}",draft.peer_source_user,draft.peer_source_password)))};
+                        draft.peer_source_password.clear();
+                    }
                     let transfer =
                         if let crate::maintenance::Operation::SourceImage { progress, .. } =
                             &operation
@@ -1615,21 +1636,19 @@ fn editor(app: &mut PakarControllerApp, draft: &mut Editor, ui: &mut egui::Ui) {
                         } else {
                             None
                         };
-                    if app
-                        .http_tx
-                        .send(HttpCommand::Maintenance(app.endpoint(), id, operation))
-                        .is_ok()
-                    {
+                    match app.submit_peer_maintenance(id,operation){Ok(())=>{
                         if let Some(transfer) = transfer {
                             app.firmware_transfer = Some(transfer);
                         }
                         draft.maintenance_pending = Some(id);
+                        draft.maintenance_read = false;
                         draft.message =
                             "Maintenance submitted; waiting for the device result…".into();
-                    }
+                    },Err(error)=>draft.message=error}
                     draft.maintenance_confirmation = None;
                 }
                 if ui.button("Cancel").clicked() {
+                    draft.peer_source_password.clear();
                     draft.maintenance_confirmation = None;
                 }
             });

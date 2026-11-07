@@ -27,6 +27,8 @@ class DiscoveredDevice {
     this.compatible = false,
     this.hostname = '',
     this.application,
+    this.metadata = const {},
+    this.observedAddress = '',
   });
   final String name, endpoint, protocol;
   final String boardId, mac, udn;
@@ -35,6 +37,8 @@ class DiscoveredDevice {
   final String hostname;
   final PeerApplication? application;
   final String instanceId, kind;
+  final Map<String, dynamic> metadata;
+  final String observedAddress;
 
   Set<String> get origins =>
       {endpoint, ...aliases}.map(PakarApi.normalizeEndpoint).toSet();
@@ -80,7 +84,9 @@ class DiscoveredDevice {
     verified: verified || other.verified,
     authRequired: other.authRequired,
     instanceId: other.instanceId.isNotEmpty ? other.instanceId : instanceId,
-    kind: other.kind == 'bridge' ? other.kind : kind,
+    kind: other.verified ? other.kind : kind,
+    metadata: other.metadata.isNotEmpty ? other.metadata : metadata,
+    observedAddress: other.verified ? other.observedAddress : observedAddress,
     compatible: other.verified ? other.compatible : compatible,
     hostname: other.hostname.isNotEmpty ? other.hostname : hostname,
     application: other.application ?? application,
@@ -435,6 +441,8 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
     ..findProxy = ((_) => 'DIRECT')
     ..connectionTimeout = const Duration(seconds: 1);
   final observedIps = <String>{...candidate.ips};
+  var identityAddress = '';
+  String? identityBoard, identityBoot;
   Future<(int, String)> read(String path) async {
     final request = await client.getUrl(origin.resolve(path));
     identifyRequest(request);
@@ -442,6 +450,11 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
     final response = await request.close();
     final ip = response.connectionInfo?.remoteAddress.address;
     if (ip != null) observedIps.add(ip);
+    if (path == '/api/peer/info' && ip != null) identityAddress = ip;
+    if (path == '/api/peer/info') {
+      identityBoard = response.headers.value('x-pakar-board');
+      identityBoot = response.headers.value('x-pakar-boot');
+    }
     final bytes = <int>[];
     if ((response.contentLength) > 16384) {
       throw const FormatException('Discovery size');
@@ -456,6 +469,57 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
   }
 
   Future<DiscoveredDevice?> probe() async {
+    Map<String, dynamic> info = const {};
+    try {
+      final response = await read('/api/peer/info');
+      if (response.$1 == 200) {
+        final value = jsonDecode(response.$2);
+        if (value is Map<String, dynamic> &&
+            (value['product'] == 'PakarController' ||
+                value['application'] == 'PakarController')) {
+          info = value;
+        }
+      }
+    } on Object {
+      /* Older public discovery endpoints remain usable. */
+    }
+    final kind = info['kind'];
+    if (kind == 'board' &&
+        (info['board_id'] is! String ||
+            !RegExp(r'^[a-z0-9_-]{1,64}$')
+                .hasMatch(info['board_id'] as String) ||
+            info['boot_id'] is! String ||
+            !RegExp(r'^[0-9a-f]{32}$').hasMatch(info['boot_id'] as String) ||
+            info['boot_id'] == '0' * 32 ||
+            info['board_id'] != identityBoard ||
+            info['boot_id'] != identityBoot ||
+            candidate.boardId.isNotEmpty &&
+                candidate.boardId != info['board_id'])) {
+      return null;
+    }
+    if ({'android-app', 'desktop-app', 'bridge'}.contains(kind)) {
+      final id = info['instance_id'] ?? info['id'];
+      if (!validText(id, 80) ||
+          candidate.instanceId.isNotEmpty && id != candidate.instanceId) {
+        return null;
+      }
+      return DiscoveredDevice(
+        info['name'] is String
+            ? info['name'] as String
+            : info['hostname'] is String
+            ? info['hostname'] as String
+            : candidate.name,
+        candidate.endpoint,
+        candidate.protocol,
+        instanceId: id as String,
+        kind: kind as String,
+        verified: true,
+        metadata: info,
+        observedAddress: identityAddress,
+        addresses: observedIps,
+        aliases: candidate.origins,
+      );
+    }
     final xml = await read('/description.xml');
     final metadata = xml.$1 == 200 ? pakarXmlIdentity(xml.$2) : null;
     if (metadata != null &&
@@ -474,7 +538,15 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
         value = raw;
       }
     }
-    if (metadata == null && value == null) return null;
+    if (metadata == null && value == null && info['kind'] != 'board') {
+      return null;
+    }
+    if (value != null &&
+        info['kind'] == 'board' &&
+        (info['board_id'] != value['board_id'] ||
+            info['boot_id'] != value['boot_id'])) {
+      return null;
+    }
     final instance = value?['bridge'] is Map
         ? value!['bridge']['instance_id'] as String? ?? ''
         : metadata?.$2.startsWith('uuid:') == true && candidate.kind == 'bridge'
@@ -483,7 +555,10 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
     if (candidate.instanceId.isNotEmpty && instance != candidate.instanceId) {
       return null;
     }
-    final board = value?['board_id'] as String? ?? candidate.boardId;
+    final board =
+        value?['board_id'] as String? ??
+        info['board_id'] as String? ??
+        candidate.boardId;
     if (candidate.boardId.isNotEmpty &&
         value != null &&
         candidate.boardId != board) {
@@ -499,7 +574,9 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
       }
     }
     return DiscoveredDevice(
-      value == null ? metadata!.$1 : PeerContext.fromStatus(value).name,
+      value == null
+          ? (info['hostname'] as String? ?? metadata?.$1 ?? candidate.name)
+          : PeerContext.fromStatus(value).name,
       candidate.endpoint,
       candidate.protocol,
       boardId: board,
@@ -513,11 +590,15 @@ Future<DiscoveredDevice?> verifyDiscoveredDevice(
           ? null
           : PeerContext.fromStatus(value).application,
       instanceId: instance,
-      kind: value?['bridge'] is Map ? 'bridge' : candidate.kind,
+      kind: value?['bridge'] is Map
+          ? 'bridge'
+          : info['kind'] as String? ?? candidate.kind,
       compatible: compatible,
       hostname: value?['hostname'] is String
           ? value!['hostname'] as String
-          : '',
+          : info['hostname'] as String? ?? '',
+      metadata: info,
+      observedAddress: identityAddress,
     );
   }
 

@@ -112,6 +112,8 @@ RuntimeCpu runtimeCpu;
 #include "src/NetworkConfig.h"
 #include "src/NetworkPath.h"
 #include "src/PeerRelay.h"
+#include "src/PeerCatalogue.h"
+#include "src/PeerArtifactInfo.h"
 #include "src/NetworkToolsSettings.h"
 #include "src/NetworkTools.h"
 #if defined(ARDUINO_ARCH_ESP32)
@@ -248,6 +250,9 @@ bool urbootSupported();
 std::atomic<unsigned> artifactReaders{0};
 #if PAKAR_NETWORK_ENABLED
 PeerRelay peerRelay;
+PeerCatalogue peerCatalogue;
+PeerArtifactInfo peerArtifactInfo;
+uint32_t peerCatalogueScanAt=0;
 bool peerRelayLease=false;
 PeerNetworkCommission peerNetworkCommission;
 bool peerNetworkLease=false,peerNetworkStarted=false;
@@ -490,6 +495,7 @@ String shellStatusJson();
 bool handleShellFrame(const BoardCore::Protocol::Frame &frame);
 bool handleUsbApiFrame(const BoardCore::Protocol::Frame &frame);
 void resetUsbApi();
+bool usbApiReceiptPending();
 void registerUsbApiRoutes();
 bool updateShellConfiguration(JsonObjectConst patch,String &result);
 void observePanelAction(uint8_t kind,uint16_t value,uint8_t detail);
@@ -840,7 +846,12 @@ void onHostFrame(const BoardCore::Protocol::Frame &frame, void *) {
     hostLink.send(kErrorResponse, frame.sequence, error, sizeof(error)); return;
   }
   static BoardCore::PcContractAssembly usbPcAssembly;
-  if ((urbootBusy.get() || remoteFirmware.busy() || otaActive || otaRebootAt || avrUploadOwner) && frame.opcode != kGetStatus && frame.opcode != kGetIdentity && frame.opcode != kGetTableSnapshot && frame.opcode != kHello && frame.opcode != kPing && !shellPoll) {
+  // A staged job must still drain its frozen API receipt and allow progress /
+  // explicit cancellation. The API dispatcher below admits only those safe
+  // operations while remote maintenance is busy; raw AVR/local OTA stay fenced.
+  const bool remoteApiDrain=frame.opcode==kUsbApi && remoteFirmware.busy() &&
+      !urbootBusy.get()&&!otaActive&&!otaRebootAt&&!avrUploadOwner;
+  if ((urbootBusy.get() || remoteFirmware.busy() || otaActive || otaRebootAt || avrUploadOwner) && frame.opcode != kGetStatus && frame.opcode != kGetIdentity && frame.opcode != kGetTableSnapshot && frame.opcode != kHello && frame.opcode != kPing && !shellPoll && !remoteApiDrain) {
       hostLink.error(frame.sequence, frame.opcode, kBusy); return;
   }
   if(handleUsbApiFrame(frame))return;
@@ -2048,7 +2059,7 @@ void upgradeBackground() {
 #endif
 }
 bool upgradeRebootReady() {
-  serviceUpgrade();return upgradeLifecycle.readyToReboot(millis(),grid.maintenancePresented());
+  serviceUpgrade();return !usbApiReceiptPending()&&upgradeLifecycle.readyToReboot(millis(),grid.maintenancePresented());
 }
 void serviceAttentionCues() {
   using Cue=BoardCore::Attention::Cue;
@@ -2448,7 +2459,7 @@ String buildStatusJson(bool compact) {
   body += F(",\"microsd-files\"");
 #endif
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
-  body += F(",\"peer-relay-http\"");
+  body += F(",\"peer-relay-http\",\"peer-exchange\"");
 #endif
 #if PAKAR_PIXEL_CORRECTIONS
   body += F(",\"pixel-corrections\",\"pixel-corrections-preview\",\"pixel-correction-rule-toggle\",\"pixel-corrections-preview-command\"");
@@ -2716,7 +2727,7 @@ String commandReply(const String &message,bool boundedDiagnostic) {
     const String id=PakarCommand::stringValue(object,"request_id");
     const String command=PakarCommand::stringValue(object,"command");
     reply["request_id"]=id;
-    const bool supported=command=="set-clock"||command=="network-tools"||command=="configure-network-tools"||command=="network-probe"||command=="wifi-scan"||command=="wifi-scan-results"||command=="configure-network"||command=="minigame-configure"||command=="minigame-control"||command=="minigame-input"||command=="snake"||command=="presentation"||command=="pixel-corrections-preview"||command=="state-presentation"||command=="color-preview"||command=="reset"||command=="game-settings"||command=="game-press"||command=="cells"||command=="cell"||command=="effect"||
+    const bool supported=command=="peer-catalogue"||command=="peer-discover"||command=="peer-update-stage"||command=="set-clock"||command=="network-tools"||command=="configure-network-tools"||command=="network-probe"||command=="wifi-scan"||command=="wifi-scan-results"||command=="configure-network"||command=="minigame-configure"||command=="minigame-control"||command=="minigame-input"||command=="snake"||command=="presentation"||command=="pixel-corrections-preview"||command=="state-presentation"||command=="color-preview"||command=="reset"||command=="game-settings"||command=="game-press"||command=="cells"||command=="cell"||command=="effect"||
         command=="mode"||command=="brightness"||command=="led-output"||command=="pixel-diagnostic"||command=="panel-notice"||command=="shell-config"||command=="configure-shell"||command=="cell-assignments"||command=="cell-lock"||command=="audio"||command=="buzzer"||command=="outputs";
     if(PakarCommand::stringValue(object,"board_id")!=pcBoardId ||
        PakarCommand::stringValue(object,"boot_id")!=pcBootId || !webAccess.peerFenceReady()) {
@@ -3102,6 +3113,13 @@ bool handleCloudCommand(const String &message, String &result) {
   if(command=="peer-network-status"){result=peerNetworkCommission.snapshot(commandRequest["job_request_id"]|"");return true;}
   if(command=="peer-relay-result"){result=peerRelay.snapshot(commandRequest["job_request_id"]|"");return true;}
   if(command=="peer-directory"){result=peerRelay.directory();return true;}
+  if(command=="peer-catalogue"){result=peerCatalogue.snapshot(commandRequest["offset"]|0U);return true;}
+  if(command=="peer-discover"){const bool ok=peerCatalogue.discover();result=peerCatalogue.snapshot();return ok;}
+  if(command=="peer-update-stage") {
+    if(peerCatalogue.busy()||otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){result="maintenance_busy";return false;}
+    const bool ok=remoteFirmware.stagePeer(commandRequest["source"].as<JsonObjectConst>(),commandRequest["authorization"]|"");
+    result=ok?remoteFirmware.json():remoteFirmware.error();return ok;
+  }
   if(peerNetworkLease){result=F("Peer network commissioning owns network maintenance");return false;}
   if(command=="peer-relay") {
     if(!commandRequest["request"].is<JsonObjectConst>()){result=F("Explicit peer request object required");return false;}
@@ -4077,6 +4095,21 @@ void servicePeerRelay() {
 #endif
 void registerApi() {
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
+  server.on("/api/peers/discovered",HTTP_GET,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.snapshot(server.arg("offset").toInt()));});
+  server.on("/api/peers/discover",HTTP_POST,[](){if(!authenticate())return;const bool ok=peerCatalogue.discover();server.send(ok?202:409,"application/json",peerCatalogue.snapshot());});
+  server.on("/api/peers/policy",HTTP_POST,[](){if(authenticate())server.send(200,"application/json",peerCatalogue.configure(server.hasArg("settings")?server.arg("settings"):server.jsonBody()));});
+  server.on("/api/peer/offer",HTTP_POST,[](){server.send(200,"application/json",peerCatalogue.offer(server.jsonBody(),server.remoteAddress()));});
+  server.on("/api/peers/update",HTTP_POST,[](){
+    if(!authenticate())return;
+    if(peerCatalogue.busy()||otaActive||otaRebootAt||artifactReaders||urbootBusy.get()||programmingLatched||networkApplyPending||cloudApplyPending||avrUploadOwner){server.send(409,"application/json","{\"error\":\"maintenance_busy\"}");return;}
+    JsonDocument d;
+    const String raw=server.jsonBody();bool parsed=false;
+    if(raw.length())parsed=!deserializeJson(d,raw);
+    else {JsonDocument source;if(!deserializeJson(source,server.arg("source"))){d["source"]=source.as<JsonObjectConst>();d["authorization"]=server.arg("authorization");parsed=true;}}
+    if(!parsed||!d["source"].is<JsonObjectConst>()){server.send(400,"application/json","{\"error\":\"invalid_source\"}");return;}
+    const bool ok=remoteFirmware.stagePeer(d["source"].as<JsonObjectConst>(),d["authorization"]|"");
+    if(ok)server.send(202,"application/json",remoteFirmware.json());else{JsonDocument error;error["error"]=remoteFirmware.error();String body;serializeJson(error,body);server.send(409,"application/json",body);}
+  });
   server.on("/api/peers/network",HTTP_POST,[](){
     if(authenticate())server.send(200,"application/json",submitPeerNetworkCommission(server.jsonBody()));
   });
@@ -5284,6 +5317,7 @@ void setup() {
   userFiles.begin(LittleFS,filesystemMounted,FirmwarePlatform::freeStorage);
 #if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
   peerRelay.begin(LittleFS,filesystemMounted);
+  peerCatalogue.begin(pcBoardId);
   peerNetworkCommission.begin(LittleFS,filesystemMounted,{
     [](const String &ssid,const String &password,const uint8_t *bssid){return networkConfig.beginTemporaryStation(ssid,password,bssid);},
     [](const String &ssid,const uint8_t *bssid){return networkConfig.temporaryStationReady(ssid,bssid);},
@@ -5466,6 +5500,11 @@ void setup() {
   registerApi();
   registerLcdApi();
   registerMaintenanceRoutes();
+#if defined(ARDUINO_ARCH_ESP32)
+  peerArtifactInfo.begin(bootTelemetryImage.size);
+  webAccess.setPeerInfoDecorator([](const String &body){return peerArtifactInfo.decorate(body,peerCatalogue.sharing(),peerCatalogue.automaticChecks());});
+  peerCatalogue.setLocalInfo([hostname](){return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,hostname),peerCatalogue.sharing(),peerCatalogue.automaticChecks());});
+#endif
   registerUsbApiRoutes();
   registerShellApi();
   registerUrbootRoutes();
@@ -5633,6 +5672,14 @@ void loop() {
 #if PAKAR_NETWORK_ENABLED
   servicePeerNetworkCommission();
   servicePeerRelay();
+  // Discovery is independent of an app connection and never selects a control
+  // target. Avoid overlapping OTA/network maintenance or allocating in low RAM.
+  if(!otaActive&&!otaRebootAt&&!remoteFirmware.busy()&&!urbootBusy.get()&&!artifactReaders&&!networkApplyPending&&!cloudApplyPending){
+    peerArtifactInfo.service();
+    if(peerCatalogue.automaticChecks()&&!peerCatalogue.busy()&&uint32_t(millis()-peerCatalogueScanAt)>=60000U){
+      peerCatalogueScanAt=millis();peerCatalogue.discover();
+    }
+  }
   serviceBle();
 #endif
 #endif
@@ -5739,7 +5786,9 @@ void loop() {
 #endif
   serviceAttentionCues();
   serviceUpgrade();
-  if (remoteFirmware.busy()) {
+  // Drain the claimed USB receipt before entering a potentially blocking
+  // connection, flash verification or apply step. Close/expiry is bounded.
+  if (remoteFirmware.busy()&&!usbApiReceiptPending()) {
     if(remoteFirmware.needsDownloadConnection())
       NetworkPath::serviceDns(millis(),true);
     // Retain existing Internet control/monitoring while staging, but never

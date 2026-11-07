@@ -25,6 +25,7 @@ pub mod device_settings;
 pub mod layout;
 pub mod menu;
 pub mod preferences;
+pub mod peers;
 pub mod shell;
 pub mod toasts;
 

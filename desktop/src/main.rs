@@ -48,6 +48,8 @@ mod pc_contract;
 mod protocol_opcodes;
 mod peer_http;
 mod peer_identity;
+mod peer_catalogue;
+mod peer_package;
 mod pixel_diagnostic;
 mod pixel_corrections;
 mod pixel_groups;
@@ -909,6 +911,8 @@ fn scoped_http_request(
             "Read-only: peer has not advertised valid board/boot identity and HTTP fencing".into(),
         );
     }
+    if let HttpCommand::Maintenance(_,_,maintenance::Operation::PeerStage{target,..})=command
+        &&scope.pin.as_ref()!=Some(target){return Err("Peer-update destination changed; nothing sent".into());}
     let before = blocking_status(client, command.endpoint())?;
     let observed = peer_http::Pin::from_status(&before);
     if scope.pin != observed {
@@ -927,6 +931,7 @@ fn scoped_http_request(
             HttpCommand::NameChange(..) => c.has("identity"),
             HttpCommand::AccessChange(..) => c.has("network"),
             HttpCommand::Maintenance(_, _, operation) => c.has(match operation {
+                maintenance::Operation::PeerStage{..}=>"peer-exchange",
                 maintenance::Operation::ReconnectCloud => "network",
                 maintenance::Operation::Probe
                 | maintenance::Operation::Backup
@@ -3619,6 +3624,7 @@ fn command_route(selected: Transport, wifi_fresh: bool, usb_fresh: bool) -> Opti
     }
 }
 struct PakarControllerApp {
+    peer_workspace: peer_catalogue::Workspace,
     firmware_feed: Option<firmware_feed::Session>,
     firmware_transfer: Option<firmware_progress::Transfer>,
     firmware_feed_message: String,
@@ -3819,6 +3825,7 @@ impl PakarControllerApp {
             firmware_feed: None,
             firmware_transfer: None,
             firmware_feed_message: String::new(),
+            peer_workspace: Default::default(),
             bridge: Default::default(),
             connection_gate,
             connection_enabled: startup_enabled,
@@ -4350,6 +4357,31 @@ impl PakarControllerApp {
             "ESP Wi-Fi update queued once; do not disconnect its power".into();
         Ok(())
     }
+    fn finish_maintenance(&mut self,id:u64,result:Result<String,String>){
+        if self.device_settings.maintenance_pending!=Some(id){return;}
+        if let Ok(text)=&result && let Ok(value)=serde_json::from_str(text){
+            let _=self.device_settings.observe("/api/firmware/remote",value);
+        }
+        self.device_settings.maintenance_pending=None;
+        if std::mem::take(&mut self.device_settings.maintenance_read){
+            if let Err(error)=result{self.device_settings.message=error;}
+            return; // Progress reads do not emit action toasts or event spam.
+        }
+        if let Some(progress)=self.firmware_transfer.as_ref(){progress.finish(&result);}
+        let severity=maintenance::result_severity(&result);
+        self.device_settings.message=match result {
+            Ok(text)=>serde_json::from_str(&text).ok().and_then(|v|maintenance::parse_job(v).ok())
+                .map(|j|format!("Firmware job {} · {}{}",j.job_id,j.phase,if j.error.is_empty(){String::new()}else{format!(" · {}",j.error)})).unwrap_or(text),
+            Err(error)=>error,
+        };
+        self.record_event("Maintenance",&self.device_settings.message.clone());
+        if severity==messaging::Severity::Error {
+            self.notify_detailed_id("pakar.maintenance","Maintenance result","Maintenance did not complete.",&self.device_settings.message,severity);
+        }else{
+            self.notify_id("pakar.maintenance","Maintenance result",&self.device_settings.message,severity);
+        }
+        self.configuration_loaded=false;
+    }
     fn poll(&mut self) {
         self.poll_pixel_api();
         if let Some((id, receiver, cancel)) = &self.pixel_usb_reply {
@@ -4836,32 +4868,7 @@ impl PakarControllerApp {
                     self.pixel_corrections.live.finish(id, result, Instant::now());
                 }
                 Event::MaintenanceFinished(id, result) => {
-                    if self.device_settings.maintenance_pending == Some(id) {
-                        if let Some(progress) = self.firmware_transfer.as_ref() {
-                            progress.finish(&result);
-                        }
-                        let severity = maintenance::result_severity(&result);
-                        self.device_settings.maintenance_pending = None;
-                        self.device_settings.message = result.unwrap_or_else(|e| e);
-                        self.record_event("Maintenance", &self.device_settings.message.clone());
-                        if severity == messaging::Severity::Error {
-                            self.notify_detailed_id(
-                                "pakar.maintenance",
-                                "Maintenance result",
-                                "Maintenance did not complete.",
-                                &self.device_settings.message,
-                                severity,
-                            );
-                        } else {
-                            self.notify_id(
-                                "pakar.maintenance",
-                                "Maintenance result",
-                                &self.device_settings.message,
-                                severity,
-                            );
-                        }
-                        self.configuration_loaded = false;
-                    }
+                    self.finish_maintenance(id,result);
                 }
                 Event::SettingsFinished(id, group, result) => {
                     if self.device_settings.pending != Some((id, group)) {

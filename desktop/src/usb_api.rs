@@ -131,4 +131,87 @@ mod tests {
         assert!(tx.accept(RESPONSE,&response(1,0,1,&[])).is_err());
         assert!(tx.accept(0x82,&[OPCODE,6]).is_err());
     }
+    #[test]
+    fn peer_maintenance_uses_the_same_chunks_once_and_verifies_exact_receipts() {
+        use crate::maintenance::{Operation, RemoteJob};
+        let selected = status();
+        let target = crate::peer_http::Pin::from_status(&selected).unwrap();
+        let sha = "b".repeat(64);
+        let ready = RemoteJob {
+            job_id: 1,
+            boot_id: selected.boot_id.clone(),
+            phase: "ready".into(),
+            targets: 1,
+            manifest_sha256: "a".repeat(64),
+            busy: false,
+            cancellable: true,
+            received_bytes: 4096,
+            expected_bytes: 4096,
+            error: String::new(),
+        };
+        for operation in [
+            Operation::PeerStage {
+                source: serde_json::json!({"artifact":{"sha256":sha}}),
+                authorization: "Bearer source-only".into(),
+                target,
+            },
+            Operation::RemoteStatus,
+            Operation::RemoteApply(ready.clone()),
+            Operation::RemoteCancel(ready.clone()),
+        ] {
+            let (method, path, body) = crate::maintenance::usb_remote_request(&operation).unwrap();
+            let mut tx = Transaction::new(&selected, method, path, body).unwrap();
+            let request: Value = serde_json::from_slice(&tx.request).unwrap();
+            assert_eq!(request["board_id"], selected.board_id);
+            assert_eq!(request["boot_id"], selected.boot_id);
+            if matches!(operation, Operation::PeerStage { .. }) {
+                assert_eq!(request["body"]["authorization"], "Bearer source-only");
+                assert!(request["body"]["source"].is_object());
+            }
+            let mut reply = serde_json::to_value(&ready).unwrap();
+            reply["esp"] = serde_json::json!({"sha256":sha});
+            reply["phase"] = match operation {
+                Operation::PeerStage { .. } => "download_esp",
+                Operation::RemoteApply(_) => "prepare",
+                Operation::RemoteCancel(_) => "cancelled",
+                _ => "ready",
+            }
+            .into();
+            let bytes = serde_json::to_vec(&reply).unwrap();
+            let total = bytes.len() as u16;
+            let mut executes = 0;
+            loop {
+                let packet = tx.request().unwrap();
+                let action = packet[0];
+                let complete = if action == 4 {
+                    tx.accept(wire::ACK, &[OPCODE, 0]).unwrap()
+                } else {
+                    let offset = if action == 3 { tx.received.len() } else { 0 };
+                    if action == 2 {
+                        executes += 1;
+                    }
+                    let tail = if action == 3 {
+                        &bytes[offset..(offset + 39).min(bytes.len())]
+                    } else {
+                        &[]
+                    };
+                    tx.accept(
+                        RESPONSE,
+                        &response(
+                            action,
+                            if action >= 2 { total } else { 0 },
+                            offset as u16,
+                            tail,
+                        ),
+                    )
+                    .unwrap()
+                };
+                if let Some(value) = complete {
+                    assert!(crate::maintenance::verify_remote_receipt(&operation, value).is_ok());
+                    break;
+                }
+            }
+            assert_eq!(executes, 1);
+        }
+    }
 }

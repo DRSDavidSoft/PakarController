@@ -3,6 +3,10 @@
 #include <BuildInfo.h>
 #include <time.h>
 #include <stdio.h>
+#if defined(ARDUINO_ARCH_ESP32)
+#include "PeerArtifact.h"
+#include <PeerRoutePolicy.h>
+#endif
 
 namespace {
 constexpr char kManifest[]="/remote/manifest.json";
@@ -53,6 +57,9 @@ void RemoteFirmware::close() {
 }
 void RemoteFirmware::fail(const char *reason) {
   close(); bearer_=String();error_=reason; phase_=Failed;
+#if defined(ARDUINO_ARCH_ESP32)
+  peerAuthorization_=String();
+#endif
   // No retry, no automatic rollback and no automatic Prog release after uncertainty.
   save();
 }
@@ -82,6 +89,9 @@ bool RemoteFirmware::save() {
   JsonDocument d;
   d[F("id")]=id_;d[F("phase")]=static_cast<uint8_t>(phase_);
   d[F("targets")]=plan_.targets;d[F("manifest_sha256")]=manifestSha_;
+#if defined(ARDUINO_ARCH_ESP32)
+  d["peer_source"]=peerSource_;
+#endif
   d[F("downgrade")]=downgrade_;d[F("error")]=error_;
   d[F("esp_version")]=plan_.esp.version;d[F("esp_sha")]=plan_.esp.sha;d[F("esp_size")]=plan_.esp.size;
   d[F("avr_version")]=plan_.avr.version;d[F("avr_sha")]=plan_.avr.sha;d[F("avr_size")]=plan_.avr.size;
@@ -112,6 +122,9 @@ void RemoteFirmware::begin(const String &boot,Prepare p,Program program,Finish f
     f.close();error_=F("Invalid remote journal; preserved for inspection");phase_=Failed;return;
   }
   f.close();id_=d[F("id")];plan_.targets=d[F("targets")];downgrade_=d[F("downgrade")]|false;
+#if defined(ARDUINO_ARCH_ESP32)
+  peerSource_=d["peer_source"]|false;
+#endif
   manifestSha_=d[F("manifest_sha256")]|"";error_=d[F("error")]|"";
   phase_=static_cast<Phase>(d[F("phase")].as<unsigned>());
   plan_.esp.version=d[F("esp_version")]|"";plan_.esp.sha=d[F("esp_sha")]|"";plan_.esp.size=d[F("esp_size")]|0;
@@ -139,6 +152,9 @@ bool RemoteFirmware::queue(const String &url,const String &sha,uint8_t targets,
     if(bearer[i]<33 || bearer[i]>126) {error_=F("Invalid bearer token");return false;}
   // Signed-query URLs and bearer credentials are never emitted in telemetry/journal.
   close();++id_;plan_=Plan{};plan_.targets=targets;
+#if defined(ARDUINO_ARCH_ESP32)
+  peerSource_=false;peerAuthorization_=String();
+#endif
   manifestSha_=sha;bearer_=bearer;credentialOrigin_=origin(url);autoApply_=applyNow;downgrade_=downgrade;
   prepareDone_=completedThisBoot_=false;error_=String();startedAt_=millis();phase_=Manifest;
   progressStage_=nullptr;progressDone_=progressTotal_=0;
@@ -148,6 +164,38 @@ bool RemoteFirmware::queue(const String &url,const String &sha,uint8_t targets,
   if(!save()) {fail(F("Cannot persist update ownership"));return false;}
   return true;
 }
+#if defined(ARDUINO_ARCH_ESP32)
+bool RemoteFirmware::stagePeer(JsonObjectConst source,const String &authorization) {
+  using namespace BoardCore::PeerRoutePolicy;
+  using namespace BoardCore::PeerUpdatePolicy;
+  const String host=source["hostname"]|"",address=source["address"]|"",board=source["board_id"]|"",boot=source["boot_id"]|"";
+  const JsonObjectConst artifact=source["artifact"].as<JsonObjectConst>();
+  const Artifact local{PakarPeerArtifact::key(),BoardCore::BuildInfo::kVersion,"",0};
+  const Artifact remote{artifact["family"]|"",artifact["version"]|"",artifact["sha256"]|"",artifact["bytes"]|0U};
+  bool credentials=authorization.isEmpty()||authorization.startsWith("Basic ")||authorization.startsWith("Bearer ");
+  if(compare(local,remote)==Relation::Incompatible){error_="Peer firmware family differs (role, pins, memory or compiled capabilities)";return false;}
+  for(size_t i=0;i<authorization.length();++i)if(authorization[i]<32||authorization[i]>126)credentials=false;
+  if(boot_.isEmpty()||busy()||ownsEspStage()||id_==UINT32_MAX||!PakarPeerArtifact::transferable()||
+      !hostname(host.c_str())||!privateIpv4(address.c_str())||!boardId(board.c_str())||!hexId(boot.c_str())||
+      !peerPath(artifact["path"]|"")||!canStage(local,remote,FirmwarePlatform::otaCapacity())||
+      !credentials||authorization.length()>512) {error_="Invalid/incompatible peer source or active update";return false;}
+  // The protected manifest contains routing + integrity, never credentials.
+  JsonDocument d;d["product"]="PakarController";d["profile"]=FirmwarePlatform::profile();d["link_mode"]="buffered";
+  d["peer"]["family"]=remote.family;d["peer"]["hostname"]=host;d["peer"]["address"]=address;
+  d["peer"]["board_id"]=board;d["peer"]["boot_id"]=boot;
+  auto image=d["esp"].to<JsonObject>();image["url"]=String("http://")+host+"/firmware/download";
+  image["model"]=FirmwarePlatform::model();image["version"]=remote.version;image["size"]=remote.bytes;image["sha256"]=remote.sha256;
+  String body;serializeJson(d,body);FirmwarePlatform::Sha256 hash;hash.add(reinterpret_cast<const uint8_t*>(body.c_str()),body.length());
+  LittleFS.mkdir("/remote");File f=LittleFS.open(kManifest,"w");
+  if(!f||f.write(reinterpret_cast<const uint8_t*>(body.c_str()),body.length())!=body.length()){if(f)f.close();error_="Cannot persist peer manifest";return false;}
+  f.flush();f.close();close();++id_;plan_=Plan{};plan_.targets=RemotePolicy::Esp;
+  peerSource_=true;peerHost_=host;peerAddress_=address;peerBoard_=board;peerBoot_=boot;peerAuthorization_=authorization;
+  manifestSha_=hash.hex();bearer_=String();downgrade_=false;autoApply_=false;
+  prepareDone_=completedThisBoot_=false;error_=String();startedAt_=millis();phase_=DownloadEsp;
+  transfer_={};progressStage_=nullptr;progressDone_=progressTotal_=0;
+  if(!parseManifest()||!save()){fail("Cannot validate/journal peer stage");return false;}return true;
+}
+#endif
 bool RemoteFirmware::apply(uint32_t id,const String &boot,const String &sha) {
   if(phase_!=Ready || id!=id_ || boot!=boot_ || sha!=manifestSha_) {
     error_=F("Stale/incorrect job identity or images not ready");return false;
@@ -159,12 +207,20 @@ bool RemoteFirmware::apply(uint32_t id,const String &boot,const String &sha) {
 bool RemoteFirmware::cancel(uint32_t id,const String &boot) {
   if(id!=id_ || boot!=boot_ || applying() || phase_==VerifyPair ||
       !(busy() || phase_==Ready)) {error_=F("Job not cancellable");return false;}
-  close();bearer_=String();phase_=Cancelled;error_=String();return save();
+  close();bearer_=String();phase_=Cancelled;error_=String();
+#if defined(ARDUINO_ARCH_ESP32)
+  peerAuthorization_=String();
+#endif
+  return save();
 }
 bool RemoteFirmware::openDownload(const String &url,uint32_t size,const String &sha,const char *path) {
   error_=String();
   auto reject=[this](const char *reason){error_=reason;return false;};
-  if(!RemotePolicy::url(url.c_str(),PAKAR_ALLOW_HTTP_FIRMWARE)) return reject("Download URL policy rejected");
+  bool peerDownload=false;
+#if defined(ARDUINO_ARCH_ESP32)
+  peerDownload=peerSource_&&url==String("http://")+peerHost_+"/firmware/download";
+#endif
+  if(!peerDownload&&!RemotePolicy::url(url.c_str(),PAKAR_ALLOW_HTTP_FIRMWARE)) return reject("Download URL policy rejected");
   std::unique_ptr<WiFiClient> nextSocket;
   if(url.startsWith("https://")) {
     if(time(nullptr)<1700000000) return reject("Download requires a valid TLS clock");
@@ -183,7 +239,21 @@ bool RemoteFirmware::openDownload(const String &url,uint32_t size,const String &
     secure->setBufferSizes(fullRecords?16384:4096,512);secure->setTimeout(5000);
 #endif
     nextSocket.reset(secure);
-  } else nextSocket.reset(new WiFiClient);
+  } else {
+#if defined(ARDUINO_ARCH_ESP32)
+    if(peerDownload){
+      class PinnedClient final:public WiFiClient {
+       public:explicit PinnedClient(IPAddress ip):ip_(ip){}
+        int connect(const char*,uint16_t port)override{return WiFiClient::connect(ip_,port,1000);}
+        int connect(const char*,uint16_t port,int32_t ms)override{return WiFiClient::connect(ip_,port,ms);}
+       private:IPAddress ip_;
+      };
+      IPAddress ip;if(!ip.fromString(peerAddress_))return reject("Invalid pinned peer address");
+      nextSocket.reset(new PinnedClient(ip));
+    }else
+#endif
+    nextSocket.reset(new WiFiClient);
+  }
   // Bind before replacing the old socket or calling setters that inspect it.
   const bool bound=http_.begin(*nextSocket,url);
   socket_=std::move(nextSocket);
@@ -191,12 +261,16 @@ bool RemoteFirmware::openDownload(const String &url,uint32_t size,const String &
   http_.setTimeout(5000);http_.setReuse(false);http_.useHTTP10(true);
   http_.setUserAgent(String("PakarController/")+BoardCore::BuildInfo::kVersion);
   http_.addHeader("X-Pakar-Client","pakarcontroller-firmware");
-  http_.addHeader("X-Pakar-Version",BoardCore::BuildInfo::kVersion);
+  if(!peerDownload)http_.addHeader("X-Pakar-Version",BoardCore::BuildInfo::kVersion);
   http_.addHeader("X-Pakar-Client-Id",boot_);
   // No redirects: credentials cannot leak to another authority. Publish direct URLs.
   http_.setFollowRedirects(HTTPC_DISABLE_FOLLOW_REDIRECTS);
-  const char *headers[]={"Content-Encoding","Transfer-Encoding"};
-  http_.collectHeaders(headers,2);
+  const char *headers[]={"Content-Encoding","Transfer-Encoding","X-Pakar-Board","X-Pakar-Boot"};
+  http_.collectHeaders(headers,4);
+#if defined(ARDUINO_ARCH_ESP32)
+  if(peerDownload){http_.addHeader("X-Pakar-Board",peerBoard_);http_.addHeader("X-Pakar-Boot",peerBoot_);
+    if(peerAuthorization_.length())http_.addHeader("Authorization",peerAuthorization_);}
+#endif
   if(bearer_.length() && origin(url)==credentialOrigin_)
     http_.addHeader("Authorization",String("Bearer ")+bearer_);
   http_.addHeader("Accept-Encoding","identity");
@@ -215,6 +289,10 @@ bool RemoteFirmware::openDownload(const String &url,uint32_t size,const String &
   }
   if(length<1 || (size && static_cast<uint32_t>(length)!=size) || (!size && length>4096))
     return reject("Download Content-Length missing or mismatched");
+#if defined(ARDUINO_ARCH_ESP32)
+  if(peerDownload&&(http_.header("X-Pakar-Board")!=peerBoard_||http_.header("X-Pakar-Boot")!=peerBoot_))
+    return reject("Peer source identity/boot changed");
+#endif
   if(http_.header("Content-Encoding").length()) return reject("Download Content-Encoding is not identity");
   if(http_.header("Transfer-Encoding").length()) return reject("Download Transfer-Encoding is not supported");
   transfer_={static_cast<uint32_t>(length),0};expectedSha_=sha;
@@ -277,7 +355,19 @@ bool RemoteFirmware::parseManifest() {
     c.url=o[F("url")].as<String>();c.sha=o[F("sha256")].as<String>();
     c.version=o[F("version")].as<String>();c.size=o[F("size")];
     uint16_t v[3];
-    if(!RemotePolicy::url(c.url.c_str(),PAKAR_ALLOW_HTTP_FIRMWARE) ||
+    bool peerUrl=false;
+#if defined(ARDUINO_ARCH_ESP32)
+    if(peerSource_) {
+      const JsonObjectConst p=d["peer"].as<JsonObjectConst>();
+      peerHost_=p["hostname"]|"";peerAddress_=p["address"]|"";peerBoard_=p["board_id"]|"";peerBoot_=p["boot_id"]|"";
+      peerUrl=esp&&plan_.targets==RemotePolicy::Esp&&p["family"]==PakarPeerArtifact::key()&&PakarPeerArtifact::transferable()&&
+          BoardCore::PeerRoutePolicy::hostname(peerHost_.c_str())&&BoardCore::PeerRoutePolicy::privateIpv4(peerAddress_.c_str())&&
+          BoardCore::PeerRoutePolicy::boardId(peerBoard_.c_str())&&BoardCore::PeerRoutePolicy::hexId(peerBoot_.c_str())&&
+          c.url==String("http://")+peerHost_+"/firmware/download";
+      if(!peerUrl)return false;
+    }
+#endif
+    if((!peerUrl&&!RemotePolicy::url(c.url.c_str(),PAKAR_ALLOW_HTTP_FIRMWARE)) ||
        !RemotePolicy::hash(c.sha.c_str()) || !RemotePolicy::version(c.version.c_str(),v) ||
        (!downgrade_ && RemotePolicy::compare(c.version.c_str(),BoardCore::BuildInfo::kVersion)<0)) return false;
     if(esp) return o[F("model")]==FirmwarePlatform::model() && c.size>=24 &&
@@ -331,13 +421,24 @@ bool RemoteFirmware::validateEspStage() {
   const uint16_t revision=ESP.getChipRevision();
   if(revision<header.min_chip_rev_full ||
      (header.max_chip_rev_full && header.max_chip_rev_full!=UINT16_MAX && revision>header.max_chip_rev_full)) return false;
-  FirmwarePlatform::Sha256 c;uint8_t block[1024];
-  for(uint32_t offset=0;offset<plan_.esp.size;offset+=sizeof(block)) {
-    const size_t bytes=min<uint32_t>(sizeof(block),plan_.esp.size-offset);
-    if(!espStage_.read(offset,block,bytes)) return false;
-    c.add(block,bytes);yield();
+  FirmwarePlatform::Sha256 c;uint8_t block[1024+128];size_t tailSize=0;
+  bool familyFound=!peerSource_,releaseFound=!peerSource_;const char *marker=PakarPeerArtifact::family();const size_t markerSize=strlen(marker);
+  const String releaseMarker=String("PAKAR-PEER-RELEASE:")+plan_.esp.version+":END";
+  if(peerSource_&&(markerSize<2||markerSize>128||releaseMarker.length()>128))return false;
+  for(uint32_t offset=0;offset<plan_.esp.size;offset+=1024) {
+    const size_t bytes=min<uint32_t>(1024,plan_.esp.size-offset);
+    if(!espStage_.read(offset,block+tailSize,bytes)) return false;
+    c.add(block+tailSize,bytes);yield();
+    if(!familyFound||!releaseFound){
+      for(size_t i=0;i<tailSize+bytes;++i){
+        if(!familyFound&&i+markerSize<=tailSize+bytes&&!memcmp(block+i,marker,markerSize))familyFound=true;
+        if(!releaseFound&&i+releaseMarker.length()<=tailSize+bytes&&!memcmp(block+i,releaseMarker.c_str(),releaseMarker.length()))releaseFound=true;
+      }
+      const size_t retained=min<size_t>(127,tailSize+bytes);
+      memmove(block,block+tailSize+bytes-retained,retained);tailSize=retained;
+    }else tailSize=0;
   }
-  return c.hex()==plan_.esp.sha;
+  return familyFound&&releaseFound&&c.hex()==plan_.esp.sha;
 #else
   return false;
 #endif
@@ -437,7 +538,11 @@ void RemoteFirmware::service() {
       const bool esp=phase_==DownloadEsp;
       if(!validateImage(esp?plan_.esp:plan_.avr,esp?kEsp:kAvr,esp)) {fail(F("Staged image/header/bootloader failed validation"));return;}
       phase_=esp && (plan_.targets&2)?DownloadAvr:Ready;
-      if(phase_==Ready) {bearer_=String(); if(autoApply_) phase_=PrepareApply;}
+      if(phase_==Ready) {bearer_=String();
+#if defined(ARDUINO_ARCH_ESP32)
+        peerAuthorization_=String();
+#endif
+        if(autoApply_) phase_=PrepareApply;}
     }
     if(!save()) fail(F("Cannot persist validated stage"));
     return;

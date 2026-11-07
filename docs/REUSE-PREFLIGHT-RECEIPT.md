@@ -1,5 +1,115 @@
 # Donor-first preflight receipt
 
+## Standalone peer exchange candidate, 2026-11-07
+
+Issue58 separates boards, Android apps and native apps as peers without an
+attached controller/board prerequisite. Reread actual PCController resolver.go,
+resolver_test.go and link/discovery.go and reused the existing pinned numeric
+dial/logical Host, provisional identity and explicit-control handoff owners.
+Android package exchange remains owned by AppUpdatePeers/AppUpdates; S3 staging
+remains owned by RemoteFirmware/S3OtaStage, not a new flash writer. Added pure
+policy, actual catalogue/updater SDK-double and standalone app-discovery tests.
+
+The local mobile Analyze wrapper first stopped at the changed WebAccess hash;
+owned additive target diffs/anchors were reviewed and rebound without changing
+donor hashes or prior gap decisions. A subsequent guarded Analyze stops at live
+Pealayer inventory drift before Flutter. Do not refresh/bless that other chat's
+drafts or run compilers directly to bypass the gate. CI against the committed
+review snapshot is required; no build or hardware acceptance is claimed yet.
+Boards and installed applications have not been modified by this source pass.
+
+Candidate cb4c75c passed CI contract checks and 520 native tests; three native
+layout tests correctly found that the new Peers enum was missing from the
+canonical default layout. Added it to the existing right-hand tab group and
+same-slot restoration so old workspaces do not gain a new split. Android Analyze
+found five style infos, fixed without suppressions. Linux's updater fixture did
+not carry the peer-image family define used by the PowerShell fixture; the Bash
+wrapper now supplies it and runs the actual catalogue fixture too. Those failed
+candidate results are retained, not relabelled accepted.
+
+The follow-up completes Windows peer EXE export/receive through the existing
+client_install/client_management owners: asynchronous source hashing, exact
+peer/session/artifact/TCP pinning, bounded streaming and SHA/PE checks. Apply
+intent now binds a package hash rather than a global boolean; received peer
+packages require explicit apply and do not require cloud enrollment/connectivity.
+Added a bounded Windows loopback transfer/reuse fixture. Native non-Windows
+managed-install adapters remain explicitly unavailable, not dummy capabilities.
+
+Candidate9ff3027 passed all repository contracts and all525 Windows native
+tests, including the actual loopback package transfer and verified-cache reuse.
+Android Analyze correctly rejected one remaining missing-braces style item;
+it is fixed in the next candidate, without changing lint policy. Firmware CI
+is still running at this checkpoint, not recorded as accepted.
+
+The next candidate adds peer-to-selected-board staging through the same
+confirmed maintenance owners in both apps, explicit source-only credentials
+and exact destination/job/hash receipts. Flutter reuses its general USB API and
+Firmware page for progress/apply/cancel too. New USB operations now sit after
+the existing board/boot request fence. An embedded release marker joins the
+family marker and SHA check; a matching hash for an older binary must still
+fail before Ready/boot selection. Tests cover observed private-source selection,
+wrong release and separate source/destination credentials. These new tests
+remain CI candidates until their execution is reported. Rust USB peer-stage GUI
+and installed-device/LAN/long-soak checks remain open. No board/app was deployed.
+
+Review also found Flutter still discarded a valid public board identity when
+both description and control-status reads were unavailable. It now retains
+that verified board as auth-required/read-only, never auto-selecting it or
+loosening command admission. Bounded HTTP fixtures cover missing status and
+conflicting transport identity. The actual catalogue fixture now observes the
+firmware itself offering a newer image to another board with no app attached;
+the HTTP double records method/body, and staging remains untouched. Local
+guarded Analyze still stops on live donor drift. Publication's first HTTPS
+push hit a low-speed timeout; the unchanged commit published on the next
+bounded normal HTTPS attempt without changing credentials or SSH trust.
+
+The previously listed native USB GUI gap is implemented in the follow-up:
+the existing USB API actor carries the same maintenance request and exact
+job/boot/hash receipt checks as Wi-Fi. No new opcode, port owner, installer or
+cross-route retry was added. The same Firmware page owns progress, Apply and
+Cancel; progress uses existing peer-bound status and USB snapshots. Explicit
+refresh reads do not spam action toasts. A native chunk fixture runs stage/status/apply/cancel exactly
+once through that transaction. Exact-head CI remains required; this is not
+physical USB, app-screen or deployed OTA acceptance.
+
+Review found the outer host busy gate would block remaining API chunks after
+stage/apply was accepted. Add a narrowly scoped remote-maintenance carrier
+exception; the boot-fenced API dispatcher still allows only cached reads and
+explicit cancel while busy. Raw AVR/local OTA ownership remains blocked. Reboot
+now waits for the existing claimed request's finite expiry/close plus100ms ACK
+drain. Pure policy/lease tests and negative source guards cover this wiring.
+Removed the newly introduced progress polling after checking the existing
+network-status and USB-snapshot owners: they already publish job progress.
+The user's latest instruction is source-only: no board or client deployment.
+CodeQL2a377a1's first upload failed without an annotation/finding; a narrow failed
+job rerun passed unchanged. No scan check was waived or suppressed.
+
+CI2a377a1 then exposed a real Flutter capability gap: its acknowledged-feature
+allowlist dropped peer-exchange, so both USB commands and peer-stage UI were
+unavailable. Register that capability, preserving ready AND advertised admission;
+add a parser regression alongside the existing exactly-once USB tests. Reread
+PCController's actual peripheral-availability.ts and its tests in full; no
+count-based or inferred capability was substituted. Native CI527/528 exposed an
+inherited nonblocking Windows fixture socket. Reuse peer_http.rs's explicit
+accepted-socket blocking mode plus finite read/write deadlines, not a production
+retry or timeout relaxation. Three Android peer USB failures and one native
+package fixture failure require exact-head rerun. Local network-cloud consultation
+still refuses concurrent Pealayer inventory drift; donor drafts/gates unchanged.
+
+Tracing the inherited socket mode further found the same issue in the actual
+bridge/passive listener, not just the new package fixture. Normalize the owned
+connection to blocking before its existing finite read/write timeouts. A real
+loopback regression forces a nonblocking accepted socket on every OS, delays
+and splits HTTP headers, then reads public identity with no board/bridge and
+asserts no USB demand or command. This is host IO proof, not installed-app/LAN
+acceptance. Reuse the same peer_http.rs pattern; no production timeout widened.
+
+Final service-order review also found the updater could enter its blocking
+connect/verify/apply work before a newly claimed USB receipt finished reading.
+Defer that loop step while the same finite receipt/ACK-drain guard is active;
+HTTP-only jobs retain their existing execution path. Add a negative wiring
+regression; the shared pure lease tests cover expiry and explicit retirement.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

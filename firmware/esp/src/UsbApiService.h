@@ -1,10 +1,12 @@
 #pragma once
+#include <PeerUpdatePolicy.h>
 // Included in application namespace. Reuses commandReply, ConfigurationManagement,
 // FirmwarePlatform and the existing loop-owned HTTP server; no second renderer,
 // OTA engine or raw partition writer is introduced here.
 BoardCore::UsbApiRequest<> usbApiRequest;
 String usbApiResponse;
 uint32_t usbApiSecurityRevision=0;
+uint32_t usbApiClosedAt=0;bool usbApiClosing=false;
 BoardCore::FilesystemInitialization filesystemInitialization;
 uint32_t filesystemInitializationToken=0;
 bool filesystemInitializationComplete=false;
@@ -15,6 +17,11 @@ void serviceFilesystemInitialization() {
 }
 
 void resetUsbApi(){usbApiRequest.clear();usbApiResponse=String();}
+bool usbApiReceiptPending(){
+  const uint32_t now=millis();
+  if(usbApiClosing&&uint32_t(now-usbApiClosedAt)>=100U)usbApiClosing=false;
+  return usbApiRequest.receiptPending(now)||usbApiClosing;
+}
 bool maintenanceApiIdle() {
   return !programmingLatched&&!urbootBusy.get()&&!otaActive&&!otaRebootAt&&
       !remoteFirmware.busy()&&!avrUploadOwner&&!artifactReaders&&!uploadFile&&
@@ -50,6 +57,27 @@ String maintenanceApi(const String &message,bool physicalUsb) {
     return encodedJson(reply);
   }
   if(request["board_id"].as<String>()!=pcBoardId||request["boot_id"].as<String>()!=pcBootId)return maintenanceApiError("peer_changed");
+  if(remoteFirmware.busy()&&!BoardCore::PeerUpdatePolicy::duringMaintenance(method.c_str(),path.c_str()))return maintenanceApiError("maintenance_busy");
+#if defined(ARDUINO_ARCH_ESP32) && PAKAR_NETWORK_ENABLED
+  if(method=="GET"&&path=="/api/peer/info")return peerArtifactInfo.decorate(PakarPeer::info(pcBoardId,pcBootId,deviceIdentity.hostname()),peerCatalogue.sharing(),peerCatalogue.automaticChecks());
+  if(method=="GET"&&path=="/api/peers/discovered")return peerCatalogue.snapshot(body["offset"]|0U);
+  if(method=="GET"&&path=="/api/firmware/remote")return remoteFirmware.json();
+  if(method=="POST"&&(path=="/api/peers/discover"||path=="/api/peers/policy"||path=="/api/peers/update"||path=="/api/firmware/apply"||path=="/api/firmware/cancel")) {
+    if(filesystemInitializationComplete)return maintenanceApiError("initialization_requires_reboot");
+    if(path=="/api/firmware/cancel"){
+      if(!remoteFirmware.cancel(body["job_id"]|0U,body["boot_id"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+    }else{
+      if(!maintenanceApiIdle())return maintenanceApiError("maintenance_busy");
+      if(path=="/api/peers/discover"){peerCatalogue.discover();return peerCatalogue.snapshot();}
+      if(path=="/api/peers/policy"){String data;serializeJson(body,data);return peerCatalogue.configure(data);}
+      if(path=="/api/peers/update"){
+        if(peerCatalogue.busy())return maintenanceApiError("maintenance_busy");
+        if(!remoteFirmware.stagePeer(body["source"].as<JsonObjectConst>(),body["authorization"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+      }
+      if(path=="/api/firmware/apply"&&!remoteFirmware.apply(body["job_id"]|0U,body["boot_id"]|"",body["sha256"]|""))return maintenanceApiError(remoteFirmware.error().c_str());
+    }return remoteFirmware.json();
+  }
+#endif
   if(method=="GET"&&path=="/api/network/tools")return networkToolsJson();
   if(method=="GET"&&path=="/api/time")return clockJson();
   if(method=="GET"&&path=="/api/wifi/scan")return wifiScanJson(body["results"]!=true);
@@ -255,7 +283,7 @@ bool handleUsbApiFrame(const BoardCore::Protocol::Frame &frame) {
         usbApiResponse=maintenanceApi(String(usbApiRequest.text()),true);
         if(!usbApiResponse.length()||usbApiResponse.length()>8192)usbApiResponse=maintenanceApiError("response_unavailable_do_not_replay");
       } else if(!usbApiRequest.claimed()){hostLink.error(frame.sequence,frame.opcode,kBadPayload);return true;}
-    } else if(action==4&&n==5) {resetUsbApi();hostLink.ack(frame.sequence,frame.opcode);return true;}
+    } else if(action==4&&n==5) {resetUsbApi();hostLink.ack(frame.sequence,frame.opcode);usbApiClosedAt=millis();usbApiClosing=true;return true;}
     else if(action!=3||n!=7||!usbApiRequest.claimed()){hostLink.error(frame.sequence,frame.opcode,kBadPayload);return true;}
   }
   const uint16_t offset=action==3?uint16_t(p[5])|(uint16_t(p[6])<<8):0;

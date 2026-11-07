@@ -137,4 +137,11 @@ void persistenceFaults(){
   PeerRouteStore corrupt;corrupt.begin(fs,true);assert(corrupt.at(0).board.isEmpty());
   PeerRouteStore unavailable;unavailable.begin(fs,false);assert(String(unavailable.update(route,false))=="volume_unavailable");
 }
-int main(){stickyAndPersistent();hintsAndIdentity();connectRecoveryAndNoReplay();memoryAndExpiry();errorsAndLargeReceipt();resolverLateCallback();changedHintDuringDnsOutage();stackFragmentationDoesNotLockOutReads();persistenceFaults();puts("Actual ESP peer relay/cache/route-store/DNS fixtures passed; not LAN or physical acceptance");}
+void metadataIsNotControlAdmission(){
+  clean();PeerRelay relay;auto old=json(info());old["version"]="0.1.0";add(encode(old));
+  assert(run(relay,envelope())["response_verified"]==true);
+  assert(json(relay.directory())["routes"].size()==0);
+  add(encode(old));auto denied=run(relay,envelope("/api/status"));assert(denied["response_verified"]==false);
+  assert(denied["error"]=="peer_identity_not_verified"&&requests.back().url=="http://keycontroller.local/api/peer/info");
+}
+int main(){stickyAndPersistent();hintsAndIdentity();connectRecoveryAndNoReplay();memoryAndExpiry();errorsAndLargeReceipt();resolverLateCallback();changedHintDuringDnsOutage();stackFragmentationDoesNotLockOutReads();persistenceFaults();metadataIsNotControlAdmission();puts("Actual ESP peer relay/cache/route-store/DNS fixtures passed; not LAN or physical acceptance");}

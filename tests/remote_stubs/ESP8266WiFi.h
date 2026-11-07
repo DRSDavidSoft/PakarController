@@ -3,11 +3,23 @@
 #include <vector>
 #include <set>
 #include <cassert>
+class IPAddress {
+ public:bool fromString(const String &text){value_=text;return true;}
+  IPAddress()=default;explicit IPAddress(uint32_t v){char out[16];snprintf(out,sizeof(out),"%u.%u.%u.%u",unsigned(v&255),unsigned((v>>8)&255),unsigned((v>>16)&255),unsigned(v>>24));value_=out;}
+  uint8_t operator[](unsigned index)const{unsigned a[4]{};sscanf(value_.c_str(),"%u.%u.%u.%u",&a[0],&a[1],&a[2],&a[3]);return index<4?a[index]:0;}
+  bool operator==(const IPAddress &other)const{return value_==other.value_;}
+  String toString()const{return value_;}
+ private:String value_;
+};
 class WiFiClient{
  public:
  inline static std::set<const WiFiClient*> live;
  WiFiClient(){live.insert(this);}
  virtual ~WiFiClient(){live.erase(this);}
+ virtual int connect(const char*,uint16_t){return 1;}
+ virtual int connect(const char*,uint16_t,int32_t){return 1;}
+ virtual int connect(IPAddress,uint16_t,int32_t){return 1;}
+ IPAddress localIP()const{IPAddress ip;ip.fromString("192.168.1.20");return ip;}
  virtual void stop(){assert(live.count(this));at=bytes.size();}
  std::vector<uint8_t>bytes;size_t at=0;
  int available()const{return static_cast<int>(min<size_t>(1024,bytes.size()-at));}
@@ -29,3 +41,6 @@ class TestEsp{
  void restart(){++restarts;}
 };
 extern TestEsp ESP;
+using NetworkClient=WiFiClient;
+struct TestWiFi{IPAddress localIP()const{IPAddress ip;ip.fromString("192.168.1.20");return ip;}IPAddress softAPIP()const{IPAddress ip;ip.fromString("192.168.4.1");return ip;}};
+inline TestWiFi WiFi;

@@ -8,6 +8,19 @@ import 'package:pakarcontroller/peer_context.dart';
 import 'peer_fixture.dart';
 
 void main() {
+  test('Peer exchange requires an explicit acknowledged capability', () {
+    expect(
+      peerFixture(features: ['peer-exchange']).peer.has('peer-exchange'),
+      true,
+    );
+    expect(
+      peerFixture(features: ['network', 'usb-api']).peer.has('peer-exchange'),
+      false,
+    );
+    final mixed = peerFixture(features: ['peer-exchange']).json;
+    mixed['capabilities']['hostname'] = 'other';
+    expect(DeviceStatus(mixed).peer.has('peer-exchange'), false);
+  });
   test('Advertised game press and presentation survive capability parsing', () {
     final raw = peerFixture(
       kind: 'keys',

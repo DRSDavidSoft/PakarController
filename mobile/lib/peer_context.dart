@@ -258,6 +258,7 @@ class LedOutputCapability {
 }
 
 const knownFeatures = {
+  'peer-exchange',
   'network-tools',
   'state-presentation',
   'game-press',

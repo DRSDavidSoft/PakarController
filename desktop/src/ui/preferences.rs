@@ -530,6 +530,8 @@ fn editor_contents(draft: &mut PreferencesDraft, ui: &mut egui::Ui, board: &Boar
                     if draft.matches("Share connection Bridge repeater USB TCP LAN discovery mDNS DNS-SD SSDP MNDP") {
                         dialog::section(ui,icons::BROADCAST,"Share connection",|ui|{
                             ui.checkbox(&mut draft.config.bridge.enabled,"Enable API bridge / repeater");
+                            ui.checkbox(&mut draft.config.bridge.peer_discovery,"Discover and answer peers without a connected board");
+                            ui.checkbox(&mut draft.config.bridge.peer_package_sharing,"Share the running Windows app package with peers");
                             dialog::setting_row(ui,icons::GLOBE,"Listen address",None,|ui|{ui.text_edit_singleline(&mut draft.config.bridge.listen);});
                             dialog::setting_row(ui,icons::PLUG,"API port",None,|ui|{ui.add(egui::DragValue::new(&mut draft.config.bridge.port).range(1..=65535));});
                             dialog::setting_row(ui,icons::APP_WINDOW,"Hostname",None,|ui|{ui.text_edit_singleline(&mut draft.config.bridge.hostname);});

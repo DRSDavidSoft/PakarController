@@ -1487,6 +1487,47 @@ class PakarApi {
   }
 
   Future<Map<String, dynamic>> getJson(String path) => _get(path);
+  Future<Map<String, dynamic>> peerExchange(
+    String method,
+    String path,
+    Map<String, dynamic> body, {
+    bool Function()? authorize,
+  }) async {
+    final revision = connectionRevision;
+    bool admitted() =>
+        revision == connectionRevision &&
+        connectionWanted &&
+        (authorize?.call() ?? true);
+    if (isUsb) {
+      await _ensureUsb();
+      return usb.peerExchange(method, path, body, authorize: admitted);
+    }
+    if (method == 'GET') return getJson(path);
+    const writes = {
+      '/api/peers/discover',
+      '/api/peers/policy',
+      '/api/peers/update',
+      '/api/firmware/apply',
+      '/api/firmware/cancel',
+    };
+    if (method != 'POST' || !writes.contains(path)) {
+      throw const FormatException('Unsupported peer operation');
+    }
+    final result = await postJson(
+      path,
+      path == '/api/peers/policy'
+          ? {'settings': jsonEncode(body)}
+          : {
+              for (final entry in body.entries)
+                entry.key: entry.value is Map
+                    ? jsonEncode(entry.value)
+                    : '${entry.value}',
+            },
+      authorize: admitted,
+    );
+    if (!admitted()) throw const StaleConnection();
+    return result;
+  }
 
   /// Same boot-fenced USB API or correlated WS-first command, with the existing
   /// user-configurable HTTP fallback. No independent network/command owner.
@@ -1520,8 +1561,7 @@ class PakarApi {
       path,
       {
         if (path == '/api/network/tools') 'settings': jsonEncode(body),
-        if (path == '/api/network/probe')
-        ...{
+        if (path == '/api/network/probe') ...{
           'kind': '${body['kind']}',
           if (body.containsKey('target')) 'target': '${body['target']}',
         },
@@ -1721,6 +1761,26 @@ class PakarApi {
     void Function(int done, int total)? uploadProgress,
     required bool Function() authorize,
   }) async {
+    if (isUsb &&
+        {
+          '/api/firmware/remote',
+          '/api/firmware/apply',
+          '/api/firmware/cancel',
+        }.contains(path)) {
+      if (!authorize()) throw const StaleConnection();
+      final body = <String, dynamic>{
+        for (final entry in form.entries)
+          entry.key: entry.key == 'job_id'
+              ? int.parse(entry.value)
+              : entry.value,
+      };
+      return peerExchange(
+        post ? 'POST' : 'GET',
+        path,
+        body,
+        authorize: authorize,
+      );
+    }
     final bytes = await maintenanceBytes(
       path,
       post: post,

@@ -2,6 +2,7 @@
 #include <Update.h>
 #include <cassert>
 #include <cstdio>
+#include "../firmware/esp/src/PeerArtifact.h"
 uint32_t testNow=1000;
 fs::FS LittleFS;TestEsp ESP;TestUpdater Update;
 std::map<std::string,TestResponse>testResponses;
@@ -122,5 +123,29 @@ int main(){
   OtaFixture::boot=1;assert(!stage.begin(24));OtaFixture::boot=0;
   assert(!stage.resume(0x10000,24));assert(!stage.selectForBoot());
  }
- puts("Actual S3 RemoteFirmware + inactive-slot adapter: image larger than LittleFS, no boot selection during stage, explicit apply, persisted-stage resume, SHA/HTTP/header failures, abort, tamper/journal interruption and postboot verification passed. SDK/HTTP/flash doubles, not physical OTA or Internet proof.");
+ {Fixture f;RemoteFirmware j;j.begin("boot-A",prepare,program,finish);
+  const String url="http://source.local/firmware/download",boot="0123456789abcdef0123456789abcdef";
+  const char *marker=PakarPeerArtifact::family();memcpy(f.image.data()+1020,marker,strlen(marker)); // crosses chunk boundary
+  const char releaseMarker[]="PAKAR-PEER-RELEASE:0.2.9:END";memcpy(f.image.data()+2040,releaseMarker,sizeof(releaseMarker));
+  JsonDocument source;source["hostname"]="source.local";source["address"]="192.168.1.21";
+  source["board_id"]="source-board";source["boot_id"]=boot;
+  auto a=source["artifact"].to<JsonObject>();a["family"]=PakarPeerArtifact::key();a["version"]="0.2.9";
+  a["path"]="/firmware/download";a["bytes"]=uint32_t(f.image.size());a["sha256"]=hash(f.image);
+  testResponses[url].bytes=f.image;testResponses[url].board="source-board";testResponses[url].boot=boot;
+  assert(j.stagePeer(source.as<JsonObjectConst>(),"Basic source-only-secret"));Fixture::pump(j,"ready");
+  assert(OtaFixture::selections==0&&prepares==0&&testRequests.back().authorization=="Basic source-only-secret");
+  RemoteFirmware resumed;resumed.begin("boot-B",prepare,program,finish);assert(!strcmp(resumed.phase(),"ready"));
+  assert(j.cancel(1,"boot-A"));a["family"]="different-board-role";assert(!j.stagePeer(source.as<JsonObjectConst>(),""));
+  a["family"]=PakarPeerArtifact::key();a["version"]="0.2.8+other-build";assert(!j.stagePeer(source.as<JsonObjectConst>(),""));
+  a["version"]="0.2.9";source["address"]="8.8.8.8";assert(!j.stagePeer(source.as<JsonObjectConst>(),""));
+  source["address"]="192.168.1.21";testResponses[url].boot="changed-boot";
+  assert(j.stagePeer(source.as<JsonObjectConst>(),""));Fixture::pump(j,"failed");assert(OtaFixture::selections==0);
+  // A correct transport/hash cannot substitute an old binary for a newer
+  // advertised release. Both retained markers cross verification chunks.
+  testResponses[url].boot=boot;
+  const char wrongRelease[]="PAKAR-PEER-RELEASE:0.2.8:END";memcpy(f.image.data()+2040,wrongRelease,sizeof(wrongRelease));
+  testResponses[url].bytes=f.image;a["sha256"]=hash(f.image);
+  assert(j.stagePeer(source.as<JsonObjectConst>(),""));Fixture::pump(j,"failed");assert(OtaFixture::selections==0&&prepares==0);
+ }
+ puts("Actual S3 RemoteFirmware + inactive-slot adapter: image larger than LittleFS, explicit apply, persisted-stage resume, SHA/HTTP/header failures, peer family/boot/address validation and no automatic apply passed. SDK/HTTP/flash doubles, not physical OTA or Internet proof.");
 }
