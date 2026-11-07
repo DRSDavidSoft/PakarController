@@ -96,6 +96,14 @@ retry or timeout relaxation. Three Android peer USB failures and one native
 package fixture failure require exact-head rerun. Local network-cloud consultation
 still refuses concurrent Pealayer inventory drift; donor drafts/gates unchanged.
 
+Tracing the inherited socket mode further found the same issue in the actual
+bridge/passive listener, not just the new package fixture. Normalize the owned
+connection to blocking before its existing finite read/write timeouts. A real
+loopback regression forces a nonblocking accepted socket on every OS, delays
+and splits HTTP headers, then reads public identity with no board/bridge and
+asserts no USB demand or command. This is host IO proof, not installed-app/LAN
+acceptance. Reuse the same peer_http.rs pattern; no production timeout widened.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

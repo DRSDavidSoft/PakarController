@@ -2560,7 +2560,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `mobile/android/app/src/main/kotlin/ir/digitalogic/pakar/pakarcontroller/DiscoveryChannel.kt:15 [UTF8-LF sha256=0c1215ebc188d720fe9c181a475efac7567d6b5b884de5e8d97a2d443593bd61; anchor=class DiscoveryChannel]`.
 - Target: `mobile/lib/devices_page.dart:94 [UTF8-LF sha256=bf2fc68098d9ed50f7855e403ac7c5984651c2a14178b6aba7688aa02931a694; anchor=class DevicesPage]`.
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b; anchor=pub struct Advertiser]`.
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Retained: Fully read source through EOF. Adapted actual mDNS/DNS-SD single transport intent, metadata-only discovery, bounded search lifetime/cleanup, M-SEARCH headers, validated origins and explicit authentication separation into Android discovery.
 - Retained: Android NsdManager replaces Go zeroconf; serialized resolves, scan generation ownership, multicast-lock acquisition/release and lifecycle cleanup are real native code. Local/remote saved device types describe transport, never fabricate capabilities. Actual peer ACK remains authoritative.
 - Retained: Canonical discovery.go783lines fully reread through EOF. Android NSD/SSDP/MNDP mappings remain metadata-only partial adaptations; advertisements do not grant authenticated board ownership.
@@ -2649,10 +2649,10 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `cb26b3fba521fe61d2b7bce2b1fa6a019dc6d04d72bb82df541e4ef63c1bbcd3`.
 
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Retained: Read complete tests. Port board-vs-host identity and available-route capability assertions, including suppression of unsupported OTA/ISP/streaming on the relay.
 - Omitted/replaced code: `All donor rich host metadata, peer caps and discovery refresh scheduling assertions`. Disposition: **pending**. Reason: Those metadata producers and UpdateText lifecycle are not fully implemented; fixture identity and real socket tests do not close donor parity or real LAN acceptance.
-- Test-code evidence: `desktop/src/bridge.rs:2058 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_status_keeps_board_identity_and_only_available_route_capabilities]`.
+- Test-code evidence: `desktop/src/bridge.rs:2061 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_status_keeps_board_identity_and_only_available_route_capabilities]`.
 - Test-code evidence: `mobile/test/bridge_peer_test.dart:86 [UTF8-LF sha256=04688eaf3a76042bd60b380b7d631657828e922e9c740c55626563890800e498; anchor=MNDP application endpoints use vendor API port]`.
 - Remaining: Issue #2: All donor rich host metadata, peer caps and discovery refresh scheduling assertions. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
@@ -2660,7 +2660,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `524f6e31069355fb8f7968e507775d4a567964aee41001722a325cc8c06e99a0`.
 
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Target: `desktop/src/platform/lan_discovery.rs:27 [UTF8-LF sha256=02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b; anchor=pub struct Advertiser]`.
 - Target: `libraries/BoardCore/src/PeerCompatibility.h:27 [UTF8-LF sha256=530d8de10f3715db8cb3404dc511634152bcea12c14d9e6ebb578645307fd26b; anchor=namespace BoardCore { namespace PeerCompatibility {]`.
 - Target: `firmware/esp/src/ClientTelemetry.h:18 [UTF8-LF sha256=71f78fe48b0208aabe6505d9cf5986484ee8d5e77c1fea8a7b2737afecfb112a; anchor=class ClientTelemetry {]`.
@@ -2669,8 +2669,8 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Retained: Read entire source. Preserve instance.id vs physical board identity and push-fed nonsecret current-owner metadata: bridge path/hostname are additive, board_id/boot_id/hostname remain downstream-owned; current status is fed without independent serial acquisition.
 - Retained: Adapt the donor's observed-vs-declared metadata separation and bounded nonsecret push reports across the board, native and mobile peer registries. Shared release-range admission is a new user requirement, not copied donor version negotiation; no exact-build adapter or numbered route is introduced.
 - Omitted/replaced code: `Complete discoveryMetadata rich TXT, five-second coalesced refresh and all HostIdentity fields`. Disposition: **pending**. Reason: Fixed nonsecret listener TXT suffices for compatible endpoint discovery, while full board state is served from the selected owner. Rich changing TXT and cross-product public enrichment remain useful pending imports; no board secret is advertised.
-- Test-code evidence: `desktop/src/bridge.rs:2200 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
-- Test-code evidence: `desktop/src/bridge.rs:2058 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_status_keeps_board_identity_and_only_available_route_capabilities]`.
+- Test-code evidence: `desktop/src/bridge.rs:2203 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
+- Test-code evidence: `desktop/src/bridge.rs:2061 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_status_keeps_board_identity_and_only_available_route_capabilities]`.
 - Test-code evidence: `tests/peer_compatibility_test.cpp:29 [UTF8-LF sha256=1a99a731b1c980523c52bbdfa21d0d4bdd034d9c80e7dcfd1a91d92765953df3; anchor=assert(numericAppAllowed(0,2,8));]`.
 - Test-code evidence: `tests/client_telemetry_test.cpp:48 [UTF8-LF sha256=bae7479cdbedc4896b86299bd1cc7c046e29f3ff9dd1b1a2a7c33f5b50d523d1; anchor=assert(detail[0]["observed_ip"].isNull()]`.
 - Test-code evidence: `desktop/src/peer_identity.rs:632 [UTF8-LF sha256=ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e; anchor=fn reports_drop_secrets_and_never_replace_observed_ip()]`.
@@ -2681,11 +2681,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `30454374bc87aeed2d4a536f27a24aa8c382920e9047b40d68a42faef47990c4`.
 
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Target: `desktop/src/main.rs:2524 [UTF8-LF sha256=3a4f44e075fefb00b0bee0ca4212a9972a8e708f3320c1a66452dcfe363a2db3; anchor=SerialCommand::Bridge(target]`.
 - Retained: Read through EOF. Preserve primary selected owner and explicit Disconnect/revocation; sharing never opens another serial handle or acquires a board from discovery. Bridge listener starts only on opt-in and closes through owned stop lifetime.
 - Omitted/replaced code: `Complete host suspend/resume lifecycleInstruction service/Windows power-event integration`. Disposition: **pending**. Reason: Current bridge is scoped to the existing app runtime/connection Gate, not a new always-running service. Listener suspend/resume behavior and platform power callbacks require additional integration and actual host acceptance.
-- Test-code evidence: `desktop/src/bridge.rs:2200 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
+- Test-code evidence: `desktop/src/bridge.rs:2203 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
 - Remaining: Issue #2: Complete host suspend/resume lifecycleInstruction service/Windows power-event integration. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### PCController: `Tools/Controller/internal/hostbridge/manager.go`
@@ -2704,18 +2704,18 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `b77fb20899b6e43e3ea8bebf0b49e0ab92849eb45f7ba6fe8803508c76c03c28`.
 
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Retained: Read through EOF. Adapt malformed/foreign identity rejection, same-ID receipt retrieval and command mismatch tests to the existing Pakar packet; actual HTTP and WS tests share the same observed board.
 - Omitted/replaced code: `Full donor JSON-RPC error/result ambiguity and pending peer-session tests`. Disposition: **pending**. Reason: The donor IPC envelope is not exposed by this selected-owner bridge; full PCController manager interoperability and its tests are still useful pending work.
-- Test-code evidence: `desktop/src/bridge.rs:2200 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
-- Test-code evidence: `desktop/src/bridge.rs:2023 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_http_recovery_uses_existing_packet_form_contract]`.
+- Test-code evidence: `desktop/src/bridge.rs:2203 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
+- Test-code evidence: `desktop/src/bridge.rs:2026 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_http_recovery_uses_existing_packet_form_contract]`.
 - Remaining: Issue #2: Full donor JSON-RPC error/result ambiguity and pending peer-session tests. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### PCController: `Tools/Controller/internal/hostbridge/peer_response.go`
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `7e711f22ce5a8e0c01f7a935e0f0091ed1d305e04a7563aae57a772059f391ef`.
 
-- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=pub struct Runtime]`.
+- Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=pub struct Runtime]`.
 - Target: `desktop/src/usb_table.rs:591 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=pub struct Intent]`.
 - Target: `firmware/esp/src/PeerRelay.h:19 [UTF8-LF sha256=7e552871b9e1339a0c3612210b4554c25154f7a99bd07d9e006e1c1475a2d2a4; anchor=class PeerRelay]`.
 - Target: `firmware/esp/src/PeerRouteStore.h:9 [UTF8-LF sha256=93e58147fbf62072c7a6ce22abe39d0dd2cf3840cd41e70bcdea8c5693889756; anchor=class PeerRouteStore]`.
@@ -2724,7 +2724,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Retained: Reread source and peer_response_test.go for ESP HTTP peer relay: validate destination board/boot, exact command-result request ID and boolean acceptance; malformed/lost responses remain outcome-uncertain. Explicit target, one hop, eight bounded receipt reservations, no redirects, no automatic command retry. Worker keeps outgoing I/O out of game loop. This is not a completed mesh or physical delivery claim.
 - Retained: 2026-10-28 reread complete peer_response.go and its tests. Retain strict receipt identity and uncertain/no-replay outcomes while replacing per-job task allocation and full raw history with one reusable worker and eight SHA256 fingerprints. Filter downstream JSON envelope to bound heap; read-only connection recovery never replays a POST. Explicit saved-route stage/readback/rename is loop-owned, independently of worker observations. Current and historical internal-memory metrics are distinct; no claimed cause for the historical 216-byte minimum.
 - Omitted/replaced code: `Generic PCController peerRPCSession JSON-RPC/WebSocket/Socket.IO response envelope`. Disposition: **pending**. Reason: Pakar uses its existing living /api/command and board/boot/deadline contract, not an unimplemented promise of generic PCController RPC compatibility. Full manager.go route/authority/transport adapters remain pending review.
-- Test-code evidence: `desktop/src/bridge.rs:2200 [UTF8-LF sha256=d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
+- Test-code evidence: `desktop/src/bridge.rs:2203 [UTF8-LF sha256=2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7; anchor=fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops]`.
 - Test-code evidence: `desktop/src/usb_table.rs:843 [UTF8-LF sha256=7991f9c24f579b05d0d3a07a5af2ecbba0ed13da93ab88b7fed226ff41d9aec1; anchor=fn actual_usb_worker_preempts_large_preview_and_confirms_compact_board_readback]`.
 - Test-code evidence: `tests/peer_relay_test.cpp:147 [UTF8-LF sha256=50dcc4e73807ca4d0a1c9380d7ce9b815d596772016c1f3bc59dc6a80bddba69; anchor=int main()]`.
 - Test-code evidence: `tests/peer_network_commission_test.cpp:34 [UTF8-LF sha256=ec7bc2ebc0037b133588e44cd8fdd23afb7fb587243488272007cd2222740f0d; anchor=Acceptance alone never switches Wi-Fi.]`.

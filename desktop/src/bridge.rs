@@ -1178,6 +1178,9 @@ fn remember_peer(shared: &Shared, value: Value) {
     }
 }
 fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
+    // Winsock can inherit the polled listener's nonblocking mode. Only accept
+    // is polled; each owned connection uses the bounded blocking IO below.
+    socket.set_nonblocking(false).map_err(|e| e.to_string())?;
     // Peek leaves the complete handshake for tungstenite's reviewed parser.
     socket
         .set_read_timeout(Some(Duration::from_secs(2)))
@@ -2518,6 +2521,52 @@ mod tests {
             .unwrap();
             assert!(task.join().unwrap().is_err());
         }
+    }
+    #[test]
+    fn passive_peer_listener_waits_for_delayed_headers_on_nonblocking_accept() {
+        let (mut shared, rx, _) = fixture();
+        Arc::get_mut(&mut shared).unwrap().settings.enabled = false;
+        *shared.observation.lock().unwrap() = None; // No board or bridge required.
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        listener.set_nonblocking(true).unwrap();
+        let address = listener.local_addr().unwrap();
+        let (ready, accepted) = mpsc::channel();
+        let owner = shared.clone();
+        let worker = thread::spawn(move || {
+            let deadline = Instant::now() + Duration::from_secs(5);
+            let socket = loop {
+                match listener.accept() {
+                    Ok((socket, _)) => break socket,
+                    Err(error) if error.kind() == std::io::ErrorKind::WouldBlock => {
+                        assert!(Instant::now() < deadline, "bounded peer accept");
+                        thread::sleep(Duration::from_millis(2));
+                    }
+                    Err(error) => panic!("{error}"),
+                }
+            };
+            // Force Windows' inherited mode on every test platform.
+            socket.set_nonblocking(true).unwrap();
+            ready.send(()).unwrap();
+            serve(socket, &owner)
+        });
+        let mut client = TcpStream::connect(address).unwrap();
+        client.set_read_timeout(Some(Duration::from_secs(3))).unwrap();
+        client.set_write_timeout(Some(Duration::from_secs(3))).unwrap();
+        accepted.recv_timeout(Duration::from_secs(2)).unwrap();
+        thread::sleep(Duration::from_millis(40));
+        client.write_all(b"GET /api/peer/info HTTP/1.1\r\nHost: fixture\r\n").unwrap();
+        thread::sleep(Duration::from_millis(25));
+        client.write_all(b"Connection: close\r\n\r\n").unwrap();
+        let mut reply = String::new();
+        client.read_to_string(&mut reply).unwrap();
+        worker.join().unwrap().unwrap();
+        assert!(reply.starts_with("HTTP/1.1 200 "));
+        let (_, body) = reply.split_once("\r\n\r\n").unwrap();
+        let info: Value = serde_json::from_str(body).unwrap();
+        assert_eq!(info["kind"], "desktop-app");
+        assert_eq!(info["exchange"]["bridge_enabled"], false);
+        assert!(rx.try_recv().is_err());
+        assert_eq!(shared.demand.demand(), crate::usb_demand::Demand::default());
     }
     #[test]
     fn bridge_live_headers_and_peer_registry_reject_unsupported_controls() {

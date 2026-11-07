@@ -9634,7 +9634,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9668,7 +9668,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9704,7 +9704,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         }
       ],
       "omissions": [
@@ -9718,12 +9718,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_http_recovery_uses_existing_packet_form_contract",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         }
       ],
       "remaining": [
@@ -9743,7 +9743,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/main.rs",
@@ -9762,7 +9762,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         }
       ],
       "remaining": [
@@ -9783,7 +9783,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
@@ -9822,12 +9822,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "tests/peer_compatibility_test.cpp",
@@ -9863,7 +9863,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         }
       ],
       "omissions": [
@@ -9877,7 +9877,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -15650,7 +15650,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "d6ce522515d7a0b983a2f2ae2aa37d12e7fa483e015ad6ca90261624aa623e38"
+          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
         }
       ],
       "omissions": [
