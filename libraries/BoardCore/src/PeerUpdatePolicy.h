@@ -30,6 +30,13 @@ inline const char *name(Relation value) {
 // URLs. Its exact origin, endpoint and current peer/boot headers are pinned by
 // the transfer owner. Redirects, alternate paths and public IPs are forbidden.
 inline bool peerPath(const char *path){return path&&!strcmp(path,"/firmware/download");}
+// Transport chunks may drain an accepted request while a download is active.
+// Only these operations may execute in that state; no new job/apply/control.
+inline bool duringMaintenance(const char *method,const char *path){
+  if(!method||!path)return false;
+  return (!strcmp(method,"GET")&&(!strcmp(path,"/api/firmware/remote")||!strcmp(path,"/api/peer/info")||!strcmp(path,"/api/peers/discovered")))||
+      (!strcmp(method,"POST")&&!strcmp(path,"/api/firmware/cancel"));
+}
 inline bool canStage(const Artifact &local,const Artifact &remote,uint32_t capacity) {
   return compare(local,remote)==Relation::RemoteNewer && hash(remote.sha256) && remote.bytes>=24 && remote.bytes<capacity;
 }

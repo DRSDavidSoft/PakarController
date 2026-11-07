@@ -1021,9 +1021,7 @@ fn maintenance_page(
             });
             let available =
                 (app.command_route() == Some(Transport::WiFi)||app.peer_maintenance_ready()) && draft.maintenance_pending.is_none();
-            let poll=draft.remote_job.as_ref().is_some_and(|job|job.busy)&&
-                draft.maintenance_polled_at.is_none_or(|at|at.elapsed()>=std::time::Duration::from_secs(1));
-            let mut refresh=poll&&available&&draft.maintenance_confirmation.is_none();
+            let mut refresh=false; // Live progress comes from ordinary peer-bound status/snapshots.
             ui.horizontal_wrapped(|ui| {
                 if ui
                     .add_enabled(available, egui::Button::new("Refresh update & telemetry"))
@@ -1061,14 +1059,13 @@ fn maintenance_page(
                 }
             });
             if refresh {
-                let id=draft.next_id();draft.maintenance_polled_at=Some(std::time::Instant::now());
+                let id=draft.next_id();
                 match app.submit_peer_maintenance(id,Operation::RemoteStatus){
                     Ok(())=>{draft.maintenance_pending=Some(id);draft.maintenance_read=true;},
                     Err(error)=>draft.message=error,
                 }
             }
             if let Some(job) = draft.remote_job.clone() {
-                if job.busy {ui.ctx().request_repaint_after(std::time::Duration::from_secs(1));}
                 ui.label(format!(
                     "Job {} · {} · {}/{} bytes",
                     job.job_id, job.phase, job.received_bytes, job.expected_bytes

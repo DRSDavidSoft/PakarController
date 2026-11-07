@@ -340,6 +340,9 @@ mod tests {
                         Err(e) => panic!("{e}"),
                     }
                 };
+                // Accepted sockets can inherit a polled listener's mode on
+                // Windows. Reuse the peer_http fixture's bounded blocking IO.
+                socket.set_nonblocking(false).unwrap();
                 socket
                     .set_read_timeout(Some(Duration::from_secs(2)))
                     .unwrap();

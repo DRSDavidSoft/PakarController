@@ -14,6 +14,10 @@ int main() {
   Artifact pre{"table","0.2.9-rc.1",sha,1024};assert(compare(local,pre)==Relation::RemoteNewer);
   assert(BoardCore::PeerCatalogPolicy::currentOffer(10,UINT32_MAX-10));
   assert(!BoardCore::PeerCatalogPolicy::currentOffer(100000,0));
+  for(const char *path:{"/api/firmware/remote","/api/peer/info","/api/peers/discovered"})assert(duringMaintenance("GET",path));
+  assert(duringMaintenance("POST","/api/firmware/cancel"));
+  for(const char *path:{"/api/firmware/apply","/api/peers/update","/api/peers/policy","/api/command"})assert(!duringMaintenance("POST",path));
+  assert(!duringMaintenance("GET","/api/avr/probe"));assert(!duringMaintenance(nullptr,nullptr));
   using namespace BoardCore::PeerRoutePolicy;
   for(const char *s:{"keycontroller.local","ledcontroller.local","david-asus"})assert(hostname(s));
   for(const char *s:{"localhost","127.0.0.1","a/../x","a:80","a@b","a\r\nx","-a","a-","a..b","a."})assert(!hostname(s));

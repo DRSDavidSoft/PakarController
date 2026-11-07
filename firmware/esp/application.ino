@@ -495,6 +495,7 @@ String shellStatusJson();
 bool handleShellFrame(const BoardCore::Protocol::Frame &frame);
 bool handleUsbApiFrame(const BoardCore::Protocol::Frame &frame);
 void resetUsbApi();
+bool usbApiReceiptPending();
 void registerUsbApiRoutes();
 bool updateShellConfiguration(JsonObjectConst patch,String &result);
 void observePanelAction(uint8_t kind,uint16_t value,uint8_t detail);
@@ -845,7 +846,12 @@ void onHostFrame(const BoardCore::Protocol::Frame &frame, void *) {
     hostLink.send(kErrorResponse, frame.sequence, error, sizeof(error)); return;
   }
   static BoardCore::PcContractAssembly usbPcAssembly;
-  if ((urbootBusy.get() || remoteFirmware.busy() || otaActive || otaRebootAt || avrUploadOwner) && frame.opcode != kGetStatus && frame.opcode != kGetIdentity && frame.opcode != kGetTableSnapshot && frame.opcode != kHello && frame.opcode != kPing && !shellPoll) {
+  // A staged job must still drain its frozen API receipt and allow progress /
+  // explicit cancellation. The API dispatcher below admits only those safe
+  // operations while remote maintenance is busy; raw AVR/local OTA stay fenced.
+  const bool remoteApiDrain=frame.opcode==kUsbApi && remoteFirmware.busy() &&
+      !urbootBusy.get()&&!otaActive&&!otaRebootAt&&!avrUploadOwner;
+  if ((urbootBusy.get() || remoteFirmware.busy() || otaActive || otaRebootAt || avrUploadOwner) && frame.opcode != kGetStatus && frame.opcode != kGetIdentity && frame.opcode != kGetTableSnapshot && frame.opcode != kHello && frame.opcode != kPing && !shellPoll && !remoteApiDrain) {
       hostLink.error(frame.sequence, frame.opcode, kBusy); return;
   }
   if(handleUsbApiFrame(frame))return;
@@ -2053,7 +2059,7 @@ void upgradeBackground() {
 #endif
 }
 bool upgradeRebootReady() {
-  serviceUpgrade();return upgradeLifecycle.readyToReboot(millis(),grid.maintenancePresented());
+  serviceUpgrade();return !usbApiReceiptPending()&&upgradeLifecycle.readyToReboot(millis(),grid.maintenancePresented());
 }
 void serviceAttentionCues() {
   using Cue=BoardCore::Attention::Cue;

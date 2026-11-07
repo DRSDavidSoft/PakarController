@@ -549,7 +549,6 @@ pub struct Editor {
     pub peer_source_password:String,
     pub maintenance_pending: Option<u64>,
     pub maintenance_read: bool,
-    pub maintenance_polled_at: Option<std::time::Instant>,
     pub firmware_url: String,
     pub firmware_sha256: String,
     pub firmware_bearer: String,

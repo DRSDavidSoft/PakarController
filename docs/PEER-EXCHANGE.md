@@ -124,8 +124,11 @@ the same fenced general API over network or USB and opens its existing firmware
 progress/Apply/Cancel view. Rust uses its existing confirmed maintenance owner
 and Firmware settings page over Wi-Fi or its existing general USB API actor.
 Both share request construction and receipt validation rather than introducing
-a second flasher. Native progress refreshes only while that page has an active
-job; it stops when terminal, and reads do not emit action toasts.
+a second flasher. Native progress reuses ordinary peer-bound network status and
+USB snapshots, not a second polling loop. Explicit refresh reads do not emit
+action toasts. Accepted USB receipts drain while the remote job is busy; the
+dispatcher permits only cached identity/catalogue/progress reads and explicit
+cancel in that state. Reboot waits for receipt closure/expiry and ACK drain.
 
 Automatic board checks discover/offer but do not automatically download or
 apply images: those actions require receiver-owned, authenticated commands.

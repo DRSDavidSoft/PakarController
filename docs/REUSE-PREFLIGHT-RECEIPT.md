@@ -67,10 +67,34 @@ The previously listed native USB GUI gap is implemented in the follow-up:
 the existing USB API actor carries the same maintenance request and exact
 job/boot/hash receipt checks as Wi-Fi. No new opcode, port owner, installer or
 cross-route retry was added. The same Firmware page owns progress, Apply and
-Cancel; its active-job read refreshes stop at terminal states and do not spam
-action toasts. A native chunk fixture runs stage/status/apply/cancel exactly
+Cancel; progress uses existing peer-bound status and USB snapshots. Explicit
+refresh reads do not spam action toasts. A native chunk fixture runs stage/status/apply/cancel exactly
 once through that transaction. Exact-head CI remains required; this is not
 physical USB, app-screen or deployed OTA acceptance.
+
+Review found the outer host busy gate would block remaining API chunks after
+stage/apply was accepted. Add a narrowly scoped remote-maintenance carrier
+exception; the boot-fenced API dispatcher still allows only cached reads and
+explicit cancel while busy. Raw AVR/local OTA ownership remains blocked. Reboot
+now waits for the existing claimed request's finite expiry/close plus100ms ACK
+drain. Pure policy/lease tests and negative source guards cover this wiring.
+Removed the newly introduced progress polling after checking the existing
+network-status and USB-snapshot owners: they already publish job progress.
+The user's latest instruction is source-only: no board or client deployment.
+CodeQL2a377a1's first upload failed without an annotation/finding; a narrow failed
+job rerun passed unchanged. No scan check was waived or suppressed.
+
+CI2a377a1 then exposed a real Flutter capability gap: its acknowledged-feature
+allowlist dropped peer-exchange, so both USB commands and peer-stage UI were
+unavailable. Register that capability, preserving ready AND advertised admission;
+add a parser regression alongside the existing exactly-once USB tests. Reread
+PCController's actual peripheral-availability.ts and its tests in full; no
+count-based or inferred capability was substituted. Native CI527/528 exposed an
+inherited nonblocking Windows fixture socket. Reuse peer_http.rs's explicit
+accepted-socket blocking mode plus finite read/write deadlines, not a production
+retry or timeout relaxation. Three Android peer USB failures and one native
+package fixture failure require exact-head rerun. Local network-cloud consultation
+still refuses concurrent Pealayer inventory drift; donor drafts/gates unchanged.
 
 ## Merge integration validation, 2026-11-05
 
