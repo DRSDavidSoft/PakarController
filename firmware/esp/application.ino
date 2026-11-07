@@ -5786,7 +5786,9 @@ void loop() {
 #endif
   serviceAttentionCues();
   serviceUpgrade();
-  if (remoteFirmware.busy()) {
+  // Drain the claimed USB receipt before entering a potentially blocking
+  // connection, flash verification or apply step. Close/expiry is bounded.
+  if (remoteFirmware.busy()&&!usbApiReceiptPending()) {
     if(remoteFirmware.needsDownloadConnection())
       NetworkPath::serviceDns(millis(),true);
     // Retain existing Internet control/monitoring while staging, but never

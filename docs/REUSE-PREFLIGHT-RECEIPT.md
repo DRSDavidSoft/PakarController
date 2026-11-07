@@ -104,6 +104,12 @@ and splits HTTP headers, then reads public identity with no board/bridge and
 asserts no USB demand or command. This is host IO proof, not installed-app/LAN
 acceptance. Reuse the same peer_http.rs pattern; no production timeout widened.
 
+Final service-order review also found the updater could enter its blocking
+connect/verify/apply work before a newly claimed USB receipt finished reading.
+Defer that loop step while the same finite receipt/ACK-drain guard is active;
+HTTP-only jobs retain their existing execution path. Add a negative wiring
+regression; the shared pure lease tests cover expiry and explicit retirement.
+
 ## Merge integration validation, 2026-11-05
 
 Preserved both terminal and external RGB changes in the same candidate. Rechecked

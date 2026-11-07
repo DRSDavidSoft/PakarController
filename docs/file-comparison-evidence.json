@@ -13299,7 +13299,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String localUpdateJson() {",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         },
         {
           "path": "firmware/esp/src/RemoteFirmware.h",
@@ -13801,7 +13801,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "std::atomic<uint32_t> otaRebootAt{0};",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         },
         {
           "path": "firmware/esp/src/AsyncHttpService.h",
@@ -13859,7 +13859,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "AsyncWebSocket webSocket(\"/ws\");",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         }
       ],
       "omissions": [
@@ -13920,7 +13920,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "loopMessages.begin(); // PSRAM-backed S3 queue"
         },
         {
@@ -13936,7 +13936,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "void onWebSocketEvent(",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         },
         {
           "path": "firmware/esp32s3/src/EthernetPort.h",
@@ -15319,7 +15319,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "void serviceStatusRgb(uint32_t now)"
         },
         {
@@ -15749,7 +15749,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "void serviceConfigurationChanges()"
         }
       ],
@@ -16074,7 +16074,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "bool authenticate()"
         },
         {
@@ -19099,7 +19099,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "if(BoardCore::Context::pixelEvents(available))"
         },
         {
@@ -24044,7 +24044,7 @@
       "targets": [
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "void serviceScenePersistence(bool flush)"
         },
         {
@@ -24495,7 +24495,7 @@
         },
         {
           "path": "tests/esp_only_maintenance_test.mjs",
-          "sha256": "ac62ab287e2db318bbf97be2fe94183c460fc8ee501d33ae6312876c224fafc4",
+          "sha256": "77dbde5702298727008cad062091a338dfa325ad6a3c3cb3eb7b4015e1055e03",
           "anchor": "ESP-only maintenance source guards passed"
         },
         {
@@ -24943,7 +24943,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25024,7 +25024,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         },
         {
           "path": "libraries/BoardCore/src/PixelGroupLayout.h",
@@ -25285,7 +25285,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64",
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25361,7 +25361,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "6e2657fc2cf973984a2ed6647bb22b787c5f6d34480504ae234e454f480abd64"
+          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
         }
       ],
       "omissions": [

@@ -83,6 +83,8 @@ function checkUsbMaintenance(main,api){
   const dispatch=api.indexOf('remoteFirmware.stagePeer(');
   assert.ok(fence>=0&&busy>fence&&dispatch>busy);
   assert.match(main,/return !usbApiReceiptPending\(\)&&upgradeLifecycle.readyToReboot/);
+  assert.match(main,/if \(remoteFirmware.busy\(\)&&!usbApiReceiptPending\(\)\) \{\s*if\(remoteFirmware.needsDownloadConnection\(\)\)/,
+    'Accepted chunks drain before DNS/network connect, flash validation or apply can block');
   assert.match(api,/usbApiRequest.receiptPending\(now\)\|\|usbApiClosing/);
   assert.match(api,/usbApiClosedAt=millis\(\);usbApiClosing=true/);
 }
@@ -90,3 +92,4 @@ checkUsbMaintenance(sketch,usbApi);
 assert.throws(()=>checkUsbMaintenance(sketch.replace(' && !remoteApiDrain',''),usbApi));
 assert.throws(()=>checkUsbMaintenance(sketch,usbApi.replace('PeerUpdatePolicy::duringMaintenance(method.c_str(),path.c_str())','true')));
 assert.throws(()=>checkUsbMaintenance(sketch.replace('!usbApiReceiptPending()&&',''),usbApi));
+assert.throws(()=>checkUsbMaintenance(sketch.replace('remoteFirmware.busy()&&!usbApiReceiptPending()', 'remoteFirmware.busy()'),usbApi));

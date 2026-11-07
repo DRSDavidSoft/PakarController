@@ -129,6 +129,8 @@ USB snapshots, not a second polling loop. Explicit refresh reads do not emit
 action toasts. Accepted USB receipts drain while the remote job is busy; the
 dispatcher permits only cached identity/catalogue/progress reads and explicit
 cancel in that state. Reboot waits for receipt closure/expiry and ACK drain.
+The loop also drains a claimed USB receipt before entering the updater's
+network-connect, verification or apply work; HTTP-only jobs are unchanged.
 
 Automatic board checks discover/offer but do not automatically download or
 apply images: those actions require receiver-owned, authenticated commands.
