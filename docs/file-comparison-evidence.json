@@ -9515,7 +9515,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "omissions": [
@@ -9529,12 +9529,12 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_loopback_registration_starts_no_discovery_transports",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "remaining": [
@@ -9554,7 +9554,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "mobile/lib/discovery.dart",
@@ -9573,7 +9573,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -9598,7 +9598,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "omissions": [
@@ -9612,7 +9612,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "remaining": [
@@ -9788,7 +9788,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "libraries/BoardCore/src/PeerCompatibility.h",
@@ -9902,7 +9902,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "desktop/src/platform/discovery.rs",
@@ -9921,12 +9921,12 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_ssdp_requires_source_location_binding_and_unique_headers",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "remaining": [
@@ -9946,7 +9946,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
@@ -9965,7 +9965,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_loopback_registration_starts_no_discovery_transports",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         }
       ],
       "remaining": [
@@ -15645,7 +15645,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "desktop/src/bridge.rs",
@@ -15689,7 +15689,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
+          "sha256": "68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",

@@ -2545,11 +2545,11 @@ Verdict: **parity-gap**. Revision: `working-tree@3aed9ef6d9b0052be17a09cb49d73cc
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `41b18ac33a9eae75dbcd9ac7a20722117090e98c5a8bad6eb12114a5f955e792`.
 
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Retained: Read entire test file. Adapt actual loopback-no-network, source-bound SSDP, explicit protocol status and secret-free public metadata assertions to Rust socket/parser tests.
 - Omitted/replaced code: `WSDiscovery/NetBIOS/broadcast, rich TXT normalization and public enrichment test matrix`. Disposition: **pending**. Reason: These donor tests exercise adapters not yet present in Pakar. Their behavior remains pending rather than replacing assertions with always-success fixtures.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:888 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:924 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_loopback_registration_starts_no_discovery_transports]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:899 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:935 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_loopback_registration_starts_no_discovery_transports]`.
 - Remaining: Issue #2: WSDiscovery/NetBIOS/broadcast, rich TXT normalization and public enrichment test matrix. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### PCController: `Tools/Controller/internal/discovery/discovery.go`
@@ -2559,7 +2559,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Target: `mobile/lib/discovery.dart:183 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=class DeviceDiscovery]`.
 - Target: `mobile/android/app/src/main/kotlin/ir/digitalogic/pakar/pakarcontroller/DiscoveryChannel.kt:15 [UTF8-LF sha256=0c1215ebc188d720fe9c181a475efac7567d6b5b884de5e8d97a2d443593bd61; anchor=class DiscoveryChannel]`.
 - Target: `mobile/lib/devices_page.dart:94 [UTF8-LF sha256=bf2fc68098d9ed50f7855e403ac7c5984651c2a14178b6aba7688aa02931a694; anchor=class DevicesPage]`.
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938; anchor=pub struct Runtime]`.
 - Retained: Fully read source through EOF. Adapted actual mDNS/DNS-SD single transport intent, metadata-only discovery, bounded search lifetime/cleanup, M-SEARCH headers, validated origins and explicit authentication separation into Android discovery.
 - Retained: Android NsdManager replaces Go zeroconf; serialized resolves, scan generation ownership, multicast-lock acquisition/release and lifecycle cleanup are real native code. Local/remote saved device types describe transport, never fabricate capabilities. Actual peer ACK remains authoritative.
@@ -2571,7 +2571,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 - Omitted/replaced code: `ActiveProtocols/Failures degraded startup; instance.id SSDP UUID;64-record255-byte secret-filtered TXT refresh; eight-slot enrichment and multi-product browsing`. Disposition: **pending**. Reason: Phone still has no donor LAN advertiser/UpdateText lifecycle, public enrichment/identity merge or complete WSDiscovery/broadcast/NetBIOS consumers. Native USB-only mode must invoke no discovery/public HTTP enrichment. Never merge verified identity from names or claim merely configured responders started.
 - Omitted/replaced code: `UpdateText rich board metadata and public.go/public_test.go enrichment, WSDiscovery/broadcast/NetBIOS, Android LAN advertising`. Disposition: **pending**. Reason: Native advertises stable listener metadata and actual owner state over HTTP/WS, not the donor rich TXT update loop. public.go dependencies and whole manager.go are not fully read/imported. Android still deliberately has only its foreground loopback server. Additional adapters and Android listener ownership need real implementations and device/LAN acceptance, not a fabricated completeness claim.
 - Test-code evidence: `mobile/test/bridge_discovery_test.dart:201 [UTF8-LF sha256=1e650a1f6897c67ce9e87de864ff28ed98e0a818ca95ba6b413897b5cd99a905; anchor=Actual loopback bridge requires bearer]`.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:888 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:899 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
 - Test-code evidence: `mobile/test/bridge_peer_test.dart:86 [UTF8-LF sha256=04688eaf3a76042bd60b380b7d631657828e922e9c740c55626563890800e498; anchor=MNDP application endpoints use vendor API port]`.
 - Remaining: Issue #2: UpdateText rich board metadata and public.go/public_test.go enrichment, WSDiscovery/broadcast/NetBIOS, Android LAN advertising. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
@@ -2579,11 +2579,11 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `6faf511e686c83114025020a25d2da6ff0960240c969dd3872c6cf18ff20baf3`.
 
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Target: `mobile/lib/discovery.dart:384 [UTF8-LF sha256=069af885358a5f065cd4adfd5b283bbb640a8b06299680aee6004de92b19e4e3; anchor=DiscoveredDevice? parseMndp]`.
 - Retained: Read through EOF. Port actual big-endian MNDP vendor product/API-port TLVs, application-scoped locally administered virtual MAC, bounded records, 30s announcement and rate-limited query response to Rust. Dart consumes explicit API port and separate instance ID.
 - Omitted/replaced code: `Full multi-interface broadcast/IPv6/network-change acceptance`. Disposition: **pending**. Reason: Parser/socket fixture is not proof that real adapters, Windows firewall and Android multicast allow discovery across the actual LAN. Rebinding after adapter changes is not yet implemented.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:888 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:899 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
 - Test-code evidence: `mobile/test/bridge_peer_test.dart:86 [UTF8-LF sha256=04688eaf3a76042bd60b380b7d631657828e922e9c740c55626563890800e498; anchor=MNDP application endpoints use vendor API port]`.
 - Remaining: Issue #2: Full multi-interface broadcast/IPv6/network-change acceptance. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
@@ -2591,10 +2591,10 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `8566438c89961f85f6aeec3f5df237e81bea253204460b35ba41ee86b68589d3`.
 
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Retained: Entire file read for comparison. Requested SSDP/mDNS/DNS-SD/MNDP adapters now exist in native sharing; this file's additional SOAP WSDiscovery/custom UDP/NetBIOS adapters are not falsely described as ported.
 - Omitted/replaced code: `WSDiscovery SOAP, custom UDP broadcast and NetBIOS name service`. Disposition: **pending**. Reason: These are useful pending adapters, not media/PU business exclusions. They need explicit service binding, bounded parsers and no-network fixtures before publication.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:888 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:899 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
 - Remaining: Issue #2: WSDiscovery SOAP, custom UDP broadcast and NetBIOS name service. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### PCController: `Tools/Controller/internal/hostbridge/buzzer_mirror_test.go`
@@ -2661,7 +2661,7 @@ Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. O
 Verdict: **parity-gap**. Revision: `b0111ae0c80dc34149ea1044de7dd5488920301b`. Original-byte SHA-256: `524f6e31069355fb8f7968e507775d4a567964aee41001722a325cc8c06e99a0`.
 
 - Target: `desktop/src/bridge.rs:114 [UTF8-LF sha256=666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938; anchor=pub struct Runtime]`.
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Target: `libraries/BoardCore/src/PeerCompatibility.h:27 [UTF8-LF sha256=530d8de10f3715db8cb3404dc511634152bcea12c14d9e6ebb578645307fd26b; anchor=namespace BoardCore { namespace PeerCompatibility {]`.
 - Target: `firmware/esp/src/ClientTelemetry.h:18 [UTF8-LF sha256=71f78fe48b0208aabe6505d9cf5986484ee8d5e77c1fea8a7b2737afecfb112a; anchor=class ClientTelemetry {]`.
 - Target: `desktop/src/peer_identity.rs:396 [UTF8-LF sha256=ef237bad6ef98b137b61717656d012db82386b823a9c490729ff662591ede39e; anchor=pub fn sanitize_report(]`.
@@ -3774,11 +3774,11 @@ Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. O
 
 Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. Original-byte SHA-256: `22abaf1ca05c64d7e694b7b1d8216904df23cb84f47a0d23c6e91e78d40b86f2`.
 
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/ui/preferences.rs:532 [UTF8-LF sha256=4071403c8686696e22a7d2dbcbf0bd83a9add7c12b28598a961db0919ca93c62; anchor=Enable API bridge / repeater]`.
 - Retained: Read through EOF. Actual NetworkInterface::show address enumeration/filtering reused for listener-bound IPv4 LAN advertisement, without guessed /24 routes.
 - Omitted/replaced code: `discover_bind_targets rich interface chooser, address_detail/interface_presentation and parse_bind_addresses multiple binds`. Disposition: **pending**. Reason: Preferences currently provide one explicit numeric listen address plus port; donor adapter chooser/multiple binds are useful pending UI rather than excluded media logic. No interface reconfiguration or firewall mutation is authorized implicitly.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:924 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_loopback_registration_starts_no_discovery_transports]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:935 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_loopback_registration_starts_no_discovery_transports]`.
 - Remaining: Issue #2: discover_bind_targets rich interface chooser, address_detail/interface_presentation and parse_bind_addresses multiple binds. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### Pealayer: `src/platform/window_icons.rs`
@@ -3817,12 +3817,12 @@ Verdict: **equivalent-file**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0d
 
 Verdict: **parity-gap**. Revision: `9dfc54d3b45f911cd94a08688c742efab760b0dd`. Original-byte SHA-256: `a707a76b8424353a304ec28e344e467e89823b81c1f4dca321ec3b7060069c6c`.
 
-- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=pub struct Advertiser]`.
+- Target: `desktop/src/platform/lan_discovery.rs:29 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=pub struct Advertiser]`.
 - Target: `desktop/src/platform/discovery.rs:174 [UTF8-LF sha256=126098720cf4b0d91a74e7147b41954f2361960f4ae7d210896f8c762ae24fd3; anchor=pub fn ssdp_locations]`.
 - Retained: Entire source read. Actual mdns-sd registration/browse/monitor, socket2 reusable UDP, bounded candidate queue/workers, SSDP/MNDP codecs and expiry registry adapted. Replace parked immortal lifetime with stop-owned daemon/threads; reject auto hostname suffix on NameChange and publish failure. Actual API-port metadata used in Dart too.
 - Omitted/replaced code: `Pealayer cross-product public enrichment/identity merging and full native adapter-change recovery`. Disposition: **pending**. Reason: Do not discover unrelated media servers as compatible Pakar board APIs or claim generic Pealayer RPC. Dynamic interfaces and multi-NIC/IPv6 acceptance remain pending; source fixture is not router/firewall proof.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:888 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
-- Test-code evidence: `desktop/src/platform/lan_discovery.rs:907 [UTF8-LF sha256=2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695; anchor=fn bridge_ssdp_requires_source_location_binding_and_unique_headers]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:899 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_mndp_uses_explicit_application_port_not_guessed_port80]`.
+- Test-code evidence: `desktop/src/platform/lan_discovery.rs:918 [UTF8-LF sha256=68be7f7f39c76ab6b68c73b78aa95cfed93279b7fa3f26ddc16c0c1750ba2bf0; anchor=fn bridge_ssdp_requires_source_location_binding_and_unique_headers]`.
 - Remaining: Issue #2: Pealayer cross-product public enrichment/identity merging and full native adapter-change recovery. Core native USB/network command sharing has source/socket fixtures; actual ASUS/LAN/Android/physical acceptance and full opaque firmware/binary streaming forwarding remain open.
 
 ### Pealayer: `src/ui/board_info.rs`

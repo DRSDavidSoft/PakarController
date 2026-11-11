@@ -451,15 +451,14 @@ fn offer(tx: &mpsc::SyncSender<Candidate>, registry: &Mutex<Registry>, candidate
     }
 }
 fn verify(candidate: Candidate, registry: &Mutex<Registry>) {
-    let Ok(client) = crate::peer_identity::client_builder()
-        .no_proxy()
-        .redirect(reqwest::redirect::Policy::none())
-        .timeout(Duration::from_millis(900))
-        .build()
-    else {
-        return;
+    let build = |builder: reqwest::blocking::ClientBuilder| {
+        builder
+            .no_proxy()
+            .redirect(reqwest::redirect::Policy::none())
+            .timeout(Duration::from_millis(900))
+            .build()
     };
-    let read = |path: &str, limit: u64| -> Option<Vec<u8>> {
+    let read = |client: &reqwest::blocking::Client, path: &str, limit: u64| -> Option<Vec<u8>> {
         let response = client
             .get(format!("{}{path}", candidate.origin))
             .send()
@@ -472,8 +471,11 @@ fn verify(candidate: Candidate, registry: &Mutex<Registry>) {
         (bytes.len() <= limit as usize).then_some(bytes)
     };
     if candidate.generic {
-        let health =
-            read("/healthz", 4096).and_then(|bytes| serde_json::from_slice::<Value>(&bytes).ok());
+        let Ok(public_client) = build(reqwest::blocking::Client::builder()) else {
+            return;
+        };
+        let health = read(&public_client, "/healthz", 4096)
+            .and_then(|bytes| serde_json::from_slice::<Value>(&bytes).ok());
         let identity = health.as_ref().and_then(|health| {
             let product = health["product_id"]
                 .as_str()
@@ -506,33 +508,39 @@ fn verify(candidate: Candidate, registry: &Mutex<Registry>) {
             if product != "pakarcontroller" {
                 return;
             }
-        } else if candidate
-            .claimed
-            .as_deref()
-            .is_some_and(|product| product != "pakarcontroller")
-        {
-            return;
+        } else if candidate.claimed.as_deref() != Some("pakarcontroller") {
+            // Bare UPnP Basic replies can come from unrelated equipment.
+            // Verify our legacy description before sending product headers.
+            let legacy = candidate.claimed.is_none()
+                && read(&public_client, "/description.xml", 8192)
+                    .and_then(|bytes| String::from_utf8(bytes).ok())
+                    .is_some_and(|xml| legacy_description(&xml));
+            if !legacy {
+                return;
+            }
         }
     }
-    let public = read("/api/peer/info", 8192)
+    let Ok(client) = build(crate::peer_identity::client_builder()) else {
+        return;
+    };
+    let public = read(&client, "/api/peer/info", 8192)
         .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
         .filter(|v| v["product"] == "PakarController" || v["application"] == "PakarController")
         .or_else(|| {
-            read("/api/discovery", 8192)
+            read(&client, "/api/discovery", 8192)
                 .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
                 .filter(|v| v["product"] == "PakarController")
         });
-    let status = read("/api/status", 32768)
+    let status = read(&client, "/api/status", 32768)
         .and_then(|b| serde_json::from_slice::<Value>(&b).ok())
         .filter(valid_status);
     if public.is_none() && status.is_none() {
-        let Some(xml) = read("/description.xml", 8192).and_then(|b| String::from_utf8(b).ok())
+        let Some(xml) =
+            read(&client, "/description.xml", 8192).and_then(|b| String::from_utf8(b).ok())
         else {
             return;
         };
-        if !xml.contains("PakarController")
-            || !xml.contains("<manufacturer>AtomicDeploy</manufacturer>")
-        {
+        if !legacy_description(&xml) {
             return;
         }
     }
@@ -595,6 +603,9 @@ fn verify(candidate: Candidate, registry: &Mutex<Registry>) {
         "board_version":status.as_ref().and_then(|v|v.get("version")),
         "compatibility":public.as_ref().and_then(|v|v.get("compatibility")).or_else(||status.as_ref().and_then(|v|v.get("compatibility"))),
         "supported":status.as_ref().and_then(|v|serde_json::from_value::<crate::DeviceStatus>(v.clone()).ok()).map(|s|crate::peer_identity::validate_board(&s).is_ok())})));
+}
+fn legacy_description(xml: &str) -> bool {
+    xml.contains("PakarController") && xml.contains("<manufacturer>AtomicDeploy</manufacturer>")
 }
 fn valid_status(v: &Value) -> bool {
     serde_json::from_value::<crate::DeviceStatus>(v.clone())
