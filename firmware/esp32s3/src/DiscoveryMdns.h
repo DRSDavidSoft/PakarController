@@ -24,6 +24,9 @@ bool startDiscoveryMdns(Responder &responder,const char *hostname,const char *ap
     discoveryTxt(responder,"http","tcp","app_id",appId) &&
     discoveryTxt(responder,"http","tcp","version",version) &&
     responder.addService("pakarcontroller","tcp",80) &&
+    responder.addService("lan-peer","tcp",80) &&
+    discoveryTxt(responder,"lan-peer","tcp","product","pakarcontroller") &&
+    discoveryTxt(responder,"lan-peer","tcp","health","/healthz") &&
     discoveryTxt(responder,"pakarcontroller","tcp","api","/api/status") &&
     discoveryTxt(responder,"pakarcontroller","tcp","websocket","/ws") &&
     discoveryTxt(responder,"pakarcontroller","tcp","version",version) &&

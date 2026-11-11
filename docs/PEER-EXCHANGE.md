@@ -142,3 +142,17 @@ interchangeable artifact families.
 Remaining: physical board-only/app-only/mixed acceptance and measured
 RAM/latency/long-soak evidence.
 Fixtures and SDK builds are not physical or installed-app acceptance.
+## LAN discovery records
+
+The desktop bridge and network-capable firmware publish `_lan-peer._tcp.local.`
+with the HTTP port and their own `product` TXT token. The read-only
+`/healthz` route supplies the product identity and the `lan-peer` discovery
+class. Existing DNS-SD records and SSDP device descriptions remain available.
+
+Desktop discovery verifies generic DNS-SD and SSDP candidates before listing
+them in `network_peers`. The existing `peers` list remains the Pakar board and
+bridge catalogue used for pairing and artifact exchange. Generic discovery
+does not grant control or update permission.
+
+Firmware browsing and mobile discovery still need a cross-product acceptance
+pass. [Shared wire contract](https://github.com/ToghrolTP/pealayer/pull/316).

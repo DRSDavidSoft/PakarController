@@ -1610,7 +1610,11 @@ fn serve(mut socket: TcpStream, shared: &Arc<Shared>) -> Result<(), String> {
     if request.method == "GET"
         && matches!(path, "/api/discovery" | "/upnp/public.json" | "/healthz")
     {
-        let public = json!({"product":"PakarController","version":crate::peer_identity::VERSION,"compatibility":crate::peer_identity::advertised_policy(),"status":"ok","kind":"bridge","instance_id":shared.settings.instance_id,"hostname":shared.settings.hostname,"api":"/api","ws":"/ws","auth_required":false,"connected":route(shared).is_ok()});
+        let mut public = json!({"product":"PakarController","version":crate::peer_identity::VERSION,"compatibility":crate::peer_identity::advertised_policy(),"status":"ok","kind":"bridge","instance_id":shared.settings.instance_id,"hostname":shared.settings.hostname,"api":"/api","ws":"/ws","auth_required":false,"connected":route(shared).is_ok()});
+        if path == "/healthz" {
+            public["product_id"] = json!("pakarcontroller");
+            public["discovery"] = json!("lan-peer");
+        }
         return write_response(
             &mut socket,
             200,

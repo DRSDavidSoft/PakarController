@@ -12619,3 +12619,16 @@ The final complete Orbit package is119396 bytes, gzip/preview equal, both script
 compile. Fresh browser snapshots verify readable dialog colors and actual focus.
 The isolated preview helper rereads edited modules on navigation; it has no board
 endpoint, mutations or forwarding. These are UI fixture results, not installation.
+## Shared LAN peer discovery
+
+Reviewed the Rust donor's per-interface ephemeral SSDP socket, protocol-keyed
+verification throttling and DNS-SD browsing, and the Go donor's public
+health verification. Adapted those boundaries to the bridge-owned discovery
+worker and kept generic results separate from the board catalogue.
+
+The affected source and proof anchors were checked and their target hashes
+updated. The comparison report generator passed with the committed donor
+snapshot. The desktop test wrapper stopped on the live donor inventory
+check. Refreshing the inventory also surfaced older donor evidence that needs
+its own rereview. The wider refresh was reverted. CI and live cross-device
+verification remain open.

@@ -39,7 +39,7 @@ class WebAccess {
     }
     const bool publicRead = (request->method() == HTTP_GET || request->method() == HTTP_HEAD) &&
         (path == F("/") || path == F("/basic") || path == F("/api/auth/info") || path == F("/description.xml") ||
-         path == F("/api/peer/info") ||
+         path == F("/api/peer/info") || path == F("/healthz") ||
          path == F("/board-icon.png") || path == F("/app-icon.png") ||
          path == F("/assets/fonts/Vazirmatn-Regular.ttf") || path == F("/assets/fonts/Vazirmatn-OFL.txt"));
     const bool login = path == F("/login") && request->method() == HTTP_POST;

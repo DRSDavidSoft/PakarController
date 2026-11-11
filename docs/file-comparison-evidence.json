@@ -6348,7 +6348,7 @@
         },
         {
           "path": "firmware/esp/src/WebAccess.h",
-          "sha256": "1462663751153ad022528fc6e25c9eb507898a4ed9681b52b8562efeb8e7a281",
+          "sha256": "d4cb0394aa1e771337c2f61d81aab12f9fa16f6972e10e854a0ed9c0efba2b2a",
           "anchor": "BoardCore::DiagnosticText::encodeHex(bytes"
         },
         {
@@ -8125,7 +8125,7 @@
         },
         {
           "path": "firmware/esp32s3/src/DiscoveryMdns.h",
-          "sha256": "970da9d6bf5565bc8d11729c002cfe45c04479621a51aa31827e637169399960",
+          "sha256": "399f265b0209738f36e5927cecfbe532ad873443b5c409e22a22a59c218e1c96",
           "anchor": "bool startDiscoveryMdns("
         },
         {
@@ -8177,8 +8177,8 @@
         },
         {
           "path": "tests/discovery_mdns_test.cpp",
-          "sha256": "145885cd9c34501d9f94205116bf4d231172e4a32901c17c84917120c3258f76",
-          "anchor": "for(unsigned at=1;at<=15;++at)"
+          "sha256": "506767bbf30040dc01d4d33f4c42a738d7e34d0897f51ef0f60b28ad995dda6b",
+          "anchor": "for(unsigned at=1;at<=18;++at)"
         },
         {
           "path": "tests/async_http_test.cpp",
@@ -9515,7 +9515,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "omissions": [
@@ -9529,12 +9529,12 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_loopback_registration_starts_no_discovery_transports",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "remaining": [
@@ -9554,7 +9554,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "mobile/lib/discovery.dart",
@@ -9573,7 +9573,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -9598,7 +9598,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "omissions": [
@@ -9612,7 +9612,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "remaining": [
@@ -9634,7 +9634,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9668,7 +9668,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/usb_table.rs",
@@ -9704,7 +9704,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         }
       ],
       "omissions": [
@@ -9718,12 +9718,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_http_recovery_uses_existing_packet_form_contract",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         }
       ],
       "remaining": [
@@ -9743,7 +9743,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/main.rs",
@@ -9762,7 +9762,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         }
       ],
       "remaining": [
@@ -9783,12 +9783,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "libraries/BoardCore/src/PeerCompatibility.h",
@@ -9822,12 +9822,12 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_network_repeater_confirms_upstream_usb_readback_and_preserves_both_hops",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "tests/peer_compatibility_test.cpp",
@@ -9863,7 +9863,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         }
       ],
       "omissions": [
@@ -9877,7 +9877,7 @@
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "fn bridge_status_keeps_board_identity_and_only_available_route_capabilities",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -9902,7 +9902,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "desktop/src/platform/discovery.rs",
@@ -9921,12 +9921,12 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_ssdp_requires_source_location_binding_and_unique_headers",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "remaining": [
@@ -9946,7 +9946,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "desktop/src/ui/preferences.rs",
@@ -9965,7 +9965,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_loopback_registration_starts_no_discovery_transports",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         }
       ],
       "remaining": [
@@ -13299,7 +13299,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String localUpdateJson() {",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         },
         {
           "path": "firmware/esp/src/RemoteFirmware.h",
@@ -13801,7 +13801,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "std::atomic<uint32_t> otaRebootAt{0};",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         },
         {
           "path": "firmware/esp/src/AsyncHttpService.h",
@@ -13859,7 +13859,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "AsyncWebSocket webSocket(\"/ws\");",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         }
       ],
       "omissions": [
@@ -13920,7 +13920,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "loopMessages.begin(); // PSRAM-backed S3 queue"
         },
         {
@@ -13936,7 +13936,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "void onWebSocketEvent(",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         },
         {
           "path": "firmware/esp32s3/src/EthernetPort.h",
@@ -14356,7 +14356,7 @@
       "targets": [
         {
           "path": "firmware/esp/src/WebAccess.h",
-          "sha256": "1462663751153ad022528fc6e25c9eb507898a4ed9681b52b8562efeb8e7a281",
+          "sha256": "d4cb0394aa1e771337c2f61d81aab12f9fa16f6972e10e854a0ed9c0efba2b2a",
           "anchor": "class WebAccess"
         },
         {
@@ -14433,7 +14433,7 @@
       "targets": [
         {
           "path": "firmware/esp/src/WebAccess.h",
-          "sha256": "1462663751153ad022528fc6e25c9eb507898a4ed9681b52b8562efeb8e7a281",
+          "sha256": "d4cb0394aa1e771337c2f61d81aab12f9fa16f6972e10e854a0ed9c0efba2b2a",
           "anchor": "class WebAccess"
         },
         {
@@ -15319,7 +15319,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "void serviceStatusRgb(uint32_t now)"
         },
         {
@@ -15645,12 +15645,12 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "pub struct Advertiser",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "desktop/src/bridge.rs",
           "anchor": "pub struct Runtime",
-          "sha256": "2e68c6fdec9c7c4afef5f6fc7769367ed37f47f8617244c71d2eda64b1e150b7"
+          "sha256": "666aa859406537fae41b54b88a7932121aad23a9032b4f1a43d041b24dc9b938"
         }
       ],
       "omissions": [
@@ -15689,7 +15689,7 @@
         {
           "path": "desktop/src/platform/lan_discovery.rs",
           "anchor": "fn bridge_mndp_uses_explicit_application_port_not_guessed_port80",
-          "sha256": "02825e4e0f2771c7606569c6e71b19deaaf3c64f069173cadd52429057adbd6b"
+          "sha256": "2ad633e2fa740532e04420cdffd8950f04fed70ec21e4413b848310f61dcf695"
         },
         {
           "path": "mobile/test/bridge_peer_test.dart",
@@ -15749,7 +15749,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "void serviceConfigurationChanges()"
         }
       ],
@@ -16069,12 +16069,12 @@
         },
         {
           "path": "firmware/esp/src/WebAccess.h",
-          "sha256": "1462663751153ad022528fc6e25c9eb507898a4ed9681b52b8562efeb8e7a281",
+          "sha256": "d4cb0394aa1e771337c2f61d81aab12f9fa16f6972e10e854a0ed9c0efba2b2a",
           "anchor": "bool peerAllowed("
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "bool authenticate()"
         },
         {
@@ -17300,7 +17300,7 @@
         },
         {
           "path": "firmware/esp/src/WebAccess.h",
-          "sha256": "1462663751153ad022528fc6e25c9eb507898a4ed9681b52b8562efeb8e7a281",
+          "sha256": "d4cb0394aa1e771337c2f61d81aab12f9fa16f6972e10e854a0ed9c0efba2b2a",
           "anchor": "ApiPolicy::numberedRoute"
         }
       ],
@@ -19099,7 +19099,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "if(BoardCore::Context::pixelEvents(available))"
         },
         {
@@ -24044,7 +24044,7 @@
       "targets": [
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "void serviceScenePersistence(bool flush)"
         },
         {
@@ -24943,7 +24943,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25024,7 +25024,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         },
         {
           "path": "libraries/BoardCore/src/PixelGroupLayout.h",
@@ -25285,7 +25285,7 @@
         },
         {
           "path": "firmware/esp/application.ino",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7",
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0",
           "anchor": "uint8_t defaultPhysicalCell"
         },
         {
@@ -25361,7 +25361,7 @@
         {
           "path": "firmware/esp/application.ino",
           "anchor": "String buildUsbTableSnapshot(bool includePixels) {",
-          "sha256": "9fbc79ffd6370e54fef78f53de46ee1dda95dbef42cfe4fa89e49da8fe79f9f7"
+          "sha256": "0a981d8d1e0878a7f3d059cfdfb41336ea6725b049e8bfa252e445bb0aaf53a0"
         }
       ],
       "omissions": [

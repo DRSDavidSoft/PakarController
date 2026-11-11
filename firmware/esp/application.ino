@@ -1528,6 +1528,9 @@ void startDiscovery() {
     MDNS.addServiceTxt("http", "tcp", "version",
                        BoardCore::BuildInfo::kVersion);
     MDNS.addService("pakarcontroller", "tcp", 80);
+    MDNS.addService("lan-peer", "tcp", 80);
+    MDNS.addServiceTxt("lan-peer", "tcp", "product", "pakarcontroller");
+    MDNS.addServiceTxt("lan-peer", "tcp", "health", "/healthz");
     MDNS.addServiceTxt("pakarcontroller", "tcp", "api", "/api/status");
     MDNS.addServiceTxt("pakarcontroller", "tcp", "websocket", "/ws");
     MDNS.addServiceTxt("pakarcontroller","tcp","version",BoardCore::BuildInfo::kVersion);
@@ -4340,6 +4343,9 @@ void registerApi() {
     }
     grid.setPhysicalMapping(cellMapping.physical, LedGrid::kCells);
     server.send(200, "application/json", F("{\"updated\":true}"));
+  });
+  server.on("/healthz", HTTP_GET, []() {
+    server.send(200, "application/json", F("{\"product\":\"pakarcontroller\",\"status\":\"ok\",\"discovery\":\"lan-peer\"}"));
   });
   server.on("/description.xml", HTTP_GET|HTTP_HEAD, []() {
 #if defined(ARDUINO_ARCH_ESP32)
